@@ -123,7 +123,7 @@
                                        andSize:[fileSize longLongValue]
                                        atPlace:parentFolder];
             [parentFolder addChild:f];
-        }		
+        }
     }
 }
 
@@ -137,6 +137,18 @@
     
     for ( FileTree *f in children )
         diskSize += [f getDiskSize];
+    
+    [children sortUsingComparator:(NSComparator)^(id obj1, id obj2){
+        FileSize lSize = [obj1 getDiskSize];
+        FileSize rSize = [obj2 getDiskSize];
+        
+        if (lSize > rSize)
+            return (NSComparisonResult)NSOrderedDescending;
+        
+        if (lSize < rSize)
+            return (NSComparisonResult)NSOrderedAscending;
+        
+        return (NSComparisonResult)NSOrderedSame; }];
 }
 
 - (FolderTree*)addChild:(FileTree*)subTree
@@ -147,11 +159,9 @@
 
 - (LayoutTree*)createLayoutTree
 {
-    LayoutTree  *ourTree =
+    return
         [[LayoutTree alloc] initWithFileList:children
                                 andTotalSize:diskSize];
-
-    return ourTree;
 }
 @end
 

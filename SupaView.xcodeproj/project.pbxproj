@@ -11,9 +11,11 @@
 		256AC3DA0F4B6AC300CF3369 /* SupaViewAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* SupaViewAppDelegate.m */; };
 		6101C1DA11C72436008F47E6 /* FileTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 6101C1D911C72436008F47E6 /* FileTree.m */; };
 		610A9D3512201546005D09C9 /* FileTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 6101C1D911C72436008F47E6 /* FileTree.m */; };
-		610A9D3D122015BC005D09C9 /* DirFileListerMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 610A9D3B122015BC005D09C9 /* DirFileListerMain.m */; };
 		610A9DB512207CDF005D09C9 /* LayoutTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 610A9DB412207CDF005D09C9 /* LayoutTree.m */; };
 		610A9DB612207CDF005D09C9 /* LayoutTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 610A9DB412207CDF005D09C9 /* LayoutTree.m */; };
+		6167F85B122361E500404881 /* TreeMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6167F85A122361E500404881 /* TreeMapView.m */; };
+		6167F85C122361E500404881 /* TreeMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6167F85A122361E500404881 /* TreeMapView.m */; };
+		6167F86E122366B800404881 /* GeometryGatherer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6167F86D122366B800404881 /* GeometryGatherer.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -33,10 +35,14 @@
 		6101C1D811C72436008F47E6 /* FileTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileTree.h; sourceTree = "<group>"; };
 		6101C1D911C72436008F47E6 /* FileTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileTree.m; sourceTree = "<group>"; };
 		610A9D2E1220152E005D09C9 /* DirFileLister */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DirFileLister; sourceTree = BUILT_PRODUCTS_DIR; };
-		610A9D3B122015BC005D09C9 /* DirFileListerMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirFileListerMain.m; sourceTree = "<group>"; };
-		610A9D3C122015BC005D09C9 /* DirFileListerMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirFileListerMain.h; sourceTree = "<group>"; };
 		610A9DB312207CDF005D09C9 /* LayoutTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutTree.h; sourceTree = "<group>"; };
 		610A9DB412207CDF005D09C9 /* LayoutTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayoutTree.m; sourceTree = "<group>"; };
+		6167F81F122359AF00404881 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		6167F859122361E500404881 /* TreeMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeMapView.h; sourceTree = "<group>"; };
+		6167F85A122361E500404881 /* TreeMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TreeMapView.m; sourceTree = "<group>"; };
+		6167F86C122366B800404881 /* GeometryGatherer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryGatherer.h; sourceTree = "<group>"; };
+		6167F86D122366B800404881 /* GeometryGatherer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeometryGatherer.m; sourceTree = "<group>"; };
+		6167F8B5122374C200404881 /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SupaView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SupaView-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SupaView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupaView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -63,12 +69,17 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6167F859122361E500404881 /* TreeMapView.h */,
+				6167F85A122361E500404881 /* TreeMapView.m */,
 				610A9DB312207CDF005D09C9 /* LayoutTree.h */,
 				610A9DB412207CDF005D09C9 /* LayoutTree.m */,
 				256AC3D80F4B6AC300CF3369 /* SupaViewAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* SupaViewAppDelegate.m */,
 				6101C1D811C72436008F47E6 /* FileTree.h */,
 				6101C1D911C72436008F47E6 /* FileTree.m */,
+				6167F86C122366B800404881 /* GeometryGatherer.h */,
+				6167F86D122366B800404881 /* GeometryGatherer.m */,
+				6167F8B5122374C200404881 /* Definitions.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -108,6 +119,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				6167F81F122359AF00404881 /* MainWindow.xib */,
 			);
 			name = SupaView;
 			sourceTree = "<group>";
@@ -115,8 +127,6 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				610A9D3B122015BC005D09C9 /* DirFileListerMain.m */,
-				610A9D3C122015BC005D09C9 /* DirFileListerMain.h */,
 				256AC3F00F4B6AF500CF3369 /* SupaView_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -215,8 +225,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				610A9D3512201546005D09C9 /* FileTree.m in Sources */,
-				610A9D3D122015BC005D09C9 /* DirFileListerMain.m in Sources */,
 				610A9DB512207CDF005D09C9 /* LayoutTree.m in Sources */,
+				6167F85C122361E500404881 /* TreeMapView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +238,8 @@
 				256AC3DA0F4B6AC300CF3369 /* SupaViewAppDelegate.m in Sources */,
 				6101C1DA11C72436008F47E6 /* FileTree.m in Sources */,
 				610A9DB612207CDF005D09C9 /* LayoutTree.m in Sources */,
+				6167F85B122361E500404881 /* TreeMapView.m in Sources */,
+				6167F86E122366B800404881 /* GeometryGatherer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

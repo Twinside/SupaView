@@ -1,15 +1,11 @@
-
+#import "Definitions.h"
 #import <Cocoa/Cocoa.h>
 #import "FileTree.h"
+#import "GeometryGatherer.h"
 
-typedef enum LayoutKind_t {
-    LayoutVertical,
-    LayoutHorizontal
-} LayoutKind;
 
 @class FileTree;
 
-typedef uint64_t    FileSize;
 
 @interface LayoutTree : NSObject {
     LayoutTree  *left;
@@ -26,6 +22,11 @@ typedef uint64_t    FileSize;
 - (id)initWithFileList:(NSArray*)fileList
           andTotalSize:(FileSize)totalSize;
 
+- (id)initWithFile:(FileTree*)file;
+- (int)countRectNeed;
 - (void)dealloc;
+- (void)drawGeometry:(GeometryGatherer*)gatherer
+            inBounds:(NSRect*)bounds;
+
 @end
 

@@ -16,4 +16,11 @@
 	// Insert code here to initialize your application 
 }
 
+- (IBAction)openDocument: sender
+{
+    NSLog(@"Meh");
+    if ( mainTreeView != nil )
+        NSLog( @"mainTreeView not null !!" );
+}
+
 @end

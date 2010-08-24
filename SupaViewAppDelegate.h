@@ -10,8 +10,11 @@
 
 @interface SupaViewAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
+    IBOutlet id mainTreeView;
 }
 
 @property (assign) IBOutlet NSWindow *window;
+
+- (IBAction)openDocument: sender;
 
 @end
