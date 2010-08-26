@@ -7,16 +7,17 @@
 //
 
 #import "SVTreeMapView.h"
+#import "SVColorWheel.h"
 
-
-@implementation TreeMapView
+@implementation SVTreeMapView
 - (id)initWithFrame:(NSRect)frameRect
 {
     self = [super initWithFrame:frameRect];
+    wheel = [[SVColorWheel alloc] init];
     return self;
 }
 
-- (void)setTreeMap:(LayoutTree*)tree
+- (void)setTreeMap:(SVLayoutTree*)tree
 {
     [viewedTree release];
     [geometry release];
@@ -33,10 +34,12 @@
         [tree countRectNeed];
     
     geometry =
-        [[GeometryGatherer alloc] initWithRectCount:rectangleCount];
+        [[SVGeometryGatherer alloc] initWithRectCount:rectangleCount];
     
     NSRect  viewBounds = [self bounds];
-    [viewedTree drawGeometry:geometry inBounds:&viewBounds];
+    [viewedTree drawGeometry:geometry
+                   withColor:wheel
+                    inBounds:&viewBounds];
     
     [self setNeedsDisplay:YES];
 }

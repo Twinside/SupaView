@@ -9,7 +9,7 @@
 #import "SVGeometryGatherer.h"
 
 
-@implementation GeometryGatherer
+@implementation SVGeometryGatherer
 
 - (id)initWithRectCount:(int)count
 {

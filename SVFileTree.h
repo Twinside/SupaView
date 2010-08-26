@@ -8,41 +8,43 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SVLayoutTree.h"
+#import "SVGraphViz.h"
 
-@class LayoutTree;
-@class FolderTree;
+@class SVLayoutTree;
+@class SVFolderTree;
 
-@interface FileTree : NSObject {
+@interface SVFileTree : NSObject <SVGraphViz> {
 	NSURL       *name;
-    LayoutTree  *representation;
-    FolderTree  *parent;
+    SVLayoutTree  *representation;
+    SVFolderTree  *parent;
     FileSize    diskSize;
 }
-+ (FileTree*)createFromPath:(NSURL*)filePath;
++ (SVFileTree*)createFromPath:(NSURL*)filePath;
 
 - (id)initWithName:(NSURL*)treeName
            andSize:(uint64_t)size
-           atPlace:(FolderTree*)parentFolder;
+           atPlace:(SVFolderTree*)parentFolder;
 
 - (id)initWithName:(NSURL*)treeName
-           atPlace:(FolderTree*)parentFolder;
+           atPlace:(SVFolderTree*)parentFolder;
 
 - (void)dealloc;
 
 - (FileSize)getDiskSize;
-- (LayoutTree*)createLayoutTree;
+- (SVLayoutTree*)createLayoutTree;
+- (NSURL*)name;
 @end
 
-@interface FolderTree : FileTree {
+@interface SVFolderTree : SVFileTree {
     NSMutableArray     *children;
 }
 
 - (id)initWithName:(NSURL*)treeName
-           atPlace:(FolderTree*)parentFolder;
+           atPlace:(SVFolderTree*)parentFolder;
 - (void)dealloc;
 
-- (FolderTree*)addChild:(FileTree*)subTree;
+- (SVFolderTree*)addChild:(SVFileTree*)subTree;
 - (void) populateChildList;
-- (LayoutTree*)createLayoutTree;
+- (SVLayoutTree*)createLayoutTree;
 @end
 

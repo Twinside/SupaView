@@ -8,14 +8,22 @@
 
 #import "SVFileTree.h"
 
-@implementation FileTree
-+ (FileTree*)createFromPath:(NSURL*)filePath
+@implementation SVFileTree
++ (SVFileTree*)createFromPath:(NSURL*)filePath
 {
-    FolderTree *rootFolder =
-        [[FolderTree alloc] initWithName:filePath
+    SVFolderTree *rootFolder =
+        [[SVFolderTree alloc] initWithName:filePath
                                  atPlace:nil];
     return rootFolder;
 }
+
+- (void)dumpToFile:(FILE*)f
+{
+    fprintf( f, "p%p [label=\"%s\" shape=box]\n"
+           , self, [[name lastPathComponent] UTF8String ]);
+}
+
+- (NSURL*)name { return name; }
 
 - (FileSize)getDiskSize
 {
@@ -23,7 +31,7 @@
 }
 
 - (id)initWithName:(NSURL*)treeName
-           atPlace:(FolderTree*)parentFolder
+           atPlace:(SVFolderTree*)parentFolder
 {
     self = [super init];
 
@@ -38,7 +46,7 @@
 
 - (id)initWithName:(NSURL*)treeName
            andSize:(FileSize)size
-           atPlace:(FolderTree*)parentFolder
+           atPlace:(SVFolderTree*)parentFolder
 {
     self = [super init];
 
@@ -58,18 +66,18 @@
     [super dealloc];
 }
 
-- (LayoutTree*)createLayoutTree
+- (SVLayoutTree*)createLayoutTree
 {
-    LayoutTree  *layoutNode =
-        [[LayoutTree alloc] initWithFile:self];
+    SVLayoutTree  *layoutNode =
+        [[SVLayoutTree alloc] initWithFile:self];
 
     return layoutNode;
 }
 @end
 
-@implementation FolderTree
+@implementation SVFolderTree
 - (id)initWithName:(NSURL*)treeName
-           atPlace:(FolderTree*)parentFolder
+           atPlace:(SVFolderTree*)parentFolder
 {
     self = [super initWithName:treeName
                        atPlace:parentFolder];
@@ -109,11 +117,10 @@
         if ([isDirectory boolValue]==YES)
         {
             [dirEnumerator skipDescendants];
-            FolderTree *folder =
-                [[FolderTree alloc] initWithName:theURL
+            SVFolderTree *folder =
+                [[SVFolderTree alloc] initWithName:theURL
                                          atPlace:self];
             [self addChild:folder];
-            [folder populateChildList];
         }
         else if ([isDirectory boolValue]==NO)
         {
@@ -122,7 +129,7 @@
                               forKey:NSURLFileSizeKey
                                error:NULL];
 			
-            [self addChild:[[FileTree alloc]
+            [self addChild:[[SVFileTree alloc]
                                 initWithName:theURL
                                      andSize:[fileSize longLongValue]
                                      atPlace:self]];
@@ -135,7 +142,7 @@
     [self createFileList];
     
     diskSize = 0;
-    for ( FileTree *f in children )
+    for ( SVFileTree *f in children )
         diskSize += [f getDiskSize];
     
     // we sort the file in the descending order.
@@ -152,17 +159,31 @@
         return (NSComparisonResult)NSOrderedSame; }];
 }
 
-- (FolderTree*)addChild:(FileTree*)subTree
+- (SVFolderTree*)addChild:(SVFileTree*)subTree
 {
     [children addObject:subTree];
     return self;
 }
 
-- (LayoutTree*)createLayoutTree
+- (SVLayoutTree*)createLayoutTree
 {
     return
-        [[LayoutTree alloc] initWithFileList:children
-                                andTotalSize:diskSize];
+        [[SVLayoutTree alloc] initWithFileList:children
+                                       forNode:self
+                                  andTotalSize:diskSize];
+}
+
+- (void)dumpToFile:(FILE*)f
+{
+    [super dumpToFile:f];
+
+    for ( SVFileTree* child in children )
+    {
+        fprintf( f, "p%p -> p%p\n"
+               , self, child );
+        [child dumpToFile:f];
+        
+    }
 }
 @end
 

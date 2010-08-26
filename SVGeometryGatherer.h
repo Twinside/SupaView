@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface GeometryGatherer : NSObject {
+@interface SVGeometryGatherer : NSObject {
     size_t  rectangleWrite;
     size_t  maxRectangleCount;
     NSRect  *rects;
@@ -26,6 +26,4 @@
 - (NSRect*)getRectangles;
 - (NSColor**)getColors;
 
-- (void)pushColor;
-- (void)popColor;
 @end

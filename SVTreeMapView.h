@@ -10,13 +10,14 @@
 #import "SVLayoutTree.h"
 #import "SVGeometryGatherer.h"
 
-@interface TreeMapView : NSView {
-    LayoutTree          *viewedTree;
-    GeometryGatherer    *geometry;
+@interface SVTreeMapView : NSView {
+    SVLayoutTree          *viewedTree;
+    SVGeometryGatherer    *geometry;
+    SVColorWheel          *wheel;
 }
 
 - (id)initWithFrame:(NSRect)frameRect;
 - (void)drawRect:(NSRect)dirtyRect;
 
-- (void)setTreeMap:(LayoutTree*)tree;
+- (void)setTreeMap:(SVLayoutTree*)tree;
 @end

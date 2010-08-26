@@ -10,7 +10,15 @@
 
 
 @interface SVColorWheel : NSObject {
-
+    NSColor**      colorWheel;
+    NSInteger      currentLevel;
+    NSInteger      maxLevel;
 }
+
+- (id)init;
+
+- (void)pushColor;
+- (void)popColor;
+- (NSColor*)getLevelColor;
 
 @end

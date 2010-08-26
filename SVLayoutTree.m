@@ -1,24 +1,24 @@
 
-#include "SVFileTree.h"
+#import "SVFileTree.h"
+#import "SVColorWheel.h"
 
-@implementation LayoutTree
-- (LayoutKind)computeOrientationWithSize:(FileSize)leftSize
-                                 andSize:(FileSize)rightSize
+@implementation SVLayoutTree
+- (LayoutKind)computeOrientationWithWidth:(CGFloat)w
+                                   height:(CGFloat)h
 {
-    if (leftSize + rightSize <= 0)
+    if (w > h)
         return LayoutHorizontal;
-
-    return true //(width >= height)
-            ? LayoutHorizontal
-            : LayoutVertical;
+    else
+        return LayoutVertical;
 }
 
-- (id)initWithFile:(FileTree*)file
+- (id)initWithFile:(SVFileTree*)file
 {
     self = [super init];
     left = nil;
     right = nil;
     fileNode = file;
+    splitPos = -50.0f;
     
     return self;
 }
@@ -38,24 +38,19 @@
 }
 
 - (id)initWithFileList:(NSArray*)fileList
+               forNode:(SVFileTree*)t
           andTotalSize:(FileSize)totalSize
 {
     self = [super init];
     left = nil;
     right = nil;
-    fileNode = nil;
+    splitPos = -40.0f;
+    fileNode = t;
 
     FileSize     subSize = [fileList count];
 
     assert( subSize > 0 );
     
-    if (subSize == 1)
-    {
-        fileNode = [fileList objectAtIndex:(NSUInteger)0];
-        left = [fileNode createLayoutTree];
-        return self;
-    }
-
     NSMutableArray  *leftList =
         [[NSMutableArray alloc] initWithCapacity:subSize];
     NSMutableArray  *rightList =
@@ -64,7 +59,7 @@
     uint64_t    leftSize = 0;
     uint64_t    midPoint = totalSize / 2;
     
-    for ( FileTree *elem in fileList )
+    for ( SVFileTree *elem in fileList )
     {
         if ( leftSize < midPoint || leftSize == 0 )
         {
@@ -84,106 +79,129 @@
     assert( [rightList count] < subSize );
     assert( [leftList count] + [rightList count] == subSize );
     
-    left =
-        [[LayoutTree alloc] initWithFileList:leftList 
-                                andTotalSize:leftSize];
-    right =
-        [[LayoutTree alloc] initWithFileList:rightList 
-                                andTotalSize:totalSize - leftSize];
-    
     splitPos = (totalSize > 0) 
-             ? (float)leftSize / (float)totalSize
+             ? (((float)leftSize) / ((float)totalSize))
              : 0.0f;
+    
+    if ( [leftList count] == 1 )
+        left = [[leftList objectAtIndex:0] createLayoutTree];
+    else
+        left =
+            [[SVLayoutTree alloc] initWithFileList:leftList
+                                        forNode:nil
+                                    andTotalSize:leftSize];
+
+    if ( [rightList count] == 1 )
+        right = [[rightList objectAtIndex:0] createLayoutTree];
+    else
+        right =
+            [[SVLayoutTree alloc] initWithFileList:rightList 
+                                        forNode:nil
+                                    andTotalSize:totalSize - leftSize];
 
     [leftList release];
     [rightList release];
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [left release];
     [right release];
     [fileNode release];
     [super dealloc];
 }
 
-- (void)drawGeometry:(GeometryGatherer*)gatherer
+- (void)cropSubRectangle:(NSRect*)r
+{
+    CGFloat leftMargin = 5;
+    CGFloat rightMargin = 5;
+    CGFloat topMargin = 5;
+    CGFloat bottomMargin = 5;
+
+    r->origin.x    += leftMargin;
+    r->size.width  -= (leftMargin + rightMargin);
+
+    r->origin.y    += bottomMargin;
+    r->size.height -= (bottomMargin + topMargin);
+}
+
+- (void)drawGeometry:(SVGeometryGatherer*)gatherer
+           withColor:(SVColorWheel*)wheel
             inBounds:(NSRect*)bounds
 {
+    orientation =
+        [self computeOrientationWithWidth:bounds->size.width
+                                   height:bounds->size.height];
+    
     // if we are smaller than a pixel, don't
     // bother drawing ourselves
     if (bounds->size.width < 1.0 || bounds->size.height < 1.0)
         return;
 
-    // we have no child <=> we are a
-    // file.
-    if ( left == nil && right == nil )
-    {
-        [gatherer addRectangle:bounds
-                     withColor:[NSColor whiteColor]];
-        return;
-    }
-
     if (fileNode != nil)
     {
         [gatherer addRectangle:bounds
-                     withColor:[NSColor blackColor]];
-    }
-
-    int leftMargin = 2;
-    int rightMargin = 2;
-    int topMargin = 2;
-    int bottomMargin = 2;
-
-    if ( left != nil )
-    {
-        NSRect leftSub = *bounds;
-        
-        switch (orientation)
-        {
-        case LayoutVertical:
-            leftSub.size.width *= splitPos; 
-            break;
-            
-        case LayoutHorizontal:
-            leftSub.size.height *= splitPos;
-            break;
-        }
-        
-        leftSub.origin.x += leftMargin;
-        leftSub.size.width -= (leftMargin + rightMargin);
-
-        leftSub.origin.y += bottomMargin;
-        leftSub.origin.y -= (bottomMargin + topMargin);
-
-        [left drawGeometry:gatherer inBounds:&leftSub];
+                     withColor:[wheel getLevelColor]];
     }
     
-    if ( right != nil )
-    {
-        NSRect rightSub = *bounds;
-        
-        switch (orientation)
-        {
-            case LayoutVertical:
-                rightSub.origin.x += (1.0 - splitPos) * rightSub.size.width;
-                rightSub.size.width *= splitPos;
-                break;
-                
-            case LayoutHorizontal:
-                rightSub.origin.y += (1.0 - splitPos) * rightSub.size.height;
-                rightSub.size.height *= splitPos;
-                break;
-        }
-        rightSub.origin.x += leftMargin;
-        rightSub.size.width -= (leftMargin + rightMargin);
+    // we have no child <=> we are a
+    // file.
+    if ( left == nil && right == nil )
+        return;
 
-        rightSub.origin.y += bottomMargin;
-        rightSub.origin.y -= (bottomMargin + topMargin);
+    assert( splitPos > 0.0 );
+    assert( splitPos <= 1.0 );
+    
+    NSRect leftSub = *bounds;
+    NSRect rightSub = leftSub;
+
+    switch (orientation)
+    {
+    case LayoutVertical:
+        leftSub.size.height *= splitPos; 
+        rightSub.size.height = bounds->size.height - leftSub.size.height;
+        rightSub.origin.y += leftSub.size.height;
+        break;
         
-        [right drawGeometry:gatherer inBounds:&rightSub];
+    case LayoutHorizontal:
+        leftSub.size.width *= splitPos;
+        rightSub.size.width = bounds->size.width - leftSub.size.width;
+        rightSub.origin.x += leftSub.size.width;
+        break;
     }
+        
+    [self cropSubRectangle:&leftSub];
+    [self cropSubRectangle:&rightSub];
+
+    [wheel pushColor];
+    
+    [left drawGeometry:gatherer withColor:wheel inBounds:&leftSub];
+    [right drawGeometry:gatherer withColor:wheel inBounds:&rightSub];
+    
+    [wheel popColor];
 }
 
+- (void)dumpToFile:(FILE*)f
+{
+    fprintf( f, "p%p -> p%p\n", self, left );
+    fprintf( f, "p%p -> p%p\n", self, right );
+
+    if ( fileNode )
+        fprintf( f, "p%p [label=\"%f|%s|%s\", shape=record]\n"
+               , self
+               , splitPos
+               , (orientation == LayoutHorizontal) ? "horiz" : "vert"
+               , [[[fileNode name] lastPathComponent] UTF8String ]);
+    else
+        fprintf( f, "p%p [label=\"%f|%s\", shape=record]\n"
+               , self
+               , splitPos 
+               , (orientation == LayoutHorizontal) ? "horiz" : "vert"
+               );
+
+    [left dumpToFile:f];
+    [right dumpToFile:f];
+}
 @end
 

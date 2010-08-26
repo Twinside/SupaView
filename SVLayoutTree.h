@@ -2,15 +2,17 @@
 #import <Cocoa/Cocoa.h>
 #import "SVFileTree.h"
 #import "SVGeometryGatherer.h"
+#import "SVGraphViz.h"
 
 
-@class FileTree;
+@class SVFileTree;
+@class SVColorWheel;
 
 
-@interface LayoutTree : NSObject {
-    LayoutTree  *left;
-    LayoutTree  *right;
-    FileTree    *fileNode;
+@interface SVLayoutTree : NSObject <SVGraphViz> {
+    SVLayoutTree  *left;
+    SVLayoutTree  *right;
+    SVFileTree    *fileNode;
 
     /**
      * Split size, int [0;1]
@@ -20,12 +22,14 @@
 }
 
 - (id)initWithFileList:(NSArray*)fileList
+               forNode:(SVFileTree*)t
           andTotalSize:(FileSize)totalSize;
 
-- (id)initWithFile:(FileTree*)file;
+- (id)initWithFile:(SVFileTree*)file;
 - (int)countRectNeed;
 - (void)dealloc;
-- (void)drawGeometry:(GeometryGatherer*)gatherer
+- (void)drawGeometry:(SVGeometryGatherer*)gatherer
+           withColor:(SVColorWheel*)wheel
             inBounds:(NSRect*)bounds;
 
 @end

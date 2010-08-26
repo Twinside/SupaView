@@ -11,10 +11,10 @@
 #import "SVTreeMapView.h"
 
 @interface SupaViewAppDelegate : NSObject <NSApplicationDelegate> {
-    FileTree *curentlyNavigated;
+    SVFileTree *curentlyNavigated;
 
     NSWindow *window;
-    IBOutlet TreeMapView *mainTreeView;
+    IBOutlet SVTreeMapView *mainTreeView;
 }
 
 @property (assign) IBOutlet NSWindow *window;
