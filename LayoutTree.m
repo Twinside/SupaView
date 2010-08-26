@@ -45,11 +45,13 @@
     right = nil;
     fileNode = nil;
 
-    int     subSize = [fileList count];
+    FileSize     subSize = [fileList count];
 
+    assert( subSize > 0 );
+    
     if (subSize == 1)
     {
-        fileNode = [fileList objectAtIndex:0];
+        fileNode = [fileList objectAtIndex:(NSUInteger)0];
         left = [fileNode createLayoutTree];
         return self;
     }
@@ -60,16 +62,28 @@
         [[NSMutableArray alloc] initWithCapacity:subSize];
 
     uint64_t    leftSize = 0;
+    uint64_t    midPoint = totalSize / 2;
+    
     for ( FileTree *elem in fileList )
     {
-        leftSize += [elem getDiskSize];
-
-        if ( leftSize * 2 < totalSize )
+        if ( leftSize < midPoint || leftSize == 0 )
+        {
             [leftList addObject:elem];
+            leftSize += [elem getDiskSize];
+            
+            // for now
+            assert( [elem getDiskSize] > 0 );
+        }
         else
             [rightList addObject:elem];
     }
 
+    assert( [leftList count] > 0 );
+    assert( [leftList count] < subSize );
+    assert( [rightList count] > 0 );
+    assert( [rightList count] < subSize );
+    assert( [leftList count] + [rightList count] == subSize );
+    
     left =
         [[LayoutTree alloc] initWithFileList:leftList 
                                 andTotalSize:leftSize];
@@ -116,6 +130,11 @@
                      withColor:[NSColor blackColor]];
     }
 
+    int leftMargin = 2;
+    int rightMargin = 2;
+    int topMargin = 2;
+    int bottomMargin = 2;
+
     if ( left != nil )
     {
         NSRect leftSub = *bounds;
@@ -131,6 +150,12 @@
             break;
         }
         
+        leftSub.origin.x += leftMargin;
+        leftSub.size.width -= (leftMargin + rightMargin);
+
+        leftSub.origin.y += bottomMargin;
+        leftSub.origin.y -= (bottomMargin + topMargin);
+
         [left drawGeometry:gatherer inBounds:&leftSub];
     }
     
@@ -150,6 +175,11 @@
                 rightSub.size.height *= splitPos;
                 break;
         }
+        rightSub.origin.x += leftMargin;
+        rightSub.size.width -= (leftMargin + rightMargin);
+
+        rightSub.origin.y += bottomMargin;
+        rightSub.origin.y -= (bottomMargin + topMargin);
         
         [right drawGeometry:gatherer inBounds:&rightSub];
     }

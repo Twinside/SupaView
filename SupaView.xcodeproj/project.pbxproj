@@ -16,6 +16,7 @@
 		6167F85B122361E500404881 /* TreeMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6167F85A122361E500404881 /* TreeMapView.m */; };
 		6167F85C122361E500404881 /* TreeMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6167F85A122361E500404881 /* TreeMapView.m */; };
 		6167F86E122366B800404881 /* GeometryGatherer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6167F86D122366B800404881 /* GeometryGatherer.m */; };
+		6172869D1225FE6100607826 /* SVColorWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6172869C1225FE6100607826 /* SVColorWheel.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -37,12 +38,13 @@
 		610A9D2E1220152E005D09C9 /* DirFileLister */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DirFileLister; sourceTree = BUILT_PRODUCTS_DIR; };
 		610A9DB312207CDF005D09C9 /* LayoutTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutTree.h; sourceTree = "<group>"; };
 		610A9DB412207CDF005D09C9 /* LayoutTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayoutTree.m; sourceTree = "<group>"; };
-		6167F81F122359AF00404881 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		6167F859122361E500404881 /* TreeMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeMapView.h; sourceTree = "<group>"; };
 		6167F85A122361E500404881 /* TreeMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TreeMapView.m; sourceTree = "<group>"; };
 		6167F86C122366B800404881 /* GeometryGatherer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryGatherer.h; sourceTree = "<group>"; };
 		6167F86D122366B800404881 /* GeometryGatherer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeometryGatherer.m; sourceTree = "<group>"; };
 		6167F8B5122374C200404881 /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
+		6172869B1225FE6100607826 /* SVColorWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVColorWheel.h; sourceTree = "<group>"; };
+		6172869C1225FE6100607826 /* SVColorWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVColorWheel.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SupaView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SupaView-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SupaView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupaView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -80,6 +82,8 @@
 				6167F86C122366B800404881 /* GeometryGatherer.h */,
 				6167F86D122366B800404881 /* GeometryGatherer.m */,
 				6167F8B5122374C200404881 /* Definitions.h */,
+				6172869B1225FE6100607826 /* SVColorWheel.h */,
+				6172869C1225FE6100607826 /* SVColorWheel.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -119,7 +123,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				6167F81F122359AF00404881 /* MainWindow.xib */,
 			);
 			name = SupaView;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				610A9DB612207CDF005D09C9 /* LayoutTree.m in Sources */,
 				6167F85B122361E500404881 /* TreeMapView.m in Sources */,
 				6167F86E122366B800404881 /* GeometryGatherer.m in Sources */,
+				6172869D1225FE6100607826 /* SVColorWheel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,9 +326,32 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SupaView_Prefix.pch;
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
+				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = NO;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = NO;
+				GCC_WARN_PROTOTYPE_CONVERSION = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VALUE = YES;
 				INFOPLIST_FILE = "SupaView-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = SupaView;
+				WARNING_CFLAGS = (
+					"-Wextra",
+					"-Wall",
+					"-Wno-unused-parameter",
+				);
 			};
 			name = Debug;
 		};

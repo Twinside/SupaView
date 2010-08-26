@@ -37,6 +37,8 @@
     
     NSRect  viewBounds = [self bounds];
     [viewedTree drawGeometry:geometry inBounds:&viewBounds];
+    
+    [self setNeedsDisplay:YES];
 }
 
 - (void)drawRect:(NSRect)dirtyRect

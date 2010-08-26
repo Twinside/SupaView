@@ -26,4 +26,6 @@
 - (NSRect*)getRectangles;
 - (NSColor**)getColors;
 
+- (void)pushColor;
+- (void)popColor;
 @end

@@ -14,13 +14,27 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// Insert code here to initialize your application 
+    curentlyNavigated = nil;
 }
 
 - (IBAction)openDocument: sender
 {
-    NSLog(@"Meh");
-    if ( mainTreeView != nil )
-        NSLog( @"mainTreeView not null !!" );
+    int result;
+    NSOpenPanel *oPanel = [NSOpenPanel openPanel];
+ 
+    [oPanel setAllowsMultipleSelection:(BOOL)NO];
+    [oPanel setCanChooseFiles:NO];
+    [oPanel setCanChooseDirectories:YES];
+
+    result = [oPanel runModal];
+
+    if (result == NSFileHandlingPanelOKButton)
+    {
+        curentlyNavigated =
+            [FileTree createFromPath:[oPanel URL]];
+        
+        [mainTreeView setTreeMap:[curentlyNavigated createLayoutTree]];
+    }
 }
 
 @end

@@ -13,16 +13,18 @@
 @class FolderTree;
 
 @interface FileTree : NSObject {
-	NSString	*name;
+	NSURL       *name;
     LayoutTree  *representation;
     FolderTree  *parent;
     FileSize    diskSize;
 }
-- (id)initWithName:(NSString*)treeName
++ (FileTree*)createFromPath:(NSURL*)filePath;
+
+- (id)initWithName:(NSURL*)treeName
            andSize:(uint64_t)size
            atPlace:(FolderTree*)parentFolder;
 
-- (id)initWithName:(NSString*)treeName
+- (id)initWithName:(NSURL*)treeName
            atPlace:(FolderTree*)parentFolder;
 
 - (void)dealloc;
@@ -35,12 +37,12 @@
     NSMutableArray     *children;
 }
 
-- (id)initWithName:(NSString*)treeName
+- (id)initWithName:(NSURL*)treeName
            atPlace:(FolderTree*)parentFolder;
 - (void)dealloc;
 
 - (FolderTree*)addChild:(FileTree*)subTree;
-- (void) populateChildList:(NSString*)root;
+- (void) populateChildList;
 - (LayoutTree*)createLayoutTree;
 @end
 

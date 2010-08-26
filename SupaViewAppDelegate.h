@@ -7,10 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "FileTree.h"
+#import "TreeMapView.h"
 
 @interface SupaViewAppDelegate : NSObject <NSApplicationDelegate> {
+    FileTree *curentlyNavigated;
+
     NSWindow *window;
-    IBOutlet id mainTreeView;
+    IBOutlet TreeMapView *mainTreeView;
 }
 
 @property (assign) IBOutlet NSWindow *window;

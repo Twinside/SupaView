@@ -9,12 +9,20 @@
 #import "FileTree.h"
 
 @implementation FileTree
++ (FileTree*)createFromPath:(NSURL*)filePath
+{
+    FolderTree *rootFolder =
+        [[FolderTree alloc] initWithName:filePath
+                                 atPlace:nil];
+    return rootFolder;
+}
+
 - (FileSize)getDiskSize
 {
     return diskSize;
 }
 
-- (id)initWithName:(NSString*)treeName
+- (id)initWithName:(NSURL*)treeName
            atPlace:(FolderTree*)parentFolder
 {
     self = [super init];
@@ -28,7 +36,7 @@
     return self;
 }
 
-- (id)initWithName:(NSString*)treeName
+- (id)initWithName:(NSURL*)treeName
            andSize:(FileSize)size
            atPlace:(FolderTree*)parentFolder
 {
@@ -52,18 +60,22 @@
 
 - (LayoutTree*)createLayoutTree
 {
-    return nil;
+    LayoutTree  *layoutNode =
+        [[LayoutTree alloc] initWithFile:self];
+
+    return layoutNode;
 }
 @end
 
 @implementation FolderTree
-- (id)initWithName:(NSString*)treeName
+- (id)initWithName:(NSURL*)treeName
            atPlace:(FolderTree*)parentFolder
 {
     self = [super initWithName:treeName
                        atPlace:parentFolder];
 
     children = [[NSMutableArray alloc] init];
+    [self populateChildList];
     return self;
 }
 
@@ -73,32 +85,22 @@
     [super dealloc];
 }
 
-+ (void) createFileList: (NSString*)root atPlace:(FolderTree*)parentFolder
+- (void)createFileList
 {
 	NSFileManager *localFileManager = [[NSFileManager alloc] init];
-	NSURL		  *rootUrl = [NSURL fileURLWithPath:root];
-	NSDirectoryEnumerator *dirEnumerator = [localFileManager enumeratorAtURL:rootUrl
+	NSDirectoryEnumerator *dirEnumerator =
+        [localFileManager enumeratorAtURL:name
+               includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLNameKey,
+                                                                    NSURLIsDirectoryKey,
+                                                                    nil]
 											
-                                                  includingPropertiesForKeys:[NSArray arrayWithObjects:
-                                                                              NSURLNameKey,
-                                                                              NSURLIsDirectoryKey,
-                                                                              nil]
-											
-                                                                     options:NSDirectoryEnumerationSkipsHiddenFiles
-											
-                                                                errorHandler:nil];
+                                  options:NSDirectoryEnumerationSkipsHiddenFiles
+                             errorHandler:nil];
     
 	for (NSURL *theURL in dirEnumerator)
 	{
-        // Retrieve the file name. From NSURLNameKey, cached during the enumeration.
-        NSString *fileName;
-        [theURL getResourceValue:&fileName
-						  forKey:NSURLNameKey
-						   error:NULL];
-		
-        // Retrieve whether a directory. From NSURLIsDirectoryKey
-        // also cached during the enumeration.
         NSNumber *isDirectory;
+        
         [theURL getResourceValue:&isDirectory
 						  forKey:NSURLIsDirectoryKey
 						   error:NULL];
@@ -108,44 +110,43 @@
         {
             [dirEnumerator skipDescendants];
             FolderTree *folder =
-                [[FolderTree alloc] initWithName:fileName
-                                         atPlace:parentFolder];
-            [parentFolder addChild:folder];
-            [folder populateChildList:root];
+                [[FolderTree alloc] initWithName:theURL
+                                         atPlace:self];
+            [self addChild:folder];
+            [folder populateChildList];
         }
         else if ([isDirectory boolValue]==NO)
         {
 			NSNumber *fileSize;
-			[theURL getResourceValue:&fileSize forKey:NSURLFileSizeKey error:NULL];
+			[theURL getResourceValue:&fileSize
+                              forKey:NSURLFileSizeKey
+                               error:NULL];
 			
-            FileTree    *f;
-            f = [[FileTree alloc] initWithName:fileName
-                                       andSize:[fileSize longLongValue]
-                                       atPlace:parentFolder];
-            [parentFolder addChild:f];
+            [self addChild:[[FileTree alloc]
+                                initWithName:theURL
+                                     andSize:[fileSize longLongValue]
+                                     atPlace:self]];
         }
     }
 }
 
-- (void) populateChildList:(NSString*)root
+- (void) populateChildList
 {
-    NSString *thisRoot = [[root stringByAppendingString:@"/"]
-                                stringByAppendingString:name];
+    [self createFileList];
     
-    [FolderTree createFileList:thisRoot
-                       atPlace:self];
-    
+    diskSize = 0;
     for ( FileTree *f in children )
         diskSize += [f getDiskSize];
     
+    // we sort the file in the descending order.
     [children sortUsingComparator:(NSComparator)^(id obj1, id obj2){
         FileSize lSize = [obj1 getDiskSize];
         FileSize rSize = [obj2 getDiskSize];
         
-        if (lSize > rSize)
+        if (lSize < rSize)
             return (NSComparisonResult)NSOrderedDescending;
         
-        if (lSize < rSize)
+        if (lSize > rSize)
             return (NSComparisonResult)NSOrderedAscending;
         
         return (NSComparisonResult)NSOrderedSame; }];
