@@ -6,7 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "FileTree.h"
+#import "SVFileTree.h"
 
 @implementation FileTree
 + (FileTree*)createFromPath:(NSURL*)filePath

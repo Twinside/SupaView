@@ -1,7 +1,7 @@
 #import "Definitions.h"
 #import <Cocoa/Cocoa.h>
-#import "FileTree.h"
-#import "GeometryGatherer.h"
+#import "SVFileTree.h"
+#import "SVGeometryGatherer.h"
 
 
 @class FileTree;

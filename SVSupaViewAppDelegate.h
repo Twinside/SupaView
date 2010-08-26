@@ -7,8 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "FileTree.h"
-#import "TreeMapView.h"
+#import "SVFileTree.h"
+#import "SVTreeMapView.h"
 
 @interface SupaViewAppDelegate : NSObject <NSApplicationDelegate> {
     FileTree *curentlyNavigated;

@@ -7,8 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "LayoutTree.h"
-#import "GeometryGatherer.h"
+#import "SVLayoutTree.h"
+#import "SVGeometryGatherer.h"
 
 @interface TreeMapView : NSView {
     LayoutTree          *viewedTree;

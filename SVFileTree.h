@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "LayoutTree.h"
+#import "SVLayoutTree.h"
 
 @class LayoutTree;
 @class FolderTree;

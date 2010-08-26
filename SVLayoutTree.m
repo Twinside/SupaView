@@ -1,5 +1,5 @@
 
-#include "FileTree.h"
+#include "SVFileTree.h"
 
 @implementation LayoutTree
 - (LayoutKind)computeOrientationWithSize:(FileSize)leftSize

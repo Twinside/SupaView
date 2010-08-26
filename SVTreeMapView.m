@@ -6,7 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "TreeMapView.h"
+#import "SVTreeMapView.h"
 
 
 @implementation TreeMapView
