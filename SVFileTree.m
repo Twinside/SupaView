@@ -19,8 +19,10 @@
 
 - (void)dumpToFile:(FILE*)f
 {
-    fprintf( f, "p%p [label=\"%s\" shape=box]\n"
-           , self, [[name lastPathComponent] UTF8String ]);
+    fprintf( f, "p%p [label=\"%i|%s\" shape=record]\n"
+           , self
+           , (int)diskSize
+           , [[name lastPathComponent] UTF8String ]);
 }
 
 - (NSURL*)name { return name; }
@@ -100,7 +102,7 @@
                                                                     NSURLIsDirectoryKey,
                                                                     nil]
 											
-                                  options:NSDirectoryEnumerationSkipsHiddenFiles
+                                  options:NSDirectoryEnumerationSkipsSubdirectoryDescendants
                              errorHandler:nil];
     
 	for (NSURL *theURL in dirEnumerator)
@@ -110,30 +112,49 @@
         [theURL getResourceValue:&isDirectory
 						  forKey:NSURLIsDirectoryKey
 						   error:NULL];
+
+        NSNumber *isFile;
+        [theURL getResourceValue:&isFile
+						  forKey:NSURLIsRegularFileKey
+						   error:NULL];
         
         // Ignore files under the _extras directory
         if ([isDirectory boolValue]==YES)
         {
-            [dirEnumerator skipDescendants];
+            //[dirEnumerator skipDescendants];
             SVFolderTree *folder =
                 [[SVFolderTree alloc] initWithName:theURL
                                          atPlace:self];
             [self addChild:folder];
             [folder release];
         }
-        else if ([isDirectory boolValue]==NO)
+        else // if ([isFile boolValue] == NO)
         {
-			NSNumber *fileSize;
-			[theURL getResourceValue:&fileSize
-                              forKey:NSURLFileSizeKey
+            NSNumber *isAlias;
+			[theURL getResourceValue:&isAlias
+                              forKey:NSURLIsAliasFileKey
                                error:NULL];
-			
-            SVFileTree *sub = 
-                [[SVFileTree alloc] initWithName:theURL
-                                         andSize:[fileSize longLongValue]
-                                         atPlace:self];
-            [self addChild:sub];
-            [sub release];
+
+            if ([isAlias boolValue] == NO)
+            {
+                NSNumber *fileSize;
+                /*
+                [theURL getResourceValue:&fileSize
+                                forKey:NSURLFileSizeKey
+                                error:NULL];
+                                // */
+                                //
+                [theURL getResourceValue:&fileSize
+                                forKey:NSURLFileAllocatedSizeKey
+                                error:NULL];
+                
+                SVFileTree *sub = 
+                    [[SVFileTree alloc] initWithName:theURL
+                                            andSize:[fileSize longLongValue]
+                                            atPlace:self];
+                [self addChild:sub];
+                [sub release];
+            }
         }
     }
 }
@@ -168,6 +189,9 @@
 
 - (SVLayoutTree*)createLayoutTree
 {
+    if ( [children count] == 0 )
+        return nil;
+    
     return
         [[SVLayoutTree alloc] initWithFileList:children
                                        forNode:self

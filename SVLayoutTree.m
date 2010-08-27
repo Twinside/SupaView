@@ -1,6 +1,7 @@
 
 #import "SVFileTree.h"
 #import "SVColorWheel.h"
+#import "SVSizes.h"
 
 @implementation SVLayoutTree
 - (LayoutKind)computeOrientationWithWidth:(CGFloat)w
@@ -17,8 +18,8 @@
     self = [super init];
     left = nil;
     right = nil;
-    fileNode = file;
     splitPos = -50.0f;
+    fileNode = file;
     
     return self;
 }
@@ -68,13 +69,13 @@
     
     for ( SVFileTree *elem in fileList )
     {
+        if ([elem getDiskSize] == 0)
+            break;
+        
         if ( leftSize < midPoint || leftSize == 0 )
         {
             [leftList addObject:elem];
             leftSize += [elem getDiskSize];
-            
-            // for now
-            assert( [elem getDiskSize] > 0 );
         }
         else
             [rightList addObject:elem];
@@ -82,32 +83,48 @@
 
     assert( [leftList count] > 0 );
     assert( [leftList count] < subSize || [leftList count] == 1 );
-    assert( [rightList count] > 0 );
+    //assert( [rightList count] > 0 );
     assert( [rightList count] < subSize || [leftList count] == 1 );
-    assert( [leftList count] + [rightList count] == subSize );
+    //assert( [leftList count] + [rightList count] == subSize );
     
     splitPos = (totalSize > 0) 
              ? (((float)leftSize) / ((float)totalSize))
              : 0.0f;
     
+    SVLayoutTree *tempLeft, *tempRight;
+
     if ( [leftList count] == 1 )
-        left = [[leftList objectAtIndex:0] createLayoutTree];
+        tempLeft = [[leftList objectAtIndex:0] createLayoutTree];
     else
-        left =
+        tempLeft =
             [[SVLayoutTree alloc] initWithFileList:leftList
                                         forNode:nil
                                     andTotalSize:leftSize];
 
-    if ( [rightList count] == 1 )
-        right = [[rightList objectAtIndex:0] createLayoutTree];
-    else
-        right =
-            [[SVLayoutTree alloc] initWithFileList:rightList 
-                                        forNode:nil
-                                    andTotalSize:totalSize - leftSize];
+    switch ( [rightList count] ) {
+        case 0:
+            tempRight = nil;
+            break;
+            
+        case 1:
+            tempRight =
+                [[rightList objectAtIndex:0] createLayoutTree];
+            break;
+            
+        default:
+            tempRight =
+                [[SVLayoutTree alloc] initWithFileList:rightList 
+                                               forNode:nil
+                                          andTotalSize:totalSize - leftSize];
+            break;
+    }
+        
 
     [leftList release];
     [rightList release];
+    left = tempLeft;
+    right = tempRight;
+
     return self;
 }
 
@@ -121,16 +138,16 @@
 
 - (void)cropSubRectangle:(NSRect*)r
 {
-    CGFloat leftMargin = 2;
-    CGFloat rightMargin = 2;
-    CGFloat topMargin = 10;
-    CGFloat bottomMargin = 2;
+    if ( fileNode != nil )
+    {
+        r->origin.x    += blockSizes.leftMargin;
+        r->size.width  -= (blockSizes.leftMargin 
+                           + blockSizes.rightMargin);
 
-    r->origin.x    += leftMargin;
-    r->size.width  -= (leftMargin + rightMargin);
-
-    r->origin.y    += bottomMargin;
-    r->size.height -= (bottomMargin + topMargin);
+        r->origin.y    += blockSizes.bottomMargin;
+        r->size.height -= (blockSizes.bottomMargin
+                            + blockSizes.topMargin);
+    }
 }
 
 - (void)drawGeometry:(SVGeometryGatherer*)gatherer
@@ -151,19 +168,18 @@
         [gatherer addRectangle:bounds
                      withColor:[wheel getLevelColor]];
 
-        CGFloat textLeftMargin = 2;
-        CGFloat textTopMargin = 1;
-        CGFloat textHeight = 13;
-
-        if ( bounds->size.height > textHeight )
+        if ( bounds->size.height > blockSizes.textHeight )
         {
             NSRect textPos = *bounds;
-            textPos.origin.y += textPos.size.height - (textHeight + textTopMargin);
-            textPos.origin.x += textLeftMargin;
-            textPos.size.height = textHeight;
+            textPos.origin.x += blockSizes.textLeftMargin;
+            textPos.origin.y += textPos.size.height 
+                              - (blockSizes.textHeight 
+                                 + blockSizes.textTopMargin);
+
+            textPos.size.height = blockSizes.textHeight;
 
             [gatherer addText:[fileNode filename]
-                    inRect:&textPos];
+                       inRect:&textPos];
         }
     }
     

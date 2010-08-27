@@ -32,22 +32,22 @@
     {
         curentlyNavigated =
             [SVFileTree createFromPath:[oPanel URL]];
+        FILE *dot;
+        
+        dot = fopen( "/Users/vince/Desktop/h.dot", "w" );
+        fprintf( dot, "digraph test {\n" );
+        [curentlyNavigated dumpToFile:dot];
+        fprintf( dot, "}\n" );
+        fclose( dot );
         
         SVLayoutTree  *created =
             [curentlyNavigated createLayoutTree];
 
         [mainTreeView setTreeMap:created];
 
-        FILE *dot = fopen( "/Users/vince/Desktop/g.dot", "w" );
+        dot = fopen( "/Users/vince/Desktop/g.dot", "w" );
         fprintf( dot, "digraph test {\n" );
         [created dumpToFile:dot];
-        fprintf( dot, "}\n" );
-        fclose( dot );
-
-
-        dot = fopen( "/Users/vince/Desktop/h.dot", "w" );
-        fprintf( dot, "digraph test {\n" );
-        [curentlyNavigated dumpToFile:dot];
         fprintf( dot, "}\n" );
         fclose( dot );
     }
