@@ -34,7 +34,6 @@
         count += [right countRectNeed];
     
     return count;
-
 }
 
 - (id)initWithFileList:(NSArray*)fileList
@@ -151,6 +150,21 @@
     {
         [gatherer addRectangle:bounds
                      withColor:[wheel getLevelColor]];
+
+        CGFloat textLeftMargin = 2;
+        CGFloat textTopMargin = 1;
+        CGFloat textHeight = 13;
+
+        if ( bounds->size.height > textHeight )
+        {
+            NSRect textPos = *bounds;
+            textPos.origin.y += textPos.size.height - (textHeight + textTopMargin);
+            textPos.origin.x += textLeftMargin;
+            textPos.size.height = textHeight;
+
+            [gatherer addText:[fileNode filename]
+                    inRect:&textPos];
+        }
     }
     
     // we have no child <=> we are a
@@ -200,7 +214,7 @@
                , self
                , splitPos
                , (orientation == LayoutHorizontal) ? "horiz" : "vert"
-               , [[[fileNode name] lastPathComponent] UTF8String ]);
+               , [[fileNode filename] UTF8String]);
     else
         fprintf( f, "p%p [label=\"%f|%s\", shape=record]\n"
                , self

@@ -8,12 +8,24 @@
 
 #import <Cocoa/Cocoa.h>
 
+@interface SVStringDraw : NSObject {
+    // put instances variable here
+    NSString    *str;
+    NSRect      pos;
+}
+- (id)initWithString:(NSString*)s atPlace:(NSRect*)position;
+- (NSString*)text;
+- (NSRect*)position;
+- (void)dealloc;
+@end
 
 @interface SVGeometryGatherer : NSObject {
     size_t  rectangleWrite;
     size_t  maxRectangleCount;
     NSRect  *rects;
     NSColor **colors;
+
+    NSMutableArray  *textWrite;
 }
 
 - (id)initWithRectCount:(int)count;
@@ -29,5 +41,6 @@
 - (size_t)rectangleCount;
 - (NSRect*)getRectangles;
 - (NSColor**)getColors;
+- (NSMutableArray*)getText;
 
 @end

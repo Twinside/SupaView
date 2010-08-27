@@ -79,5 +79,11 @@
     NSRectArray rectArray = [geometry getRectangles];
     NSColor     **colorArray = [geometry getColors];
     NSRectFillListWithColors ( rectArray, colorArray, [geometry rectangleCount] );
+    
+    for ( SVStringDraw *str in [geometry getText] )
+    {
+        [[str text] drawInRect:*[str position]
+                withAttributes:nil];
+    }
 }
 @end

@@ -32,6 +32,7 @@
 - (FileSize)getDiskSize;
 - (SVLayoutTree*)createLayoutTree;
 - (NSURL*)name;
+- (NSString*)filename;
 @end
 
 @interface SVFolderTree : SVFileTree {

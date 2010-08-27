@@ -24,6 +24,7 @@
 }
 
 - (NSURL*)name { return name; }
+- (NSString*)filename { return [name lastPathComponent]; }
 
 - (FileSize)getDiskSize
 {
