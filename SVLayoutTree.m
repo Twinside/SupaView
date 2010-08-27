@@ -51,6 +51,14 @@
 
     assert( subSize > 0 );
     
+    // can happen if a folder only got one child
+    if ( subSize == 1 )
+    {
+        left = [[fileList objectAtIndex:0] createLayoutTree];
+        splitPos = 1.0;
+        return self;
+    }
+    
     NSMutableArray  *leftList =
         [[NSMutableArray alloc] initWithCapacity:subSize];
     NSMutableArray  *rightList =
@@ -74,9 +82,9 @@
     }
 
     assert( [leftList count] > 0 );
-    assert( [leftList count] < subSize );
+    assert( [leftList count] < subSize || [leftList count] == 1 );
     assert( [rightList count] > 0 );
-    assert( [rightList count] < subSize );
+    assert( [rightList count] < subSize || [leftList count] == 1 );
     assert( [leftList count] + [rightList count] == subSize );
     
     splitPos = (totalSize > 0) 
@@ -114,10 +122,10 @@
 
 - (void)cropSubRectangle:(NSRect*)r
 {
-    CGFloat leftMargin = 5;
-    CGFloat rightMargin = 5;
-    CGFloat topMargin = 5;
-    CGFloat bottomMargin = 5;
+    CGFloat leftMargin = 2;
+    CGFloat rightMargin = 2;
+    CGFloat topMargin = 10;
+    CGFloat bottomMargin = 2;
 
     r->origin.x    += leftMargin;
     r->size.width  -= (leftMargin + rightMargin);

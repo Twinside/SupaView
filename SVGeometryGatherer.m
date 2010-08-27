@@ -39,6 +39,11 @@
     colors[ rectangleWrite++ ] = c;
 }
 
+- (void)starGathering
+{
+    rectangleWrite = 0;
+}
+
 - (size_t)rectangleCount
     { return rectangleWrite; }
 

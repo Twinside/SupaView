@@ -36,12 +36,36 @@
     geometry =
         [[SVGeometryGatherer alloc] initWithRectCount:rectangleCount];
     
+    [geometry starGathering];
     NSRect  viewBounds = [self bounds];
     [viewedTree drawGeometry:geometry
                    withColor:wheel
                     inBounds:&viewBounds];
     
     [self setNeedsDisplay:YES];
+}
+
+- (void)viewWillStartLiveResize
+{
+    [super viewWillStartLiveResize];
+}
+
+- (void) setFrameSize:(NSSize)newSize
+
+{
+    [super setFrameSize:newSize];
+    [geometry starGathering];
+    
+    NSRect  viewBounds = [self bounds];
+    [viewedTree drawGeometry:geometry
+                   withColor:wheel
+                    inBounds:&viewBounds];
+    [self setNeedsDisplay:YES];
+}
+
+- (void)setBounds:(NSRect)boundsRect
+{
+    [super setBounds:boundsRect];
 }
 
 - (void)drawRect:(NSRect)dirtyRect

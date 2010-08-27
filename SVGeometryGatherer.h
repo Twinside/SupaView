@@ -19,6 +19,10 @@
 - (id)initWithRectCount:(int)count;
 - (void)dealloc;
 
+- (void)starGathering;
+
+- (void)addText:(NSString*)str inRect:(NSRect*)rect;
+
 - (void)addRectangle:(NSRect*)r
            withColor:(NSColor*)c;
 

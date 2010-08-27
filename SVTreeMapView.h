@@ -18,6 +18,7 @@
 
 - (id)initWithFrame:(NSRect)frameRect;
 - (void)drawRect:(NSRect)dirtyRect;
+- (void)setBounds:(NSRect)boundsRect;
 
 - (void)setTreeMap:(SVLayoutTree*)tree;
 @end

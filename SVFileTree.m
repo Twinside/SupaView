@@ -39,7 +39,6 @@
     name = treeName;
     parent = parentFolder;
     [name retain];
-    representation = nil;
 
     return self;
 }
@@ -54,7 +53,6 @@
     name = treeName;
     parent = parentFolder;
     [name retain];
-    representation = nil;
 
     return self;
 }
@@ -62,7 +60,6 @@
 - (void)dealloc
 {
     [name release];
-    [representation release];
     [super dealloc];
 }
 
@@ -121,6 +118,7 @@
                 [[SVFolderTree alloc] initWithName:theURL
                                          atPlace:self];
             [self addChild:folder];
+            [folder release];
         }
         else if ([isDirectory boolValue]==NO)
         {
@@ -129,10 +127,12 @@
                               forKey:NSURLFileSizeKey
                                error:NULL];
 			
-            [self addChild:[[SVFileTree alloc]
-                                initWithName:theURL
-                                     andSize:[fileSize longLongValue]
-                                     atPlace:self]];
+            SVFileTree *sub = 
+                [[SVFileTree alloc] initWithName:theURL
+                                         andSize:[fileSize longLongValue]
+                                         atPlace:self];
+            [self addChild:sub];
+            [sub release];
         }
     }
 }

@@ -15,7 +15,7 @@
 {
     self = [super init];
     currentLevel = 0;
-    maxLevel = 7;
+    maxLevel = 6;
     colorWheel =
         (NSColor**)malloc( sizeof( NSColor* ) * maxLevel );
 
@@ -24,8 +24,7 @@
     colorWheel[ 2 ] = [NSColor yellowColor];
     colorWheel[ 3 ] = [NSColor greenColor];
     colorWheel[ 4 ] = [NSColor blueColor];
-    colorWheel[ 5 ] = [NSColor blackColor];
-    colorWheel[ 6 ] = [NSColor whiteColor];
+    colorWheel[ 5 ] = [NSColor whiteColor];
     
     return self;
 }

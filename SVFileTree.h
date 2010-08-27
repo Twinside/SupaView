@@ -14,10 +14,9 @@
 @class SVFolderTree;
 
 @interface SVFileTree : NSObject <SVGraphViz> {
-	NSURL       *name;
-    SVLayoutTree  *representation;
-    SVFolderTree  *parent;
-    FileSize    diskSize;
+	NSURL           *name;
+    SVFolderTree    *parent;
+    FileSize        diskSize;
 }
 + (SVFileTree*)createFromPath:(NSURL*)filePath;
 
