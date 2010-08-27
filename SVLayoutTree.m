@@ -60,13 +60,15 @@
     }
     
     NSMutableArray  *leftList =
-        [[NSMutableArray alloc] initWithCapacity:subSize];
+        [[NSMutableArray alloc] initWithCapacity:subSize / 2];
     NSMutableArray  *rightList =
-        [[NSMutableArray alloc] initWithCapacity:subSize];
+        [[NSMutableArray alloc] initWithCapacity:subSize / 2];
 
-    uint64_t    leftSize = 0;
-    uint64_t    midPoint = totalSize / 2;
+    FileSize    leftSize = 0;
+    FileSize    midPoint = totalSize / 2;
     
+    // greedy filling of leftList, approximately
+    // half of total size.
     for ( SVFileTree *elem in fileList )
     {
         if ([elem getDiskSize] == 0)
@@ -83,9 +85,7 @@
 
     assert( [leftList count] > 0 );
     assert( [leftList count] < subSize || [leftList count] == 1 );
-    //assert( [rightList count] > 0 );
     assert( [rightList count] < subSize || [leftList count] == 1 );
-    //assert( [leftList count] + [rightList count] == subSize );
     
     splitPos = (totalSize > 0) 
              ? (((float)leftSize) / ((float)totalSize))
@@ -101,6 +101,9 @@
                                         forNode:nil
                                     andTotalSize:leftSize];
 
+    // we can have 0 sized right-list
+    // because we can have trailing empty folders
+    // at the end of the list.
     switch ( [rightList count] ) {
         case 0:
             tempRight = nil;
@@ -148,6 +151,11 @@
         r->size.height -= (blockSizes.bottomMargin
                             + blockSizes.topMargin);
     }
+    else {
+        // need to do something,
+        // otherwise too collapsed.
+    }
+
 }
 
 - (void)drawGeometry:(SVGeometryGatherer*)gatherer
