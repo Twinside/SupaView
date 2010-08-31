@@ -14,7 +14,19 @@
 {
     self = [super initWithFrame:frameRect];
     wheel = [[SVColorWheel alloc] init];
+    virtualSize = frameRect;
     return self;
+}
+
+- (void)updateGeometry
+{
+    [geometry starGathering];
+    NSRect  viewFrame = [self frame];
+    
+    [viewedTree drawGeometry:geometry
+                   withColor:wheel
+                    inBounds:&viewFrame
+                  withinRect:&virtualSize];
 }
 
 - (void)setTreeMap:(SVLayoutTree*)tree
@@ -36,36 +48,13 @@
     geometry =
         [[SVGeometryGatherer alloc] initWithRectCount:rectangleCount];
     
-    [geometry starGathering];
-    NSRect  viewBounds = [self bounds];
-    [viewedTree drawGeometry:geometry
-                   withColor:wheel
-                    inBounds:&viewBounds];
-    
+    [self updateGeometry];
     [self setNeedsDisplay:YES];
 }
 
 - (void)viewWillStartLiveResize
 {
     [super viewWillStartLiveResize];
-}
-
-- (void) setFrameSize:(NSSize)newSize
-
-{
-    [super setFrameSize:newSize];
-    [geometry starGathering];
-    
-    NSRect  viewBounds = [self bounds];
-    [viewedTree drawGeometry:geometry
-                   withColor:wheel
-                    inBounds:&viewBounds];
-    [self setNeedsDisplay:YES];
-}
-
-- (void)setBounds:(NSRect)boundsRect
-{
-    [super setBounds:boundsRect];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
@@ -86,4 +75,40 @@
                 withAttributes:nil];
     }
 }
+
+- (void)stretchBy:(CGFloat)x andBy:(CGFloat)y
+{
+    CGFloat deltaWidth = virtualSize.size.width * x;
+    CGFloat deltaHeight = virtualSize.size.height * y;
+
+    virtualSize.origin.x -= deltaWidth / 2.0;
+    virtualSize.origin.y -= deltaHeight / 2.0;
+    virtualSize.size.width += deltaWidth;
+    virtualSize.size.height += deltaHeight;
+
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
+    
+}
+
+- (void) setFrameSize:(NSSize)newSize
+
+{
+    NSRect oldFrame = [self frame];
+    
+    [self stretchBy:oldFrame.size.width / newSize.width
+              andBy:oldFrame.size.height / newSize.height];
+
+    [super setFrameSize:newSize];
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
+}
+
+- (void)magnifyWithEvent:(NSEvent *)event
+{
+    [self stretchBy:[event magnification]
+              andBy:[event magnification]];
+}
+
 @end
+

@@ -3,6 +3,21 @@
 #import "SVColorWheel.h"
 #import "SVSizes.h"
 
+inline static
+BOOL intersect( NSRect *a, NSRect *b )
+{
+    CGFloat aRight = a->origin.x + a->size.width;
+    CGFloat aTop = a->origin.y + a->size.height;
+    
+    CGFloat bRight = b->origin.x + b->size.width;
+    CGFloat bTop = b->origin.y + b->size.height;
+    
+    return (a->origin.y <= bTop)
+        && (a->origin.x <= bRight)
+        && (aRight >= b->origin.x)
+        && (aTop >= b->origin.y);
+}
+
 @implementation SVLayoutTree
 - (LayoutKind)computeOrientationWithWidth:(CGFloat)w
                                    height:(CGFloat)h
@@ -143,6 +158,10 @@
 {
     if ( fileNode != nil )
     {
+        /*
+        if () {
+            // booya
+        } // */
         r->origin.x    += blockSizes.leftMargin;
         r->size.width  -= (blockSizes.leftMargin 
                            + blockSizes.rightMargin);
@@ -151,9 +170,15 @@
         r->size.height -= (blockSizes.bottomMargin
                             + blockSizes.topMargin);
     }
-    else {
-        // need to do something,
-        // otherwise too collapsed.
+    else
+    {
+        r->origin.x += blockSizes.divideLeftMargin;
+        r->size.width -= (blockSizes.divideLeftMargin
+                          + blockSizes.divideRightMargin);
+
+        r->origin.y    += blockSizes.divideBottomMargin;
+        r->size.height -= (blockSizes.divideBottomMargin
+                            + blockSizes.divideTopMargin );
     }
 
 }
@@ -161,7 +186,12 @@
 - (void)drawGeometry:(SVGeometryGatherer*)gatherer
            withColor:(SVColorWheel*)wheel
             inBounds:(NSRect*)bounds
+          withinRect:(NSRect*)limit
 {
+    // if we are currently not in the good zoom level.
+    if (!intersect(bounds, limit))
+        return;
+        
     orientation =
         [self computeOrientationWithWidth:bounds->size.width
                                    height:bounds->size.height];
@@ -222,8 +252,10 @@
 
     [wheel pushColor];
     
-    [left drawGeometry:gatherer withColor:wheel inBounds:&leftSub];
-    [right drawGeometry:gatherer withColor:wheel inBounds:&rightSub];
+    [left drawGeometry:gatherer withColor:wheel inBounds:&leftSub
+            withinRect:limit];
+    [right drawGeometry:gatherer withColor:wheel inBounds:&rightSub
+             withinRect:limit];
     
     [wheel popColor];
 }

@@ -30,7 +30,8 @@
 - (void)dealloc;
 - (void)drawGeometry:(SVGeometryGatherer*)gatherer
            withColor:(SVColorWheel*)wheel
-            inBounds:(NSRect*)bounds;
+            inBounds:(NSRect*)bounds
+          withinRect:(NSRect*)limit;
 
 @end
 

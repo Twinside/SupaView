@@ -11,6 +11,7 @@
 #import "SVGeometryGatherer.h"
 
 @interface SVTreeMapView : NSView {
+    NSRect                virtualSize;
     SVLayoutTree          *viewedTree;
     SVGeometryGatherer    *geometry;
     SVColorWheel          *wheel;
@@ -18,7 +19,7 @@
 
 - (id)initWithFrame:(NSRect)frameRect;
 - (void)drawRect:(NSRect)dirtyRect;
-- (void)setBounds:(NSRect)boundsRect;
-
 - (void)setTreeMap:(SVLayoutTree*)tree;
+
+- (void)magnifyWithEvent:(NSEvent *)event;
 @end
