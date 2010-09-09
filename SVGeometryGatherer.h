@@ -22,6 +22,7 @@
 @interface SVGeometryGatherer : NSObject {
     size_t  rectangleWrite;
     size_t  maxRectangleCount;
+    NSRect  frameRect;
     NSRect  *rects;
     NSColor **colors;
 
@@ -31,7 +32,7 @@
 - (id)initWithRectCount:(int)count;
 - (void)dealloc;
 
-- (void)starGathering;
+- (void)startGathering:(NSRect*)frameView;
 
 - (void)addText:(NSString*)str inRect:(NSRect*)rect;
 

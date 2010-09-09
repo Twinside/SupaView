@@ -19,7 +19,9 @@
 
 - (id)initWithFrame:(NSRect)frameRect;
 - (void)drawRect:(NSRect)dirtyRect;
-- (void)setTreeMap:(SVLayoutTree*)tree;
 
-- (void)magnifyWithEvent:(NSEvent *)event;
+- (void)magnifyWithEvent:(NSEvent*)event;
+- (void)scrollWheel:(NSEvent*)event;
+
+- (void)setTreeMap:(SVLayoutTree*)tree;
 @end

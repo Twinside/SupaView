@@ -8,6 +8,7 @@
 
 #import "SVTreeMapView.h"
 #import "SVColorWheel.h"
+#import "SVUtils.h"
 
 @implementation SVTreeMapView
 - (id)initWithFrame:(NSRect)frameRect
@@ -20,7 +21,8 @@
 
 - (void)updateGeometry
 {
-    [geometry starGathering];
+    NSRect frame = [self frame];
+    [geometry startGathering:&frame];
     NSRect  viewFrame = [self frame];
     
     [viewedTree drawGeometry:geometry
@@ -74,21 +76,43 @@
         [[str text] drawInRect:*[str position]
                 withAttributes:nil];
     }
+    NSFrameRectWithWidth( virtualSize, 2.0 );
+}
+
+- (void) translateBy:(CGFloat)dx  andBy:(CGFloat)dy
+{
+    NSRect frame = [self frame];
+
+    CGFloat nx = maxi( virtualSize.origin.x + dx, 0.0 );
+    CGFloat ny = maxi( virtualSize.origin.y + dy, 0.0 );
+
+    CGFloat right = nx + virtualSize.size.width;
+    CGFloat top = ny + virtualSize.size.height;
+    
+    CGFloat frameRight = frame.origin.x + frame.size.width;
+    CGFloat frameTop = frame.origin.y + frame.size.height;
+    
+    virtualSize.origin.x = nx + mini( 0.0, frameRight - right );
+    virtualSize.origin.y = ny + mini( 0.0, frameTop - top );
 }
 
 - (void)stretchBy:(CGFloat)x andBy:(CGFloat)y
 {
+    NSRect oldFrame = [self frame];
+
     CGFloat deltaWidth = virtualSize.size.width * x;
     CGFloat deltaHeight = virtualSize.size.height * y;
 
-    virtualSize.origin.x -= deltaWidth / 2.0;
-    virtualSize.origin.y -= deltaHeight / 2.0;
-    virtualSize.size.width += deltaWidth;
-    virtualSize.size.height += deltaHeight;
+    CGFloat nWidth = virtualSize.size.width + deltaWidth;
+    CGFloat nHeight = virtualSize.size.height + deltaHeight;
 
-    [self updateGeometry];
-    [self setNeedsDisplay:YES];
-    
+    virtualSize.origin.x =
+        maxi( virtualSize.origin.x - deltaWidth / 2.0, 0.0f );
+    virtualSize.origin.y =
+        maxi( virtualSize.origin.y - deltaHeight / 2.0, 0.0f );
+
+    virtualSize.size.width = mini( nWidth, oldFrame.size.width );
+    virtualSize.size.height = mini( nHeight, oldFrame.size.height );
 }
 
 - (void) setFrameSize:(NSSize)newSize
@@ -96,10 +120,19 @@
 {
     NSRect oldFrame = [self frame];
     
-    [self stretchBy:oldFrame.size.width / newSize.width
-              andBy:oldFrame.size.height / newSize.height];
-
     [super setFrameSize:newSize];
+    
+    [self stretchBy:newSize.width / oldFrame.size.width - 1.0f
+              andBy:newSize.height / oldFrame.size.height - 1.0f];
+
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
+}
+
+- (void)scrollWheel:(NSEvent*)event
+{
+    [self translateBy:-[event deltaX] 
+                andBy:[event deltaY]];
     [self updateGeometry];
     [self setNeedsDisplay:YES];
 }
@@ -108,6 +141,8 @@
 {
     [self stretchBy:[event magnification]
               andBy:[event magnification]];
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
 }
 
 @end

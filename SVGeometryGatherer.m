@@ -7,6 +7,7 @@
 //
 
 #import "SVGeometryGatherer.h"
+#import "SVUtils.h"
 
 @implementation SVStringDraw
 - initWithString:(NSString*)s atPlace:(NSRect*)position
@@ -57,8 +58,25 @@
            withColor:(NSColor*)c
 {
     assert( rectangleWrite < maxRectangleCount );
-    rects[ rectangleWrite ] = *r;
-    colors[ rectangleWrite++ ] = c;
+    // rects[ rectangleWrite ] = *r;
+    colors[ rectangleWrite ] = c;
+
+    NSRect* wroteRect = &rects[rectangleWrite];
+
+    // take the biggest, if frame is bigger
+    wroteRect->origin.x = maxi( frameRect.origin.x, r->origin.x );
+    wroteRect->origin.y = maxi( frameRect.origin.y, r->origin.y );
+
+    CGFloat widthLoss = r->origin.x - wroteRect->origin.x;
+    CGFloat heightLoss = r->origin.y - wroteRect->origin.y;
+    wroteRect->size.width = mini( r->size.width - widthLoss
+                                , frameRect.size.width );
+    wroteRect->size.height = mini( r->size.height - heightLoss 
+                                 , frameRect.size.height );
+
+    // cull-out degenerate triangles
+    if (wroteRect->size.width > 0 && wroteRect->size.height > 0)
+        rectangleWrite++;
 }
 
 
@@ -72,9 +90,10 @@
     [s release];
 }
 
-- (void)starGathering
+- (void)startGathering:(NSRect*)frameView
 {
     rectangleWrite = 0;
+    frameRect = *frameView;
     [textWrite removeAllObjects];
 }
 
