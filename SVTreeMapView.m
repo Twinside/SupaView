@@ -98,7 +98,7 @@
 
 - (void)stretchBy:(CGFloat)x andBy:(CGFloat)y
 {
-    NSRect oldFrame = [self frame];
+    NSRect frame = [self frame];
 
     CGFloat deltaWidth = virtualSize.size.width * x;
     CGFloat deltaHeight = virtualSize.size.height * y;
@@ -111,8 +111,14 @@
     virtualSize.origin.y =
         maxi( virtualSize.origin.y - deltaHeight / 2.0, 0.0f );
 
-    virtualSize.size.width = mini( nWidth, oldFrame.size.width );
-    virtualSize.size.height = mini( nHeight, oldFrame.size.height );
+    CGFloat right = virtualSize.origin.x + virtualSize.size.width;
+    CGFloat top = virtualSize.origin.y + virtualSize.size.height;
+    
+    CGFloat frameRight = frame.origin.x + frame.size.width;
+    CGFloat frameTop = frame.origin.y + frame.size.height;
+
+    virtualSize.size.width = nWidth + mini( 0.0, frameRight - right );
+    virtualSize.size.height = nHeight + mini( 0.0, frameTop - top );
 }
 
 - (void) setFrameSize:(NSSize)newSize
