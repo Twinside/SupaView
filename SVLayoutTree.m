@@ -150,7 +150,7 @@ BOOL intersect( NSRect *a, NSRect *b )
     [super dealloc];
 }
 
-- (void)cropSubRectangle:(NSRect*)r
+- (void)cropSubRectangle:(NSRect*)r withInfo:(SVDrawInfo*)info
 {
     if ( fileNode != nil )
     {
@@ -242,8 +242,8 @@ BOOL intersect( NSRect *a, NSRect *b )
         break;
     }
         
-    [self cropSubRectangle:&leftSub];
-    [self cropSubRectangle:&rightSub];
+    [self cropSubRectangle:&leftSub withInfo:&info];
+    [self cropSubRectangle:&rightSub withInfo:&info];
 
     [info.wheel pushColor];
     

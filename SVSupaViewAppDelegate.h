@@ -15,10 +15,16 @@
 
     NSWindow *window;
     IBOutlet SVTreeMapView *mainTreeView;
+
+    IBOutlet NSToolbarItem *zoomIn;
+    IBOutlet NSToolbarItem *zoomOut;
 }
 
 @property (assign) IBOutlet NSWindow *window;
 
 - (IBAction)openDocument: sender;
+
+- (IBAction)zoomInView: sender;
+- (IBAction)zoomOutView: sender;
 
 @end

@@ -159,6 +159,13 @@
     [self setNeedsDisplay:YES];
 }
 
+- (void)zoomBy:(CGFloat)amount
+{
+    [self stretchBy:amount andBy:amount];
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
+}
+
 - (void)magnifyWithEvent:(NSEvent *)event
 {
     [self stretchBy:[event magnification]

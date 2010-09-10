@@ -20,6 +20,8 @@
 - (id)initWithFrame:(NSRect)frameRect;
 - (void)drawRect:(NSRect)dirtyRect;
 
+- (void)zoomBy:(CGFloat)amount;
+
 - (void)magnifyWithEvent:(NSEvent*)event;
 - (void)scrollWheel:(NSEvent*)event;
 

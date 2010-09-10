@@ -17,6 +17,9 @@
     curentlyNavigated = nil;
 }
 
+- (IBAction)zoomInView:sender { [mainTreeView zoomBy:-0.1f]; }
+- (IBAction)zoomOutView:sender { [mainTreeView zoomBy:0.1f]; }
+
 - (IBAction)openDocument: sender
 {
     int result;
@@ -35,21 +38,21 @@
         FILE *dot;
         
         dot = fopen( "/Users/vince/Desktop/h.dot", "w" );
-        fprintf( dot, "digraph test {\n" );
-        [curentlyNavigated dumpToFile:dot];
-        fprintf( dot, "}\n" );
-        fclose( dot );
+        //fprintf( dot, "digraph test {\n" );
+        //[curentlyNavigated dumpToFile:dot];
+        //fprintf( dot, "}\n" );
+        //fclose( dot );
         
         SVLayoutTree  *created =
             [curentlyNavigated createLayoutTree];
 
         [mainTreeView setTreeMap:created];
 
-        dot = fopen( "/Users/vince/Desktop/g.dot", "w" );
-        fprintf( dot, "digraph test {\n" );
-        [created dumpToFile:dot];
-        fprintf( dot, "}\n" );
-        fclose( dot );
+        //dot = fopen( "/Users/vince/Desktop/g.dot", "w" );
+        //fprintf( dot, "digraph test {\n" );
+        //[created dumpToFile:dot];
+        //fprintf( dot, "}\n" );
+        //fclose( dot );
     }
 }
 
