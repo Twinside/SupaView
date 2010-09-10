@@ -76,10 +76,17 @@
         return;
     }
     
+    size_t      rectCount = [geometry rectangleCount];
+
     NSRectArray rectArray = [geometry getRectangles];
     NSColor     **colorArray = [geometry getColors];
-    NSRectFillListWithColors ( rectArray, colorArray, [geometry rectangleCount] );
+    NSRectFillListWithColors ( rectArray, colorArray, rectCount );
+
+    [[NSColor whiteColor] setFill];
+    for ( size_t i = 0; i < rectCount; i++ )
+        NSFrameRectWithWidth( rectArray[ i ], 1.0 );
     
+    [[NSColor blackColor] setFill];
     for ( SVStringDraw *str in [geometry getText] )
     {
         [[str text] drawInRect:*[str position]
