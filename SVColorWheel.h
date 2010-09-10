@@ -16,6 +16,7 @@
 }
 
 - (id)init;
+- (void)dealloc;
 
 - (void)pushColor;
 - (void)popColor;
