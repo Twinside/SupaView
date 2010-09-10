@@ -82,7 +82,7 @@
     NSColor     **colorArray = [geometry getColors];
     NSRectFillListWithColors ( rectArray, colorArray, rectCount );
 
-    [[NSColor whiteColor] setFill];
+    [[NSColor grayColor] setFill];
     for ( size_t i = 0; i < rectCount; i++ )
         NSFrameRectWithWidth( rectArray[ i ], 1.0 );
     
@@ -133,8 +133,8 @@
     CGFloat frameRight = frame.origin.x + frame.size.width;
     CGFloat frameTop = frame.origin.y + frame.size.height;
 
-    virtualSize.size.width = nWidth + mini( 0.0, frameRight - right );
-    virtualSize.size.height = nHeight + mini( 0.0, frameTop - top );
+    virtualSize.size.width = mini( frame.size.width, nWidth + mini( 0.0, frameRight - right ));
+    virtualSize.size.height = mini( frame.size.height, nHeight + mini( 0.0, frameTop - top ));
 }
 
 - (void) setFrameSize:(NSSize)newSize
@@ -168,8 +168,8 @@
 
 - (void)magnifyWithEvent:(NSEvent *)event
 {
-    [self stretchBy:[event magnification]
-              andBy:[event magnification]];
+    [self stretchBy:-[event magnification]
+              andBy:-[event magnification]];
     [self updateGeometry];
     [self setNeedsDisplay:YES];
 }

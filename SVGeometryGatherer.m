@@ -96,6 +96,8 @@
 - (void)addText:(NSString*)str inRect:(NSRect*)rect {
     assert( collecting );
     [self scalePoint:&rect->origin];
+    rect->size.width *= widthScale;
+
     SVStringDraw    *s =
         [[SVStringDraw alloc] initWithString:str
                                      atPlace:rect];

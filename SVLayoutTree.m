@@ -152,29 +152,32 @@ BOOL intersect( NSRect *a, NSRect *b )
 
 - (void)cropSubRectangle:(NSRect*)r withInfo:(SVDrawInfo*)info
 {
+    CGFloat miniWidth = info->minimumWidth;
+    CGFloat miniHeight = info->minimumHeight;
+
     if ( fileNode != nil )
     {
         /*
         if () {
             // booya
         } // */
-        r->origin.x    += blockSizes.leftMargin;
+        r->origin.x    += blockSizes.leftMargin * miniWidth;
         r->size.width  -= (blockSizes.leftMargin 
-                           + blockSizes.rightMargin);
+                           + blockSizes.rightMargin) * miniWidth;
 
-        r->origin.y    += blockSizes.bottomMargin;
+        r->origin.y    += blockSizes.bottomMargin * miniHeight;
         r->size.height -= (blockSizes.bottomMargin
-                            + blockSizes.topMargin);
+                            + blockSizes.topMargin) * miniHeight;
     }
     else
     {
-        r->origin.x += blockSizes.divideLeftMargin;
+        r->origin.x += blockSizes.divideLeftMargin * miniWidth;
         r->size.width -= (blockSizes.divideLeftMargin
-                          + blockSizes.divideRightMargin);
+                          + blockSizes.divideRightMargin) * miniWidth;
 
-        r->origin.y    += blockSizes.divideBottomMargin;
+        r->origin.y    += blockSizes.divideBottomMargin * miniHeight;
         r->size.height -= (blockSizes.divideBottomMargin
-                            + blockSizes.divideTopMargin );
+                            + blockSizes.divideTopMargin) * miniHeight;
     }
 
 }
@@ -201,13 +204,13 @@ BOOL intersect( NSRect *a, NSRect *b )
         [info.gatherer addRectangle:bounds
                           withColor:[info.wheel getLevelColor]];
 
-        if ( bounds->size.height > blockSizes.textHeight )
+        if ( bounds->size.height > blockSizes.textHeight * info.minimumHeight )
         {
             NSRect textPos = *bounds;
-            textPos.origin.x += blockSizes.textLeftMargin;
+            textPos.origin.x += blockSizes.textLeftMargin * info.minimumWidth;
             textPos.origin.y += textPos.size.height 
                               - (blockSizes.textHeight 
-                                 + blockSizes.textTopMargin);
+                                 + blockSizes.textTopMargin) * info.minimumHeight;
 
             textPos.size.height = blockSizes.textHeight;
 
