@@ -8,6 +8,24 @@
 @class SVFileTree;
 @class SVColorWheel;
 
+typedef struct SVDrawInfo_t
+{
+    /**
+     * Virtual bounds used to cull drawing.
+     */
+    NSRect  *limit;
+
+    SVGeometryGatherer *gatherer;
+
+    /**
+     * Limit size after which it's not useful to draw
+     * anything.
+     */
+    CGFloat minimumWidth;
+    CGFloat minimumHeight;
+
+    SVColorWheel    *wheel;
+} SVDrawInfo;
 
 @interface SVLayoutTree : NSObject <SVGraphViz> {
     SVLayoutTree  *left;
@@ -28,10 +46,8 @@
 - (id)initWithFile:(SVFileTree*)file;
 - (int)countRectNeed;
 - (void)dealloc;
-- (void)drawGeometry:(SVGeometryGatherer*)gatherer
-           withColor:(SVColorWheel*)wheel
-            inBounds:(NSRect*)bounds
-          withinRect:(NSRect*)limit;
 
+- (void)drawGeometry:(SVDrawInfo)info
+            inBounds:(NSRect*)bounds;
 @end
 

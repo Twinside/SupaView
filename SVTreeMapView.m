@@ -22,13 +22,22 @@
 - (void)updateGeometry
 {
     NSRect frame = [self frame];
-    [geometry startGathering:&frame];
+    [geometry startGathering:&frame
+                    inBounds:&virtualSize];
     NSRect  viewFrame = [self frame];
     
-    [viewedTree drawGeometry:geometry
-                   withColor:wheel
-                    inBounds:&viewFrame
-                  withinRect:&virtualSize];
+    SVDrawInfo info =
+        { .limit = &virtualSize
+        , .gatherer = geometry
+        , .minimumWidth = [geometry virtualPixelWidthSize]
+        , .minimumHeight = [geometry virtualPixelHeightSize]
+        , .wheel = wheel
+        };
+
+    [viewedTree drawGeometry:info
+                    inBounds:&viewFrame];
+
+    [geometry stopGathering];
 }
 
 - (void)setTreeMap:(SVLayoutTree*)tree

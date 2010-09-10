@@ -26,13 +26,22 @@
     NSRect  *rects;
     NSColor **colors;
 
+    bool        collecting;
+    CGFloat     widthScale;
+    CGFloat     heightScale;
+    CGFloat     translateX;
+    CGFloat     translateY;
+
     NSMutableArray  *textWrite;
 }
 
 - (id)initWithRectCount:(int)count;
 - (void)dealloc;
 
-- (void)startGathering:(NSRect*)frameView;
+- (void)startGathering:(NSRect*)frameView
+              inBounds:(NSRect*)bounds;
+
+- (void)stopGathering;
 
 - (void)addText:(NSString*)str inRect:(NSRect*)rect;
 
@@ -43,5 +52,12 @@
 - (NSRect*)getRectangles;
 - (NSColor**)getColors;
 - (NSMutableArray*)getText;
+
+/**
+ * Return the size of a screen pixel within the
+ * given bounds
+ */
+- (CGFloat)virtualPixelWidthSize;
+- (CGFloat)virtualPixelHeightSize;
 
 @end

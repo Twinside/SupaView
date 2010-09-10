@@ -20,16 +20,14 @@ BOOL intersect( NSRect *a, NSRect *b )
 
 @implementation SVLayoutTree
 - (LayoutKind)computeOrientationWithWidth:(CGFloat)w
-                                   height:(CGFloat)h
-{
+                                   height:(CGFloat)h {
     if (w > h)
         return LayoutHorizontal;
     else
         return LayoutVertical;
 }
 
-- (id)initWithFile:(SVFileTree*)file
-{
+- (id)initWithFile:(SVFileTree*)file {
     self = [super init];
     left = nil;
     right = nil;
@@ -39,8 +37,7 @@ BOOL intersect( NSRect *a, NSRect *b )
     return self;
 }
 
-- (int)countRectNeed
-{
+- (int)countRectNeed {
     int count = (fileNode != 0) ? 1 : 0;
     
     if (left != nil)
@@ -54,8 +51,7 @@ BOOL intersect( NSRect *a, NSRect *b )
 
 - (id)initWithFileList:(NSArray*)fileList
                forNode:(SVFileTree*)t
-          andTotalSize:(FileSize)totalSize
-{
+          andTotalSize:(FileSize)totalSize {
     self = [super init];
     left = nil;
     right = nil;
@@ -183,13 +179,11 @@ BOOL intersect( NSRect *a, NSRect *b )
 
 }
 
-- (void)drawGeometry:(SVGeometryGatherer*)gatherer
-           withColor:(SVColorWheel*)wheel
+- (void)drawGeometry:(SVDrawInfo)info
             inBounds:(NSRect*)bounds
-          withinRect:(NSRect*)limit
 {
     // if we are currently not in the good zoom level.
-    if (!intersect(bounds, limit))
+    if (!intersect(bounds, info.limit))
         return;
         
     orientation =
@@ -198,13 +192,14 @@ BOOL intersect( NSRect *a, NSRect *b )
     
     // if we are smaller than a pixel, don't
     // bother drawing ourselves
-    if (bounds->size.width < 1.0 || bounds->size.height < 1.0)
+    if (bounds->size.width < info.minimumWidth
+     || bounds->size.height < info.minimumHeight)
         return;
 
     if (fileNode != nil)
     {
-        [gatherer addRectangle:bounds
-                     withColor:[wheel getLevelColor]];
+        [info.gatherer addRectangle:bounds
+                          withColor:[info.wheel getLevelColor]];
 
         if ( bounds->size.height > blockSizes.textHeight )
         {
@@ -216,8 +211,8 @@ BOOL intersect( NSRect *a, NSRect *b )
 
             textPos.size.height = blockSizes.textHeight;
 
-            [gatherer addText:[fileNode filename]
-                       inRect:&textPos];
+            [info.gatherer addText:[fileNode filename]
+                            inRect:&textPos];
         }
     }
     
@@ -250,14 +245,12 @@ BOOL intersect( NSRect *a, NSRect *b )
     [self cropSubRectangle:&leftSub];
     [self cropSubRectangle:&rightSub];
 
-    [wheel pushColor];
+    [info.wheel pushColor];
     
-    [left drawGeometry:gatherer withColor:wheel inBounds:&leftSub
-            withinRect:limit];
-    [right drawGeometry:gatherer withColor:wheel inBounds:&rightSub
-             withinRect:limit];
+    [left drawGeometry:info inBounds:&leftSub];
+    [right drawGeometry:info inBounds:&rightSub];
     
-    [wheel popColor];
+    [info.wheel popColor];
 }
 
 - (void)dumpToFile:(FILE*)f

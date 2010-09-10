@@ -31,21 +31,20 @@
 
 @implementation SVGeometryGatherer
 
-- (id)initWithRectCount:(int)count
-{
+- (id)initWithRectCount:(int)count {
     self = [super init];
     
     maxRectangleCount = count;
     rects = (NSRect*)malloc( sizeof( NSRect ) * count );
     colors = (NSColor**)malloc( sizeof( NSColor* ) * count );
     rectangleWrite = 0;
+    collecting = false;
 
     textWrite = [[NSMutableArray alloc] initWithCapacity:50];
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     free( rects );
     free( colors );
     rects = nil;
@@ -54,9 +53,21 @@
     [super dealloc];
 }
 
+- (void) scalePoint:(NSPoint*)p {
+    p->x = p->x * widthScale + translateX;
+    p->y = p->y * heightScale + translateY;
+}
+
+- (void)scaleRectangle:(NSRect*)r {
+    r->size.width *= widthScale;
+    r->size.height *= heightScale;
+
+    [self scalePoint:&r->origin];
+}
+
 - (void)addRectangle:(NSRect*)r
-           withColor:(NSColor*)c
-{
+           withColor:(NSColor*)c {
+    assert( collecting );
     assert( rectangleWrite < maxRectangleCount );
     // rects[ rectangleWrite ] = *r;
     colors[ rectangleWrite ] = c;
@@ -77,11 +88,14 @@
     // cull-out degenerate triangles
     if (wroteRect->size.width > 0 && wroteRect->size.height > 0)
         rectangleWrite++;
+
+    [self scaleRectangle:wroteRect];
 }
 
 
-- (void)addText:(NSString*)str inRect:(NSRect*)rect
-{
+- (void)addText:(NSString*)str inRect:(NSRect*)rect {
+    assert( collecting );
+    [self scalePoint:&rect->origin];
     SVStringDraw    *s =
         [[SVStringDraw alloc] initWithString:str
                                      atPlace:rect];
@@ -91,22 +105,53 @@
 }
 
 - (void)startGathering:(NSRect*)frameView
-{
+              inBounds:(NSRect*)bounds {
+    assert( !collecting );
     rectangleWrite = 0;
     frameRect = *frameView;
+
+    widthScale = frameRect.size.width / bounds->size.width;
+    heightScale = frameRect.size.height / bounds->size.height;
+    translateX = - (bounds->origin.x * widthScale);
+    translateY = - (bounds->origin.y * heightScale);
+
     [textWrite removeAllObjects];
+    collecting = true;
 }
 
-- (size_t)rectangleCount
-    { return rectangleWrite; }
+- (CGFloat)virtualPixelWidthSize {
+    assert( collecting );   
+    return 1.0f / widthScale;
+}
 
-- (NSRect*)getRectangles
-    { return rects; }
+- (CGFloat)virtualPixelHeightSize {
+    assert( collecting );   
+    return 1.0f / heightScale;
+}
 
-- (NSColor**)getColors
-    { return colors; }
+- (void)stopGathering {
+    assert( collecting );
+    collecting = false;
+}
 
-- (NSMutableArray*)getText
-    { return textWrite; };
+- (size_t)rectangleCount {
+    assert( !collecting );
+    return rectangleWrite;
+}
+
+- (NSRect*)getRectangles {
+    assert( !collecting );
+    return rects;
+}
+
+- (NSColor**)getColors {
+    assert( !collecting );
+    return colors;
+}
+
+- (NSMutableArray*)getText {
+    assert( !collecting );
+    return textWrite;
+};
 @end
 
