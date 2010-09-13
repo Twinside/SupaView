@@ -33,6 +33,7 @@
 
     if (result == NSFileHandlingPanelOKButton)
     {
+        [curentlyNavigated release];
         curentlyNavigated =
             [SVFileTree createFromPath:[oPanel URL]];
         FILE *dot;
@@ -47,6 +48,7 @@
             [curentlyNavigated createLayoutTree];
 
         [mainTreeView setTreeMap:created];
+        [created release];
 
         //dot = fopen( "/Users/vince/Desktop/g.dot", "w" );
         //fprintf( dot, "digraph test {\n" );

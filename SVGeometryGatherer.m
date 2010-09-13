@@ -95,12 +95,14 @@
 
 - (void)addText:(NSString*)str inRect:(NSRect*)rect {
     assert( collecting );
-    [self scalePoint:&rect->origin];
-    rect->size.width *= widthScale;
+
+    NSRect  tempRect = *rect;
+    [self scalePoint:&tempRect.origin];
+    tempRect.size.width *= widthScale;
 
     SVStringDraw    *s =
         [[SVStringDraw alloc] initWithString:str
-                                     atPlace:rect];
+                                     atPlace:&tempRect];
 
     [textWrite addObject:s];
     [s release];

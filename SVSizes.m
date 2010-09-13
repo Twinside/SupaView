@@ -12,8 +12,11 @@ const SVSizes blockSizes =
     .textTopMargin = 4,
     .textHeight = 9,
 
+    .minBoxSizeWidth = 10,
+    .minBoxSizeHeight = 10,
+
     .textMinimumWidth = 80,
     .fileSizeMinDisplay = 50,
-    .fileSizeWidth = 30
+    .fileSizeWidth = 40
 };
 

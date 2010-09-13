@@ -8,6 +8,9 @@ typedef struct SVSizes_t
     CGFloat topMargin;
     CGFloat bottomMargin;
 
+    CGFloat minBoxSizeWidth;
+    CGFloat minBoxSizeHeight;
+
     CGFloat textLeftMargin;
     CGFloat textTopMargin;
     CGFloat textHeight;

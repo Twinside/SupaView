@@ -62,21 +62,13 @@
 - (void)setTreeMap:(SVLayoutTree*)tree
 {
     [viewedTree release];
-    [geometry release];
     
     viewedTree = tree;
-    geometry = nil;
     
     [viewedTree retain];
     
     if ( tree == nil )
         return;
-    
-    int rectangleCount =
-        [tree countRectNeed];
-    
-    geometry =
-        [[SVGeometryGatherer alloc] initWithRectCount:rectangleCount];
     
     [self updateGeometry];
     [self setNeedsDisplay:YES];
@@ -87,6 +79,35 @@
     [super viewWillStartLiveResize];
 }
 
+- (void)drawBackRect
+{
+    size_t      rectCount = [geometry rectangleCount];
+    NSRectArray rectArray = [geometry getRectangles];
+    NSColor     **colorArray = [geometry getColors];
+    NSRectFillListWithColors ( rectArray, colorArray, rectCount );
+}
+
+- (void)drawFrameRect
+{
+    size_t      rectCount = [geometry rectangleCount];
+    NSRectArray rectArray = [geometry getRectangles];
+
+    [[NSColor grayColor] setFill];
+    for ( size_t i = 0; i < rectCount; i++ )
+        NSFrameRectWithWidth( rectArray[ i ], 1.0 );
+    
+    [[NSColor blackColor] setFill];
+}
+
+- (void)drawText
+{
+    for ( SVStringDraw *str in [geometry getText] )
+    {
+        [[str text] drawInRect:*[str position]
+                withAttributes:stringAttributs];
+    }
+}
+
 - (void)drawRect:(NSRect)dirtyRect
 {
     if (geometry == nil)
@@ -94,7 +115,13 @@
         [super drawRect:dirtyRect];
         return;
     }
+    [self drawBackRect];
+    [self drawFrameRect];
+    [self drawText];
     
+    NSFrameRectWithWidth( virtualSize, 2.0 );
+
+    /*
     size_t      rectCount = [geometry rectangleCount];
 
     NSRectArray rectArray = [geometry getRectangles];
@@ -111,7 +138,7 @@
         [[str text] drawInRect:*[str position]
                 withAttributes:stringAttributs];
     }
-    NSFrameRectWithWidth( virtualSize, 2.0 );
+    // */
 }
 
 - (void) translateBy:(CGFloat)dx  andBy:(CGFloat)dy
@@ -156,12 +183,28 @@
     virtualSize.size.height = mini( frame.size.height, nHeight + mini( 0.0, frameTop - top ));
 }
 
+- (void) updateGeometrySize
+{
+    NSRect frame = [self frame];
+    [geometry release];
+
+    int maxPerLine = (int)(frame.size.width / blockSizes.minBoxSizeWidth + 1);
+    int maxPerColumn = (int)(frame.size.height / blockSizes.minBoxSizeHeight + 1);
+
+    geometry =
+        [[SVGeometryGatherer alloc]
+                initWithRectCount:maxPerLine * maxPerColumn];
+    
+}
+
 - (void) setFrameSize:(NSSize)newSize
 
 {
     NSRect oldFrame = [self frame];
     
     [super setFrameSize:newSize];
+
+    [self updateGeometrySize];
     
     [self stretchBy:newSize.width / oldFrame.size.width - 1.0f
               andBy:newSize.height / oldFrame.size.height - 1.0f];

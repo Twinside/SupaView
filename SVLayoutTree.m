@@ -206,21 +206,31 @@ NSString * stringFromFileSize( FileSize theSize )
         return;
 
     textPos.origin.x += blockSizes.textLeftMargin * info->minimumWidth;
-    textPos.origin.y += textPos.size.height 
-                        - (blockSizes.textHeight 
-                            + blockSizes.textTopMargin - 1) * info->minimumHeight;
 
-    textPos.size.height = blockSizes.textHeight;
+    // if it's a file, we can't allow multi-line rendering
+    if ( left == nil && right == nil )
+    {
+        textPos.origin.y += (blockSizes.textHeight 
+                            + blockSizes.textTopMargin - 1) * info->minimumHeight;
+    }
+    else // we are in a folder
+    {
+        textPos.origin.y += textPos.size.height 
+                            - (blockSizes.textHeight 
+                                + blockSizes.textTopMargin - 1) * info->minimumHeight;
+        textPos.size.height = blockSizes.textHeight;
+    }
 
     if ( textPos.size.width > blockSizes.fileSizeMinDisplay )
     {
-        CGFloat sizeDisplaySize = blockSizes.fileSizeWidth * info->minimumHeight;
-        textPos.size.width -= sizeDisplaySize ;
+        CGFloat sizeDisplaySize = blockSizes.fileSizeWidth * info->minimumWidth;
+
+        textPos.size.width -= sizeDisplaySize;
         [info->gatherer addText:[fileNode filename]
                          inRect:&textPos];
 
-        textPos.origin.x += textPos.size.width * info->minimumWidth;
-        textPos.size.width = sizeDisplaySize;
+        // update to put size information
+        textPos.origin.x += textPos.size.width;
 
         [info->gatherer addText:stringFromFileSize([fileNode getDiskSize])
                          inRect:&textPos];
@@ -245,8 +255,8 @@ NSString * stringFromFileSize( FileSize theSize )
     
     // if we are smaller than a pixel, don't
     // bother drawing ourselves
-    if (bounds->size.width < info.minimumWidth
-     || bounds->size.height < info.minimumHeight)
+    if (bounds->size.width < blockSizes.minBoxSizeWidth * info.minimumWidth
+     || bounds->size.height < blockSizes.minBoxSizeHeight * info.minimumHeight)
         return;
 
     // if we are linked to a folder or a file.
