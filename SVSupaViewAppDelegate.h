@@ -20,11 +20,12 @@
     IBOutlet NSToolbarItem *zoomOut;
 }
 
+
+- (IBAction)openDocument:(id)sender;
+
+- (IBAction)zoomInView:(id)sender;
+- (IBAction)zoomOutView:(id)sender;
+
 @property (assign) IBOutlet NSWindow *window;
-
-- (IBAction)openDocument: sender;
-
-- (IBAction)zoomInView: sender;
-- (IBAction)zoomOutView: sender;
 
 @end

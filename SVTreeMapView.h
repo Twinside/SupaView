@@ -15,9 +15,13 @@
     SVLayoutTree          *viewedTree;
     SVGeometryGatherer    *geometry;
     SVColorWheel          *wheel;
+
+    NSFont                *drawingFont;
+    NSDictionary          *stringAttributs;
 }
 
 - (id)initWithFrame:(NSRect)frameRect;
+- (void)dealloc;
 - (void)drawRect:(NSRect)dirtyRect;
 
 - (void)zoomBy:(CGFloat)amount;

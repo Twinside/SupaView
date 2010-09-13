@@ -18,6 +18,23 @@ BOOL intersect( NSRect *a, NSRect *b )
         && (aTop >= b->origin.y);
 }
 
+inline static
+NSString * stringFromFileSize( FileSize theSize )
+{
+	float floatSize = theSize;
+	if (theSize<1023)
+		return([NSString stringWithFormat:@"%i bytes",theSize]);
+	floatSize = floatSize / 1024;
+	if (floatSize<1023)
+		return([NSString stringWithFormat:@"%1.1f KB",floatSize]);
+	floatSize = floatSize / 1024;
+	if (floatSize<1023)
+		return([NSString stringWithFormat:@"%1.1f MB",floatSize]);
+	floatSize = floatSize / 1024;
+
+	return([NSString stringWithFormat:@"%1.1f GB",floatSize]);
+}
+
 @implementation SVLayoutTree
 - (LayoutKind)computeOrientationWithWidth:(CGFloat)w
                                    height:(CGFloat)h {
@@ -155,31 +172,64 @@ BOOL intersect( NSRect *a, NSRect *b )
     CGFloat miniWidth = info->minimumWidth;
     CGFloat miniHeight = info->minimumHeight;
 
-    if ( fileNode != nil )
-    {
-        /*
-        if () {
-            // booya
-        } // */
-        r->origin.x    += blockSizes.leftMargin * miniWidth;
-        r->size.width  -= (blockSizes.leftMargin 
-                           + blockSizes.rightMargin) * miniWidth;
+    if ( fileNode == nil )
+        return;
 
-        r->origin.y    += blockSizes.bottomMargin * miniHeight;
+    r->origin.x    += blockSizes.leftMargin * miniWidth;
+    r->size.width  -= (blockSizes.leftMargin 
+                        + blockSizes.rightMargin) * miniWidth;
+
+    r->origin.y    += blockSizes.bottomMargin * miniHeight;
+
+    if ( [self textDrawableInBounds:r andInfo:info] )
+        r->size.height -= (blockSizes.bottomMargin
+                            + blockSizes.topMargin
+                            + blockSizes.textHeight) * miniHeight;
+    else
         r->size.height -= (blockSizes.bottomMargin
                             + blockSizes.topMargin) * miniHeight;
+}
+
+- (BOOL)textDrawableInBounds:(NSRect*)bounds andInfo:(SVDrawInfo*)info
+{
+    return bounds->size.height >= blockSizes.textHeight * info->minimumHeight
+        && bounds->size.width >= blockSizes.textMinimumWidth * info->minimumHeight;
+}
+
+- (void)drawNodeText:(SVDrawInfo*)info
+            inBounds:(NSRect*)bounds
+{
+    NSRect textPos = *bounds;
+
+    if ( ![self textDrawableInBounds:bounds
+                             andInfo:info] )
+        return;
+
+    textPos.origin.x += blockSizes.textLeftMargin * info->minimumWidth;
+    textPos.origin.y += textPos.size.height 
+                        - (blockSizes.textHeight 
+                            + blockSizes.textTopMargin - 1) * info->minimumHeight;
+
+    textPos.size.height = blockSizes.textHeight;
+
+    if ( textPos.size.width > blockSizes.fileSizeMinDisplay )
+    {
+        CGFloat sizeDisplaySize = blockSizes.fileSizeWidth * info->minimumHeight;
+        textPos.size.width -= sizeDisplaySize ;
+        [info->gatherer addText:[fileNode filename]
+                         inRect:&textPos];
+
+        textPos.origin.x += textPos.size.width * info->minimumWidth;
+        textPos.size.width = sizeDisplaySize;
+
+        [info->gatherer addText:stringFromFileSize([fileNode getDiskSize])
+                         inRect:&textPos];
     }
     else
     {
-        r->origin.x += blockSizes.divideLeftMargin * miniWidth;
-        r->size.width -= (blockSizes.divideLeftMargin
-                          + blockSizes.divideRightMargin) * miniWidth;
-
-        r->origin.y    += blockSizes.divideBottomMargin * miniHeight;
-        r->size.height -= (blockSizes.divideBottomMargin
-                            + blockSizes.divideTopMargin) * miniHeight;
+        [info->gatherer addText:[fileNode filename]
+                         inRect:&textPos];
     }
-
 }
 
 - (void)drawGeometry:(SVDrawInfo)info
@@ -199,24 +249,13 @@ BOOL intersect( NSRect *a, NSRect *b )
      || bounds->size.height < info.minimumHeight)
         return;
 
+    // if we are linked to a folder or a file.
     if (fileNode != nil)
     {
         [info.gatherer addRectangle:bounds
                           withColor:[info.wheel getLevelColor]];
 
-        if ( bounds->size.height > blockSizes.textHeight * info.minimumHeight )
-        {
-            NSRect textPos = *bounds;
-            textPos.origin.x += blockSizes.textLeftMargin * info.minimumWidth;
-            textPos.origin.y += textPos.size.height 
-                              - (blockSizes.textHeight 
-                                 + blockSizes.textTopMargin) * info.minimumHeight;
-
-            textPos.size.height = blockSizes.textHeight;
-
-            [info.gatherer addText:[fileNode filename]
-                            inRect:&textPos];
-        }
+        [self drawNodeText:&info inBounds:bounds];
     }
     
     // we have no child <=> we are a
@@ -227,33 +266,35 @@ BOOL intersect( NSRect *a, NSRect *b )
     assert( splitPos > 0.0 );
     assert( splitPos <= 1.0 );
     
-    NSRect leftSub = *bounds;
+    NSRect subBounds = *bounds;
+    [self cropSubRectangle:&subBounds withInfo:&info];
+
+    NSRect leftSub = subBounds;
     NSRect rightSub = leftSub;
 
     switch (orientation)
     {
     case LayoutVertical:
         leftSub.size.height *= splitPos; 
-        rightSub.size.height = bounds->size.height - leftSub.size.height;
+        rightSub.size.height = subBounds.size.height - leftSub.size.height;
         rightSub.origin.y += leftSub.size.height;
         break;
         
     case LayoutHorizontal:
         leftSub.size.width *= splitPos;
-        rightSub.size.width = bounds->size.width - leftSub.size.width;
+        rightSub.size.width = subBounds.size.width - leftSub.size.width;
         rightSub.origin.x += leftSub.size.width;
         break;
     }
         
-    [self cropSubRectangle:&leftSub withInfo:&info];
-    [self cropSubRectangle:&rightSub withInfo:&info];
-
-    [info.wheel pushColor];
+    if (fileNode != nil)
+        [info.wheel pushColor];
     
     [left drawGeometry:info inBounds:&leftSub];
     [right drawGeometry:info inBounds:&rightSub];
     
-    [info.wheel popColor];
+    if (fileNode != nil)
+        [info.wheel popColor];
 }
 
 - (void)dumpToFile:(FILE*)f

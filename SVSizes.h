@@ -8,14 +8,13 @@ typedef struct SVSizes_t
     CGFloat topMargin;
     CGFloat bottomMargin;
 
-    CGFloat divideLeftMargin;
-    CGFloat divideRightMargin;
-    CGFloat divideTopMargin;
-    CGFloat divideBottomMargin;
-
     CGFloat textLeftMargin;
     CGFloat textTopMargin;
     CGFloat textHeight;
+    CGFloat textMinimumWidth;
+
+    CGFloat fileSizeMinDisplay;
+    CGFloat fileSizeWidth;
 } SVSizes;
 
 extern const SVSizes  blockSizes;

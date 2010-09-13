@@ -9,6 +9,7 @@
 #import "SVTreeMapView.h"
 #import "SVColorWheel.h"
 #import "SVUtils.h"
+#import "SVSizes.h"
 
 @implementation SVTreeMapView
 - (id)initWithFrame:(NSRect)frameRect
@@ -16,7 +17,25 @@
     self = [super initWithFrame:frameRect];
     wheel = [[SVColorWheel alloc] init];
     virtualSize = frameRect;
+    drawingFont = [NSFont fontWithName:@"Helvetica" size:blockSizes.textHeight];
+    stringAttributs = 
+        [NSDictionary dictionaryWithObject:drawingFont
+                                    forKey:NSFontAttributeName];
+
+    [drawingFont retain];
+    [stringAttributs retain];
+
     return self;
+}
+
+- (void)dealloc
+{
+    [viewedTree release];
+    [geometry release];
+    [wheel release];
+    [drawingFont release];
+    [stringAttributs release];
+    [super dealloc];
 }
 
 - (void)updateGeometry
@@ -90,7 +109,7 @@
     for ( SVStringDraw *str in [geometry getText] )
     {
         [[str text] drawInRect:*[str position]
-                withAttributes:nil];
+                withAttributes:stringAttributs];
     }
     NSFrameRectWithWidth( virtualSize, 2.0 );
 }

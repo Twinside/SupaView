@@ -3,18 +3,17 @@
 
 const SVSizes blockSizes =
 {
-    .leftMargin = 2,
-    .rightMargin = 2,
-    .topMargin = 10,
-    .bottomMargin = 2,
+    .leftMargin = 3,
+    .rightMargin = 3,
+    .topMargin = 3,
+    .bottomMargin = 3,
 
-    .divideLeftMargin = 1,
-    .divideRightMargin = 1,
-    .divideTopMargin = 1,
-    .divideBottomMargin = 1,
+    .textLeftMargin = 4,
+    .textTopMargin = 4,
+    .textHeight = 9,
 
-    .textLeftMargin = 2,
-    .textTopMargin = 1,
-    .textHeight = 13,
+    .textMinimumWidth = 80,
+    .fileSizeMinDisplay = 50,
+    .fileSizeWidth = 30
 };
 
