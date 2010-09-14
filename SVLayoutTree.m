@@ -163,7 +163,6 @@ NSString * stringFromFileSize( FileSize theSize )
 {
     [left release];
     [right release];
-    [fileNode release];
     [super dealloc];
 }
 

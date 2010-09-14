@@ -8,6 +8,64 @@
 
 #import "SVFileTree.h"
 
+/* seemingly fast function to list information
+ * try to digg it sometime.
+ */
+/*
+- (unsigned long long) fastFolderSizeAtFSRef:(FSRef*)theFileRef
+{
+    FSIterator    thisDirEnum = NULL;
+    unsigned long long totalSize = 0;
+
+    // Iterate the directory contents, recursing as necessary
+    if (FSOpenIterator(theFileRef, kFSIterateFlat, &thisDirEnum) == noErr)
+    {
+        const ItemCount kMaxEntriesPerFetch = 256;
+        ItemCount actualFetched;
+        FSRef    fetchedRefs[kMaxEntriesPerFetch];
+        FSCatalogInfo fetchedInfos[kMaxEntriesPerFetch];
+
+        // DCJ Note right now this is only fetching data fork sizes...
+        // if we decide to include
+        // resource forks we will have to add kFSCatInfoRsrcSizes
+
+        OSErr fsErr = FSGetCatalogInfoBulk(thisDirEnum, kMaxEntriesPerFetch, &actualFetched,
+                                        NULL
+                                        , kFSCatInfoDataSizes | kFSCatInfoNodeFlags, fetchedInfos,
+                                        fetchedRefs, NULL, NULL);
+        while ((fsErr == noErr) || (fsErr == errFSNoMoreItems))
+        {
+            ItemCount thisIndex;
+            for (thisIndex = 0; thisIndex < actualFetched; thisIndex++)
+            {
+                // Recurse if it's a folder
+                if (fetchedInfos[thisIndex].nodeFlags & kFSNodeIsDirectoryMask)
+                {
+                    totalSize += [self fastFolderSizeAtFSRef:&fetchedRefs[thisIndex]];
+                }
+                else
+                {
+                    // add the size for this item
+                    totalSize += fetchedInfos [thisIndex].dataLogicalSize;
+                }
+            }
+
+            if (fsErr == errFSNoMoreItems)
+            {
+                break;
+            }
+            else
+            {
+                // get more items
+                fsErr = FSGetCatalogInfoBulk(thisDirEnum, kMaxEntriesPerFetch, &actualFetched,
+                                        NULL, kFSCatInfoDataSizes | kFSCatInfoNodeFlags, fetchedInfos, fetchedRefs, NULL, NULL);
+            }
+        }
+        FSCloseIterator(thisDirEnum);
+    }
+    return totalSize;
+} // */
+
 @implementation SVFileTree
 + (SVFileTree*)createFromPath:(NSURL*)filePath
 {
@@ -22,11 +80,10 @@
     fprintf( f, "p%p [label=\"%i|%s\" shape=record]\n"
            , self
            , (int)diskSize
-           , [[name lastPathComponent] UTF8String ]);
+           , [name  UTF8String]);
 }
 
-- (NSURL*)name { return name; }
-- (NSString*)filename { return [name lastPathComponent]; }
+- (NSString*)filename { return name; }
 
 - (FileSize)getDiskSize
 {
@@ -39,7 +96,7 @@
     self = [super init];
 
     diskSize = 0;
-    name = treeName;
+    name = [treeName lastPathComponent];
     parent = parentFolder;
     [name retain];
 
@@ -53,7 +110,7 @@
     self = [super init];
 
     diskSize = size;
-    name = treeName;
+    name = [treeName lastPathComponent];
     parent = parentFolder;
     [name retain];
 
@@ -83,7 +140,7 @@
                        atPlace:parentFolder];
 
     children = [[NSMutableArray alloc] init];
-    [self populateChildList];
+    [self populateChildListAtUrl:treeName];
     return self;
 }
 
@@ -93,11 +150,11 @@
     [super dealloc];
 }
 
-- (void)createFileList
+- (void)createFileListAtUrl:(NSURL*)url
 {
 	NSFileManager *localFileManager = [[NSFileManager alloc] init];
 	NSDirectoryEnumerator *dirEnumerator =
-        [localFileManager enumeratorAtURL:name
+        [localFileManager enumeratorAtURL:url
                includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLNameKey,
                                                                     NSURLIsDirectoryKey,
                                                                     nil]
@@ -159,9 +216,9 @@
     }
 }
 
-- (void) populateChildList
+- (void) populateChildListAtUrl:(NSURL*)url
 {
-    [self createFileList];
+    [self createFileListAtUrl:url];
     
     diskSize = 0;
     for ( SVFileTree *f in children )
