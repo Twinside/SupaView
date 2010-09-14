@@ -15,6 +15,10 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// Insert code here to initialize your application 
     curentlyNavigated = nil;
+    printf( "sizeof(FileTree) %i\n", (int)sizeof(SVFileTree));
+    printf( "sizeof(SVFolderTree) %i\n", (int)sizeof( SVFolderTree ));
+    printf( "sizeof(NSString) %i\n", (int)sizeof( NSString ));
+    printf( "sizeof(SVLayoutTree) %i\n", (int)sizeof(SVLayoutTree) );
 }
 
 - (IBAction)zoomInView:sender { [mainTreeView zoomBy:-0.1f]; }
@@ -39,22 +43,12 @@
         FILE *dot;
         
         dot = fopen( "/Users/vince/Desktop/h.dot", "w" );
-        //fprintf( dot, "digraph test {\n" );
-        //[curentlyNavigated dumpToFile:dot];
-        //fprintf( dot, "}\n" );
-        //fclose( dot );
         
         SVLayoutTree  *created =
             [curentlyNavigated createLayoutTree];
 
         [mainTreeView setTreeMap:created];
         [created release];
-
-        //dot = fopen( "/Users/vince/Desktop/g.dot", "w" );
-        //fprintf( dot, "digraph test {\n" );
-        //[created dumpToFile:dot];
-        //fprintf( dot, "}\n" );
-        //fclose( dot );
     }
 }
 

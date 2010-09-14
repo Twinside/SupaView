@@ -70,8 +70,7 @@
 + (SVFileTree*)createFromPath:(NSURL*)filePath
 {
     SVFolderTree *rootFolder =
-        [[SVFolderTree alloc] initWithName:filePath
-                                 atPlace:nil];
+        [[SVFolderTree alloc] initWithFileName:filePath];
     return rootFolder;
 }
 
@@ -90,28 +89,24 @@
     return diskSize;
 }
 
-- (id)initWithName:(NSURL*)treeName
-           atPlace:(SVFolderTree*)parentFolder
+- (id)initWithFileName:(NSURL*)treeName
 {
     self = [super init];
 
     diskSize = 0;
     name = [treeName lastPathComponent];
-    parent = parentFolder;
     [name retain];
 
     return self;
 }
 
-- (id)initWithName:(NSURL*)treeName
+- (id)initWithFileName:(NSURL*)treeName
            andSize:(FileSize)size
-           atPlace:(SVFolderTree*)parentFolder
 {
     self = [super init];
 
     diskSize = size;
     name = [treeName lastPathComponent];
-    parent = parentFolder;
     [name retain];
 
     return self;
@@ -133,11 +128,9 @@
 @end
 
 @implementation SVFolderTree
-- (id)initWithName:(NSURL*)treeName
-           atPlace:(SVFolderTree*)parentFolder
+- (id)initWithFileName:(NSURL*)treeName
 {
-    self = [super initWithName:treeName
-                       atPlace:parentFolder];
+    self = [super initWithFileName:treeName];
 
     children = [[NSMutableArray alloc] init];
     [self populateChildListAtUrl:treeName];
@@ -180,8 +173,7 @@
         {
             //[dirEnumerator skipDescendants];
             SVFolderTree *folder =
-                [[SVFolderTree alloc] initWithName:theURL
-                                         atPlace:self];
+                [[SVFolderTree alloc] initWithFileName:theURL];
             [self addChild:folder];
             [folder release];
         }
@@ -202,13 +194,12 @@
                                 // */
                                 //
                 [theURL getResourceValue:&fileSize
-                                forKey:NSURLFileAllocatedSizeKey
-                                error:NULL];
+                                 forKey:NSURLFileAllocatedSizeKey
+                                 error:NULL];
                 
                 SVFileTree *sub = 
-                    [[SVFileTree alloc] initWithName:theURL
-                                            andSize:[fileSize longLongValue]
-                                            atPlace:self];
+                    [[SVFileTree alloc] initWithFileName:theURL
+                                                 andSize:[fileSize longLongValue]];
                 [self addChild:sub];
                 [sub release];
             }

@@ -14,18 +14,15 @@
 @class SVFolderTree;
 
 @interface SVFileTree : NSObject <SVGraphViz> {
-	NSString        *name;
-    SVFolderTree    *parent;
     FileSize        diskSize;
+	NSString        *name;
 }
 + (SVFileTree*)createFromPath:(NSURL*)filePath;
 
-- (id)initWithName:(NSURL*)treeName
-           andSize:(uint64_t)size
-           atPlace:(SVFolderTree*)parentFolder;
+- (id)initWithFileName:(NSURL*)treeName;
+- (id)initWithFileName:(NSURL*)treeName
+               andSize:(uint64_t)size;
 
-- (id)initWithName:(NSURL*)treeName
-           atPlace:(SVFolderTree*)parentFolder;
 
 - (void)dealloc;
 
@@ -38,8 +35,7 @@
     NSMutableArray     *children;
 }
 
-- (id)initWithName:(NSURL*)treeName
-           atPlace:(SVFolderTree*)parentFolder;
+- (id)initWithFileName:(NSURL*)treeName;
 - (void)dealloc;
 
 - (SVFolderTree*)addChild:(SVFileTree*)subTree;
