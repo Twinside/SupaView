@@ -8,6 +8,11 @@
 
 #import "SVSupaViewAppDelegate.h"
 
+@interface SupaViewAppDelegate (Private)
+- (void)commitTree;
+- (void)updateView;
+@end
+
 @implementation SupaViewAppDelegate
 
 @synthesize window;
@@ -19,6 +24,7 @@
     printf( "sizeof(SVFolderTree) %i\n", (int)sizeof( SVFolderTree ));
     printf( "sizeof(NSString) %i\n", (int)sizeof( NSString ));
     printf( "sizeof(SVLayoutTree) %i\n", (int)sizeof(SVLayoutTree) );
+    printf( "sizeof(NSMutableArray) %i\n", (int)sizeof(NSMutableArray) );
 }
 
 - (IBAction)zoomInView:sender { [mainTreeView zoomBy:-0.1f]; }
@@ -38,18 +44,41 @@
     if (result == NSFileHandlingPanelOKButton)
     {
         [curentlyNavigated release];
-        curentlyNavigated =
-            [SVFileTree createFromPath:[oPanel URL]];
-        FILE *dot;
+        curentlyNavigated = nil;
         
-        dot = fopen( "/Users/vince/Desktop/h.dot", "w" );
-        
-        SVLayoutTree  *created =
-            [curentlyNavigated createLayoutTree];
+        [scanProgress setIndeterminate:TRUE];
+        [scanProgress startAnimation:self];
+        // start parrallel crawling asynchronously
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            curentlyNavigated =
+                [SVFileTree createFromPath:[oPanel URL]];
 
-        [mainTreeView setTreeMap:created];
-        [created release];
+            dispatch_async( dispatch_get_main_queue()
+                          , ^{[self commitTree];} );
+        });
     }
 }
 
 @end
+
+@implementation SupaViewAppDelegate (Private)
+- (void)commitTree
+{
+    SVLayoutTree  *created =
+        [curentlyNavigated createLayoutTree];
+
+    [mainTreeView setTreeMap:created];
+    [created release];
+    [scanProgress stopAnimation:self];
+}
+
+- (void)updateView
+{
+    SVLayoutTree  *created =
+        [curentlyNavigated createLayoutTree];
+
+    [mainTreeView setTreeMap:created];
+    [created release];
+}
+@end
+
