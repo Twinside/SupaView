@@ -214,6 +214,14 @@
     [self setNeedsDisplay:YES];
 }
 
+- (void)mouseDragged:(NSEvent*)theEvent
+{
+    [self translateBy:-[theEvent deltaX]
+                andBy:[theEvent deltaY]];
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
+}
+
 - (void)scrollWheel:(NSEvent*)event
 {
     [self translateBy:-[event deltaX] 
