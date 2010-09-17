@@ -8,64 +8,6 @@
 
 #import "SVFileTree.h"
 
-/* seemingly fast function to list information
- * try to digg it sometime.
- */
-/*
-- (unsigned long long) fastFolderSizeAtFSRef:(FSRef*)theFileRef
-{
-    FSIterator    thisDirEnum = NULL;
-    unsigned long long totalSize = 0;
-
-    // Iterate the directory contents, recursing as necessary
-    if (FSOpenIterator(theFileRef, kFSIterateFlat, &thisDirEnum) == noErr)
-    {
-        const ItemCount kMaxEntriesPerFetch = 256;
-        ItemCount actualFetched;
-        FSRef    fetchedRefs[kMaxEntriesPerFetch];
-        FSCatalogInfo fetchedInfos[kMaxEntriesPerFetch];
-
-        // DCJ Note right now this is only fetching data fork sizes...
-        // if we decide to include
-        // resource forks we will have to add kFSCatInfoRsrcSizes
-
-        OSErr fsErr = FSGetCatalogInfoBulk(thisDirEnum, kMaxEntriesPerFetch, &actualFetched,
-                                        NULL
-                                        , kFSCatInfoDataSizes | kFSCatInfoNodeFlags, fetchedInfos,
-                                        fetchedRefs, NULL, NULL);
-        while ((fsErr == noErr) || (fsErr == errFSNoMoreItems))
-        {
-            ItemCount thisIndex;
-            for (thisIndex = 0; thisIndex < actualFetched; thisIndex++)
-            {
-                // Recurse if it's a folder
-                if (fetchedInfos[thisIndex].nodeFlags & kFSNodeIsDirectoryMask)
-                {
-                    totalSize += [self fastFolderSizeAtFSRef:&fetchedRefs[thisIndex]];
-                }
-                else
-                {
-                    // add the size for this item
-                    totalSize += fetchedInfos [thisIndex].dataLogicalSize;
-                }
-            }
-
-            if (fsErr == errFSNoMoreItems)
-            {
-                break;
-            }
-            else
-            {
-                // get more items
-                fsErr = FSGetCatalogInfoBulk(thisDirEnum, kMaxEntriesPerFetch, &actualFetched,
-                                        NULL, kFSCatInfoDataSizes | kFSCatInfoNodeFlags, fetchedInfos, fetchedRefs, NULL, NULL);
-            }
-        }
-        FSCloseIterator(thisDirEnum);
-    }
-    return totalSize;
-} // */
-
 struct SVScanningContext_t {
     SVFolderTree                **parentStack;
     int                         depth;
