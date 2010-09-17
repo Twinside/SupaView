@@ -20,11 +20,6 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// Insert code here to initialize your application 
     curentlyNavigated = nil;
-    printf( "sizeof(FileTree) %i\n", (int)sizeof(SVFileTree));
-    printf( "sizeof(SVFolderTree) %i\n", (int)sizeof( SVFolderTree ));
-    printf( "sizeof(NSString) %i\n", (int)sizeof( NSString ));
-    printf( "sizeof(SVLayoutTree) %i\n", (int)sizeof(SVLayoutTree) );
-    printf( "sizeof(NSMutableArray) %i\n", (int)sizeof(NSMutableArray) );
 }
 
 - (IBAction)zoomInView:sender { [mainTreeView zoomBy:-0.1f]; }
@@ -43,22 +38,30 @@
 
     if (result == NSFileHandlingPanelOKButton)
     {
+        scannedElementCount = 0;
+
         [curentlyNavigated release];
         curentlyNavigated = nil;
         
         [scanProgress setIndeterminate:TRUE];
         [scanProgress startAnimation:self];
         // start parrallel crawling asynchronously
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            curentlyNavigated =
-                [SVFileTree createFromPath:[oPanel URL]];
-
-            dispatch_async( dispatch_get_main_queue()
-                          , ^{[self commitTree];} );
-        });
+        curentlyNavigated =
+            [SVFileTree createFromPath:[oPanel URL]
+                        updateReceiver:self
+                           endNotifier:^{[self commitTree];}];
     }
 }
 
+- (void)notifyFileScanned
+{
+    scannedElementCount++;
+    if ( scannedElementCount % 1000 == 0 )
+    {
+        dispatch_async( dispatch_get_main_queue()
+                      , ^{ [self updateView]; } );
+    }
+}
 @end
 
 @implementation SupaViewAppDelegate (Private)

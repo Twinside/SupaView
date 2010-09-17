@@ -29,5 +29,6 @@
 - (void)magnifyWithEvent:(NSEvent*)event;
 - (void)scrollWheel:(NSEvent*)event;
 
+- (void) updateGeometrySize;
 - (void)setTreeMap:(SVLayoutTree*)tree;
 @end

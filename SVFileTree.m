@@ -66,11 +66,35 @@
     return totalSize;
 } // */
 
+struct SVScanningContext_t {
+    SVFolderTree                **parentStack;
+    int                         depth;
+    id<SVProgressNotifiable>    receiver;
+};
+
 @implementation SVFileTree
 + (SVFileTree*)createFromPath:(NSURL*)filePath
+               updateReceiver:(id<SVProgressNotifiable>)receiver
+                  endNotifier:(EndNotification)notifier
 {
-    SVFolderTree *rootFolder =
-        [[SVFolderTree alloc] initWithFileName:filePath];
+    SVFolderTree *rootFolder = [SVFolderTree alloc];
+
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        SVScanningContext       ctxt =
+            { .depth = 0
+            , .receiver = receiver
+            , .parentStack =
+                (SVFolderTree**)malloc( sizeof( SVFolderTree* ) * 256 )
+            };
+
+        [rootFolder initWithFileName:filePath
+                         withContext:&ctxt];
+
+        free( ctxt.parentStack );
+
+        dispatch_async( dispatch_get_main_queue()
+                      , ^{notifier();} );
+    });
     return rootFolder;
 }
 
@@ -129,11 +153,13 @@
 
 @implementation SVFolderTree
 - (id)initWithFileName:(NSURL*)treeName
+           withContext:(SVScanningContext*)ctxt
 {
     self = [super initWithFileName:treeName];
 
     children = [[NSMutableArray alloc] init];
-    [self populateChildListAtUrl:treeName];
+    [self populateChildListAtUrl:treeName
+                     withContext:ctxt];
     return self;
 }
 
@@ -144,6 +170,7 @@
 }
 
 - (void)createFileListAtUrl:(NSURL*)url
+                withContext:(SVScanningContext*)ctxt
 {
 	NSFileManager *localFileManager = [[NSFileManager alloc] init];
 	NSDirectoryEnumerator *dirEnumerator =
@@ -168,14 +195,35 @@
 						  forKey:NSURLIsRegularFileKey
 						   error:NULL];
         
+        NSNumber *isVolume;
+        [theURL getResourceValue:&isVolume
+						  forKey:NSURLIsVolumeKey
+						   error:NULL];
+
+		NSNumber *isLink;
+        [theURL getResourceValue:&isLink
+						  forKey:NSURLIsSymbolicLinkKey
+						   error:NULL];
+
+        // don't follow other drive
+        // or symbolic link
+        if ([isVolume boolValue] == YES || [isLink boolValue] == YES )
+            continue;
+
         // Ignore files under the _extras directory
-        if ([isDirectory boolValue]==YES)
+        if ([isDirectory boolValue] == YES)
         {
+            ctxt->parentStack[ctxt->depth++] = self;
+
             //[dirEnumerator skipDescendants];
             SVFolderTree *folder =
-                [[SVFolderTree alloc] initWithFileName:theURL];
+                [[SVFolderTree alloc] initWithFileName:theURL
+                                           withContext:ctxt];
+            ctxt->depth--;
+
             [self addChild:folder];
             [folder release];
+            [ctxt->receiver notifyFileScanned];
         }
         else // if ([isFile boolValue] == NO)
         {
@@ -201,19 +249,26 @@
                     [[SVFileTree alloc] initWithFileName:theURL
                                                  andSize:[fileSize longLongValue]];
                 [self addChild:sub];
+                FileSize subSize = [sub getDiskSize];
+                diskSize += subSize;
+
+                // propagate upward file size
+                SVFolderTree **parents = ctxt->parentStack;
+                for ( int i = ctxt->depth - 1; i >= 0; i-- )
+                    parents[i]->diskSize += subSize;
+
                 [sub release];
+                [ctxt->receiver notifyFileScanned];
             }
         }
     }
 }
 
 - (void) populateChildListAtUrl:(NSURL*)url
+                    withContext:(SVScanningContext*)ctxt
 {
-    [self createFileListAtUrl:url];
-    
-    diskSize = 0;
-    for ( SVFileTree *f in children )
-        diskSize += [f getDiskSize];
+    [self createFileListAtUrl:url
+                  withContext:ctxt];
     
     // we sort the file in the descending order.
     [children sortUsingComparator:(NSComparator)^(id obj1, id obj2){

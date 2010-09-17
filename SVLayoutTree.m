@@ -111,9 +111,11 @@ NSString * stringFromFileSize( FileSize theSize )
             [rightList addObject:elem];
     }
 
-    assert( [leftList count] > 0 );
-    assert( [leftList count] < subSize || [leftList count] == 1 );
-    assert( [rightList count] < subSize || [leftList count] == 1 );
+    // ignore this previous assertion to permit live
+    // drawing
+    if ( [leftList count] == 0
+        || [leftList count] == subSize)
+        return self;
     
     splitPos = (totalSize > 0) 
              ? (((float)leftSize) / ((float)totalSize))
@@ -272,8 +274,11 @@ NSString * stringFromFileSize( FileSize theSize )
     if ( left == nil && right == nil )
         return;
 
-    assert( splitPos > 0.0 );
-    assert( splitPos <= 1.0 );
+    // to allow live construction  of the tree with unfinished nodes,
+    // we just return here the values are bad. (the conditions
+    // were previously asserts).
+    if ( splitPos < 0.0 || splitPos > 1.0 )
+        return;
     
     NSRect subBounds = *bounds;
     [self cropSubRectangle:&subBounds withInfo:&info];

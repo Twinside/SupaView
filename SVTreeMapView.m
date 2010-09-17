@@ -24,6 +24,7 @@
 
     [drawingFont retain];
     [stringAttributs retain];
+    [self updateGeometrySize];
 
     return self;
 }

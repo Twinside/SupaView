@@ -10,7 +10,7 @@
 #import "SVFileTree.h"
 #import "SVTreeMapView.h"
 
-@interface SupaViewAppDelegate : NSObject <NSApplicationDelegate> {
+@interface SupaViewAppDelegate : NSObject <NSApplicationDelegate,SVProgressNotifiable> {
     SVFileTree *curentlyNavigated;
 
     NSWindow *window;
@@ -20,6 +20,8 @@
     IBOutlet NSToolbarItem *zoomOut;
 
     IBOutlet NSProgressIndicator *scanProgress;
+
+    FileSize                scannedElementCount;
 }
 
 

@@ -13,11 +13,20 @@
 @class SVLayoutTree;
 @class SVFolderTree;
 
+@protocol SVProgressNotifiable
+- (void)notifyFileScanned;
+@end
+
+typedef void (^EndNotification)();
+typedef struct SVScanningContext_t SVScanningContext;
+
 @interface SVFileTree : NSObject <SVGraphViz> {
     FileSize        diskSize;
 	NSString        *name;
 }
-+ (SVFileTree*)createFromPath:(NSURL*)filePath;
++ (SVFileTree*)createFromPath:(NSURL*)filePath
+               updateReceiver:(id<SVProgressNotifiable>)receiver
+                  endNotifier:(EndNotification)notifier;
 
 - (id)initWithFileName:(NSURL*)treeName;
 - (id)initWithFileName:(NSURL*)treeName
@@ -35,11 +44,15 @@
     NSMutableArray     *children;
 }
 
-- (id)initWithFileName:(NSURL*)treeName;
+- (id)initWithFileName:(NSURL*)treeName
+           withContext:(SVScanningContext*)ctxt;
+
 - (void)dealloc;
 
 - (SVFolderTree*)addChild:(SVFileTree*)subTree;
-- (void) populateChildListAtUrl:(NSURL*)url;
+- (void) populateChildListAtUrl:(NSURL*)url
+                    withContext:(SVScanningContext*)ctxt;
+
 - (SVLayoutTree*)createLayoutTree;
 @end
 
