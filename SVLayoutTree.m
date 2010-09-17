@@ -211,8 +211,9 @@ NSString * stringFromFileSize( FileSize theSize )
     // if it's a file, we can't allow multi-line rendering
     if ( left == nil && right == nil )
     {
-        textPos.origin.y += (blockSizes.textHeight 
-                            + blockSizes.textTopMargin - 1) * info->minimumHeight;
+        textPos.origin.y += (blockSizes.bottomMargin + 1) * info->minimumHeight;
+        textPos.size.height =
+            textPos.size.height / info->minimumHeight - blockSizes.textTopMargin;
     }
     else // we are in a folder
     {
@@ -222,7 +223,7 @@ NSString * stringFromFileSize( FileSize theSize )
         textPos.size.height = blockSizes.textHeight;
     }
 
-    if ( textPos.size.width > blockSizes.fileSizeMinDisplay )
+    if ( textPos.size.width > blockSizes.fileSizeMinDisplay * info->minimumWidth )
     {
         CGFloat sizeDisplaySize = blockSizes.fileSizeWidth * info->minimumWidth;
 
@@ -238,6 +239,7 @@ NSString * stringFromFileSize( FileSize theSize )
     }
     else
     {
+        textPos.size.width -= 2 * blockSizes.textLeftMargin * info->minimumWidth;
         [info->gatherer addText:[fileNode filename]
                          inRect:&textPos];
     }
