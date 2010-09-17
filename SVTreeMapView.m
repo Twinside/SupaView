@@ -121,25 +121,6 @@
     [self drawText];
     
     NSFrameRectWithWidth( virtualSize, 2.0 );
-
-    /*
-    size_t      rectCount = [geometry rectangleCount];
-
-    NSRectArray rectArray = [geometry getRectangles];
-    NSColor     **colorArray = [geometry getColors];
-    NSRectFillListWithColors ( rectArray, colorArray, rectCount );
-
-    [[NSColor grayColor] setFill];
-    for ( size_t i = 0; i < rectCount; i++ )
-        NSFrameRectWithWidth( rectArray[ i ], 1.0 );
-    
-    [[NSColor blackColor] setFill];
-    for ( SVStringDraw *str in [geometry getText] )
-    {
-        [[str text] drawInRect:*[str position]
-                withAttributes:stringAttributs];
-    }
-    // */
 }
 
 - (void) translateBy:(CGFloat)dx  andBy:(CGFloat)dy
