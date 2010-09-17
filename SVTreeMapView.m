@@ -163,25 +163,33 @@
 {
     NSRect frame = [self frame];
 
-    CGFloat deltaWidth = virtualSize.size.width * x;
-    CGFloat deltaHeight = virtualSize.size.height * y;
+    CGFloat midX = virtualSize.origin.x
+                 + virtualSize.size.width / 2.0;
+    CGFloat midY = virtualSize.origin.y
+                 + virtualSize.size.height / 2.0;
 
-    CGFloat nWidth = virtualSize.size.width + deltaWidth;
-    CGFloat nHeight = virtualSize.size.height + deltaHeight;
+    virtualSize.size.width = mini( virtualSize.size.width * (1 + x)
+                                 , frame.size.width );
+    virtualSize.size.height = mini( virtualSize.size.height * (1 + y)
+                                  , frame.size.height );
+    CGFloat halfWidth = virtualSize.size.width  / 2.0f;
+    CGFloat halfHeight = virtualSize.size.height / 2.0f;
 
-    virtualSize.origin.x =
-        maxi( virtualSize.origin.x - deltaWidth / 2.0, 0.0f );
-    virtualSize.origin.y =
-        maxi( virtualSize.origin.y - deltaHeight / 2.0, 0.0f );
-
-    CGFloat right = virtualSize.origin.x + virtualSize.size.width;
-    CGFloat top = virtualSize.origin.y + virtualSize.size.height;
-    
     CGFloat frameRight = frame.origin.x + frame.size.width;
     CGFloat frameTop = frame.origin.y + frame.size.height;
 
-    virtualSize.size.width = mini( frame.size.width, nWidth + mini( 0.0, frameRight - right ));
-    virtualSize.size.height = mini( frame.size.height, nHeight + mini( 0.0, frameTop - top ));
+    if ( midX - halfWidth < 0 )
+        midX = halfWidth;
+    else if ( midX + halfWidth > frameRight )
+        midX = frameRight - halfWidth;
+
+    if ( midY - halfHeight < 0 )
+        midY = halfHeight;
+    else if ( midY + halfHeight > frameTop )
+        midY = frameTop - halfHeight;
+
+    virtualSize.origin.x = midX - halfWidth;
+    virtualSize.origin.y = midY - halfHeight;
 }
 
 - (void) updateGeometrySize
