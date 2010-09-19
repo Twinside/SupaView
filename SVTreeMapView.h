@@ -16,6 +16,10 @@
     SVGeometryGatherer    *geometry;
     SVColorWheel          *wheel;
 
+    SVLayoutTree          *currentSelection;
+    NSURL                 *currentURL;
+    NSURL                 *selectedURL;
+
     NSFont                *drawingFont;
     NSDictionary          *stringAttributs;
 }
@@ -30,5 +34,6 @@
 - (void)scrollWheel:(NSEvent*)event;
 
 - (void) updateGeometrySize;
-- (void)setTreeMap:(SVLayoutTree*)tree;
+- (void)setTreeMap:(SVLayoutTree*)tree
+             atUrl:(NSURL*)url;
 @end

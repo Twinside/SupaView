@@ -50,6 +50,8 @@ static uint32_t    colorList[] =
         colorWheel[ i ] = colorFromHtmlVal( colorList[i] );
         [colorWheel[ i ] retain];
     }
+
+    selColor = colorFromHtmlVal( 0x00777777 );
     
     return self;
 }
@@ -72,6 +74,9 @@ static uint32_t    colorList[] =
     currentLevel--;
     assert( currentLevel >= 0 );
 }
+
+- (NSColor*)getSelectionColor
+    { return selColor; }
 
 - (NSColor*)getLevelColor
     { return colorWheel[ currentLevel % maxLevel ]; }

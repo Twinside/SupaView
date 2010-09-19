@@ -4,7 +4,16 @@
 #import "SVSizes.h"
 
 inline static
-BOOL intersect( NSRect *a, NSRect *b )
+BOOL insideRect( const NSRect *r, const NSPoint *p )
+{
+    return (r->origin.x <= p->x)
+        && (r->origin.y <= p->y)
+        && (r->origin.x + r->size.width >= p->x)
+        && (r->origin.y + r->size.height >= p->y);
+}
+
+inline static
+BOOL intersect( const NSRect *a, const NSRect *b )
 {
     CGFloat aRight = a->origin.x + a->size.width;
     CGFloat aTop = a->origin.y + a->size.height;
@@ -34,6 +43,59 @@ NSString * stringFromFileSize( FileSize theSize )
 
 	return([NSString stringWithFormat:@"%1.1f GB",floatSize]);
 }
+
+@interface SVLayoutTree (RectSplitting)
+- (void)splitRectangles:(NSRect*)leftSub and:(NSRect*)rightSub;
+- (void)cropSubRectangle:(NSRect*)r withInfo:(SVDrawInfo*)info;
+- (BOOL)textDrawableInBounds:(NSRect*)bounds andInfo:(SVDrawInfo*)info;
+@end
+
+@implementation SVLayoutTree (RectSplitting)
+- (void)cropSubRectangle:(NSRect*)r withInfo:(SVDrawInfo*)info {
+    CGFloat miniWidth = info->minimumWidth;
+    CGFloat miniHeight = info->minimumHeight;
+
+    if ( fileNode == nil )
+        return;
+
+    r->origin.x    += blockSizes.leftMargin * miniWidth;
+    r->size.width  -= (blockSizes.leftMargin 
+                        + blockSizes.rightMargin) * miniWidth;
+
+    r->origin.y    += blockSizes.bottomMargin * miniHeight;
+
+    if ( [self textDrawableInBounds:r andInfo:info] )
+        r->size.height -= (blockSizes.bottomMargin
+                            + blockSizes.topMargin
+                            + blockSizes.textHeight) * miniHeight;
+    else
+        r->size.height -= (blockSizes.bottomMargin
+                            + blockSizes.topMargin) * miniHeight;
+}
+
+- (BOOL)textDrawableInBounds:(NSRect*)bounds andInfo:(SVDrawInfo*)info {
+    return bounds->size.height >= blockSizes.textHeight * info->minimumHeight
+        && bounds->size.width >= blockSizes.textMinimumWidth * info->minimumHeight;
+}
+
+- (void)splitRectangles:(NSRect*)leftSub and:(NSRect*)rightSub {
+    NSRect subBounds = *leftSub;
+    switch (orientation)
+    {
+    case LayoutVertical:
+        leftSub->size.height *= splitPos; 
+        rightSub->size.height = subBounds.size.height - leftSub->size.height;
+        rightSub->origin.y += leftSub->size.height;
+        break;
+        
+    case LayoutHorizontal:
+        leftSub->size.width *= splitPos;
+        rightSub->size.width = subBounds.size.width - leftSub->size.width;
+        rightSub->origin.x += leftSub->size.width;
+        break;
+    }
+}
+@end
 
 @implementation SVLayoutTree
 - (LayoutKind)computeOrientationWithWidth:(CGFloat)w
@@ -161,40 +223,10 @@ NSString * stringFromFileSize( FileSize theSize )
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [left release];
     [right release];
     [super dealloc];
-}
-
-- (void)cropSubRectangle:(NSRect*)r withInfo:(SVDrawInfo*)info
-{
-    CGFloat miniWidth = info->minimumWidth;
-    CGFloat miniHeight = info->minimumHeight;
-
-    if ( fileNode == nil )
-        return;
-
-    r->origin.x    += blockSizes.leftMargin * miniWidth;
-    r->size.width  -= (blockSizes.leftMargin 
-                        + blockSizes.rightMargin) * miniWidth;
-
-    r->origin.y    += blockSizes.bottomMargin * miniHeight;
-
-    if ( [self textDrawableInBounds:r andInfo:info] )
-        r->size.height -= (blockSizes.bottomMargin
-                            + blockSizes.topMargin
-                            + blockSizes.textHeight) * miniHeight;
-    else
-        r->size.height -= (blockSizes.bottomMargin
-                            + blockSizes.topMargin) * miniHeight;
-}
-
-- (BOOL)textDrawableInBounds:(NSRect*)bounds andInfo:(SVDrawInfo*)info
-{
-    return bounds->size.height >= blockSizes.textHeight * info->minimumHeight
-        && bounds->size.width >= blockSizes.textMinimumWidth * info->minimumHeight;
 }
 
 - (void)drawNodeText:(SVDrawInfo*)info
@@ -245,11 +277,11 @@ NSString * stringFromFileSize( FileSize theSize )
     }
 }
 
-- (void)drawGeometry:(SVDrawInfo)info
+- (void)drawGeometry:(SVDrawInfo*)info
             inBounds:(NSRect*)bounds
 {
     // if we are currently not in the good zoom level.
-    if (!intersect(bounds, info.limit))
+    if (!intersect(bounds, info->limit))
         return;
         
     orientation =
@@ -258,17 +290,19 @@ NSString * stringFromFileSize( FileSize theSize )
     
     // if we are smaller than a pixel, don't
     // bother drawing ourselves
-    if (bounds->size.width < blockSizes.minBoxSizeWidth * info.minimumWidth
-     || bounds->size.height < blockSizes.minBoxSizeHeight * info.minimumHeight)
+    if (bounds->size.width < blockSizes.minBoxSizeWidth * info->minimumWidth
+     || bounds->size.height < blockSizes.minBoxSizeHeight * info->minimumHeight)
         return;
 
     // if we are linked to a folder or a file.
     if (fileNode != nil)
     {
-        [info.gatherer addRectangle:bounds
-                          withColor:[info.wheel getLevelColor]];
+        [info->gatherer addRectangle:bounds
+                          withColor:(info->selected == self)
+                                    ? [info->wheel getSelectionColor]
+                                    : [info->wheel getLevelColor]];
 
-        [self drawNodeText:&info inBounds:bounds];
+        [self drawNodeText:info inBounds:bounds];
     }
     
     // we have no child <=> we are a
@@ -283,38 +317,61 @@ NSString * stringFromFileSize( FileSize theSize )
         return;
     
     NSRect subBounds = *bounds;
-    [self cropSubRectangle:&subBounds withInfo:&info];
+    [self cropSubRectangle:&subBounds withInfo:info];
 
     NSRect leftSub = subBounds;
     NSRect rightSub = leftSub;
 
-    switch (orientation)
-    {
-    case LayoutVertical:
-        leftSub.size.height *= splitPos; 
-        rightSub.size.height = subBounds.size.height - leftSub.size.height;
-        rightSub.origin.y += leftSub.size.height;
-        break;
-        
-    case LayoutHorizontal:
-        leftSub.size.width *= splitPos;
-        rightSub.size.width = subBounds.size.width - leftSub.size.width;
-        rightSub.origin.x += leftSub.size.width;
-        break;
-    }
+    [self splitRectangles:&leftSub and:&rightSub];
         
     if (fileNode != nil)
-        [info.wheel pushColor];
+        [info->wheel pushColor];
     
     [left drawGeometry:info inBounds:&leftSub];
     [right drawGeometry:info inBounds:&rightSub];
     
     if (fileNode != nil)
-        [info.wheel popColor];
+        [info->wheel popColor];
 }
 
-- (void)dumpToFile:(FILE*)f
-{
+- (SVLayoutTree*)getSelected:(NSPoint)point
+                    withInfo:(SVDrawInfo*)info
+                   andBounds:(NSRect*)bounds {
+        
+    orientation =
+        [self computeOrientationWithWidth:bounds->size.width
+                                   height:bounds->size.height];
+    
+    if ( fileNode != nil )
+    {
+        NSURL *newName =
+            [info->selectedName URLByAppendingPathExtension:[fileNode filename]];
+        [info->selectedName release];
+        [newName retain];
+        info->selectedName = newName;
+        
+    }
+
+    if (left == nil && right == nil )
+        return self;
+
+    NSRect leftSub = *bounds;
+    [self cropSubRectangle:&leftSub withInfo:info];
+    NSRect rightSub = leftSub;
+
+    [self splitRectangles:&leftSub and:&rightSub];
+    
+    SVLayoutTree* ret = nil;
+
+    if ( left && insideRect( &leftSub, &point ) )
+        ret = [left getSelected:point withInfo:info andBounds:&leftSub];
+    else if ( right && insideRect( &rightSub, &point ) ) // must be in other rect
+        ret = [right getSelected:point withInfo:info andBounds:&rightSub];
+
+    return ( ret == nil ) ? self : ret;
+}
+
+- (void)dumpToFile:(FILE*)f {
     fprintf( f, "p%p -> p%p\n", self, left );
     fprintf( f, "p%p -> p%p\n", self, right );
 

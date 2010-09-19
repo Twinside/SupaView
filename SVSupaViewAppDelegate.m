@@ -20,6 +20,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// Insert code here to initialize your application 
     curentlyNavigated = nil;
+    scannedUrl = nil;
 }
 
 - (IBAction)zoomInView:sender { [mainTreeView zoomBy:-0.1f]; }
@@ -42,12 +43,17 @@
 
         [curentlyNavigated release];
         curentlyNavigated = nil;
+        [scannedUrl release];
+        scannedUrl = nil;
         
         [scanProgress setIndeterminate:TRUE];
         [scanProgress startAnimation:self];
+        scannedUrl = [oPanel URL];
+        [scannedUrl retain];
+
         // start parrallel crawling asynchronously
         curentlyNavigated =
-            [SVFileTree createFromPath:[oPanel URL]
+            [SVFileTree createFromPath:scannedUrl
                         updateReceiver:self
                            endNotifier:^{[self commitTree];}];
     }
@@ -70,7 +76,8 @@
     SVLayoutTree  *created =
         [curentlyNavigated createLayoutTree];
 
-    [mainTreeView setTreeMap:created];
+    [mainTreeView setTreeMap:created
+                       atUrl:scannedUrl];
     [created release];
     [scanProgress stopAnimation:self];
 }
@@ -80,7 +87,8 @@
     SVLayoutTree  *created =
         [curentlyNavigated createLayoutTree];
 
-    [mainTreeView setTreeMap:created];
+    [mainTreeView setTreeMap:created
+                       atUrl:scannedUrl];
     [created release];
 }
 @end

@@ -7,6 +7,7 @@
 
 @class SVFileTree;
 @class SVColorWheel;
+@class SVLayoutTree;
 
 typedef struct SVDrawInfo_t
 {
@@ -25,6 +26,9 @@ typedef struct SVDrawInfo_t
     CGFloat minimumHeight;
 
     SVColorWheel    *wheel;
+    SVLayoutTree    *selected;
+
+    NSURL           *selectedName;
 } SVDrawInfo;
 
 @interface SVLayoutTree : NSObject <SVGraphViz> {
@@ -45,11 +49,13 @@ typedef struct SVDrawInfo_t
 
 - (id)initWithFile:(SVFileTree*)file;
 - (int)countRectNeed;
-- (BOOL)textDrawableInBounds:(NSRect*)bounds
-                     andInfo:(SVDrawInfo*)info;
 - (void)dealloc;
 
-- (void)drawGeometry:(SVDrawInfo)info
+- (SVLayoutTree*)getSelected:(NSPoint)point
+                    withInfo:(SVDrawInfo*)info
+                   andBounds:(NSRect*)bounds;
+
+- (void)drawGeometry:(SVDrawInfo*)info
             inBounds:(NSRect*)bounds;
 @end
 

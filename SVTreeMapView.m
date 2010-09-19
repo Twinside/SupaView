@@ -25,6 +25,9 @@
     [drawingFont retain];
     [stringAttributs retain];
     [self updateGeometrySize];
+    currentURL = nil;
+    selectedURL = nil;
+    currentSelection = nil;
 
     return self;
 }
@@ -36,6 +39,8 @@
     [wheel release];
     [drawingFont release];
     [stringAttributs release];
+    [selectedURL release];
+    [currentURL release];
     [super dealloc];
 }
 
@@ -52,21 +57,29 @@
         , .minimumWidth = [geometry virtualPixelWidthSize]
         , .minimumHeight = [geometry virtualPixelHeightSize]
         , .wheel = wheel
+        , .selected = currentSelection
+        , .selectedName = currentURL
         };
 
-    [viewedTree drawGeometry:info
+    [viewedTree drawGeometry:&info
                     inBounds:&viewFrame];
 
     [geometry stopGathering];
 }
 
 - (void)setTreeMap:(SVLayoutTree*)tree
+             atUrl:(NSURL*)url
 {
     [viewedTree release];
-    
+    [selectedURL release];
+    [currentURL release];
+
     viewedTree = tree;
+    currentURL = url;
+    selectedURL = nil;
     
     [viewedTree retain];
+    [currentURL retain];
     
     if ( tree == nil )
         return;

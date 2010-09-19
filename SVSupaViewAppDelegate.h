@@ -12,6 +12,7 @@
 
 @interface SupaViewAppDelegate : NSObject <NSApplicationDelegate,SVProgressNotifiable> {
     SVFileTree *curentlyNavigated;
+    NSURL      *scannedUrl;
 
     NSWindow *window;
     IBOutlet SVTreeMapView *mainTreeView;
