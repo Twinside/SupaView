@@ -93,6 +93,29 @@ struct SVScanningContext_t {
 }
 @end
 
+@interface SVFolderTree (Private)
++ (NSArray*)scanObjectInfo;
+@end
+
+@implementation SVFolderTree (Private)
++ (NSArray*)scanObjectInfo
+{
+    static NSArray *scanObjectInfo = nil;
+
+    if ( scanObjectInfo == nil )
+    {
+        scanObjectInfo = 
+            [[NSArray arrayWithObjects: NSURLNameKey
+                                      , NSURLIsDirectoryKey
+                                      , NSURLIsVolumeKey
+                                      , NSURLIsSymbolicLinkKey
+                                      , NSURLFileAllocatedSizeKey
+                                      , nil] retain];
+    }
+    return scanObjectInfo;
+}
+@end
+
 @implementation SVFolderTree
 - (id)initWithFileName:(NSURL*)treeName
            withContext:(SVScanningContext*)ctxt
@@ -117,10 +140,7 @@ struct SVScanningContext_t {
 	NSFileManager *localFileManager = [[NSFileManager alloc] init];
 	NSDirectoryEnumerator *dirEnumerator =
         [localFileManager enumeratorAtURL:url
-               includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLNameKey,
-                                                                    NSURLIsDirectoryKey,
-                                                                    nil]
-											
+               includingPropertiesForKeys:[SVFolderTree scanObjectInfo]
                                   options:NSDirectoryEnumerationSkipsSubdirectoryDescendants
                              errorHandler:nil];
     
@@ -132,11 +152,6 @@ struct SVScanningContext_t {
 						  forKey:NSURLIsDirectoryKey
 						   error:NULL];
 
-        NSNumber *isFile;
-        [theURL getResourceValue:&isFile
-						  forKey:NSURLIsRegularFileKey
-						   error:NULL];
-        
         NSNumber *isVolume;
         [theURL getResourceValue:&isVolume
 						  forKey:NSURLIsVolumeKey
@@ -177,15 +192,10 @@ struct SVScanningContext_t {
             if ([isAlias boolValue] == NO)
             {
                 NSNumber *fileSize;
-                /*
+
                 [theURL getResourceValue:&fileSize
-                                forKey:NSURLFileSizeKey
-                                error:NULL];
-                                // */
-                                //
-                [theURL getResourceValue:&fileSize
-                                 forKey:NSURLFileAllocatedSizeKey
-                                 error:NULL];
+                                  forKey:NSURLFileAllocatedSizeKey
+                                   error:NULL];
                 
                 SVFileTree *sub = 
                     [[SVFileTree alloc] initWithFileName:theURL
@@ -204,11 +214,16 @@ struct SVScanningContext_t {
             }
         }
     }
+
+    [localFileManager release];
 }
 
 - (void) populateChildListAtUrl:(NSURL*)url
                     withContext:(SVScanningContext*)ctxt
 {
+    NSAutoreleasePool *pool =
+        [[NSAutoreleasePool alloc] init];
+
     [self createFileListAtUrl:url
                   withContext:ctxt];
     
@@ -224,6 +239,8 @@ struct SVScanningContext_t {
             return (NSComparisonResult)NSOrderedAscending;
         
         return (NSComparisonResult)NSOrderedSame; }];
+
+    [pool drain];
 }
 
 - (SVFolderTree*)addChild:(SVFileTree*)subTree
