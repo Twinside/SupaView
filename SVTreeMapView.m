@@ -28,6 +28,7 @@
     currentURL = nil;
     selectedURL = nil;
     currentSelection = nil;
+    isSelectionFile = FALSE;
 
     return self;
 }
@@ -250,6 +251,7 @@
         , .selected = nil
         , .selectedName = currentURL
         , .depth = 0
+        , .selectedIsFile = FALSE
         };
     
 
@@ -264,14 +266,23 @@
         currentSelection = found;
         [selectedURL release];
         selectedURL = info.selectedName;
+        isSelectionFile = info.selectedIsFile;
         [self updateGeometry];
         [self setNeedsDisplay:YES];
     }
     
     if ( [theEvent clickCount] >= 2 )
-        [[NSWorkspace sharedWorkspace]
-                    openFile:[selectedURL path]
-             withApplication:@"Finder"];
+    {
+        if ( isSelectionFile )
+            [[NSWorkspace sharedWorkspace]
+                        openFile:[[selectedURL URLByDeletingLastPathComponent] path]
+                withApplication:@"Finder"];
+        else
+            [[NSWorkspace sharedWorkspace]
+                        openFile:[selectedURL path]
+                withApplication:@"Finder"];
+        
+    }
 }
 
 - (void)scrollWheel:(NSEvent*)event

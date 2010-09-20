@@ -335,8 +335,8 @@ NSString * stringFromFileSize( FileSize theSize )
 }
 
 - (SVFileTree*)getSelected:(NSPoint)point
-                    withInfo:(SVDrawInfo*)info
-                   andBounds:(NSRect*)bounds {
+                  withInfo:(SVDrawInfo*)info
+                 andBounds:(NSRect*)bounds {
         
     orientation =
         [self computeOrientationWithWidth:bounds->size.width
@@ -357,7 +357,10 @@ NSString * stringFromFileSize( FileSize theSize )
     }
 
     if (left == nil && right == nil )
+    {
+        info->selectedIsFile = TRUE;
         return fileNode;
+    }
 
     NSRect leftSub = *bounds;
     [self cropSubRectangle:&leftSub withInfo:info];

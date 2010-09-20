@@ -19,6 +19,7 @@
     SVFileTree            *currentSelection;
     NSURL                 *currentURL;
     NSURL                 *selectedURL;
+    BOOL                  isSelectionFile;
 
     NSFont                *drawingFont;
     NSDictionary          *stringAttributs;

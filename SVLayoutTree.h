@@ -29,6 +29,7 @@ typedef struct SVDrawInfo_t
     SVFileTree      *selected;
 
     NSURL           *selectedName;
+    BOOL            selectedIsFile;
     int             depth;
 } SVDrawInfo;
 
