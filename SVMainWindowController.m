@@ -7,6 +7,8 @@
 //
 
 #import "SVMainWindowController.h"
+#import "SVSupaViewAppDelegate.h"
+#import "SVGlobalQueues.h"
 
 @interface SVMainWindowController (Private)
 - (void)commitTree;
@@ -31,6 +33,11 @@
 - (void)awakeFromNib
 {
     [mainTreeView setFileDropResponder:^(NSURL* url){[self openURL:url];} ];
+    NSURL   *toOpen = [[SVGlobalQueues sharedQueues] getFileFromQueue];
+
+    NSLog(@"%@\n", toOpen );
+    if ( toOpen != nil )
+        [self openURL:toOpen];
 }
 
 - (IBAction)openDocument: sender

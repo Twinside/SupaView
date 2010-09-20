@@ -7,8 +7,15 @@
 //
 
 #import "SVSupaViewAppDelegate.h"
+#import "SVGlobalQueues.h"
 
 @implementation SupaViewAppDelegate
+
+- (id)init
+{
+    self = [super init];
+    return self;
+}
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication
                     hasVisibleWindows:(BOOL)flag
@@ -19,7 +26,11 @@
 - (BOOL)application:(NSApplication *)theApplication
            openFile:(NSString *)filename
 {
-    return NO;
+    NSURL* waitingFile = [NSURL fileURLWithPath:filename];
+    [[SVGlobalQueues sharedQueues] addFileToQueue:waitingFile];
+    
+    [NSBundle loadNibNamed:@"MainMenu" owner:self];
+    return YES;
 }
 
 - (BOOL)applicationOpenUntitledFile:(NSApplication *)theApplication

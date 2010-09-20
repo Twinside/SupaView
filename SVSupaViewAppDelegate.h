@@ -11,6 +11,6 @@
 @interface SupaViewAppDelegate : NSObject <NSApplicationDelegate> {
 }
 
-
+- (id)init;
 @end
 

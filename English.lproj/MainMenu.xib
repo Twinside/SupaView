@@ -770,7 +770,7 @@
 			<object class="NSCustomObject" id="755631768">
 				<string key="NSClassName">NSFontManager</string>
 			</object>
-			<object class="NSCustomObject" id="63042918">
+			<object class="NSCustomObject" id="582100434">
 				<string key="NSClassName">SVMainWindowController</string>
 			</object>
 		</object>
@@ -800,14 +800,6 @@
 						<reference key="destination" ref="759406840"/>
 					</object>
 					<int key="connectionID">127</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">orderFrontStandardAboutPanel:</string>
-						<reference key="source" ref="1021"/>
-						<reference key="destination" ref="238522557"/>
-					</object>
-					<int key="connectionID">142</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -892,7 +884,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">openDocument:</string>
-						<reference key="source" ref="63042918"/>
+						<reference key="source" ref="582100434"/>
 						<reference key="destination" ref="722745758"/>
 					</object>
 					<int key="connectionID">572</int>
@@ -900,7 +892,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">zoomInView:</string>
-						<reference key="source" ref="63042918"/>
+						<reference key="source" ref="582100434"/>
 						<reference key="destination" ref="864071714"/>
 					</object>
 					<int key="connectionID">573</int>
@@ -908,7 +900,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">zoomIn</string>
-						<reference key="source" ref="63042918"/>
+						<reference key="source" ref="582100434"/>
 						<reference key="destination" ref="864071714"/>
 					</object>
 					<int key="connectionID">575</int>
@@ -916,7 +908,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">zoomOutView:</string>
-						<reference key="source" ref="63042918"/>
+						<reference key="source" ref="582100434"/>
 						<reference key="destination" ref="522574549"/>
 					</object>
 					<int key="connectionID">576</int>
@@ -924,7 +916,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">zoomOut</string>
-						<reference key="source" ref="63042918"/>
+						<reference key="source" ref="582100434"/>
 						<reference key="destination" ref="522574549"/>
 					</object>
 					<int key="connectionID">577</int>
@@ -932,7 +924,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">scanProgress</string>
-						<reference key="source" ref="63042918"/>
+						<reference key="source" ref="582100434"/>
 						<reference key="destination" ref="474368602"/>
 					</object>
 					<int key="connectionID">578</int>
@@ -940,7 +932,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">window</string>
-						<reference key="source" ref="63042918"/>
+						<reference key="source" ref="582100434"/>
 						<reference key="destination" ref="972006081"/>
 					</object>
 					<int key="connectionID">579</int>
@@ -948,7 +940,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">mainTreeView</string>
-						<reference key="source" ref="63042918"/>
+						<reference key="source" ref="582100434"/>
 						<reference key="destination" ref="888468070"/>
 					</object>
 					<int key="connectionID">580</int>
@@ -957,7 +949,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="972006081"/>
-						<reference key="destination" ref="63042918"/>
+						<reference key="destination" ref="582100434"/>
 					</object>
 					<int key="connectionID">581</int>
 				</object>
@@ -1397,7 +1389,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">571</int>
-						<reference key="object" ref="63042918"/>
+						<reference key="object" ref="582100434"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</object>
@@ -1516,7 +1508,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{802, 726}, {143, 23}}</string>
+					<string>{{949, 858}, {143, 23}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{522, 812}, {146, 23}}</string>
@@ -1552,30 +1544,30 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{688, 893}, {194, 73}}</string>
+					<string>{{878, 848}, {194, 73}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{489, 980}, {324, 20}}</string>
+					<string>{{686, 921}, {324, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
 					<string>{{6, 978}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{638, 923}, {231, 43}}</string>
+					<string>{{828, 878}, {231, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{784, 460}, {521, 451}}</string>
+					<string>{{572, 316}, {521, 451}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{784, 460}, {521, 451}}</string>
+					<string>{{572, 316}, {521, 451}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<string>{3.40282e+38, 3.40282e+38}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{802, 766}, {171, 23}}</string>
+					<string>{{949, 898}, {171, 23}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1598,7 +1590,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{501, 797}, {200, 183}}</string>
+					<string>{{698, 738}, {200, 183}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{23, 794}, {245, 183}}</string>
@@ -1607,7 +1599,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{648, 723}, {163, 63}}</string>
+					<string>{{786, 858}, {163, 63}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{145, 474}, {199, 203}}</string>
