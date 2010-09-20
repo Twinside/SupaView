@@ -225,6 +225,8 @@
 - (void)mouseDragged:(NSEvent*)theEvent
 {
     dragged = TRUE;
+    [[NSCursor closedHandCursor] push];
+    
     [self translateBy:-[theEvent deltaX]
                 andBy:[theEvent deltaY]];
     [self updateGeometry];
@@ -233,8 +235,13 @@
 
 - (void)mouseUp:(NSEvent*)theEvent
 {
+    
     if ( dragged )
+    {
+        [NSCursor pop];
+        [[NSCursor arrowCursor] push];
         return;
+    }
 
     NSPoint p = [theEvent locationInWindow];
     p = [self convertPoint:p fromView:nil];
