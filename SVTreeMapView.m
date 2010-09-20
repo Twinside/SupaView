@@ -261,13 +261,17 @@
     
     if ( found != currentSelection )
     {
-        NSLog(@"found: %@\n", info.selectedName );
         currentSelection = found;
         [selectedURL release];
         selectedURL = info.selectedName;
         [self updateGeometry];
         [self setNeedsDisplay:YES];
     }
+    
+    if ( [theEvent clickCount] >= 2 )
+        [[NSWorkspace sharedWorkspace]
+                    openFile:[selectedURL path]
+             withApplication:@"Finder"];
 }
 
 - (void)scrollWheel:(NSEvent*)event
