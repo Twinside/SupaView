@@ -298,7 +298,7 @@ NSString * stringFromFileSize( FileSize theSize )
     if (fileNode != nil)
     {
         [info->gatherer addRectangle:bounds
-                          withColor:(info->selected == self)
+                          withColor:(info->selected == fileNode)
                                     ? [info->wheel getSelectionColor]
                                     : [info->wheel getLevelColor]];
 
@@ -334,7 +334,7 @@ NSString * stringFromFileSize( FileSize theSize )
         [info->wheel popColor];
 }
 
-- (SVLayoutTree*)getSelected:(NSPoint)point
+- (SVFileTree*)getSelected:(NSPoint)point
                     withInfo:(SVDrawInfo*)info
                    andBounds:(NSRect*)bounds {
         
@@ -344,16 +344,20 @@ NSString * stringFromFileSize( FileSize theSize )
     
     if ( fileNode != nil )
     {
-        NSURL *newName =
-            [info->selectedName URLByAppendingPathExtension:[fileNode filename]];
-        [info->selectedName release];
-        [newName retain];
-        info->selectedName = newName;
-        
+        if ( info->depth != 0 )
+        {
+            NSURL *newName =
+                [info->selectedName URLByAppendingPathComponent:[fileNode filename]];
+
+            [info->selectedName release];
+
+            [newName retain];
+            info->selectedName = newName;
+        }
     }
 
     if (left == nil && right == nil )
-        return self;
+        return fileNode;
 
     NSRect leftSub = *bounds;
     [self cropSubRectangle:&leftSub withInfo:info];
@@ -361,14 +365,16 @@ NSString * stringFromFileSize( FileSize theSize )
 
     [self splitRectangles:&leftSub and:&rightSub];
     
-    SVLayoutTree* ret = nil;
+    SVFileTree* ret = nil;
 
+    info->depth++;
     if ( left && insideRect( &leftSub, &point ) )
         ret = [left getSelected:point withInfo:info andBounds:&leftSub];
     else if ( right && insideRect( &rightSub, &point ) ) // must be in other rect
         ret = [right getSelected:point withInfo:info andBounds:&rightSub];
 
-    return ( ret == nil ) ? self : ret;
+    info->depth--;
+    return ( ret == nil ) ? fileNode : ret;
 }
 
 - (void)dumpToFile:(FILE*)f {

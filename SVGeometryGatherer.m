@@ -124,12 +124,12 @@
 }
 
 - (CGFloat)virtualPixelWidthSize {
-    assert( collecting );   
+    // assert( collecting );   
     return 1.0f / widthScale;
 }
 
 - (CGFloat)virtualPixelHeightSize {
-    assert( collecting );   
+    // assert( collecting );   
     return 1.0f / heightScale;
 }
 

@@ -26,9 +26,10 @@ typedef struct SVDrawInfo_t
     CGFloat minimumHeight;
 
     SVColorWheel    *wheel;
-    SVLayoutTree    *selected;
+    SVFileTree      *selected;
 
     NSURL           *selectedName;
+    int             depth;
 } SVDrawInfo;
 
 @interface SVLayoutTree : NSObject <SVGraphViz> {
@@ -51,9 +52,9 @@ typedef struct SVDrawInfo_t
 - (int)countRectNeed;
 - (void)dealloc;
 
-- (SVLayoutTree*)getSelected:(NSPoint)point
-                    withInfo:(SVDrawInfo*)info
-                   andBounds:(NSRect*)bounds;
+- (SVFileTree*)getSelected:(NSPoint)point
+                  withInfo:(SVDrawInfo*)info
+                 andBounds:(NSRect*)bounds;
 
 - (void)drawGeometry:(SVDrawInfo*)info
             inBounds:(NSRect*)bounds;

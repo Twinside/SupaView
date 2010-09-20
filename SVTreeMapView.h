@@ -16,12 +16,13 @@
     SVGeometryGatherer    *geometry;
     SVColorWheel          *wheel;
 
-    SVLayoutTree          *currentSelection;
+    SVFileTree            *currentSelection;
     NSURL                 *currentURL;
     NSURL                 *selectedURL;
 
     NSFont                *drawingFont;
     NSDictionary          *stringAttributs;
+    BOOL                  dragged;
 }
 
 - (id)initWithFrame:(NSRect)frameRect;

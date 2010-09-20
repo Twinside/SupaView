@@ -49,7 +49,6 @@
     NSRect frame = [self frame];
     [geometry startGathering:&frame
                     inBounds:&virtualSize];
-    NSRect  viewFrame = [self frame];
     
     SVDrawInfo info =
         { .limit = &virtualSize
@@ -59,10 +58,11 @@
         , .wheel = wheel
         , .selected = currentSelection
         , .selectedName = currentURL
+        , .depth = 0
         };
 
     [viewedTree drawGeometry:&info
-                    inBounds:&viewFrame];
+                    inBounds:&frame];
 
     [geometry stopGathering];
 }
@@ -216,12 +216,56 @@
     [self setNeedsDisplay:YES];
 }
 
+- (void)mouseDown:(NSEvent*)theEvent
+{
+    dragged = FALSE;
+}
+
 - (void)mouseDragged:(NSEvent*)theEvent
 {
+    dragged = TRUE;
     [self translateBy:-[theEvent deltaX]
                 andBy:[theEvent deltaY]];
     [self updateGeometry];
     [self setNeedsDisplay:YES];
+}
+
+- (void)mouseUp:(NSEvent*)theEvent
+{
+    if ( dragged )
+        return;
+
+    NSPoint p = [theEvent locationInWindow];
+    p = [self convertPoint:p fromView:nil];
+
+    NSRect frame = [self frame];
+
+    SVDrawInfo info =
+        { .limit = &virtualSize
+        , .gatherer = nil
+        , .minimumWidth = [geometry virtualPixelWidthSize]
+        , .minimumHeight = [geometry virtualPixelHeightSize]
+        , .wheel = nil
+        , .selected = nil
+        , .selectedName = currentURL
+        , .depth = 0
+        };
+    
+    [info.selectedName retain];
+    SVFileTree *found =
+            [viewedTree getSelected:p
+                           withInfo:&info
+                          andBounds:&frame];
+    
+    if ( found != currentSelection )
+    {
+        NSLog(@"found: %@\n", info.selectedName );
+        currentSelection = found;
+        [selectedURL release];
+        selectedURL = info.selectedName;
+        [self updateGeometry];
+        [self setNeedsDisplay:YES];
+    }
 }
 
 - (void)scrollWheel:(NSEvent*)event

@@ -52,6 +52,7 @@ static uint32_t    colorList[] =
     }
 
     selColor = colorFromHtmlVal( 0x00777777 );
+    [selColor retain];
     
     return self;
 }
@@ -61,6 +62,7 @@ static uint32_t    colorList[] =
     for ( NSInteger i = 0; i < maxLevel; i++ )
         [colorWheel[ i ] release];
 
+    [selColor release];
     [super dealloc];
 }
 
