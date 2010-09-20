@@ -19,6 +19,7 @@
 
     IBOutlet NSToolbarItem *zoomIn;
     IBOutlet NSToolbarItem *zoomOut;
+    IBOutlet NSView        *scrollView;
 
     IBOutlet NSProgressIndicator *scanProgress;
 

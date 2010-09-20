@@ -269,6 +269,7 @@
         isSelectionFile = info.selectedIsFile;
         [self updateGeometry];
         [self setNeedsDisplay:YES];
+        [[self window] setRepresentedURL:selectedURL];
     }
     
     if ( [theEvent clickCount] >= 2 )
@@ -281,7 +282,6 @@
             [[NSWorkspace sharedWorkspace]
                         openFile:[selectedURL path]
                 withApplication:@"Finder"];
-        
     }
 }
 
