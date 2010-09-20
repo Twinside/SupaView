@@ -16,6 +16,12 @@
     return !flag;
 }
 
+- (BOOL)application:(NSApplication *)theApplication
+           openFile:(NSString *)filename
+{
+    return NO;
+}
+
 - (BOOL)applicationOpenUntitledFile:(NSApplication *)theApplication
 {
     [NSBundle loadNibNamed:@"MainMenu" owner:self];
