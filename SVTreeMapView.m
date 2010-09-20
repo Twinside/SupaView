@@ -33,7 +33,6 @@
 
     [self registerForDraggedTypes:
                 [NSArray arrayWithObjects: NSURLPboardType
-                                         , NSFilenamesPboardType
                                          , nil]];
     return self;
 }
@@ -45,10 +44,8 @@
     sourceDragMask = [sender draggingSourceOperationMask];
     pboard = [sender draggingPasteboard];
     
-    if ( [[pboard types] containsObject:NSFilenamesPboardType] 
-        || [[pboard types] containsObject:NSURLPboardType] ) {
+    if ( [[pboard types] containsObject:NSURLPboardType] )
         return NSDragOperationGeneric;
-    }
     
     return NSDragOperationNone;
 }
@@ -63,20 +60,10 @@
     if ([[pboard types] containsObject:NSURLPboardType] )
     {
         NSArray *files = [pboard propertyListForType:NSURLPboardType];
-        NSURL *newRoot = [files objectAtIndex:0];
-        
+        NSString *newRoot = [files objectAtIndex:0];
+
         if ( newRoot != nil && dragResponder != nil )
-            dragResponder( [newRoot copy] );
-    }
-    else if ( [[pboard types] containsObject:NSFilenamesPboardType] )
-    {
-        NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
-    
-        NSURL *newRoot = 
-            [[NSURL alloc] fileURLWithPath:[files objectAtIndex:0]];
-        
-        if (newRoot != nil && dragResponder != nil )
-            dragResponder( newRoot );
+            dragResponder( [NSURL URLWithString:newRoot] );
     }
     
     return YES;

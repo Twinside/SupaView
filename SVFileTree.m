@@ -137,7 +137,6 @@ struct SVScanningContext_t {
 - (void)createFileListAtUrl:(NSURL*)url
                 withContext:(SVScanningContext*)ctxt
 {
-    NSLog(@"SCAN : %@\n", url );
 	NSFileManager *localFileManager = [[NSFileManager alloc] init];
 	NSDirectoryEnumerator *dirEnumerator =
         [localFileManager enumeratorAtURL:url
