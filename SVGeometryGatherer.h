@@ -60,4 +60,5 @@
 - (CGFloat)virtualPixelWidthSize;
 - (CGFloat)virtualPixelHeightSize;
 
+- (void) unscalePoint:(NSPoint*)p;
 @end

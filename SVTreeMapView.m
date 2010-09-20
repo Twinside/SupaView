@@ -237,6 +237,7 @@
 
     NSPoint p = [theEvent locationInWindow];
     p = [self convertPoint:p fromView:nil];
+    [geometry unscalePoint:&p];
 
     NSRect frame = [self frame];
 
@@ -251,6 +252,7 @@
         , .depth = 0
         };
     
+
     [info.selectedName retain];
     SVFileTree *found =
             [viewedTree getSelected:p

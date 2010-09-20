@@ -58,6 +58,11 @@
     p->y = p->y * heightScale + translateY;
 }
 
+- (void) unscalePoint:(NSPoint*)p {
+    p->x = (p->x - translateX) / widthScale;
+    p->y = (p->y - translateY) / heightScale;
+}
+
 - (void)scaleRectangle:(NSRect*)r {
     r->size.width *= widthScale;
     r->size.height *= heightScale;
