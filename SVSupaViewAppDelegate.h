@@ -7,31 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SVFileTree.h"
-#import "SVTreeMapView.h"
 
-@interface SupaViewAppDelegate : NSObject <NSApplicationDelegate,SVProgressNotifiable> {
-    SVFileTree *curentlyNavigated;
-    NSURL      *scannedUrl;
-
-    NSWindow *window;
-    IBOutlet SVTreeMapView *mainTreeView;
-
-    IBOutlet NSToolbarItem *zoomIn;
-    IBOutlet NSToolbarItem *zoomOut;
-    IBOutlet NSView        *scrollView;
-
-    IBOutlet NSProgressIndicator *scanProgress;
-
-    FileSize                scannedElementCount;
+@interface SupaViewAppDelegate : NSObject <NSApplicationDelegate> {
 }
 
 
-- (IBAction)openDocument:(id)sender;
-
-- (IBAction)zoomInView:(id)sender;
-- (IBAction)zoomOutView:(id)sender;
-
-@property (assign) IBOutlet NSWindow *window;
-
 @end
+
