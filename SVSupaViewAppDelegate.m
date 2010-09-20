@@ -11,6 +11,7 @@
 @interface SupaViewAppDelegate (Private)
 - (void)commitTree;
 - (void)updateView;
+- (void)openURL:(NSURL*)url;
 @end
 
 @implementation SupaViewAppDelegate
@@ -21,6 +22,7 @@
 	// Insert code here to initialize your application 
     curentlyNavigated = nil;
     scannedUrl = nil;
+    [mainTreeView setFileDropResponder:^(NSURL* url){[self openURL:url];} ];
 }
 
 - (IBAction)zoomInView:sender { [mainTreeView zoomBy:-0.1f]; }
@@ -38,25 +40,7 @@
     result = [oPanel runModal];
 
     if (result == NSFileHandlingPanelOKButton)
-    {
-        scannedElementCount = 0;
-
-        [curentlyNavigated release];
-        curentlyNavigated = nil;
-        [scannedUrl release];
-        scannedUrl = nil;
-        
-        [scanProgress setIndeterminate:TRUE];
-        [scanProgress startAnimation:self];
-        scannedUrl = [oPanel URL];
-        [scannedUrl retain];
-
-        // start parrallel crawling asynchronously
-        curentlyNavigated =
-            [SVFileTree createFromPath:scannedUrl
-                        updateReceiver:self
-                           endNotifier:^{[self commitTree];}];
-    }
+        [self openURL:[oPanel URL]];
 }
 
 - (void)notifyFileScanned
@@ -71,6 +55,27 @@
 @end
 
 @implementation SupaViewAppDelegate (Private)
+- (void)openURL:(NSURL*)url
+{
+    scannedElementCount = 0;
+
+    [curentlyNavigated release];
+    curentlyNavigated = nil;
+    [scannedUrl release];
+    scannedUrl = nil;
+    
+    [scanProgress setIndeterminate:TRUE];
+    [scanProgress startAnimation:self];
+    scannedUrl = url;
+    [scannedUrl retain];
+
+    // start parrallel crawling asynchronously
+    curentlyNavigated =
+        [SVFileTree createFromPath:scannedUrl
+                    updateReceiver:self
+                        endNotifier:^{[self commitTree];}];
+}
+
 - (void)commitTree
 {
     SVLayoutTree  *created =

@@ -10,6 +10,8 @@
 #import "SVLayoutTree.h"
 #import "SVGeometryGatherer.h"
 
+typedef void (^FileDropResponder)( NSURL* fileUrl );
+
 @interface SVTreeMapView : NSView {
     NSRect                virtualSize;
     SVLayoutTree          *viewedTree;
@@ -24,6 +26,8 @@
     NSFont                *drawingFont;
     NSDictionary          *stringAttributs;
     BOOL                  dragged;
+    
+    FileDropResponder     dragResponder;
 }
 
 - (id)initWithFrame:(NSRect)frameRect;
@@ -35,7 +39,10 @@
 - (void)magnifyWithEvent:(NSEvent*)event;
 - (void)scrollWheel:(NSEvent*)event;
 
-- (void) updateGeometrySize;
+- (void)updateGeometrySize;
 - (void)setTreeMap:(SVLayoutTree*)tree
              atUrl:(NSURL*)url;
+
+- (void)setFileDropResponder:(FileDropResponder)r;
+
 @end

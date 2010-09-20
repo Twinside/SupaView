@@ -29,10 +29,58 @@
     selectedURL = nil;
     currentSelection = nil;
     isSelectionFile = FALSE;
+    dragResponder = nil;
 
+    [self registerForDraggedTypes:
+                [NSArray arrayWithObjects: NSURLPboardType
+                                         , NSFilenamesPboardType
+                                         , nil]];
     return self;
 }
 
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {    
+    NSPasteboard *pboard;    
+    NSDragOperation sourceDragMask;
+    
+    sourceDragMask = [sender draggingSourceOperationMask];
+    pboard = [sender draggingPasteboard];
+    
+    if ( [[pboard types] containsObject:NSFilenamesPboardType] 
+        || [[pboard types] containsObject:NSURLPboardType] ) {
+        return NSDragOperationGeneric;
+    }
+    
+    return NSDragOperationNone;
+}
+
+- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
+    NSPasteboard *pboard;
+    NSDragOperation sourceDragMask;
+    
+    sourceDragMask = [sender draggingSourceOperationMask];
+    pboard = [sender draggingPasteboard];
+    
+    if ([[pboard types] containsObject:NSURLPboardType] )
+    {
+        NSArray *files = [pboard propertyListForType:NSURLPboardType];
+        NSURL *newRoot = [files objectAtIndex:0];
+        
+        if ( newRoot != nil && dragResponder != nil )
+            dragResponder( [newRoot copy] );
+    }
+    else if ( [[pboard types] containsObject:NSFilenamesPboardType] )
+    {
+        NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
+    
+        NSURL *newRoot = 
+            [[NSURL alloc] fileURLWithPath:[files objectAtIndex:0]];
+        
+        if (newRoot != nil && dragResponder != nil )
+            dragResponder( newRoot );
+    }
+    
+    return YES;
+}
 - (void)dealloc
 {
     [viewedTree release];
@@ -315,5 +363,9 @@
     [self setNeedsDisplay:YES];
 }
 
+- (void)setFileDropResponder:(FileDropResponder)r
+{
+    dragResponder = Block_copy(r);
+}
 @end
 
