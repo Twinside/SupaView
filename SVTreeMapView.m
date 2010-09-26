@@ -160,9 +160,56 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    if (geometry == nil)
+    if (viewedTree == nil)
     {
         [super drawRect:dirtyRect];
+        NSFont *msgFont =
+            [NSFont fontWithName:@"Helvetica" 
+                            size:20];
+        NSDictionary *strDrawAttr = 
+            [NSDictionary dictionaryWithObject:msgFont
+                                        forKey:NSFontAttributeName];
+
+        CGFloat boxSize = 50.0f;
+        CGFloat strokeSize = 5.0f;
+        CGFloat boxMargin = 20.0f;
+
+        NSRect bounds = [self bounds];
+        NSRect rectWhere =
+            { .origin = { .x = bounds.origin.x
+                             + (bounds.size.width - boxSize - boxMargin) / 2
+                        , .y = bounds.origin.y
+                             + (bounds.size.height - boxSize - boxMargin) / 2 }
+            , .size = { .width = boxSize + boxMargin
+                      , .height = boxSize + boxMargin } };
+
+        NSBezierPath *roundRect = 
+            [NSBezierPath bezierPathWithRoundedRect:rectWhere
+                                            xRadius:10.0f
+                                            yRadius:10.0f];
+
+        CGFloat lineDash[] = { 7.0f, 5.0f };
+        
+        [roundRect setLineWidth:strokeSize];
+        [roundRect setLineDash:lineDash
+                         count:sizeof(lineDash) / sizeof(CGFloat)
+                         phase:0.0];
+        [roundRect stroke];
+
+        CGFloat textBoxWidth = 240;
+        CGFloat textBoxHeight = 25;
+        NSRect where = { .origin = { .x = bounds.origin.x
+                                        + (bounds.size.width - textBoxWidth) / 2
+                                   , .y = rectWhere.origin.y
+                                        - boxSize / 2
+                                        - textBoxHeight }
+                       , .size = { .width = textBoxWidth
+                                 , .height = textBoxHeight} };
+
+        [@"Drag volume or folder here"
+                    drawInRect:where
+                withAttributes:strDrawAttr];
+
         return;
     }
     [self drawBackRect];
