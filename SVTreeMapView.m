@@ -1,4 +1,4 @@
-//
+
 //  TreeMapView.m
 //  SupaView
 //
@@ -10,6 +10,14 @@
 #import "SVColorWheel.h"
 #import "SVUtils.h"
 #import "SVSizes.h"
+
+@interface SVTreeMapView (Private)
+- (NSRect)realFrame;
+@end
+
+@implementation SVTreeMapView (Private)
+- (NSRect)realFrame { return [super frame]; }
+@end
 
 @implementation SVTreeMapView
 - (id)initWithFrame:(NSRect)frameRect
@@ -82,7 +90,7 @@
 
 - (void)updateGeometry
 {
-    NSRect frame = [self frame];
+    NSRect frame = [self bounds];
     [geometry startGathering:&frame
                     inBounds:&virtualSize];
     
@@ -165,6 +173,15 @@
         [super drawRect:dirtyRect];
         return;
     }
+
+    NSRect bounds = [self bounds];
+
+    printf( "x:%f y:%f width:%f height:%f\n"
+          , bounds.origin.x
+          , bounds.origin.y
+          , bounds.size.width
+          , bounds.size.height );
+
     [self drawBackRect];
     [self drawFrameRect];
     [self drawText];
@@ -174,7 +191,7 @@
 
 - (void) translateBy:(CGFloat)dx  andBy:(CGFloat)dy
 {
-    NSRect frame = [self frame];
+    NSRect frame = [self realFrame];
 
     CGFloat nx = maxi( virtualSize.origin.x + dx, 0.0 );
     CGFloat ny = maxi( virtualSize.origin.y + dy, 0.0 );
@@ -191,7 +208,7 @@
 
 - (void)stretchBy:(CGFloat)x andBy:(CGFloat)y
 {
-    NSRect frame = [self frame];
+    NSRect frame = [self realFrame];
 
     CGFloat midX = virtualSize.origin.x
                  + virtualSize.size.width / 2.0;
@@ -220,11 +237,13 @@
 
     virtualSize.origin.x = midX - halfWidth;
     virtualSize.origin.y = midY - halfHeight;
+
+    [self setFrameSize:];
 }
 
 - (void) updateGeometrySize
 {
-    NSRect frame = [self frame];
+    NSRect frame = [self realFrame];
     [geometry release];
 
     int maxPerLine = (int)(frame.size.width / blockSizes.minBoxSizeWidth + 1);
@@ -239,7 +258,7 @@
 - (void) setFrameSize:(NSSize)newSize
 
 {
-    NSRect oldFrame = [self frame];
+    NSRect oldFrame = [self realFrame];
     
     [super setFrameSize:newSize];
 
@@ -282,7 +301,7 @@
     p = [self convertPoint:p fromView:nil];
     [geometry unscalePoint:&p];
 
-    NSRect frame = [self frame];
+    NSRect frame = [self realFrame];
 
     SVDrawInfo info =
         { .limit = &virtualSize

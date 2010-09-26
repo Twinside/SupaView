@@ -28,6 +28,8 @@ typedef void (^FileDropResponder)( NSURL* fileUrl );
     BOOL                  dragged;
     
     FileDropResponder     dragResponder;
+
+    IBOutlet NSScrollView *scrollView;
 }
 
 - (id)initWithFrame:(NSRect)frameRect;
