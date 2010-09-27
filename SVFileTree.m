@@ -7,6 +7,20 @@
 //
 
 #import "SVFileTree.h"
+#import "SVVolumeTree.h"
+
+NSComparator SvFileTreeComparer = (NSComparator)^(id obj1, id obj2){
+        FileSize lSize = [obj1 getDiskSize];
+        FileSize rSize = [obj2 getDiskSize];
+        
+        if (lSize < rSize)
+            return (NSComparisonResult)NSOrderedDescending;
+        
+        if (lSize > rSize)
+            return (NSComparisonResult)NSOrderedAscending;
+        
+        return (NSComparisonResult)NSOrderedSame;
+};
 
 struct SVScanningContext_t {
     SVFolderTree                **parentStack;
@@ -14,12 +28,34 @@ struct SVScanningContext_t {
     id<SVProgressNotifiable>    receiver;
 };
 
+BOOL isVolume( NSURL*   pathURL )
+{
+    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+    NSArray     *volumes = [workspace mountedLocalVolumePaths];
+    NSString    *pathStr = [pathURL path];
+
+    for (NSString* path in volumes)
+    {
+        if ( [pathStr isEqualToString:path] )
+            return TRUE;
+    }
+
+    return [pathStr isEqualToString:@"/"];
+}
+
 @implementation SVFileTree
 + (SVFileTree*)createFromPath:(NSURL*)filePath
                updateReceiver:(id<SVProgressNotifiable>)receiver
                   endNotifier:(EndNotification)notifier
 {
-    SVFolderTree *rootFolder = [SVFolderTree alloc];
+    SVFolderTree *rootFolder;
+
+    // alloc before launching the thread to be able
+    // to return the object
+    if ( isVolume( filePath ) )
+        rootFolder = [SVVolume alloc];
+    else
+        rootFolder = [SVFolderTree alloc];
 
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         SVScanningContext       ctxt =
@@ -29,8 +65,8 @@ struct SVScanningContext_t {
                 (SVFolderTree**)malloc( sizeof( SVFolderTree* ) * 256 )
             };
 
-        [rootFolder initWithFileName:filePath
-                         withContext:&ctxt];
+        [rootFolder initWithFilePath:filePath
+                          andContext:&ctxt];
 
         free( ctxt.parentStack );
 
@@ -55,7 +91,7 @@ struct SVScanningContext_t {
     return diskSize;
 }
 
-- (id)initWithFileName:(NSURL*)treeName
+- (id)initWithFilePath:(NSURL*)treeName
 {
     self = [super init];
 
@@ -66,8 +102,8 @@ struct SVScanningContext_t {
     return self;
 }
 
-- (id)initWithFileName:(NSURL*)treeName
-           andSize:(FileSize)size
+- (id)initWithFilePath:(NSURL*)treeName
+               andSize:(FileSize)size
 {
     self = [super init];
 
@@ -75,6 +111,16 @@ struct SVScanningContext_t {
     name = [treeName lastPathComponent];
     [name retain];
 
+    return self;
+}
+
+- (id)initWithFileName:(NSString*)filename
+               andSize:(FileSize)size
+{
+    self = [super init];
+    diskSize = size;
+    name = filename;
+    [name retain];
     return self;
 }
 
@@ -117,10 +163,10 @@ struct SVScanningContext_t {
 @end
 
 @implementation SVFolderTree
-- (id)initWithFileName:(NSURL*)treeName
-           withContext:(SVScanningContext*)ctxt
+- (id)initWithFilePath:(NSURL*)treeName
+            andContext:(SVScanningContext*)ctxt
 {
-    self = [super initWithFileName:treeName];
+    self = [super initWithFilePath:treeName];
 
     children = [[NSMutableArray alloc] init];
     [self populateChildListAtUrl:treeName
@@ -174,8 +220,8 @@ struct SVScanningContext_t {
 
             //[dirEnumerator skipDescendants];
             SVFolderTree *folder =
-                [[SVFolderTree alloc] initWithFileName:theURL
-                                           withContext:ctxt];
+                [[SVFolderTree alloc] initWithFilePath:theURL
+                                            andContext:ctxt];
             ctxt->depth--;
 
             [self addChild:folder];
@@ -198,7 +244,7 @@ struct SVScanningContext_t {
                                    error:NULL];
                 
                 SVFileTree *sub = 
-                    [[SVFileTree alloc] initWithFileName:theURL
+                    [[SVFileTree alloc] initWithFilePath:theURL
                                                  andSize:[fileSize longLongValue]];
                 [self addChild:sub];
                 FileSize subSize = [sub getDiskSize];
@@ -228,17 +274,7 @@ struct SVScanningContext_t {
                   withContext:ctxt];
     
     // we sort the file in the descending order.
-    [children sortUsingComparator:(NSComparator)^(id obj1, id obj2){
-        FileSize lSize = [obj1 getDiskSize];
-        FileSize rSize = [obj2 getDiskSize];
-        
-        if (lSize < rSize)
-            return (NSComparisonResult)NSOrderedDescending;
-        
-        if (lSize > rSize)
-            return (NSComparisonResult)NSOrderedAscending;
-        
-        return (NSComparisonResult)NSOrderedSame; }];
+    [children sortUsingComparator:SvFileTreeComparer];
 
     [pool drain];
 }

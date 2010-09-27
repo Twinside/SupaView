@@ -20,6 +20,7 @@
 		6167F85B122361E500404881 /* SVTreeMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6167F85A122361E500404881 /* SVTreeMapView.m */; };
 		6167F86E122366B800404881 /* SVGeometryGatherer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6167F86D122366B800404881 /* SVGeometryGatherer.m */; };
 		6172869D1225FE6100607826 /* SVColorWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6172869C1225FE6100607826 /* SVColorWheel.m */; };
+		61C87DF5124FC38800F1B518 /* SVVolumeTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87DF4124FC38800F1B518 /* SVVolumeTree.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -56,6 +57,8 @@
 		6167F8B5122374C200404881 /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
 		6172869B1225FE6100607826 /* SVColorWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVColorWheel.h; sourceTree = "<group>"; };
 		6172869C1225FE6100607826 /* SVColorWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVColorWheel.m; sourceTree = "<group>"; };
+		61C87DF3124FC38800F1B518 /* SVVolumeTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVVolumeTree.h; sourceTree = "<group>"; };
+		61C87DF4124FC38800F1B518 /* SVVolumeTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVVolumeTree.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SupaView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SupaView-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SupaView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupaView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -75,6 +78,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				61C87DF3124FC38800F1B518 /* SVVolumeTree.h */,
+				61C87DF4124FC38800F1B518 /* SVVolumeTree.m */,
 				6167F859122361E500404881 /* SVTreeMapView.h */,
 				6167F85A122361E500404881 /* SVTreeMapView.m */,
 				610A9DB312207CDF005D09C9 /* SVLayoutTree.h */,
@@ -235,6 +240,7 @@
 				613488DB12284A39009EDE77 /* SVSizes.m in Sources */,
 				6104C15B12479EA900B46A87 /* SVMainWindowController.m in Sources */,
 				6104C2441247CB0700B46A87 /* SVGlobalQueues.m in Sources */,
+				61C87DF5124FC38800F1B518 /* SVVolumeTree.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

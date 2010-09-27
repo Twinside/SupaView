@@ -112,6 +112,7 @@ NSString * stringFromFileSize( FileSize theSize )
     right = nil;
     splitPos = -50.0f;
     fileNode = file;
+    [fileNode retain];
     
     return self;
 }
@@ -224,6 +225,7 @@ NSString * stringFromFileSize( FileSize theSize )
 }
 
 - (void)dealloc {
+    [fileNode release];
     [left release];
     [right release];
     [super dealloc];

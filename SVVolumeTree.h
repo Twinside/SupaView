@@ -4,10 +4,13 @@
 
 
 @interface SVVolume : SVFileTree {
-    // put instances variable here
-    FileSize    emptySpace;
+    SVFolderTree    *child;
+    FileSize        emptySpace;
+    FileSize        volumeSize;
 }
 
-- (id)initWithFileName:(NSURL*)treeName;
+- (id)initWithFilePath:(NSURL*)treeName
+            andContext:(SVScanningContext*)ctxt;
+
 - (SVLayoutTree*)createLayoutTree;
 @end

@@ -28,10 +28,12 @@ typedef struct SVScanningContext_t SVScanningContext;
                updateReceiver:(id<SVProgressNotifiable>)receiver
                   endNotifier:(EndNotification)notifier;
 
-- (id)initWithFileName:(NSURL*)treeName;
-- (id)initWithFileName:(NSURL*)treeName
-               andSize:(uint64_t)size;
+- (id)initWithFilePath:(NSURL*)treeName;
+- (id)initWithFilePath:(NSURL*)treeName
+               andSize:(FileSize)size;
 
+- (id)initWithFileName:(NSString*)filename
+               andSize:(FileSize)size;
 
 - (void)dealloc;
 
@@ -44,8 +46,8 @@ typedef struct SVScanningContext_t SVScanningContext;
     NSMutableArray     *children;
 }
 
-- (id)initWithFileName:(NSURL*)treeName
-           withContext:(SVScanningContext*)ctxt;
+- (id)initWithFilePath:(NSURL*)treeName
+            andContext:(SVScanningContext*)ctxt;
 
 - (void)dealloc;
 
@@ -55,4 +57,6 @@ typedef struct SVScanningContext_t SVScanningContext;
 
 - (SVLayoutTree*)createLayoutTree;
 @end
+
+NSComparator SvFileTreeComparer;
 
