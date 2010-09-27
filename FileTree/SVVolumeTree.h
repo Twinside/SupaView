@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #import "SVLayoutTree.h"
-#import "SVGraphViz.h"
+#import "../SVGraphViz.h"
 
 @interface SVDynamicFileTree : SVFileTree {
 }

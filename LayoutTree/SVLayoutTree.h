@@ -2,7 +2,7 @@
 #import <Cocoa/Cocoa.h>
 #import "SVFileTree.h"
 #import "SVGeometryGatherer.h"
-#import "SVGraphViz.h"
+#import "../SVGraphViz.h"
 
 
 @class SVFileTree;
