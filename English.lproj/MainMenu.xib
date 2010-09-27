@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="371"/>
-			<integer value="296"/>
+			<integer value="533"/>
+			<integer value="29"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -253,7 +253,7 @@
 							<string key="NSTitle">View</string>
 							<object class="NSMutableArray" key="NSMenuItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="NSMenuItem" id="272281627">
+								<object class="NSMenuItem" id="265783721">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Zoom in</string>
 									<string key="NSKeyEquiv"/>
@@ -261,7 +261,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="358213914">
+								<object class="NSMenuItem" id="983958514">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Zoom out</string>
 									<string key="NSKeyEquiv"/>
@@ -269,7 +269,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="764840811">
+								<object class="NSMenuItem" id="290134368">
 									<reference key="NSMenu" ref="466310130"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<bool key="NSIsSeparator">YES</bool>
@@ -279,7 +279,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="943987741">
+								<object class="NSMenuItem" id="197232946">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Narrow view</string>
 									<string key="NSKeyEquiv"/>
@@ -287,7 +287,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="901029614">
+								<object class="NSMenuItem" id="701174299">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Go up</string>
 									<string key="NSKeyEquiv"/>
@@ -295,7 +295,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="836872642">
+								<object class="NSMenuItem" id="723233165">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Reveal in finder</string>
 									<string key="NSKeyEquiv"/>
@@ -303,7 +303,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="332242669">
+								<object class="NSMenuItem" id="202526780">
 									<reference key="NSMenu" ref="466310130"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<bool key="NSIsSeparator">YES</bool>
@@ -452,7 +452,7 @@
 								</object>
 								<string key="NSToolbarItemLabel">Zoom in</string>
 								<string key="NSToolbarItemPaletteLabel">Zoomin</string>
-								<string key="NSToolbarItemToolTip"/>
+								<string key="NSToolbarItemToolTip">Zoom in the file view.</string>
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
@@ -474,7 +474,7 @@
 								</object>
 								<string key="NSToolbarItemLabel">Zoom Out</string>
 								<string key="NSToolbarItemPaletteLabel">zoomout</string>
-								<string key="NSToolbarItemToolTip"/>
+								<string key="NSToolbarItemToolTip">Zoom out the file view.</string>
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
@@ -490,13 +490,13 @@
 								<bool key="NSToolbarIsUserRemovable">YES</bool>
 								<int key="NSToolbarItemVisibilityPriority">0</int>
 							</object>
-							<object class="NSToolbarItem" id="1046397095">
+							<object class="NSToolbarItem" id="217552931">
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">249A3904-1B8D-4593-999D-015955518E2A</characters>
 								</object>
 								<string key="NSToolbarItemLabel">Narrow folder</string>
 								<string key="NSToolbarItemPaletteLabel">NarrowFolder</string>
-								<string key="NSToolbarItemToolTip"/>
+								<string key="NSToolbarItemToolTip">Set the selected folder as the root folder (narrow the view). You also can double click on a folder.</string>
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
@@ -518,7 +518,7 @@
 								</object>
 								<string key="NSToolbarItemLabel">Up folder</string>
 								<string key="NSToolbarItemPaletteLabel">UpFolder</string>
-								<string key="NSToolbarItemToolTip"/>
+								<string key="NSToolbarItemToolTip">Revert the effect of one view-narrowing.</string>
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
@@ -540,12 +540,13 @@
 								</object>
 								<string key="NSToolbarItemLabel">ScanProgress</string>
 								<string key="NSToolbarItemPaletteLabel">ScanProgress</string>
-								<nil key="NSToolbarItemToolTip"/>
+								<string key="NSToolbarItemToolTip">Folder or volume scanning in progress...</string>
 								<object class="NSProgressIndicator" key="NSToolbarItemView" id="474368602">
-									<nil key="NSNextResponder"/>
+									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">1292</int>
 									<object class="NSPSMatrix" key="NSDrawMatrix"/>
 									<string key="NSFrame">{{0, 14}, {150, 20}}</string>
+									<reference key="NSSuperview"/>
 									<int key="NSpiFlags">24586</int>
 									<double key="NSMaxValue">1</double>
 								</object>
@@ -560,13 +561,13 @@
 								<bool key="NSToolbarIsUserRemovable">YES</bool>
 								<int key="NSToolbarItemVisibilityPriority">0</int>
 							</object>
-							<object class="NSToolbarItem" id="225896708">
+							<object class="NSToolbarItem" id="64121564">
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">FF68DE95-2850-4E01-84FB-610381C30CE1</characters>
 								</object>
 								<string key="NSToolbarItemLabel">Open in finder</string>
 								<string key="NSToolbarItemPaletteLabel">FinderShow</string>
-								<string key="NSToolbarItemToolTip"/>
+								<string key="NSToolbarItemToolTip">Display the selected file or folder in Finder.</string>
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
@@ -758,18 +759,18 @@
 						<reference ref="522574549"/>
 						<reference ref="1072717512"/>
 						<reference ref="830775605"/>
-						<reference ref="1046397095"/>
-						<reference ref="225896708"/>
+						<reference ref="217552931"/>
+						<reference ref="64121564"/>
 					</object>
 					<object class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="864071714"/>
 						<reference ref="522574549"/>
 						<reference ref="626845412"/>
-						<reference ref="1046397095"/>
+						<reference ref="217552931"/>
 						<reference ref="1072717512"/>
 						<reference ref="626845412"/>
-						<reference ref="225896708"/>
+						<reference ref="64121564"/>
 						<reference ref="344548285"/>
 						<reference ref="830775605"/>
 					</object>
@@ -1071,7 +1072,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">narrowFolder:</string>
 						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="1046397095"/>
+						<reference key="destination" ref="217552931"/>
 					</object>
 					<int key="connectionID">585</int>
 				</object>
@@ -1079,7 +1080,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">zoomInView:</string>
 						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="272281627"/>
+						<reference key="destination" ref="265783721"/>
 					</object>
 					<int key="connectionID">593</int>
 				</object>
@@ -1087,7 +1088,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">zoomOutView:</string>
 						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="358213914"/>
+						<reference key="destination" ref="983958514"/>
 					</object>
 					<int key="connectionID">594</int>
 				</object>
@@ -1095,7 +1096,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">narrowFolder:</string>
 						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="943987741"/>
+						<reference key="destination" ref="197232946"/>
 					</object>
 					<int key="connectionID">595</int>
 				</object>
@@ -1103,7 +1104,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">goUp:</string>
 						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="901029614"/>
+						<reference key="destination" ref="701174299"/>
 					</object>
 					<int key="connectionID">596</int>
 				</object>
@@ -1111,9 +1112,17 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">revealInFinder:</string>
 						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="225896708"/>
+						<reference key="destination" ref="64121564"/>
 					</object>
 					<int key="connectionID">597</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">revealInFinder:</string>
+						<reference key="source" ref="582100434"/>
+						<reference key="destination" ref="723233165"/>
+					</object>
+					<int key="connectionID">599</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1357,13 +1366,13 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="102151532"/>
-							<reference ref="272281627"/>
-							<reference ref="358213914"/>
-							<reference ref="332242669"/>
-							<reference ref="943987741"/>
-							<reference ref="901029614"/>
-							<reference ref="764840811"/>
-							<reference ref="836872642"/>
+							<reference ref="265783721"/>
+							<reference ref="983958514"/>
+							<reference ref="202526780"/>
+							<reference ref="197232946"/>
+							<reference ref="701174299"/>
+							<reference ref="290134368"/>
+							<reference ref="723233165"/>
 						</object>
 						<reference key="parent" ref="586577488"/>
 					</object>
@@ -1475,8 +1484,8 @@
 							<reference ref="522574549"/>
 							<reference ref="864071714"/>
 							<reference ref="830775605"/>
-							<reference ref="1046397095"/>
-							<reference ref="225896708"/>
+							<reference ref="217552931"/>
+							<reference ref="64121564"/>
 						</object>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -1551,47 +1560,47 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">583</int>
-						<reference key="object" ref="1046397095"/>
+						<reference key="object" ref="217552931"/>
 						<reference key="parent" ref="678140638"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">586</int>
-						<reference key="object" ref="225896708"/>
+						<reference key="object" ref="64121564"/>
 						<reference key="parent" ref="678140638"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">587</int>
-						<reference key="object" ref="272281627"/>
+						<reference key="object" ref="265783721"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">588</int>
-						<reference key="object" ref="358213914"/>
+						<reference key="object" ref="983958514"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">589</int>
-						<reference key="object" ref="332242669"/>
+						<reference key="object" ref="202526780"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">590</int>
-						<reference key="object" ref="943987741"/>
+						<reference key="object" ref="197232946"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">591</int>
-						<reference key="object" ref="901029614"/>
+						<reference key="object" ref="701174299"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">592</int>
-						<reference key="object" ref="764840811"/>
+						<reference key="object" ref="290134368"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">598</int>
-						<reference key="object" ref="836872642"/>
+						<reference key="object" ref="723233165"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 				</object>
@@ -1759,7 +1768,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{594, 916}, {324, 20}}</string>
+					<string>{{631, 947}, {324, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
@@ -1769,9 +1778,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{612, 326}, {521, 451}}</string>
+					<string>{{644, 392}, {521, 451}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{612, 326}, {521, 451}}</string>
+					<string>{{644, 392}, {521, 451}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<boolean value="YES"/>
@@ -1784,7 +1793,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{564, 777}, {617, 0}}</string>
+					<string>{{596, 616}, {617, 227}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1802,7 +1811,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{661, 466}, {200, 183}}</string>
+					<string>{{643, 764}, {200, 183}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{23, 794}, {245, 183}}</string>
@@ -1847,7 +1856,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">598</int>
+			<int key="maxID">599</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
