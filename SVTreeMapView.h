@@ -7,14 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SVLayoutTree.h"
+#import "SVLayoutNode.h"
 #import "SVGeometryGatherer.h"
 
 typedef void (^FileDropResponder)( NSURL* fileUrl );
 
 @interface SVTreeMapView : NSView {
     NSRect                virtualSize;
-    SVLayoutTree          *viewedTree;
+    SVLayoutNode          *viewedTree;
     SVGeometryGatherer    *geometry;
     SVColorWheel          *wheel;
 
@@ -40,7 +40,7 @@ typedef void (^FileDropResponder)( NSURL* fileUrl );
 - (void)scrollWheel:(NSEvent*)event;
 
 - (void)updateGeometrySize;
-- (void)setTreeMap:(SVLayoutTree*)tree
+- (void)setTreeMap:(SVLayoutNode*)tree
              atUrl:(NSURL*)url;
 
 - (void)setFileDropResponder:(FileDropResponder)r;

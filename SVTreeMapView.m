@@ -103,7 +103,7 @@
     [geometry stopGathering];
 }
 
-- (void)setTreeMap:(SVLayoutTree*)tree
+- (void)setTreeMap:(SVLayoutNode*)tree
              atUrl:(NSURL*)url
 {
     [viewedTree release];

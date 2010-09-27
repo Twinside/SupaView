@@ -91,7 +91,7 @@
 
 - (void)commitTree
 {
-    SVLayoutTree  *created =
+    SVLayoutNode  *created =
         [curentlyNavigated createLayoutTree];
 
     [mainTreeView setTreeMap:created
@@ -102,7 +102,7 @@
 
 - (void)updateView
 {
-    SVLayoutTree  *created =
+    SVLayoutNode  *created =
         [curentlyNavigated createLayoutTree];
 
     [mainTreeView setTreeMap:created

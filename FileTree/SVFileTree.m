@@ -9,6 +9,7 @@
 #import "SVFileTree.h"
 #import "SVVolumeTree.h"
 #import "SVFolderTree.h"
+#import "../LayoutTree/SVLayoutLeaf.h"
 
 NSComparator SvFileTreeComparer = (NSComparator)^(id obj1, id obj2){
         FileSize lSize = [obj1 diskSize];
@@ -122,10 +123,10 @@ BOOL isVolume( NSURL*   pathURL )
     [super dealloc];
 }
 
-- (SVLayoutTree*)createLayoutTree
+- (SVLayoutNode*)createLayoutTree
 {
-    SVLayoutTree  *layoutNode =
-        [[SVLayoutTree alloc] initWithFile:self];
+    SVLayoutNode  *layoutNode =
+        [[SVLayoutLeaf alloc] initWithFile:self];
 
     return layoutNode;
 }

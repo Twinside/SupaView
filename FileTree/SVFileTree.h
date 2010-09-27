@@ -7,15 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SVLayoutTree.h"
+#import "SVLayoutNode.h"
 #import "SVProgressNotifiable.h"
-#import "../SVGraphViz.h"
 
-@class SVLayoutTree;
+@class SVLayoutNode;
 
 typedef void (^EndNotification)();
 
-@interface SVFileTree : NSObject <SVGraphViz> {
+@interface SVFileTree : NSObject {
     FileSize        diskSize;
 	NSString        *name;
 }
@@ -33,7 +32,7 @@ typedef void (^EndNotification)();
 - (void)dealloc;
 
 - (FileSize)diskSize;
-- (SVLayoutTree*)createLayoutTree;
+- (SVLayoutNode*)createLayoutTree;
 - (NSString*)filename;
 @end
 

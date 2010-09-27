@@ -1,5 +1,6 @@
 #import "SVFolderTree.h"
 #import "SVScanningContext.h"
+#import "../LayoutTree/SVLayoutFolder.h"
 
 @interface SVFolderTree (Private)
 + (NSArray*)scanObjectInfo;
@@ -147,28 +148,15 @@
     return self;
 }
 
-- (SVLayoutTree*)createLayoutTree
+- (SVLayoutNode*)createLayoutTree
 {
     if ( [children count] == 0 )
         return nil;
-    
+
     return
-        [[SVLayoutTree alloc] initWithFileList:children
-                                       forNode:self
-                                  andTotalSize:diskSize];
-}
-
-- (void)dumpToFile:(FILE*)f
-{
-    [super dumpToFile:f];
-
-    for ( SVFileTree* child in children )
-    {
-        fprintf( f, "p%p -> p%p\n"
-               , self, child );
-        [child dumpToFile:f];
-        
-    }
+        [[SVLayoutFolder alloc] initWithFileList:children
+                                         forNode:self
+                                    andTotalSize:diskSize];
 }
 @end
 

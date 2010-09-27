@@ -1,5 +1,6 @@
 #import "SVVolumeTree.h"
 #import "SVFolderTree.h"
+#import "../LayoutTree/SVLayoutFolder.h"
 
 @implementation SVVolume
 - (id)initWithFilePath:(NSURL*)treeName
@@ -58,9 +59,9 @@
     [nodeList sortUsingComparator:SvFileTreeComparer];
 
     SVLayoutTree *layout = 
-        [[SVLayoutTree alloc] initWithFileList:nodeList
-                                       forNode:self
-                                  andTotalSize:volumeSize];
+        [[SVLayoutFolder alloc] initWithFileList:nodeList
+                                         forNode:self
+                                    andTotalSize:volumeSize];
     [nodeList release];
 
     return layout;

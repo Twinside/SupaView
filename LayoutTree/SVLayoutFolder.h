@@ -1,19 +1,16 @@
-#import "SVLayoutNode.h"
+#import "Definitions.h"
+#import <Cocoa/Cocoa.h>
+#import "SVLayoutLeaf.h"
 
-@interface SVLayoutTree : SVLayoutNode {
-    SVLayoutNode  *left;
-    SVLayoutNode  *right;
-
-    /**
-     * Split size, int [0;1]
-     */
-    float       splitPos;
-    LayoutKind  orientation;
+@interface SVLayoutFolder : SVLayoutLeaf {
+    SVLayoutNode    *child;
 }
 - (id)initWithFileList:(NSArray*)fileList
+               forNode:(SVFileTree*)t
           andTotalSize:(FileSize)totalSize;
 
 - (void)dealloc;
+
 - (SVFileTree*)getSelected:(NSPoint)point
                   withInfo:(SVDrawInfo*)info
                  andBounds:(NSRect*)bounds;

@@ -14,6 +14,6 @@
 - (void) populateChildListAtUrl:(NSURL*)url
                     withContext:(SVScanningContext*)ctxt;
 
-- (SVLayoutTree*)createLayoutTree;
+- (SVLayoutNode*)createLayoutTree;
 @end
 
