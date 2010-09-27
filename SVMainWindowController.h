@@ -34,4 +34,7 @@
 - (IBAction)zoomInView:(id)sender;
 - (IBAction)zoomOutView:(id)sender;
 
+- (IBAction)narrowFolder:(id)sender;
+- (IBAction)goUp:(id)sender;
+- (IBAction)revealInFinder:(id)sender;
 @end

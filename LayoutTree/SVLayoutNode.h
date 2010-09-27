@@ -6,6 +6,7 @@
 @class SVFileTree;
 @class SVColorWheel;
 @class SVLayoutNode;
+@class SVLayoutLeaf;
 
 typedef struct SVDrawInfo_t
 {
@@ -34,7 +35,7 @@ typedef struct SVDrawInfo_t
 @interface SVLayoutNode : NSObject {
 }
 
-- (SVFileTree*)getSelected:(NSPoint)point
+- (SVLayoutLeaf*)getSelected:(NSPoint)point
                   withInfo:(SVDrawInfo*)info
                  andBounds:(NSRect*)bounds;
 

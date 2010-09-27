@@ -11,12 +11,14 @@
 - (BOOL)textDrawableInBounds:(NSRect*)bounds
                      andInfo:(SVDrawInfo*)info;
 
-- (SVFileTree*)getSelected:(NSPoint)point
-                  withInfo:(SVDrawInfo*)info
-                 andBounds:(NSRect*)bounds;
+- (SVLayoutLeaf*)getSelected:(NSPoint)point
+                    withInfo:(SVDrawInfo*)info
+                   andBounds:(NSRect*)bounds;
 
 - (void)drawGeometry:(SVDrawInfo*)info
             inBounds:(NSRect*)bounds;
+
+- (SVFileTree*)fileNode;
 @end
 
 NSString * stringFromFileSize( FileSize theSize );

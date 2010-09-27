@@ -28,9 +28,9 @@ BOOL intersect( const NSRect *a, const NSRect *b )
         && bigEnough;
 }
 
-- (SVFileTree*)getSelected:(NSPoint)point
-                  withInfo:(SVDrawInfo*)info
-                 andBounds:(NSRect*)bounds
+- (SVLayoutLeaf*)getSelected:(NSPoint)point
+                    withInfo:(SVDrawInfo*)info
+                   andBounds:(NSRect*)bounds
 { return nil; /* do nothing */ }
 
 - (void)drawGeometry:(SVDrawInfo*)info

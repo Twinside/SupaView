@@ -55,6 +55,21 @@
         [self openURL:[oPanel URL]];
 }
 
+- (IBAction)narrowFolder:(id)sender
+{
+    [mainTreeView narrowSelected];
+}
+
+- (IBAction)goUp:(id)sender
+{
+    [mainTreeView popNarrowing];
+}
+
+- (IBAction)revealInFinder:(id)sender
+{
+    [mainTreeView revealSelectionInFinder];
+}
+
 - (void)notifyFileScanned
 {
     scannedElementCount++;
@@ -109,4 +124,5 @@
                        atUrl:scannedUrl];
     [created release];
 }
+
 @end

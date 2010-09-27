@@ -65,9 +65,9 @@
                         + blockSizes.textHeight) * miniHeight;
 }
 
-- (SVFileTree*)getSelected:(NSPoint)point
-                  withInfo:(SVDrawInfo*)info
-                 andBounds:(NSRect*)bounds
+- (SVLayoutLeaf*)getSelected:(NSPoint)point
+                    withInfo:(SVDrawInfo*)info
+                   andBounds:(NSRect*)bounds
 {
     if ( info->depth != 0 )
     {
@@ -83,12 +83,10 @@
     NSRect  subBounds = *bounds;
     [self cropSubRectangle:&subBounds withInfo:info];
 
-    SVFileTree* sub =
+    SVLayoutLeaf* sub =
         [child getSelected:point withInfo:info andBounds:&subBounds];
 
-    if ( sub == nil )
-        return fileNode;
-    else return sub;
+    return (sub == nil) ? self : sub;
 }
 
 - (id)initWithFileList:(NSArray*)fileList

@@ -158,9 +158,9 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
     [right drawGeometry:info inBounds:&rightSub];
 }
 
-- (SVFileTree*)getSelected:(NSPoint)point
-                  withInfo:(SVDrawInfo*)info
-                 andBounds:(NSRect*)bounds
+- (SVLayoutLeaf*)getSelected:(NSPoint)point
+                    withInfo:(SVDrawInfo*)info
+                   andBounds:(NSRect*)bounds
 {
     if ( ![self drawableWithInfo:info inBounds:bounds]
        || splitPos < 0.0 || splitPos > 1.0 )
@@ -175,7 +175,7 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
 
     [self splitRectangles:&leftSub and:&rightSub];
     
-    SVFileTree* ret = nil;
+    SVLayoutLeaf* ret = nil;
 
     info->depth++;
     if ( left && insideRect( &leftSub, &point ) )

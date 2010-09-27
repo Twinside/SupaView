@@ -31,9 +31,9 @@ NSString * stringFromFileSize( FileSize theSize )
         && bounds->size.width >= blockSizes.textMinimumWidth * info->minimumHeight;
 }
 
-- (SVFileTree*)getSelected:(NSPoint)point
-                  withInfo:(SVDrawInfo*)info
-                 andBounds:(NSRect*)bounds
+- (SVLayoutLeaf*)getSelected:(NSPoint)point
+                    withInfo:(SVDrawInfo*)info
+                   andBounds:(NSRect*)bounds
 {
     NSURL *newName =
         [info->selectedName URLByAppendingPathComponent:[fileNode filename]];
@@ -45,7 +45,7 @@ NSString * stringFromFileSize( FileSize theSize )
 
     info->selectedIsFile = TRUE;
 
-    return fileNode;
+    return self;
 }
 
 - (void)drawFileName:(SVDrawInfo*)info
@@ -96,4 +96,5 @@ NSString * stringFromFileSize( FileSize theSize )
     [self drawFileName:info inBounds:bounds];
 }
 
+- (SVFileTree*)fileNode { return fileNode; }
 @end

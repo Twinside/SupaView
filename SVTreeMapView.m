@@ -10,6 +10,7 @@
 #import "SVColorWheel.h"
 #import "SVUtils.h"
 #import "SVSizes.h"
+#import "LayoutTree/SVLayoutLeaf.h"
 
 @implementation SVTreeMapView
 - (id)initWithFrame:(NSRect)frameRect
@@ -22,12 +23,15 @@
         [NSDictionary dictionaryWithObject:drawingFont
                                     forKey:NSFontAttributeName];
 
+    narrowingStack = [[NSMutableArray alloc] initWithCapacity:10];
+    
     [drawingFont retain];
     [stringAttributs retain];
     [self updateGeometrySize];
     currentURL = nil;
     selectedURL = nil;
     currentSelection = nil;
+    selectedLayoutNode = nil;
     isSelectionFile = FALSE;
     dragResponder = nil;
 
@@ -77,6 +81,7 @@
     [stringAttributs release];
     [selectedURL release];
     [currentURL release];
+    [narrowingStack release];
     [super dealloc];
 }
 
@@ -109,10 +114,13 @@
     [viewedTree release];
     [selectedURL release];
     [currentURL release];
+    [narrowingStack removeAllObjects];
 
     viewedTree = tree;
     currentURL = url;
     selectedURL = nil;
+    currentSelection = nil;
+    selectedLayoutNode = nil;
     
     [viewedTree retain];
     [currentURL retain];
@@ -345,14 +353,18 @@
     
 
     [info.selectedName retain];
-    SVFileTree *found =
+    SVLayoutLeaf *foundNode =
             [viewedTree getSelected:p
                            withInfo:&info
                           andBounds:&frame];
     
+    SVFileTree  *found = [foundNode fileNode];
+    
     if ( found != currentSelection )
     {
         currentSelection = found;
+        selectedLayoutNode = foundNode;
+        
         [selectedURL release];
         selectedURL = info.selectedName;
         isSelectionFile = info.selectedIsFile;
@@ -362,16 +374,22 @@
     }
     
     if ( [theEvent clickCount] >= 2 )
-    {
-        if ( isSelectionFile )
-            [[NSWorkspace sharedWorkspace]
-                        openFile:[[selectedURL URLByDeletingLastPathComponent] path]
-                withApplication:@"Finder"];
-        else
-            [[NSWorkspace sharedWorkspace]
-                        openFile:[selectedURL path]
-                withApplication:@"Finder"];
-    }
+        [self narrowSelected];
+}
+
+- (void)revealSelectionInFinder
+{
+    if ( selectedURL == nil )
+        return;
+    
+    if ( isSelectionFile )
+        [[NSWorkspace sharedWorkspace]
+                    openFile:[[selectedURL URLByDeletingLastPathComponent] path]
+             withApplication:@"Finder"];
+    else
+        [[NSWorkspace sharedWorkspace]
+                    openFile:[selectedURL path]
+             withApplication:@"Finder"];
 }
 
 - (void)scrollWheel:(NSEvent*)event
@@ -400,6 +418,30 @@
 - (void)setFileDropResponder:(FileDropResponder)r
 {
     dragResponder = Block_copy(r);
+}
+
+- (void)narrowSelected
+{
+    if ( isSelectionFile )
+        return;
+    
+    [narrowingStack addObject:viewedTree];
+    viewedTree = selectedLayoutNode;
+    
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
+}
+
+- (void)popNarrowing
+{
+    if ( [narrowingStack count] == 0 )
+        return;
+    
+    viewedTree = [narrowingStack lastObject];
+    [narrowingStack removeLastObject];
+    
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
 }
 @end
 

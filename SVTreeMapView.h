@@ -18,7 +18,11 @@ typedef void (^FileDropResponder)( NSURL* fileUrl );
     SVGeometryGatherer    *geometry;
     SVColorWheel          *wheel;
 
+    NSMutableArray        *narrowingStack;
+    
     SVFileTree            *currentSelection;
+    SVLayoutLeaf          *selectedLayoutNode;
+    
     NSURL                 *currentURL;
     NSURL                 *selectedURL;
     BOOL                  isSelectionFile;
@@ -45,4 +49,7 @@ typedef void (^FileDropResponder)( NSURL* fileUrl );
 
 - (void)setFileDropResponder:(FileDropResponder)r;
 
+- (void)narrowSelected;
+- (void)popNarrowing;
+- (void)revealSelectionInFinder;
 @end
