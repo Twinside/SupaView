@@ -1,0 +1,12 @@
+/* 
+   Custom.strings
+   SupaView
+
+   Created by Vincent Berthoux on 27/09/10.
+   Copyright 2010 __MyCompanyName__. All rights reserved.
+ */
+"InitialMessage" = "Déposez un disque ou un dossier ici";
+"EmptySpace" = "Espace libre";
+"UnscannedSpace" = "Espace non analysé";
+"bytes" = "octets";
+"bytesAcronym" = "o";

@@ -1,0 +1,12 @@
+/* 
+   Custom.strings
+   SupaView
+
+   Created by Vincent Berthoux on 27/09/10.
+   Copyright 2010 __MyCompanyName__. All rights reserved.
+ */
+"InitialMessage" = "Drag volume or folder here";
+"EmptySpace" = "Empty space";
+"UnscannedSpace" = "Unscanned space";
+"bytes" = "bytes";
+"bytesAcronym" = "B";

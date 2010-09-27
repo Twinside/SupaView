@@ -6,7 +6,11 @@ NSString * stringFromFileSize( FileSize theSize )
 {
 	float floatSize = theSize;
 	if (theSize<1023)
+    { 
+        NSString *msgString =
+            NSLocalizedStringFromTable(@"bytes", @"Custom", @"A comment");
 		return([NSString stringWithFormat:@"%i bytes",theSize]);
+    }
 	floatSize = floatSize / 1024;
 	if (floatSize<1023)
 		return([NSString stringWithFormat:@"%1.1f KB",floatSize]);

@@ -4,7 +4,10 @@
 @implementation SVUnscannedTree
 - (id)init
 {
-    self = [super initWithFileName:@"Unscanned"
+    NSString *msgString =
+        NSLocalizedStringFromTable(@"UnscannedSpace", @"Custom", @"A comment");
+    
+    self = [super initWithFileName:msgString
                            andSize:0];
     return self;
 }

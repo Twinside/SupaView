@@ -30,6 +30,7 @@
 		61C87F981250E5C100F1B518 /* SVLayoutUnscanned.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87F961250E5C100F1B518 /* SVLayoutUnscanned.m */; };
 		61C87FA31250E99200F1B518 /* SVEmptyNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87FA01250E99200F1B518 /* SVEmptyNode.m */; };
 		61C87FA41250E99200F1B518 /* SVUnscanned.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87FA21250E99200F1B518 /* SVUnscanned.m */; };
+		61C8804912510C2100F1B518 /* Custom.strings in Resources */ = {isa = PBXBuildFile; fileRef = 61C8804812510C2100F1B518 /* Custom.strings */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -89,6 +90,9 @@
 		61C87FA01250E99200F1B518 /* SVEmptyNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVEmptyNode.m; path = FileTree/SVEmptyNode.m; sourceTree = "<group>"; };
 		61C87FA11250E99200F1B518 /* SVUnscanned.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVUnscanned.h; path = FileTree/SVUnscanned.h; sourceTree = "<group>"; };
 		61C87FA21250E99200F1B518 /* SVUnscanned.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVUnscanned.m; path = FileTree/SVUnscanned.m; sourceTree = "<group>"; };
+		61C880361251070000F1B518 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		61C8804512510BB300F1B518 /* English */ = {isa = PBXFileReference; explicitFileType = text.plist.strings; fileEncoding = 4; name = English; path = English.lproj/Custom.strings; sourceTree = "<group>"; };
+		61C8804A12510C2900F1B518 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Custom.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SupaView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SupaView-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SupaView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupaView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -108,33 +112,11 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				61C87F9F1250E99200F1B518 /* SVEmptyNode.h */,
-				61C87FA01250E99200F1B518 /* SVEmptyNode.m */,
-				61C87FA11250E99200F1B518 /* SVUnscanned.h */,
-				61C87FA21250E99200F1B518 /* SVUnscanned.m */,
-				61C87F931250E5C100F1B518 /* SVLayoutEmptySpace.h */,
-				61C87F941250E5C100F1B518 /* SVLayoutEmptySpace.m */,
-				61C87F951250E5C100F1B518 /* SVLayoutUnscanned.h */,
-				61C87F961250E5C100F1B518 /* SVLayoutUnscanned.m */,
-				61C87EE21250D3EC00F1B518 /* SVLayoutFolder.h */,
-				61C87EE31250D3EC00F1B518 /* SVLayoutFolder.m */,
-				61C87EE41250D3EC00F1B518 /* SVLayoutLeaf.h */,
-				61C87EE51250D3EC00F1B518 /* SVLayoutLeaf.m */,
-				61C87EE61250D3EC00F1B518 /* SVLayoutNode.h */,
-				61C87EE71250D3EC00F1B518 /* SVLayoutNode.m */,
-				61C87EE81250D3EC00F1B518 /* SVLayoutTree.h */,
-				61C87EE91250D3EC00F1B518 /* SVLayoutTree.m */,
-				61C87EC71250C1F300F1B518 /* SVDynamicFileTree.h */,
-				61C87EC81250C1F300F1B518 /* SVDynamicFileTree.m */,
+				61C8805F12510EC100F1B518 /* FileTree */,
+				61C8805E12510EB200F1B518 /* LayoutTree */,
 				61C87EC91250C1F300F1B518 /* SVProgressNotifiable.h */,
 				61C87ECA1250C1F300F1B518 /* SVScanningContext.h */,
-				61C87EB11250BA1300F1B518 /* SVFolderTree.h */,
-				61C87EB21250BA1300F1B518 /* SVFolderTree.m */,
 				61C87EB31250BA1300F1B518 /* SVProgressNotifiable.h */,
-				61C87E871250B85B00F1B518 /* SVFileTree.h */,
-				61C87E881250B85B00F1B518 /* SVFileTree.m */,
-				61C87E891250B85B00F1B518 /* SVVolumeTree.h */,
-				61C87E8A1250B85B00F1B518 /* SVVolumeTree.m */,
 				6167F859122361E500404881 /* SVTreeMapView.h */,
 				6167F85A122361E500404881 /* SVTreeMapView.m */,
 				256AC3D80F4B6AC300CF3369 /* SVSupaViewAppDelegate.h */,
@@ -210,6 +192,7 @@
 				8D1107310486CEB800E47090 /* SupaView-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				61C8804812510C2100F1B518 /* Custom.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -221,6 +204,44 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		61C8805E12510EB200F1B518 /* LayoutTree */ = {
+			isa = PBXGroup;
+			children = (
+				61C87F931250E5C100F1B518 /* SVLayoutEmptySpace.h */,
+				61C87F941250E5C100F1B518 /* SVLayoutEmptySpace.m */,
+				61C87F951250E5C100F1B518 /* SVLayoutUnscanned.h */,
+				61C87F961250E5C100F1B518 /* SVLayoutUnscanned.m */,
+				61C87EE21250D3EC00F1B518 /* SVLayoutFolder.h */,
+				61C87EE31250D3EC00F1B518 /* SVLayoutFolder.m */,
+				61C87EE41250D3EC00F1B518 /* SVLayoutLeaf.h */,
+				61C87EE51250D3EC00F1B518 /* SVLayoutLeaf.m */,
+				61C87EE61250D3EC00F1B518 /* SVLayoutNode.h */,
+				61C87EE71250D3EC00F1B518 /* SVLayoutNode.m */,
+				61C87EE81250D3EC00F1B518 /* SVLayoutTree.h */,
+				61C87EE91250D3EC00F1B518 /* SVLayoutTree.m */,
+			);
+			name = LayoutTree;
+			sourceTree = "<group>";
+		};
+		61C8805F12510EC100F1B518 /* FileTree */ = {
+			isa = PBXGroup;
+			children = (
+				61C87EB11250BA1300F1B518 /* SVFolderTree.h */,
+				61C87EB21250BA1300F1B518 /* SVFolderTree.m */,
+				61C87E871250B85B00F1B518 /* SVFileTree.h */,
+				61C87E881250B85B00F1B518 /* SVFileTree.m */,
+				61C87E891250B85B00F1B518 /* SVVolumeTree.h */,
+				61C87E8A1250B85B00F1B518 /* SVVolumeTree.m */,
+				61C87F9F1250E99200F1B518 /* SVEmptyNode.h */,
+				61C87FA01250E99200F1B518 /* SVEmptyNode.m */,
+				61C87FA11250E99200F1B518 /* SVUnscanned.h */,
+				61C87FA21250E99200F1B518 /* SVUnscanned.m */,
+				61C87EC71250C1F300F1B518 /* SVDynamicFileTree.h */,
+				61C87EC81250C1F300F1B518 /* SVDynamicFileTree.m */,
+			);
+			name = FileTree;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,6 +292,7 @@
 				615130BC123EA998003CD2AE /* SVZoomInImg.png in Resources */,
 				615130BD123EA998003CD2AE /* SVZoomOutImg.png in Resources */,
 				615130C3123EAAFC003CD2AE /* SVGoUp.png in Resources */,
+				61C8804912510C2100F1B518 /* Custom.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,8 +341,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				1DDD58150DA1D0A300B32029 /* English */,
+				61C880361251070000F1B518 /* French */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		61C8804812510C2100F1B518 /* Custom.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				61C8804512510BB300F1B518 /* English */,
+				61C8804A12510C2900F1B518 /* French */,
+			);
+			name = Custom.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

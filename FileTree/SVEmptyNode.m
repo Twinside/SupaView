@@ -4,7 +4,10 @@
 @implementation SVEmptyNode
 - (id)initWithFileSize:(FileSize)size
 {
-    self = [super initWithFileName:@"Empty space"
+    NSString *msgString =
+        NSLocalizedStringFromTable(@"EmptySpace", @"Custom", @"A comment");
+
+    self = [super initWithFileName:msgString
                            andSize:size];
     return self;
 }
