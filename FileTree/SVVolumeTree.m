@@ -1,5 +1,7 @@
 #import "SVVolumeTree.h"
 #import "SVFolderTree.h"
+#import "SVEmptyNode.h"
+#import "SVUnscanned.h"
 #import "../LayoutTree/SVLayoutFolder.h"
 
 @implementation SVVolume
@@ -22,11 +24,11 @@
     volumeSize = [[fileAttributes objectForKey:NSFileSystemSize]
                                 longLongValue];
     emptySpace=
-        [[SVFileTree alloc] initWithFileName:@"Empty space"
-                                     andSize:emptySpaceSize];
+        [[SVEmptyNode alloc] initWithFileSize:emptySpaceSize];
+
     unscannedSpace =
-        [[SVDynamicFileTree alloc] initWithFileName:@"Unscanned"
-                                            andSize:0];
+        [[SVUnscannedTree alloc] init];
+    
     child = [SVFolderTree alloc];
     
     [child initWithFilePath:treeName andContext:ctxt];

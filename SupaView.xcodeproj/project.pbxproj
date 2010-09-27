@@ -26,6 +26,10 @@
 		61C87EEB1250D3EC00F1B518 /* SVLayoutLeaf.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87EE51250D3EC00F1B518 /* SVLayoutLeaf.m */; };
 		61C87EEC1250D3EC00F1B518 /* SVLayoutNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87EE71250D3EC00F1B518 /* SVLayoutNode.m */; };
 		61C87EED1250D3EC00F1B518 /* SVLayoutTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87EE91250D3EC00F1B518 /* SVLayoutTree.m */; };
+		61C87F971250E5C100F1B518 /* SVLayoutEmptySpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87F941250E5C100F1B518 /* SVLayoutEmptySpace.m */; };
+		61C87F981250E5C100F1B518 /* SVLayoutUnscanned.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87F961250E5C100F1B518 /* SVLayoutUnscanned.m */; };
+		61C87FA31250E99200F1B518 /* SVEmptyNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87FA01250E99200F1B518 /* SVEmptyNode.m */; };
+		61C87FA41250E99200F1B518 /* SVUnscanned.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87FA21250E99200F1B518 /* SVUnscanned.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -77,6 +81,14 @@
 		61C87EE71250D3EC00F1B518 /* SVLayoutNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVLayoutNode.m; path = LayoutTree/SVLayoutNode.m; sourceTree = "<group>"; };
 		61C87EE81250D3EC00F1B518 /* SVLayoutTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVLayoutTree.h; path = LayoutTree/SVLayoutTree.h; sourceTree = "<group>"; };
 		61C87EE91250D3EC00F1B518 /* SVLayoutTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVLayoutTree.m; path = LayoutTree/SVLayoutTree.m; sourceTree = "<group>"; };
+		61C87F931250E5C100F1B518 /* SVLayoutEmptySpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVLayoutEmptySpace.h; path = LayoutTree/SVLayoutEmptySpace.h; sourceTree = "<group>"; };
+		61C87F941250E5C100F1B518 /* SVLayoutEmptySpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVLayoutEmptySpace.m; path = LayoutTree/SVLayoutEmptySpace.m; sourceTree = "<group>"; };
+		61C87F951250E5C100F1B518 /* SVLayoutUnscanned.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVLayoutUnscanned.h; path = LayoutTree/SVLayoutUnscanned.h; sourceTree = "<group>"; };
+		61C87F961250E5C100F1B518 /* SVLayoutUnscanned.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVLayoutUnscanned.m; path = LayoutTree/SVLayoutUnscanned.m; sourceTree = "<group>"; };
+		61C87F9F1250E99200F1B518 /* SVEmptyNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVEmptyNode.h; path = FileTree/SVEmptyNode.h; sourceTree = "<group>"; };
+		61C87FA01250E99200F1B518 /* SVEmptyNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVEmptyNode.m; path = FileTree/SVEmptyNode.m; sourceTree = "<group>"; };
+		61C87FA11250E99200F1B518 /* SVUnscanned.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVUnscanned.h; path = FileTree/SVUnscanned.h; sourceTree = "<group>"; };
+		61C87FA21250E99200F1B518 /* SVUnscanned.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVUnscanned.m; path = FileTree/SVUnscanned.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SupaView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SupaView-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SupaView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupaView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -96,6 +108,14 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				61C87F9F1250E99200F1B518 /* SVEmptyNode.h */,
+				61C87FA01250E99200F1B518 /* SVEmptyNode.m */,
+				61C87FA11250E99200F1B518 /* SVUnscanned.h */,
+				61C87FA21250E99200F1B518 /* SVUnscanned.m */,
+				61C87F931250E5C100F1B518 /* SVLayoutEmptySpace.h */,
+				61C87F941250E5C100F1B518 /* SVLayoutEmptySpace.m */,
+				61C87F951250E5C100F1B518 /* SVLayoutUnscanned.h */,
+				61C87F961250E5C100F1B518 /* SVLayoutUnscanned.m */,
 				61C87EE21250D3EC00F1B518 /* SVLayoutFolder.h */,
 				61C87EE31250D3EC00F1B518 /* SVLayoutFolder.m */,
 				61C87EE41250D3EC00F1B518 /* SVLayoutLeaf.h */,
@@ -277,6 +297,10 @@
 				61C87EEB1250D3EC00F1B518 /* SVLayoutLeaf.m in Sources */,
 				61C87EEC1250D3EC00F1B518 /* SVLayoutNode.m in Sources */,
 				61C87EED1250D3EC00F1B518 /* SVLayoutTree.m in Sources */,
+				61C87F971250E5C100F1B518 /* SVLayoutEmptySpace.m in Sources */,
+				61C87F981250E5C100F1B518 /* SVLayoutUnscanned.m in Sources */,
+				61C87FA31250E99200F1B518 /* SVEmptyNode.m in Sources */,
+				61C87FA41250E99200F1B518 /* SVUnscanned.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
