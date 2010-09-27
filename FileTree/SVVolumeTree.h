@@ -1,11 +1,10 @@
 #import <Cocoa/Cocoa.h>
 #import "SVLayoutTree.h"
+#import "SVFolderTree.h"
+#import "SVScanningContext.h"
+#import "SVDynamicFileTree.h"
+#import "SVScanningContext.h"
 #import "../SVGraphViz.h"
-
-@interface SVDynamicFileTree : SVFileTree {
-}
-- (void)updateDiskSize:(FileSize)newFileSize;
-@end
 
 @interface SVVolume : SVFileTree {
     SVFolderTree      *child;
@@ -20,3 +19,4 @@
 - (void)dealloc;
 - (SVLayoutTree*)createLayoutTree;
 @end
+

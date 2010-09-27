@@ -1,12 +1,7 @@
 #import "SVVolumeTree.h"
-
-@implementation SVDynamicFileTree
-- (void)updateDiskSize:(FileSize)newFileSize
-    { diskSize= newFileSize; }
-@end
+#import "SVFolderTree.h"
 
 @implementation SVVolume
-
 - (id)initWithFilePath:(NSURL*)treeName
             andContext:(SVScanningContext*)ctxt;
 {
@@ -71,3 +66,4 @@
     return layout;
 }
 @end
+

@@ -8,17 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SVLayoutTree.h"
+#import "SVProgressNotifiable.h"
 #import "../SVGraphViz.h"
 
 @class SVLayoutTree;
-@class SVFolderTree;
-
-@protocol SVProgressNotifiable
-- (void)notifyFileScanned;
-@end
 
 typedef void (^EndNotification)();
-typedef struct SVScanningContext_t SVScanningContext;
 
 @interface SVFileTree : NSObject <SVGraphViz> {
     FileSize        diskSize;
@@ -40,22 +35,6 @@ typedef struct SVScanningContext_t SVScanningContext;
 - (FileSize)diskSize;
 - (SVLayoutTree*)createLayoutTree;
 - (NSString*)filename;
-@end
-
-@interface SVFolderTree : SVFileTree {
-    NSMutableArray     *children;
-}
-
-- (id)initWithFilePath:(NSURL*)treeName
-            andContext:(SVScanningContext*)ctxt;
-
-- (void)dealloc;
-
-- (SVFolderTree*)addChild:(SVFileTree*)subTree;
-- (void) populateChildListAtUrl:(NSURL*)url
-                    withContext:(SVScanningContext*)ctxt;
-
-- (SVLayoutTree*)createLayoutTree;
 @end
 
 NSComparator SvFileTreeComparer;

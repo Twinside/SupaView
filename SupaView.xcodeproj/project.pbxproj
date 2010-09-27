@@ -21,6 +21,8 @@
 		61C87E8B1250B85B00F1B518 /* SVFileTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87E881250B85B00F1B518 /* SVFileTree.m */; };
 		61C87E8C1250B85B00F1B518 /* SVVolumeTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87E8A1250B85B00F1B518 /* SVVolumeTree.m */; };
 		61C87E8F1250B86900F1B518 /* SVLayoutTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87E8E1250B86900F1B518 /* SVLayoutTree.m */; };
+		61C87EB41250BA1300F1B518 /* SVFolderTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87EB21250BA1300F1B518 /* SVFolderTree.m */; };
+		61C87ECB1250C1F300F1B518 /* SVDynamicFileTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87EC81250C1F300F1B518 /* SVDynamicFileTree.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -59,6 +61,13 @@
 		61C87E8A1250B85B00F1B518 /* SVVolumeTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVVolumeTree.m; path = FileTree/SVVolumeTree.m; sourceTree = "<group>"; };
 		61C87E8D1250B86900F1B518 /* SVLayoutTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVLayoutTree.h; path = LayoutTree/SVLayoutTree.h; sourceTree = "<group>"; };
 		61C87E8E1250B86900F1B518 /* SVLayoutTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVLayoutTree.m; path = LayoutTree/SVLayoutTree.m; sourceTree = "<group>"; };
+		61C87EB11250BA1300F1B518 /* SVFolderTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVFolderTree.h; path = FileTree/SVFolderTree.h; sourceTree = "<group>"; };
+		61C87EB21250BA1300F1B518 /* SVFolderTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVFolderTree.m; path = FileTree/SVFolderTree.m; sourceTree = "<group>"; };
+		61C87EB31250BA1300F1B518 /* SVProgressNotifiable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVProgressNotifiable.h; path = FileTree/SVProgressNotifiable.h; sourceTree = "<group>"; };
+		61C87EC71250C1F300F1B518 /* SVDynamicFileTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVDynamicFileTree.h; path = FileTree/SVDynamicFileTree.h; sourceTree = "<group>"; };
+		61C87EC81250C1F300F1B518 /* SVDynamicFileTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVDynamicFileTree.m; path = FileTree/SVDynamicFileTree.m; sourceTree = "<group>"; };
+		61C87EC91250C1F300F1B518 /* SVProgressNotifiable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVProgressNotifiable.h; path = FileTree/SVProgressNotifiable.h; sourceTree = "<group>"; };
+		61C87ECA1250C1F300F1B518 /* SVScanningContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVScanningContext.h; path = FileTree/SVScanningContext.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SupaView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SupaView-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SupaView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupaView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -78,6 +87,13 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				61C87EC71250C1F300F1B518 /* SVDynamicFileTree.h */,
+				61C87EC81250C1F300F1B518 /* SVDynamicFileTree.m */,
+				61C87EC91250C1F300F1B518 /* SVProgressNotifiable.h */,
+				61C87ECA1250C1F300F1B518 /* SVScanningContext.h */,
+				61C87EB11250BA1300F1B518 /* SVFolderTree.h */,
+				61C87EB21250BA1300F1B518 /* SVFolderTree.m */,
+				61C87EB31250BA1300F1B518 /* SVProgressNotifiable.h */,
 				61C87E8D1250B86900F1B518 /* SVLayoutTree.h */,
 				61C87E8E1250B86900F1B518 /* SVLayoutTree.m */,
 				61C87E871250B85B00F1B518 /* SVFileTree.h */,
@@ -241,6 +257,8 @@
 				61C87E8B1250B85B00F1B518 /* SVFileTree.m in Sources */,
 				61C87E8C1250B85B00F1B518 /* SVVolumeTree.m in Sources */,
 				61C87E8F1250B86900F1B518 /* SVLayoutTree.m in Sources */,
+				61C87EB41250BA1300F1B518 /* SVFolderTree.m in Sources */,
+				61C87ECB1250C1F300F1B518 /* SVDynamicFileTree.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
