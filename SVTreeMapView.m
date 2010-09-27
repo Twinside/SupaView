@@ -34,6 +34,7 @@
     selectedLayoutNode = nil;
     isSelectionFile = FALSE;
     dragResponder = nil;
+    viewedTree = nil;
 
     [self registerForDraggedTypes:
                 [NSArray arrayWithObjects: NSURLPboardType
@@ -67,7 +68,10 @@
         NSString *newRoot = [files objectAtIndex:0];
 
         if ( newRoot != nil && dragResponder != nil )
+        {
             dragResponder( [NSURL URLWithString:newRoot] );
+            stateChangeNotifier();
+        }
     }
     
     return YES;
@@ -130,6 +134,7 @@
     
     [self updateGeometry];
     [self setNeedsDisplay:YES];
+    stateChangeNotifier();
 }
 
 - (void)viewWillStartLiveResize
@@ -376,10 +381,16 @@
         [self updateGeometry];
         [self setNeedsDisplay:YES];
         [[self window] setRepresentedURL:selectedURL];
+        stateChangeNotifier();
     }
     
     if ( [theEvent clickCount] >= 2 )
-        [self narrowSelected];
+    {
+        if ( isSelectionFile )
+            [self revealSelectionInFinder];
+        else
+            [self narrowSelected];
+    }
 }
 
 - (void)revealSelectionInFinder
@@ -403,6 +414,7 @@
                 andBy:[event deltaY]];
     [self updateGeometry];
     [self setNeedsDisplay:YES];
+    stateChangeNotifier();
 }
 
 - (void)zoomBy:(CGFloat)amount
@@ -410,6 +422,7 @@
     [self stretchBy:amount andBy:amount];
     [self updateGeometry];
     [self setNeedsDisplay:YES];
+    stateChangeNotifier();
 }
 
 - (void)magnifyWithEvent:(NSEvent *)event
@@ -418,6 +431,7 @@
               andBy:-[event magnification]];
     [self updateGeometry];
     [self setNeedsDisplay:YES];
+    stateChangeNotifier();
 }
 
 - (void)setFileDropResponder:(FileDropResponder)r
@@ -425,14 +439,23 @@
     dragResponder = Block_copy(r);
 }
 
+- (void)setStateChangeResponder:(Notifier)r
+{
+    stateChangeNotifier = Block_copy(r);
+    stateChangeNotifier();
+}
+
 - (void)narrowSelected
 {
     if ( isSelectionFile )
         return;
     
+    virtualSize = [self bounds];
+    
     [narrowingStack addObject:viewedTree];
     viewedTree = selectedLayoutNode;
     
+    stateChangeNotifier();
     [self updateGeometry];
     [self setNeedsDisplay:YES];
 }
@@ -442,11 +465,32 @@
     if ( [narrowingStack count] == 0 )
         return;
     
+    virtualSize = [self bounds];
+    
     viewedTree = [narrowingStack lastObject];
     [narrowingStack removeLastObject];
-    
+
+    stateChangeNotifier();
     [self updateGeometry];
     [self setNeedsDisplay:YES];
+}
+
+- (BOOL)isZoomMinimum { return viewedTree == nil; }
+- (BOOL)isZoomMaximum { return viewedTree == nil; }
+
+- (BOOL)isSelectionNarrowable
+{
+    return viewedTree != nil && selectedURL != nil && !isSelectionFile;
+}
+
+- (BOOL)isAtTopLevel
+{
+    return viewedTree != nil && [narrowingStack count] == 0;
+}
+
+- (BOOL)isSelectionReavealableInFinder
+{
+    return viewedTree != nil && selectedURL != nil;
 }
 @end
 

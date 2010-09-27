@@ -19,6 +19,12 @@
 @implementation SVMainWindowController
 @synthesize window;
 
+@synthesize atMaximumZoom;
+@synthesize atMinimumZoom;
+@synthesize showableInFinder;
+@synthesize narrowable;
+@synthesize atTopLevel;
+
 - (IBAction)zoomInView:sender { [mainTreeView zoomBy:-0.1f]; }
 - (IBAction)zoomOutView:sender { [mainTreeView zoomBy:0.1f]; }
 - (id)init
@@ -26,13 +32,29 @@
     self = [super init];
     curentlyNavigated = nil;
     scannedUrl = nil;
-    
+
+    atMaximumZoom = [NSNumber numberWithBool:FALSE];
+    atMinimumZoom = [NSNumber numberWithBool:FALSE];
+    showableInFinder = [NSNumber numberWithBool:FALSE];
+    narrowable = [NSNumber numberWithBool:FALSE];
+    atTopLevel = [NSNumber numberWithBool:TRUE];
+
     return self;
+}
+
+- (void)mapStateChange
+{
+    self.atMaximumZoom = [NSNumber numberWithBool:[mainTreeView isZoomMaximum]];
+    self.atMinimumZoom = [NSNumber numberWithBool:[mainTreeView isZoomMinimum]];
+    self.narrowable = [NSNumber numberWithBool:[mainTreeView isSelectionNarrowable]];
+    self.atTopLevel = [NSNumber numberWithBool:[mainTreeView isAtTopLevel]];
+    self.showableInFinder = [NSNumber numberWithBool:[mainTreeView isSelectionReavealableInFinder]];
 }
 
 - (void)awakeFromNib
 {
     [mainTreeView setFileDropResponder:^(NSURL* url){[self openURL:url];} ];
+    [mainTreeView setStateChangeResponder:^(void){ [self mapStateChange];} ];
     NSURL   *toOpen = [[SVGlobalQueues sharedQueues] getFileFromQueue];
 
     NSLog(@"%@\n", toOpen );
@@ -123,6 +145,11 @@
     [mainTreeView setTreeMap:created
                        atUrl:scannedUrl];
     [created release];
+}
+
+-(BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem
+{
+    return [toolbarItem isEnabled];
 }
 
 @end

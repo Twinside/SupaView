@@ -6,7 +6,7 @@
 
 @implementation SVVolume
 - (id)initWithFilePath:(NSURL*)treeName
-            andContext:(SVScanningContext*)ctxt;
+            andContext:(SVScanningContext*)ctxt
 {
     self = [super initWithFilePath:treeName];
     emptySpace = 0;

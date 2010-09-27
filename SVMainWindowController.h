@@ -25,6 +25,13 @@
     IBOutlet SVTreeMapView *mainTreeView;
 
     FileSize                scannedElementCount;
+    
+    
+    NSNumber              *atMaximumZoom;
+    NSNumber              *atMinimumZoom;
+    NSNumber              *showableInFinder;
+    NSNumber              *narrowable;
+    NSNumber              *atTopLevel;
 }
 
 @property (assign) IBOutlet NSWindow *window;
@@ -37,4 +44,11 @@
 - (IBAction)narrowFolder:(id)sender;
 - (IBAction)goUp:(id)sender;
 - (IBAction)revealInFinder:(id)sender;
+
+
+@property (assign) NSNumber* atMaximumZoom;
+@property (assign) NSNumber* atMinimumZoom;
+@property (assign) NSNumber* showableInFinder;
+@property (assign) NSNumber* narrowable;
+@property (assign) NSNumber* atTopLevel;
 @end

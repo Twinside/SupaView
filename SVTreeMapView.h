@@ -11,6 +11,7 @@
 #import "SVGeometryGatherer.h"
 
 typedef void (^FileDropResponder)( NSURL* fileUrl );
+typedef void (^Notifier)();
 
 @interface SVTreeMapView : NSView {
     NSRect                virtualSize;
@@ -32,6 +33,7 @@ typedef void (^FileDropResponder)( NSURL* fileUrl );
     BOOL                  dragged;
     
     FileDropResponder     dragResponder;
+    Notifier              stateChangeNotifier;
 }
 
 - (id)initWithFrame:(NSRect)frameRect;
@@ -48,8 +50,16 @@ typedef void (^FileDropResponder)( NSURL* fileUrl );
              atUrl:(NSURL*)url;
 
 - (void)setFileDropResponder:(FileDropResponder)r;
+- (void)setStateChangeResponder:(Notifier)r;
 
 - (void)narrowSelected;
 - (void)popNarrowing;
 - (void)revealSelectionInFinder;
+
+- (BOOL)isAtTopLevel;
+- (BOOL)isSelectionReavealableInFinder;
+- (BOOL)isSelectionNarrowable;
+- (BOOL)isZoomMaximum;
+- (BOOL)isZoomMinimum;
+
 @end
