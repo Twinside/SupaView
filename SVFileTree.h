@@ -37,7 +37,7 @@ typedef struct SVScanningContext_t SVScanningContext;
 
 - (void)dealloc;
 
-- (FileSize)getDiskSize;
+- (FileSize)diskSize;
 - (SVLayoutTree*)createLayoutTree;
 - (NSString*)filename;
 @end

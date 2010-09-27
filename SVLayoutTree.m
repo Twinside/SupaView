@@ -112,7 +112,6 @@ NSString * stringFromFileSize( FileSize theSize )
     right = nil;
     splitPos = -50.0f;
     fileNode = file;
-    [fileNode retain];
     
     return self;
 }
@@ -162,13 +161,13 @@ NSString * stringFromFileSize( FileSize theSize )
     // half of total size.
     for ( SVFileTree *elem in fileList )
     {
-        if ([elem getDiskSize] == 0)
+        if ([elem diskSize] == 0)
             break;
         
         if ( leftSize < midPoint || leftSize == 0 )
         {
             [leftList addObject:elem];
-            leftSize += [elem getDiskSize];
+            leftSize += [elem diskSize];
         }
         else
             [rightList addObject:elem];
@@ -225,7 +224,6 @@ NSString * stringFromFileSize( FileSize theSize )
 }
 
 - (void)dealloc {
-    [fileNode release];
     [left release];
     [right release];
     [super dealloc];
@@ -268,7 +266,7 @@ NSString * stringFromFileSize( FileSize theSize )
         // update to put size information
         textPos.origin.x += textPos.size.width;
 
-        [info->gatherer addText:stringFromFileSize([fileNode getDiskSize])
+        [info->gatherer addText:stringFromFileSize([fileNode diskSize])
                          inRect:&textPos];
     }
     else

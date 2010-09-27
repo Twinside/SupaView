@@ -10,8 +10,8 @@
 #import "SVVolumeTree.h"
 
 NSComparator SvFileTreeComparer = (NSComparator)^(id obj1, id obj2){
-        FileSize lSize = [obj1 getDiskSize];
-        FileSize rSize = [obj2 getDiskSize];
+        FileSize lSize = [obj1 diskSize];
+        FileSize rSize = [obj2 diskSize];
         
         if (lSize < rSize)
             return (NSComparisonResult)NSOrderedDescending;
@@ -86,10 +86,7 @@ BOOL isVolume( NSURL*   pathURL )
 
 - (NSString*)filename { return name; }
 
-- (FileSize)getDiskSize
-{
-    return diskSize;
-}
+- (FileSize)diskSize { return diskSize; }
 
 - (id)initWithFilePath:(NSURL*)treeName
 {
@@ -247,7 +244,7 @@ BOOL isVolume( NSURL*   pathURL )
                     [[SVFileTree alloc] initWithFilePath:theURL
                                                  andSize:[fileSize longLongValue]];
                 [self addChild:sub];
-                FileSize subSize = [sub getDiskSize];
+                FileSize subSize = [sub diskSize];
                 diskSize += subSize;
 
                 // propagate upward file size

@@ -160,7 +160,7 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    if (viewedTree == nil)
+    if (viewedTree == nil || geometry == nil)
     {
         [super drawRect:dirtyRect];
         NSFont *msgFont =
