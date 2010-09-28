@@ -1,26 +1,7 @@
 #import "SVLayoutLeaf.h"
 #import "../SVSizes.h"
 #import "../SVColorWheel.h"
-
-NSString * stringFromFileSize( FileSize theSize )
-{
-	float floatSize = theSize;
-	if (theSize<1023)
-    { 
-        NSString *msgString =
-            NSLocalizedStringFromTable(@"bytes", @"Custom", @"A comment");
-		return([NSString stringWithFormat:@"%i bytes",theSize]);
-    }
-	floatSize = floatSize / 1024;
-	if (floatSize<1023)
-		return([NSString stringWithFormat:@"%1.1f KB",floatSize]);
-	floatSize = floatSize / 1024;
-	if (floatSize<1023)
-		return([NSString stringWithFormat:@"%1.1f MB",floatSize]);
-	floatSize = floatSize / 1024;
-
-	return([NSString stringWithFormat:@"%1.1f GB",floatSize]);
-}
+#import "../SVSizeFormatter.h"
 
 @implementation SVLayoutLeaf
 - (id)initWithFile:(SVFileTree *)file
@@ -78,7 +59,7 @@ NSString * stringFromFileSize( FileSize theSize )
         // update to put size information
         textPos.origin.x += textPos.size.width;
 
-        [info->gatherer addText:stringFromFileSize([fileNode diskSize])
+        [info->gatherer addText:[[SVSizeFormatter sharedInstance] formatSize:[fileNode diskSize]]
                          inRect:&textPos];
     }
     else

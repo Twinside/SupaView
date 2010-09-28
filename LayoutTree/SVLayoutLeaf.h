@@ -20,6 +20,3 @@
 
 - (SVFileTree*)fileNode;
 @end
-
-NSString * stringFromFileSize( FileSize theSize );
-

@@ -2,6 +2,7 @@
 #import "../SVColorWheel.h"
 #import "../LayoutTree/SVLayoutFolder.h"
 #import "../LayoutTree/SVLayoutTree.h"
+#import "../SVSizeFormatter.h"
 
 @implementation SVLayoutFolder
 - (void)dealloc
@@ -35,8 +36,8 @@
 
         // update to put size information
         textPos.origin.x += textPos.size.width;
-
-        [info->gatherer addText:stringFromFileSize([fileNode diskSize])
+        
+        [info->gatherer addText:[[SVSizeFormatter sharedInstance] formatSize:[fileNode diskSize]]
                          inRect:&textPos];
     }
     else
