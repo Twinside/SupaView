@@ -193,15 +193,6 @@
 							<string key="NSTitle">File</string>
 							<object class="NSMutableArray" key="NSMenuItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="NSMenuItem" id="705341025">
-									<reference key="NSMenu" ref="720053764"/>
-									<string key="NSTitle">New</string>
-									<string key="NSKeyEquiv">n</string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="35465992"/>
-									<reference key="NSMixedImage" ref="502551668"/>
-								</object>
 								<object class="NSMenuItem" id="722745758">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Open…</string>
@@ -253,7 +244,7 @@
 							<string key="NSTitle">View</string>
 							<object class="NSMutableArray" key="NSMenuItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="NSMenuItem" id="356217389">
+								<object class="NSMenuItem" id="949307584">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Zoom in</string>
 									<string key="NSKeyEquiv"/>
@@ -261,7 +252,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="934273048">
+								<object class="NSMenuItem" id="378368629">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Zoom out</string>
 									<string key="NSKeyEquiv"/>
@@ -269,7 +260,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="342130208">
+								<object class="NSMenuItem" id="271056096">
 									<reference key="NSMenu" ref="466310130"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<bool key="NSIsSeparator">YES</bool>
@@ -279,7 +270,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="696264008">
+								<object class="NSMenuItem" id="530524068">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Narrow view</string>
 									<string key="NSKeyEquiv"/>
@@ -287,7 +278,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="1001510904">
+								<object class="NSMenuItem" id="888400783">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Go up</string>
 									<string key="NSKeyEquiv"/>
@@ -295,7 +286,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="356710906">
+								<object class="NSMenuItem" id="1040866770">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Reveal in finder</string>
 									<string key="NSKeyEquiv"/>
@@ -303,7 +294,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="927256203">
+								<object class="NSMenuItem" id="188611012">
 									<reference key="NSMenu" ref="466310130"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<bool key="NSIsSeparator">YES</bool>
@@ -487,7 +478,7 @@
 								<bool key="NSToolbarIsUserRemovable">YES</bool>
 								<int key="NSToolbarItemVisibilityPriority">0</int>
 							</object>
-							<object class="NSToolbarItem" id="664449590">
+							<object class="NSToolbarItem" id="873363666">
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">249A3904-1B8D-4593-999D-015955518E2A</characters>
 								</object>
@@ -559,7 +550,7 @@
 								<bool key="NSToolbarIsUserRemovable">YES</bool>
 								<int key="NSToolbarItemVisibilityPriority">0</int>
 							</object>
-							<object class="NSToolbarItem" id="159724818">
+							<object class="NSToolbarItem" id="598653673">
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">FF68DE95-2850-4E01-84FB-610381C30CE1</characters>
 								</object>
@@ -694,18 +685,18 @@
 						<reference ref="522574549"/>
 						<reference ref="1072717512"/>
 						<reference ref="830775605"/>
-						<reference ref="664449590"/>
-						<reference ref="159724818"/>
+						<reference ref="873363666"/>
+						<reference ref="598653673"/>
 					</object>
 					<object class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="864071714"/>
 						<reference ref="522574549"/>
 						<reference ref="626845412"/>
-						<reference ref="664449590"/>
+						<reference ref="873363666"/>
 						<reference ref="1072717512"/>
 						<reference ref="626845412"/>
-						<reference ref="159724818"/>
+						<reference ref="598653673"/>
 						<reference ref="344548285"/>
 						<reference ref="830775605"/>
 					</object>
@@ -815,12 +806,8 @@
 			<object class="NSCustomObject" id="582100434">
 				<string key="NSClassName">SVMainWindowController</string>
 			</object>
-			<object class="NSUserDefaultsController" id="842491111">
+			<object class="NSUserDefaultsController" id="973003872">
 				<bool key="NSSharedInstance">YES</bool>
-			</object>
-			<object class="NSObjectController" id="257050359">
-				<bool key="NSEditable">YES</bool>
-				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -889,14 +876,6 @@
 						<reference key="destination" ref="908899353"/>
 					</object>
 					<int key="connectionID">370</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">newDocument:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="705341025"/>
-					</object>
-					<int key="connectionID">373</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1014,7 +993,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">narrowFolder:</string>
 						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="664449590"/>
+						<reference key="destination" ref="873363666"/>
 					</object>
 					<int key="connectionID">585</int>
 				</object>
@@ -1022,7 +1001,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">zoomInView:</string>
 						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="356217389"/>
+						<reference key="destination" ref="949307584"/>
 					</object>
 					<int key="connectionID">593</int>
 				</object>
@@ -1030,7 +1009,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">zoomOutView:</string>
 						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="934273048"/>
+						<reference key="destination" ref="378368629"/>
 					</object>
 					<int key="connectionID">594</int>
 				</object>
@@ -1038,7 +1017,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">narrowFolder:</string>
 						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="696264008"/>
+						<reference key="destination" ref="530524068"/>
 					</object>
 					<int key="connectionID">595</int>
 				</object>
@@ -1046,7 +1025,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">goUp:</string>
 						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="1001510904"/>
+						<reference key="destination" ref="888400783"/>
 					</object>
 					<int key="connectionID">596</int>
 				</object>
@@ -1054,7 +1033,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">revealInFinder:</string>
 						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="159724818"/>
+						<reference key="destination" ref="598653673"/>
 					</object>
 					<int key="connectionID">597</int>
 				</object>
@@ -1062,85 +1041,145 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">revealInFinder:</string>
 						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="356710906"/>
+						<reference key="destination" ref="1040866770"/>
 					</object>
 					<int key="connectionID">599</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentObject: self</string>
-						<reference key="source" ref="257050359"/>
+						<string key="label">enabled: showableInFinder</string>
+						<reference key="source" ref="598653673"/>
 						<reference key="destination" ref="582100434"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="257050359"/>
+							<reference key="NSSource" ref="598653673"/>
 							<reference key="NSDestination" ref="582100434"/>
-							<string key="NSLabel">contentObject: self</string>
-							<string key="NSBinding">contentObject</string>
-							<string key="NSKeyPath">self</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">614</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: isSelectionShowableInFinder</string>
-						<reference key="source" ref="159724818"/>
-						<reference key="destination" ref="257050359"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="159724818"/>
-							<reference key="NSDestination" ref="257050359"/>
-							<string key="NSLabel">enabled: isSelectionShowableInFinder</string>
+							<string key="NSLabel">enabled: showableInFinder</string>
 							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">isSelectionShowableInFinder</string>
+							<string key="NSKeyPath">showableInFinder</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">615</int>
+					<int key="connectionID">630</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: isSelectionNarrowable</string>
-						<reference key="source" ref="664449590"/>
-						<reference key="destination" ref="257050359"/>
+						<string key="label">enabled: narrowable</string>
+						<reference key="source" ref="873363666"/>
+						<reference key="destination" ref="582100434"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="664449590"/>
-							<reference key="NSDestination" ref="257050359"/>
-							<string key="NSLabel">enabled: isSelectionNarrowable</string>
+							<reference key="NSSource" ref="873363666"/>
+							<reference key="NSDestination" ref="582100434"/>
+							<string key="NSLabel">enabled: narrowable</string>
 							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">isSelectionNarrowable</string>
+							<string key="NSKeyPath">narrowable</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">621</int>
+					<int key="connectionID">632</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: isSelectionTopLevel</string>
-						<reference key="source" ref="1072717512"/>
-						<reference key="destination" ref="257050359"/>
+						<string key="label">enabled: narrowable</string>
+						<reference key="source" ref="530524068"/>
+						<reference key="destination" ref="582100434"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="1072717512"/>
-							<reference key="NSDestination" ref="257050359"/>
-							<string key="NSLabel">enabled: isSelectionTopLevel</string>
+							<reference key="NSSource" ref="530524068"/>
+							<reference key="NSDestination" ref="582100434"/>
+							<string key="NSLabel">enabled: narrowable</string>
 							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">isSelectionTopLevel</string>
+							<string key="NSKeyPath">narrowable</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">622</int>
+					<int key="connectionID">643</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: isZoomMaximum</string>
+						<string key="label">enabled: atTopLevel</string>
+						<reference key="source" ref="888400783"/>
+						<reference key="destination" ref="582100434"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="888400783"/>
+							<reference key="NSDestination" ref="582100434"/>
+							<string key="NSLabel">enabled: atTopLevel</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">atTopLevel</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">646</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: atMaximumZoom</string>
+						<reference key="source" ref="949307584"/>
+						<reference key="destination" ref="582100434"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="949307584"/>
+							<reference key="NSDestination" ref="582100434"/>
+							<string key="NSLabel">enabled: atMaximumZoom</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">atMaximumZoom</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">647</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: atMinimumZoom</string>
+						<reference key="source" ref="378368629"/>
+						<reference key="destination" ref="582100434"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="378368629"/>
+							<reference key="NSDestination" ref="582100434"/>
+							<string key="NSLabel">enabled: atMinimumZoom</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">atMinimumZoom</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">648</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: showableInFinder</string>
+						<reference key="source" ref="1040866770"/>
+						<reference key="destination" ref="582100434"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1040866770"/>
+							<reference key="NSDestination" ref="582100434"/>
+							<string key="NSLabel">enabled: showableInFinder</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">showableInFinder</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">651</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: atMaximumZoom</string>
 						<reference key="source" ref="864071714"/>
-						<reference key="destination" ref="257050359"/>
+						<reference key="destination" ref="582100434"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="864071714"/>
-							<reference key="NSDestination" ref="257050359"/>
-							<string key="NSLabel">enabled: isZoomMaximum</string>
+							<reference key="NSDestination" ref="582100434"/>
+							<string key="NSLabel">enabled: atMaximumZoom</string>
 							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">isZoomMaximum</string>
+							<string key="NSKeyPath">atMaximumZoom</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">NSNegateBoolean</string>
@@ -1148,19 +1187,19 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">624</int>
+					<int key="connectionID">652</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: isZoomMinimum</string>
+						<string key="label">enabled: atMinimumZoom</string>
 						<reference key="source" ref="522574549"/>
-						<reference key="destination" ref="257050359"/>
+						<reference key="destination" ref="582100434"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="522574549"/>
-							<reference key="NSDestination" ref="257050359"/>
-							<string key="NSLabel">enabled: isZoomMinimum</string>
+							<reference key="NSDestination" ref="582100434"/>
+							<string key="NSLabel">enabled: atMinimumZoom</string>
 							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">isZoomMinimum</string>
+							<string key="NSKeyPath">atMinimumZoom</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">NSNegateBoolean</string>
@@ -1168,7 +1207,27 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">626</int>
+					<int key="connectionID">653</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: atTopLevel</string>
+						<reference key="source" ref="1072717512"/>
+						<reference key="destination" ref="582100434"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="1072717512"/>
+							<reference key="NSDestination" ref="582100434"/>
+							<string key="NSLabel">enabled: atTopLevel</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">atTopLevel</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">654</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1244,7 +1303,6 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="722745758"/>
-							<reference ref="705341025"/>
 							<reference ref="1025936716"/>
 						</object>
 						<reference key="parent" ref="379814623"/>
@@ -1252,11 +1310,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">72</int>
 						<reference key="object" ref="722745758"/>
-						<reference key="parent" ref="720053764"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">82</int>
-						<reference key="object" ref="705341025"/>
 						<reference key="parent" ref="720053764"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1412,13 +1465,13 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="102151532"/>
-							<reference ref="356217389"/>
-							<reference ref="934273048"/>
-							<reference ref="927256203"/>
-							<reference ref="696264008"/>
-							<reference ref="1001510904"/>
-							<reference ref="342130208"/>
-							<reference ref="356710906"/>
+							<reference ref="949307584"/>
+							<reference ref="378368629"/>
+							<reference ref="188611012"/>
+							<reference ref="530524068"/>
+							<reference ref="888400783"/>
+							<reference ref="271056096"/>
+							<reference ref="1040866770"/>
 						</object>
 						<reference key="parent" ref="586577488"/>
 					</object>
@@ -1527,8 +1580,8 @@
 							<reference ref="522574549"/>
 							<reference ref="864071714"/>
 							<reference ref="830775605"/>
-							<reference ref="664449590"/>
-							<reference ref="159724818"/>
+							<reference ref="873363666"/>
+							<reference ref="598653673"/>
 						</object>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -1588,57 +1641,52 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">583</int>
-						<reference key="object" ref="664449590"/>
+						<reference key="object" ref="873363666"/>
 						<reference key="parent" ref="678140638"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">586</int>
-						<reference key="object" ref="159724818"/>
+						<reference key="object" ref="598653673"/>
 						<reference key="parent" ref="678140638"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">587</int>
-						<reference key="object" ref="356217389"/>
+						<reference key="object" ref="949307584"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">588</int>
-						<reference key="object" ref="934273048"/>
+						<reference key="object" ref="378368629"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">589</int>
-						<reference key="object" ref="927256203"/>
+						<reference key="object" ref="188611012"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">590</int>
-						<reference key="object" ref="696264008"/>
+						<reference key="object" ref="530524068"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">591</int>
-						<reference key="object" ref="1001510904"/>
+						<reference key="object" ref="888400783"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">592</int>
-						<reference key="object" ref="342130208"/>
+						<reference key="object" ref="271056096"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">598</int>
-						<reference key="object" ref="356710906"/>
+						<reference key="object" ref="1040866770"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">603</int>
-						<reference key="object" ref="842491111"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">613</int>
-						<reference key="object" ref="257050359"/>
+						<reference key="object" ref="973003872"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</object>
@@ -1745,15 +1793,12 @@
 					<string>591.IBPluginDependency</string>
 					<string>592.IBPluginDependency</string>
 					<string>598.IBPluginDependency</string>
-					<string>613.IBPluginDependency</string>
 					<string>72.IBPluginDependency</string>
 					<string>72.ImportedFromIB2</string>
 					<string>81.IBEditorWindowLastContentRect</string>
 					<string>81.IBPluginDependency</string>
 					<string>81.ImportedFromIB2</string>
 					<string>81.editorWindowContentRectSynchronizationRect</string>
-					<string>82.IBPluginDependency</string>
-					<string>82.ImportedFromIB2</string>
 					<string>83.IBPluginDependency</string>
 					<string>83.ImportedFromIB2</string>
 					<string>92.IBPluginDependency</string>
@@ -1764,7 +1809,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{949, 858}, {143, 23}}</string>
+					<string>{{869, 910}, {143, 23}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{522, 812}, {146, 23}}</string>
@@ -1810,13 +1855,13 @@
 					<string>{74, 862}</string>
 					<string>{{6, 978}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{755, 804}, {193, 143}}</string>
+					<string>{{748, 810}, {193, 143}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{675, 441}, {521, 451}}</string>
+					<string>{{606, 408}, {521, 451}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{675, 441}, {521, 451}}</string>
+					<string>{{606, 408}, {521, 451}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<boolean value="YES"/>
@@ -1824,12 +1869,12 @@
 					<string>{250, 250}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{876, 924}, {171, 23}}</string>
+					<string>{{869, 930}, {171, 23}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{627, 892}, {617, 0}}</string>
+					<string>{{558, 859}, {617, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1844,7 +1889,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{625, 764}, {200, 183}}</string>
+					<string>{{618, 770}, {200, 183}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{23, 794}, {245, 183}}</string>
@@ -1860,14 +1905,11 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{713, 884}, {163, 63}}</string>
+					<string>{{706, 910}, {163, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{145, 474}, {199, 203}}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1890,7 +1932,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">626</int>
+			<int key="maxID">654</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2180,14 +2222,6 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">NSManagedObjectContext</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">CoreData.framework/Headers/NSManagedObjectContext.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">NSMenu</string>
 					<string key="superclassName">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="1056362899">
@@ -2442,14 +2476,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">Foundation.framework/Headers/NSURLDownload.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObjectController</string>
-					<string key="superclassName">NSController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">AppKit.framework/Headers/NSObjectController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

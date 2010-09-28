@@ -485,7 +485,7 @@
 
 - (BOOL)isAtTopLevel
 {
-    return viewedTree != nil && [narrowingStack count] == 0;
+    return viewedTree == nil || [narrowingStack count] == 0;
 }
 
 - (BOOL)isSelectionReavealableInFinder
