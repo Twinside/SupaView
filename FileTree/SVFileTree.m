@@ -40,6 +40,24 @@ BOOL isVolume( NSURL*   pathURL )
 }
 
 @implementation SVFileTree
++ (BOOL)isAcceptableURL:(NSURL*)theURL
+{
+    if ( ![theURL isFileURL] )
+        return NO;
+    
+    NSNumber *isDirectory;
+    [theURL getResourceValue:&isDirectory
+                      forKey:NSURLIsDirectoryKey
+                       error:NULL];
+    
+    NSNumber *isVolume;
+    [theURL getResourceValue:&isVolume
+                      forKey:NSURLIsVolumeKey
+                       error:NULL];
+    
+    return [isVolume boolValue] || [isDirectory boolValue];
+}
+
 + (SVFileTree*)createFromPath:(NSURL*)filePath
                updateReceiver:(id<SVProgressNotifiable>)receiver
                   endNotifier:(EndNotification)notifier

@@ -13,6 +13,13 @@
 typedef void (^FileDropResponder)( NSURL* fileUrl );
 typedef void (^Notifier)();
 
+typedef enum DropStatus_t
+{
+    NoDrop,
+    AcceptDrop,
+    RefuseDrop
+} DropStatus;
+
 @interface SVTreeMapView : NSView {
     NSRect                virtualSize;
     SVLayoutNode          *viewedTree;
@@ -23,6 +30,8 @@ typedef void (^Notifier)();
     
     SVFileTree            *currentSelection;
     SVLayoutLeaf          *selectedLayoutNode;
+
+    DropStatus            currentDropStatus;
     
     NSURL                 *currentURL;
     NSURL                 *selectedURL;

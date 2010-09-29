@@ -57,7 +57,6 @@
     [mainTreeView setStateChangeResponder:^(void){ [self mapStateChange];} ];
     NSURL   *toOpen = [[SVGlobalQueues sharedQueues] getFileFromQueue];
 
-    NSLog(@"%@\n", toOpen );
     if ( toOpen != nil )
         [self openURL:toOpen];
 }

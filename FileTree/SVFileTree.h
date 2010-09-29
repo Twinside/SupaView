@@ -18,6 +18,7 @@ typedef void (^EndNotification)();
     FileSize        diskSize;
 	NSString        *name;
 }
++ (BOOL)isAcceptableURL:(NSURL*)url;
 + (SVFileTree*)createFromPath:(NSURL*)filePath
                updateReceiver:(id<SVProgressNotifiable>)receiver
                   endNotifier:(EndNotification)notifier;

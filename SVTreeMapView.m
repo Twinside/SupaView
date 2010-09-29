@@ -36,6 +36,8 @@
     dragResponder = nil;
     viewedTree = nil;
 
+    currentDropStatus = NoDrop;
+
     [self registerForDraggedTypes:
                 [NSArray arrayWithObjects: NSURLPboardType
                                          , nil]];
@@ -50,9 +52,30 @@
     pboard = [sender draggingPasteboard];
     
     if ( [[pboard types] containsObject:NSURLPboardType] )
+    {
+        NSArray *files = [pboard propertyListForType:NSURLPboardType];
+        NSString *newRoot = [files objectAtIndex:0];
+
+        if ( [SVFileTree isAcceptableURL:[NSURL URLWithString:newRoot]] )
+            currentDropStatus = AcceptDrop;
+        else
+            currentDropStatus = RefuseDrop;
+
+        [self setNeedsDisplay:YES];
+
         return NSDragOperationGeneric;
-    
+    }
+
+    currentDropStatus = RefuseDrop;
+    [self setNeedsDisplay:YES];
+
     return NSDragOperationNone;
+}
+
+- (void)draggingEnded:(id<NSDraggingInfo>)sender
+{
+    currentDropStatus = NoDrop;
+    [self setNeedsDisplay:YES];
 }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
@@ -74,6 +97,9 @@
         }
     }
     
+    currentDropStatus = NoDrop;
+    [self setNeedsDisplay:YES];
+
     return YES;
 }
 - (void)dealloc
@@ -221,12 +247,38 @@
 
     [msgString drawInRect:where withAttributes:strDrawAttr];
 }
+
+- (void)drawDropStatus:(NSRect)dirtyRect
+{
+    switch ( currentDropStatus )
+    {
+    case AcceptDrop:
+        [[NSColor colorWithDeviceRed:0.8
+                               green:1.0
+                                blue:0.8
+                               alpha:0.5] setFill];
+        NSRectFillUsingOperation([self bounds], NSCompositeSourceAtop);
+        break;
+
+    case RefuseDrop:
+        [[NSColor colorWithDeviceRed:1.0
+                               green:0.8
+                                blue:0.8
+                               alpha:0.5] setFill];
+        NSRectFillUsingOperation([self bounds], NSCompositeSourceAtop);
+        break;
+
+    case NoDrop: break;
+    }
+    [[NSColor blackColor] setFill];
+}
+
 - (void)drawRect:(NSRect)dirtyRect
 {
     if (viewedTree == nil || geometry == nil)
     {
-        [super drawRect:dirtyRect];
         [self drawInitialMessage:dirtyRect];
+        [self drawDropStatus:dirtyRect];
         return;
     }
 
@@ -235,6 +287,7 @@
     [self drawText];
     
     NSFrameRectWithWidth( virtualSize, 2.0 );
+    [self drawDropStatus:dirtyRect];
 }
 
 - (void) translateBy:(CGFloat)dx  andBy:(CGFloat)dy
