@@ -510,7 +510,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">SVGoUp</string>
+									<string key="NSResourceName">SVGoBack</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -1793,6 +1793,7 @@
 					<string>591.IBPluginDependency</string>
 					<string>592.IBPluginDependency</string>
 					<string>598.IBPluginDependency</string>
+					<string>603.IBPluginDependency</string>
 					<string>72.IBPluginDependency</string>
 					<string>72.ImportedFromIB2</string>
 					<string>81.IBEditorWindowLastContentRect</string>
@@ -1849,7 +1850,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{606, 953}, {324, 20}}</string>
+					<string>{{722, 910}, {324, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
@@ -1859,9 +1860,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{606, 408}, {521, 451}}</string>
+					<string>{{643, 378}, {521, 451}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{606, 408}, {521, 451}}</string>
+					<string>{{643, 378}, {521, 451}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<boolean value="YES"/>
@@ -1874,7 +1875,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{558, 859}, {617, 0}}</string>
+					<string>{{595, 829}, {617, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1895,6 +1896,7 @@
 					<string>{{23, 794}, {245, 183}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2607,7 +2609,7 @@
 				<string>NSMenuMixedState</string>
 				<string>NSRevealFreestandingTemplate</string>
 				<string>NSToolbarPrint</string>
-				<string>SVGoUp</string>
+				<string>SVGoBack</string>
 				<string>SVZoomInImg</string>
 				<string>SVZoomOutImg</string>
 			</object>
@@ -2618,7 +2620,7 @@
 				<string>{7, 2}</string>
 				<string>{14, 14}</string>
 				<string>{32, 32}</string>
-				<string>{64, 64}</string>
+				<string>{48, 48}</string>
 				<string>{64, 64}</string>
 				<string>{64, 64}</string>
 			</object>
