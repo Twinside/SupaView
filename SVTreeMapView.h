@@ -37,8 +37,6 @@ typedef enum DropStatus_t
     NSURL                 *selectedURL;
     BOOL                  isSelectionFile;
 
-    NSFont                *drawingFont;
-    NSDictionary          *stringAttributs;
     BOOL                  dragged;
     
     FileDropResponder     dragResponder;

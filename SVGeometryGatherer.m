@@ -7,6 +7,7 @@
 //
 
 #import "SVGeometryGatherer.h"
+#import "SVSizes.h"
 #import "SVUtils.h"
 
 @implementation SVStringDraw
@@ -34,6 +35,14 @@
 - (id)initWithRectCount:(int)count {
     self = [super init];
     
+    drawingFont = [NSFont fontWithName:@"Helvetica" size:blockSizes.textHeight];
+    stringAttributs = 
+        [NSDictionary dictionaryWithObject:drawingFont
+                                    forKey:NSFontAttributeName];
+
+    [drawingFont retain];
+    [stringAttributs retain];
+
     maxRectangleCount = count;
     rects = (NSRect*)malloc( sizeof( NSRect ) * count );
     colors = (NSColor**)malloc( sizeof( NSColor* ) * count );
@@ -50,8 +59,19 @@
     rects = nil;
     colors = nil;
     [textWrite release];
+    [drawingFont release];
+    [stringAttributs release];
     [super dealloc];
 }
+
+- (CGFloat)evaluateStringWidth:(NSString*)str
+{
+    return [str sizeWithAttributes:stringAttributs].width;
+}
+
+
+- (NSDictionary*)drawStringAttributes
+    { return stringAttributs; }
 
 - (void) scalePoint:(NSPoint*)p {
     p->x = p->x * widthScale + translateX;

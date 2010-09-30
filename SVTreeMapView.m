@@ -18,15 +18,8 @@
     self = [super initWithFrame:frameRect];
     wheel = [[SVColorWheel alloc] init];
     virtualSize = frameRect;
-    drawingFont = [NSFont fontWithName:@"Helvetica" size:blockSizes.textHeight];
-    stringAttributs = 
-        [NSDictionary dictionaryWithObject:drawingFont
-                                    forKey:NSFontAttributeName];
-
     narrowingStack = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [drawingFont retain];
-    [stringAttributs retain];
     [self updateGeometrySize];
     currentURL = nil;
     selectedURL = nil;
@@ -107,8 +100,6 @@
     [viewedTree release];
     [geometry release];
     [wheel release];
-    [drawingFont release];
-    [stringAttributs release];
     [selectedURL release];
     [currentURL release];
     [narrowingStack release];
@@ -190,10 +181,11 @@
 
 - (void)drawText
 {
+    NSDictionary *attr = [geometry drawStringAttributes];
     for ( SVStringDraw *str in [geometry getText] )
     {
         [[str text] drawInRect:*[str position]
-                withAttributes:stringAttributs];
+                withAttributes:attr];
     }
 }
 

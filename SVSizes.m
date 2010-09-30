@@ -15,7 +15,7 @@ const SVSizes blockSizes =
     .minBoxSizeWidth = 7,
     .minBoxSizeHeight = 7,
 
-    .textMinimumWidth = 50,
+    .textMinimumWidth = 40,
     .fileSizeMinDisplay = 40,
     .fileSizeWidth = 40
 };

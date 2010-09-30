@@ -50,9 +50,15 @@
             - (blockSizes.textTopMargin + blockSizes.bottomMargin);
                 
 
-    if ( textPos.size.width > blockSizes.fileSizeMinDisplay * info->minimumWidth )
+    if ( textPos.size.width > (blockSizes.fileSizeMinDisplay
+                               + blockSizes.textMinimumWidth)* info->minimumWidth )
     {
-        CGFloat sizeDisplaySize = blockSizes.fileSizeWidth * info->minimumWidth;
+        NSString *sizeString = 
+            [[SVSizeFormatter sharedInstance] formatSize:[fileNode diskSize]];
+
+        CGFloat sizeDisplaySize = ([info->gatherer evaluateStringWidth:sizeString]
+                                    + blockSizes.textLeftMargin)
+                                * info->minimumWidth;
 
         textPos.size.width -= sizeDisplaySize;
         [info->gatherer addText:[fileNode filename]

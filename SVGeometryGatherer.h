@@ -26,6 +26,9 @@
     NSRect  *rects;
     NSColor **colors;
 
+    NSDictionary          *stringAttributs;
+    NSFont                *drawingFont;
+
     bool        collecting;
     CGFloat     widthScale;
     CGFloat     heightScale;
@@ -52,6 +55,9 @@
 - (NSRect*)getRectangles;
 - (NSColor**)getColors;
 - (NSMutableArray*)getText;
+
+- (CGFloat)evaluateStringWidth:(NSString*)str;
+- (NSDictionary*)drawStringAttributes;
 
 /**
  * Return the size of a screen pixel within the
