@@ -9,14 +9,14 @@ const SVSizes blockSizes =
     .bottomMargin = 3,
 
     .textLeftMargin = 4,
-    .textTopMargin = 4,
-    .textHeight = 9,
+    .textTopMargin = 1,
+    .textHeight = 10,
 
-    .minBoxSizeWidth = 10,
-    .minBoxSizeHeight = 10,
+    .minBoxSizeWidth = 7,
+    .minBoxSizeHeight = 7,
 
-    .textMinimumWidth = 80,
-    .fileSizeMinDisplay = 50,
+    .textMinimumWidth = 50,
+    .fileSizeMinDisplay = 40,
     .fileSizeWidth = 40
 };
 

@@ -23,7 +23,7 @@
     textPos.origin.x += blockSizes.textLeftMargin * info->minimumWidth;
     textPos.origin.y += textPos.size.height 
                         - (blockSizes.textHeight 
-                            + blockSizes.textTopMargin - 1) * info->minimumHeight;
+                            + blockSizes.textTopMargin) * info->minimumHeight;
     textPos.size.height = blockSizes.textHeight;
 
     if ( textPos.size.width > blockSizes.fileSizeMinDisplay * info->minimumWidth )

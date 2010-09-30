@@ -46,7 +46,9 @@
     textPos.origin.x += blockSizes.textLeftMargin * info->minimumWidth;
     textPos.origin.y += (blockSizes.bottomMargin + 1) * info->minimumHeight;
     textPos.size.height =
-        textPos.size.height / info->minimumHeight - blockSizes.textTopMargin;
+        textPos.size.height / info->minimumHeight
+            - (blockSizes.textTopMargin + blockSizes.bottomMargin);
+                
 
     if ( textPos.size.width > blockSizes.fileSizeMinDisplay * info->minimumWidth )
     {
