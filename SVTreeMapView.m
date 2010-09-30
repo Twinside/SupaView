@@ -504,6 +504,7 @@
     viewedTree = selectedLayoutNode;
     [currentURL release];
     currentURL = selectedURL;
+    [currentURL retain];
     
     stateChangeNotifier();
     [self updateGeometry];
@@ -522,6 +523,7 @@
 
     [currentURL release];
     currentURL = [st url];
+    [currentURL retain];
 
     [narrowingStack removeLastObject];
 
