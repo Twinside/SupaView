@@ -1,5 +1,11 @@
 #import "SVLayoutNode.h"
 
+/**
+ * Main class of the layouyt tree.
+ * When drawing, split the given rectangle
+ * in two pieces, of proportion given by
+ * splitPos.
+ */
 @interface SVLayoutTree : SVLayoutNode {
     SVLayoutNode  *left;
     SVLayoutNode  *right;

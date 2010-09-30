@@ -32,6 +32,7 @@
 		61C8804912510C2100F1B518 /* Custom.strings in Resources */ = {isa = PBXBuildFile; fileRef = 61C8804812510C2100F1B518 /* Custom.strings */; };
 		61C882091251E97200F1B518 /* SVSizeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C882081251E97200F1B518 /* SVSizeFormatter.m */; };
 		61F19E741254E0BB005340E2 /* SVGoBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 61F19E731254E0BB005340E2 /* SVGoBack.png */; };
+		61F19E911254E9B6005340E2 /* SVNarrowingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F19E901254E9B6005340E2 /* SVNarrowingState.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -96,6 +97,8 @@
 		61C882071251E97200F1B518 /* SVSizeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSizeFormatter.h; sourceTree = "<group>"; };
 		61C882081251E97200F1B518 /* SVSizeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSizeFormatter.m; sourceTree = "<group>"; };
 		61F19E731254E0BB005340E2 /* SVGoBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SVGoBack.png; path = img/SVGoBack.png; sourceTree = "<group>"; };
+		61F19E8F1254E9B6005340E2 /* SVNarrowingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVNarrowingState.h; sourceTree = "<group>"; };
+		61F19E901254E9B6005340E2 /* SVNarrowingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVNarrowingState.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SupaView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SupaView-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SupaView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupaView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -131,6 +134,8 @@
 				613488D912284A39009EDE77 /* SVSizes.h */,
 				613488DA12284A39009EDE77 /* SVSizes.m */,
 				6167F86C122366B800404881 /* SVGeometryGatherer.h */,
+				61F19E8F1254E9B6005340E2 /* SVNarrowingState.h */,
+				61F19E901254E9B6005340E2 /* SVNarrowingState.m */,
 				6167F86D122366B800404881 /* SVGeometryGatherer.m */,
 				6167F8B5122374C200404881 /* Definitions.h */,
 				6172869B1225FE6100607826 /* SVColorWheel.h */,
@@ -329,6 +334,7 @@
 				61C87FA31250E99200F1B518 /* SVEmptyNode.m in Sources */,
 				61C87FA41250E99200F1B518 /* SVUnscanned.m in Sources */,
 				61C882091251E97200F1B518 /* SVSizeFormatter.m in Sources */,
+				61F19E911254E9B6005340E2 /* SVNarrowingState.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

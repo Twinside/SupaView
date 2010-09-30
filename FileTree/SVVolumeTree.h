@@ -6,6 +6,11 @@
 #import "SVScanningContext.h"
 #import "../SVGraphViz.h"
 
+/**
+ * Represent a volume (hard disk). Extract
+ * more information from the system in order
+ * to display them and give advancement
+ * information */
 @interface SVVolume : SVFileTree {
     SVFolderTree      *child;
     FileSize          volumeSize;

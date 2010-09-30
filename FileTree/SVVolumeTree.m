@@ -61,8 +61,8 @@
     [nodeList sortUsingComparator:SvFileTreeComparer];
 
     SVLayoutTree *layout = 
-        [[SVLayoutFolder alloc] initWithFileList:nodeList
-                                         forNode:self
+        [[SVLayoutTree alloc] initWithFileList:nodeList
+                                         //forNode:self
                                     andTotalSize:volumeSize];
     [nodeList release];
 

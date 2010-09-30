@@ -3,26 +3,18 @@
 #import "../LayoutTree/SVLayoutFolder.h"
 
 @interface SVFolderTree (Private)
+/**
+ * Helper function to extract all the information
+ * we are interested in regarding to a file/folder.
+ */
 + (NSArray*)scanObjectInfo;
-@end
 
-@implementation SVFolderTree (Private)
-+ (NSArray*)scanObjectInfo
-{
-    static NSArray *scanObjectInfo = nil;
+/**
+ * Function starting the folder scan
+ */
+- (void) populateChildListAtUrl:(NSURL*)url
+                    withContext:(SVScanningContext*)ctxt;
 
-    if ( scanObjectInfo == nil )
-    {
-        scanObjectInfo = 
-            [[NSArray arrayWithObjects: NSURLNameKey
-                                      , NSURLIsDirectoryKey
-                                      , NSURLIsVolumeKey
-                                      , NSURLIsSymbolicLinkKey
-                                      , NSURLFileAllocatedSizeKey
-                                      , nil] retain];
-    }
-    return scanObjectInfo;
-}
 @end
 
 @implementation SVFolderTree
@@ -87,7 +79,7 @@
                                             andContext:ctxt];
             ctxt->depth--;
 
-            [self addChild:folder];
+            [children addObject:folder];
             [folder release];
             [ctxt->receiver notifyFileScanned];
         }
@@ -109,7 +101,8 @@
                 SVFileTree *sub = 
                     [[SVFileTree alloc] initWithFilePath:theURL
                                                  andSize:[fileSize longLongValue]];
-                [self addChild:sub];
+                [children addObject:sub];
+
                 FileSize subSize = [sub diskSize];
                 diskSize += subSize;
 
@@ -127,6 +120,37 @@
     [localFileManager release];
 }
 
+- (SVLayoutNode*)createLayoutTree
+{
+    if ( [children count] == 0 )
+        return nil;
+
+    return
+        [[SVLayoutFolder alloc] initWithFileList:children
+                                         forNode:self
+                                    andTotalSize:diskSize];
+}
+@end
+
+
+@implementation SVFolderTree (Private)
++ (NSArray*)scanObjectInfo
+{
+    static NSArray *scanObjectInfo = nil;
+
+    if ( scanObjectInfo == nil )
+    {
+        scanObjectInfo = 
+            [[NSArray arrayWithObjects: NSURLNameKey
+                                      , NSURLIsDirectoryKey
+                                      , NSURLIsVolumeKey
+                                      , NSURLIsSymbolicLinkKey
+                                      , NSURLFileAllocatedSizeKey
+                                      , nil] retain];
+    }
+    return scanObjectInfo;
+}
+
 - (void) populateChildListAtUrl:(NSURL*)url
                     withContext:(SVScanningContext*)ctxt
 {
@@ -142,21 +166,4 @@
     [pool drain];
 }
 
-- (SVFolderTree*)addChild:(SVFileTree*)subTree
-{
-    [children addObject:subTree];
-    return self;
-}
-
-- (SVLayoutNode*)createLayoutTree
-{
-    if ( [children count] == 0 )
-        return nil;
-
-    return
-        [[SVLayoutFolder alloc] initWithFileList:children
-                                         forNode:self
-                                    andTotalSize:diskSize];
-}
 @end
-

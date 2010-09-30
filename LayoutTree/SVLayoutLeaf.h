@@ -2,6 +2,11 @@
 #import <Cocoa/Cocoa.h>
 #import "SVLayoutNode.h"
 
+/**
+ * Layout node for files, just get a link to it's
+ * associated object. Draw file borders, name and
+ * size then stop.
+ */
 @interface SVLayoutLeaf : SVLayoutNode {
     SVFileTree    *fileNode;
 }

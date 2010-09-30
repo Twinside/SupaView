@@ -10,6 +10,7 @@
 #import "SVColorWheel.h"
 #import "SVUtils.h"
 #import "SVSizes.h"
+#import "SVNarrowingState.h"
 #import "LayoutTree/SVLayoutLeaf.h"
 
 @implementation SVTreeMapView
@@ -497,8 +498,12 @@
     
     virtualSize = [self bounds];
     
-    [narrowingStack addObject:viewedTree];
+    [narrowingStack addObject:
+            [[SVNarrowingState alloc] initWithNode:viewedTree
+                                            andURL:currentURL]];
     viewedTree = selectedLayoutNode;
+    [currentURL release];
+    currentURL = selectedURL;
     
     stateChangeNotifier();
     [self updateGeometry];
@@ -512,7 +517,12 @@
     
     virtualSize = [self bounds];
     
-    viewedTree = [narrowingStack lastObject];
+    SVNarrowingState *st = [narrowingStack lastObject];
+    viewedTree = [st node];
+
+    [currentURL release];
+    currentURL = [st url];
+
     [narrowingStack removeLastObject];
 
     stateChangeNotifier();

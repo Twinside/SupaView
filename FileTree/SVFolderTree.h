@@ -1,18 +1,17 @@
 #import "SVFileTree.h"
 #import "SVScanningContext.h"
 
+/**
+ * Store information for a whole folder.
+ * Store disk size and a list of it's children.
+ */
 @interface SVFolderTree : SVFileTree {
     NSMutableArray     *children;
 }
-
 - (id)initWithFilePath:(NSURL*)treeName
             andContext:(SVScanningContext*)ctxt;
 
 - (void)dealloc;
-
-- (SVFolderTree*)addChild:(SVFileTree*)subTree;
-- (void) populateChildListAtUrl:(NSURL*)url
-                    withContext:(SVScanningContext*)ctxt;
 
 - (SVLayoutNode*)createLayoutTree;
 @end
