@@ -7,11 +7,11 @@
 //
 
 #import "SVTreeMapView.h"
-#import "SVColorWheel.h"
-#import "SVUtils.h"
-#import "SVSizes.h"
+#import "../SVColorWheel.h"
+#import "../SVUtils.h"
+#import "../SVSizes.h"
 #import "SVNarrowingState.h"
-#import "LayoutTree/SVLayoutLeaf.h"
+#import "../LayoutTree/SVLayoutLeaf.h"
 #import "SVTreeMapView.dragging.h"
 
 @implementation SVTreeMapView

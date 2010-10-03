@@ -14,9 +14,14 @@
 		613488DB12284A39009EDE77 /* SVSizes.m in Sources */ = {isa = PBXBuildFile; fileRef = 613488DA12284A39009EDE77 /* SVSizes.m */; };
 		615130BC123EA998003CD2AE /* SVZoomInImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 615130BA123EA998003CD2AE /* SVZoomInImg.png */; };
 		615130BD123EA998003CD2AE /* SVZoomOutImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 615130BB123EA998003CD2AE /* SVZoomOutImg.png */; };
-		6167F85B122361E500404881 /* SVTreeMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6167F85A122361E500404881 /* SVTreeMapView.m */; };
 		6167F86E122366B800404881 /* SVGeometryGatherer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6167F86D122366B800404881 /* SVGeometryGatherer.m */; };
 		6172869D1225FE6100607826 /* SVColorWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6172869C1225FE6100607826 /* SVColorWheel.m */; };
+		6184F5AD12591CE300C91C8E /* SVTreeMapView.dragging.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5AA12591CE300C91C8E /* SVTreeMapView.dragging.m */; };
+		6184F5AE12591CE300C91C8E /* SVTreeMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5AC12591CE300C91C8E /* SVTreeMapView.m */; };
+		6184F5B112591D2600C91C8E /* SVTreeMapView.animate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5B012591D2600C91C8E /* SVTreeMapView.animate.m */; };
+		6184F5BC125923D700C91C8E /* SVNarrowingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5BB125923D700C91C8E /* SVNarrowingState.m */; };
+		6184F5C1125934EC00C91C8E /* AnimationPerFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5C0125934EC00C91C8E /* AnimationPerFrame.m */; };
+		6184F5D6125938A000C91C8E /* SVTreeMapView.private.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5D5125938A000C91C8E /* SVTreeMapView.private.m */; };
 		61C87E8B1250B85B00F1B518 /* SVFileTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87E881250B85B00F1B518 /* SVFileTree.m */; };
 		61C87E8C1250B85B00F1B518 /* SVVolumeTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87E8A1250B85B00F1B518 /* SVVolumeTree.m */; };
 		61C87EB41250BA1300F1B518 /* SVFolderTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87EB21250BA1300F1B518 /* SVFolderTree.m */; };
@@ -32,8 +37,6 @@
 		61C8804912510C2100F1B518 /* Custom.strings in Resources */ = {isa = PBXBuildFile; fileRef = 61C8804812510C2100F1B518 /* Custom.strings */; };
 		61C882091251E97200F1B518 /* SVSizeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C882081251E97200F1B518 /* SVSizeFormatter.m */; };
 		61F19E741254E0BB005340E2 /* SVGoBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 61F19E731254E0BB005340E2 /* SVGoBack.png */; };
-		61F19E911254E9B6005340E2 /* SVNarrowingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F19E901254E9B6005340E2 /* SVNarrowingState.m */; };
-		61F19ECA1254F436005340E2 /* SVTreeMapView.dragging.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F19EC91254F436005340E2 /* SVTreeMapView.dragging.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -58,13 +61,23 @@
 		613488DA12284A39009EDE77 /* SVSizes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSizes.m; sourceTree = "<group>"; };
 		615130BA123EA998003CD2AE /* SVZoomInImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SVZoomInImg.png; path = img/SVZoomInImg.png; sourceTree = "<group>"; };
 		615130BB123EA998003CD2AE /* SVZoomOutImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SVZoomOutImg.png; path = img/SVZoomOutImg.png; sourceTree = "<group>"; };
-		6167F859122361E500404881 /* SVTreeMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVTreeMapView.h; sourceTree = "<group>"; };
-		6167F85A122361E500404881 /* SVTreeMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVTreeMapView.m; sourceTree = "<group>"; };
 		6167F86C122366B800404881 /* SVGeometryGatherer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGeometryGatherer.h; sourceTree = "<group>"; };
 		6167F86D122366B800404881 /* SVGeometryGatherer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGeometryGatherer.m; sourceTree = "<group>"; };
 		6167F8B5122374C200404881 /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
 		6172869B1225FE6100607826 /* SVColorWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVColorWheel.h; sourceTree = "<group>"; };
 		6172869C1225FE6100607826 /* SVColorWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVColorWheel.m; sourceTree = "<group>"; };
+		6184F5A912591CE300C91C8E /* SVTreeMapView.dragging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVTreeMapView.dragging.h; path = TreeMapView/SVTreeMapView.dragging.h; sourceTree = "<group>"; };
+		6184F5AA12591CE300C91C8E /* SVTreeMapView.dragging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVTreeMapView.dragging.m; path = TreeMapView/SVTreeMapView.dragging.m; sourceTree = "<group>"; };
+		6184F5AB12591CE300C91C8E /* SVTreeMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVTreeMapView.h; path = TreeMapView/SVTreeMapView.h; sourceTree = "<group>"; };
+		6184F5AC12591CE300C91C8E /* SVTreeMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVTreeMapView.m; path = TreeMapView/SVTreeMapView.m; sourceTree = "<group>"; };
+		6184F5AF12591D2600C91C8E /* SVTreeMapView.animate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVTreeMapView.animate.h; path = TreeMapView/SVTreeMapView.animate.h; sourceTree = "<group>"; };
+		6184F5B012591D2600C91C8E /* SVTreeMapView.animate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVTreeMapView.animate.m; path = TreeMapView/SVTreeMapView.animate.m; sourceTree = "<group>"; };
+		6184F5BA125923D700C91C8E /* SVNarrowingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVNarrowingState.h; path = TreeMapView/SVNarrowingState.h; sourceTree = "<group>"; };
+		6184F5BB125923D700C91C8E /* SVNarrowingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVNarrowingState.m; path = TreeMapView/SVNarrowingState.m; sourceTree = "<group>"; };
+		6184F5BF125934EC00C91C8E /* AnimationPerFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationPerFrame.h; path = TreeMapView/AnimationPerFrame.h; sourceTree = "<group>"; };
+		6184F5C0125934EC00C91C8E /* AnimationPerFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationPerFrame.m; path = TreeMapView/AnimationPerFrame.m; sourceTree = "<group>"; };
+		6184F5D4125938A000C91C8E /* SVTreeMapView.private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVTreeMapView.private.h; path = TreeMapView/SVTreeMapView.private.h; sourceTree = "<group>"; };
+		6184F5D5125938A000C91C8E /* SVTreeMapView.private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVTreeMapView.private.m; path = TreeMapView/SVTreeMapView.private.m; sourceTree = "<group>"; };
 		61C87E871250B85B00F1B518 /* SVFileTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVFileTree.h; path = FileTree/SVFileTree.h; sourceTree = "<group>"; };
 		61C87E881250B85B00F1B518 /* SVFileTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVFileTree.m; path = FileTree/SVFileTree.m; sourceTree = "<group>"; };
 		61C87E891250B85B00F1B518 /* SVVolumeTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVVolumeTree.h; path = FileTree/SVVolumeTree.h; sourceTree = "<group>"; };
@@ -98,10 +111,6 @@
 		61C882071251E97200F1B518 /* SVSizeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSizeFormatter.h; sourceTree = "<group>"; };
 		61C882081251E97200F1B518 /* SVSizeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSizeFormatter.m; sourceTree = "<group>"; };
 		61F19E731254E0BB005340E2 /* SVGoBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SVGoBack.png; path = img/SVGoBack.png; sourceTree = "<group>"; };
-		61F19E8F1254E9B6005340E2 /* SVNarrowingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVNarrowingState.h; sourceTree = "<group>"; };
-		61F19E901254E9B6005340E2 /* SVNarrowingState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVNarrowingState.m; sourceTree = "<group>"; };
-		61F19EC81254F436005340E2 /* SVTreeMapView.dragging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVTreeMapView.dragging.h; sourceTree = "<group>"; };
-		61F19EC91254F436005340E2 /* SVTreeMapView.dragging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVTreeMapView.dragging.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SupaView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SupaView-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SupaView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SupaView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -121,6 +130,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6184F5A812591CAA00C91C8E /* TreeMap */,
 				61C882071251E97200F1B518 /* SVSizeFormatter.h */,
 				61C882081251E97200F1B518 /* SVSizeFormatter.m */,
 				61C8805F12510EC100F1B518 /* FileTree */,
@@ -128,10 +138,6 @@
 				61C87EC91250C1F300F1B518 /* SVProgressNotifiable.h */,
 				61C87ECA1250C1F300F1B518 /* SVScanningContext.h */,
 				61C87EB31250BA1300F1B518 /* SVProgressNotifiable.h */,
-				6167F859122361E500404881 /* SVTreeMapView.h */,
-				6167F85A122361E500404881 /* SVTreeMapView.m */,
-				61F19EC81254F436005340E2 /* SVTreeMapView.dragging.h */,
-				61F19EC91254F436005340E2 /* SVTreeMapView.dragging.m */,
 				256AC3D80F4B6AC300CF3369 /* SVSupaViewAppDelegate.h */,
 				6104C15912479EA900B46A87 /* SVMainWindowController.h */,
 				6104C15A12479EA900B46A87 /* SVMainWindowController.m */,
@@ -139,8 +145,6 @@
 				613488D912284A39009EDE77 /* SVSizes.h */,
 				613488DA12284A39009EDE77 /* SVSizes.m */,
 				6167F86C122366B800404881 /* SVGeometryGatherer.h */,
-				61F19E8F1254E9B6005340E2 /* SVNarrowingState.h */,
-				61F19E901254E9B6005340E2 /* SVNarrowingState.m */,
 				6167F86D122366B800404881 /* SVGeometryGatherer.m */,
 				6167F8B5122374C200404881 /* Definitions.h */,
 				6172869B1225FE6100607826 /* SVColorWheel.h */,
@@ -221,6 +225,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6184F5A812591CAA00C91C8E /* TreeMap */ = {
+			isa = PBXGroup;
+			children = (
+				6184F5D4125938A000C91C8E /* SVTreeMapView.private.h */,
+				6184F5D5125938A000C91C8E /* SVTreeMapView.private.m */,
+				6184F5BF125934EC00C91C8E /* AnimationPerFrame.h */,
+				6184F5C0125934EC00C91C8E /* AnimationPerFrame.m */,
+				6184F5BA125923D700C91C8E /* SVNarrowingState.h */,
+				6184F5BB125923D700C91C8E /* SVNarrowingState.m */,
+				6184F5AF12591D2600C91C8E /* SVTreeMapView.animate.h */,
+				6184F5B012591D2600C91C8E /* SVTreeMapView.animate.m */,
+				6184F5A912591CE300C91C8E /* SVTreeMapView.dragging.h */,
+				6184F5AA12591CE300C91C8E /* SVTreeMapView.dragging.m */,
+				6184F5AB12591CE300C91C8E /* SVTreeMapView.h */,
+				6184F5AC12591CE300C91C8E /* SVTreeMapView.m */,
+			);
+			name = TreeMap;
+			sourceTree = "<group>";
+		};
 		61C8805E12510EB200F1B518 /* LayoutTree */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,7 +310,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SupaView" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* SupaView */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -320,7 +350,6 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* SVSupaViewAppDelegate.m in Sources */,
-				6167F85B122361E500404881 /* SVTreeMapView.m in Sources */,
 				6167F86E122366B800404881 /* SVGeometryGatherer.m in Sources */,
 				6172869D1225FE6100607826 /* SVColorWheel.m in Sources */,
 				613488DB12284A39009EDE77 /* SVSizes.m in Sources */,
@@ -339,8 +368,12 @@
 				61C87FA31250E99200F1B518 /* SVEmptyNode.m in Sources */,
 				61C87FA41250E99200F1B518 /* SVUnscanned.m in Sources */,
 				61C882091251E97200F1B518 /* SVSizeFormatter.m in Sources */,
-				61F19E911254E9B6005340E2 /* SVNarrowingState.m in Sources */,
-				61F19ECA1254F436005340E2 /* SVTreeMapView.dragging.m in Sources */,
+				6184F5AD12591CE300C91C8E /* SVTreeMapView.dragging.m in Sources */,
+				6184F5AE12591CE300C91C8E /* SVTreeMapView.m in Sources */,
+				6184F5B112591D2600C91C8E /* SVTreeMapView.animate.m in Sources */,
+				6184F5BC125923D700C91C8E /* SVNarrowingState.m in Sources */,
+				6184F5C1125934EC00C91C8E /* AnimationPerFrame.m in Sources */,
+				6184F5D6125938A000C91C8E /* SVTreeMapView.private.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,6 @@
 #import "SVLayoutUnscanned.h"
 #import "../SVColorWheel.h"
+#import "SVLayoutLeaf.protected.h"
 
 @implementation SVLayoutUnscanned
 - (void)drawGeometry:(SVDrawInfo*)info

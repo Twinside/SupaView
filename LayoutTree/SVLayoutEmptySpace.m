@@ -1,4 +1,5 @@
 #import "SVLayoutEmptySpace.h"
+#import "SVLayoutLeaf.protected.h"
 
 @implementation SVLayoutEmptySpace
 - (void)drawGeometry:(SVDrawInfo*)info
