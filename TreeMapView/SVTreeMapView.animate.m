@@ -28,9 +28,15 @@
         [self updateGeometry];
         [self setNeedsDisplay:YES];
         break;
+
+    case AnimationZoom:
+        [self updateGeometry];
+        [self setNeedsDisplay:YES];
+        break;
     }
 
     [zoomAnim release];
+    zoomAnim = nil;
     lockAnyMouseEvent = FALSE;
 }
 

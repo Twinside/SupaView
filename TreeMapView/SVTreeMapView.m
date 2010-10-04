@@ -367,9 +367,17 @@
 - (void)zoomBy:(CGFloat)amount
 {
     if ( lockAnyMouseEvent ) return;
+    NSRect prevRect = virtualSize;
+
     [self stretchBy:amount andBy:amount];
-    [self updateGeometry];
-    [self setNeedsDisplay:YES];
+    zoomAnim =
+        [[AnimationPerFrame alloc] initWithView:self
+                                       fromRect:prevRect
+                                         toRect:virtualSize
+                                    andDuration:0.10f];
+    animationKind = AnimationZoom;
+    virtualSize = prevRect;
+    [zoomAnim startAnimation];
     stateChangeNotifier();
 }
 

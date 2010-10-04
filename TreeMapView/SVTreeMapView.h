@@ -23,7 +23,8 @@ typedef enum DropStatus_t
 typedef enum AnimationEnd_t
 {
     AnimationNarrow,
-    AnimationPopNarrow
+    AnimationPopNarrow,
+    AnimationZoom
 } AnimationEnd;
 
 @interface SVTreeMapView : NSView <NSAnimationDelegate> {
