@@ -21,6 +21,7 @@
 
 - (SVLayoutNode*)node;
 - (NSURL*)url;
+- (NSRect)rect;
 - (void)dealloc;
 @end
 

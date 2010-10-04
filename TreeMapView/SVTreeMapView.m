@@ -32,6 +32,7 @@
     isSelectionFile = FALSE;
     dragResponder = nil;
     viewedTree = nil;
+    lockAnyMouseEvent = FALSE;
 
     currentDropStatus = NoDrop;
 
@@ -253,6 +254,8 @@
 
 - (void)mouseDragged:(NSEvent*)theEvent
 {
+    if ( lockAnyMouseEvent ) return;
+
     dragged = TRUE;
     [[NSCursor closedHandCursor] push];
     
@@ -264,7 +267,8 @@
 
 - (void)mouseUp:(NSEvent*)theEvent
 {
-    
+    if ( lockAnyMouseEvent ) return;
+
     if ( dragged )
     {
         [NSCursor pop];
@@ -325,6 +329,7 @@
 
 - (void)revealSelectionInFinder
 {
+    if ( lockAnyMouseEvent ) return;
     if ( selectedURL == nil )
         return;
     
@@ -340,6 +345,7 @@
 
 - (void)scrollWheel:(NSEvent*)event
 {
+    if ( lockAnyMouseEvent ) return;
     NSUInteger modFlags = [NSEvent modifierFlags];
 
     if ( modFlags & NSAlternateKeyMask )
@@ -360,6 +366,7 @@
 
 - (void)zoomBy:(CGFloat)amount
 {
+    if ( lockAnyMouseEvent ) return;
     [self stretchBy:amount andBy:amount];
     [self updateGeometry];
     [self setNeedsDisplay:YES];
@@ -368,6 +375,7 @@
 
 - (void)magnifyWithEvent:(NSEvent *)event
 {
+    if ( lockAnyMouseEvent ) return;
     [self stretchBy:-[event magnification]
               andBy:-[event magnification]];
     [self updateGeometry];
@@ -388,15 +396,18 @@
 
 - (void)narrowSelected
 {
+    if ( lockAnyMouseEvent ) return;
     if ( isSelectionFile )
         return;
     
     virtualSize = [self bounds];
     
-    [narrowingStack addObject:
-            [[SVNarrowingState alloc] initWithNode:viewedTree
-                                            andURL:currentURL
-                                            inRect:&currentRect]];
+    SVNarrowingState *narrow = 
+        [[SVNarrowingState alloc] initWithNode:viewedTree
+                                        andURL:currentURL
+                                        inRect:&currentRect];
+    [narrowingStack addObject:narrow];
+    [narrow release];
     
     zoomAnim =
         [[AnimationPerFrame alloc] initWithView:self
@@ -404,14 +415,14 @@
                                          toRect:currentRect
                                     andDuration:0.25f];
 
+    animationKind = AnimationNarrow;
     [zoomAnim startAnimation];
     stateChangeNotifier();
-    //[self updateGeometry];
-    //[self setNeedsDisplay:YES];
 }
 
 - (void)popNarrowing
 {
+    if ( lockAnyMouseEvent ) return;
     if ( [narrowingStack count] == 0 )
         return;
     
@@ -420,6 +431,14 @@
     SVNarrowingState *st = [narrowingStack lastObject];
     viewedTree = [st node];
 
+    zoomAnim =
+        [[AnimationPerFrame alloc] initWithView:self
+                                       fromRect:[st rect]
+                                         toRect:[self bounds]
+                                    andDuration:0.25f];
+
+    animationKind = AnimationPopNarrow;
+    virtualSize = [st rect];
     [currentURL release];
     currentURL = [st url];
     [currentURL retain];
@@ -429,6 +448,7 @@
     stateChangeNotifier();
     [self updateGeometry];
     [self setNeedsDisplay:YES];
+    [zoomAnim startAnimation];
 }
 
 - (BOOL)isZoomMinimum { return viewedTree == nil; }

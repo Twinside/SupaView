@@ -20,12 +20,20 @@ typedef enum DropStatus_t
     RefuseDrop
 } DropStatus;
 
+typedef enum AnimationEnd_t
+{
+    AnimationNarrow,
+    AnimationPopNarrow
+} AnimationEnd;
+
 @interface SVTreeMapView : NSView <NSAnimationDelegate> {
     NSRect                virtualSize;
     SVLayoutNode          *viewedTree;
     SVGeometryGatherer    *geometry;
     SVColorWheel          *wheel;
 
+    BOOL                  lockAnyMouseEvent;
+    AnimationEnd          animationKind;
     NSAnimation           *zoomAnim;
     NSMutableArray        *narrowingStack;
     

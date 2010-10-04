@@ -4,19 +4,34 @@
 
 @implementation SVTreeMapView (ZoomAnimation)
 - (BOOL)animationShouldStart:(NSAnimation *)animation
-    { return TRUE; }
+{
+    lockAnyMouseEvent = TRUE;
+    return TRUE;
+}
 
 - (void)animationDidEnd:(NSAnimation*)animation
 {
-    virtualSize = [self bounds];
-    
-    viewedTree = selectedLayoutNode;
-    [currentURL release];
-    currentURL = selectedURL;
-    [currentURL retain];
-    
-    [self updateGeometry];
-    [self setNeedsDisplay:YES];
+    switch ( animationKind )
+    {
+    case AnimationNarrow:
+        virtualSize = [self bounds];
+        viewedTree = (SVLayoutNode*)selectedLayoutNode;
+        [currentURL release];
+        currentURL = selectedURL;
+        [currentURL retain];
+        [self updateGeometry];
+        [self setNeedsDisplay:YES];
+        break;
+
+    case AnimationPopNarrow:
+        virtualSize = [self bounds];
+        [self updateGeometry];
+        [self setNeedsDisplay:YES];
+        break;
+    }
+
+    [zoomAnim release];
+    lockAnyMouseEvent = FALSE;
 }
 
 - (void)setVirtualSize:(NSRect)rect
