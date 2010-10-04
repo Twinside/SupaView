@@ -77,12 +77,12 @@
     if ( info->depth != 0 )
     {
         NSURL *newName =
-            [info->selectedName URLByAppendingPathComponent:[fileNode filename]];
+            [info->selection.name URLByAppendingPathComponent:[fileNode filename]];
 
-        [info->selectedName release];
+        [info->selection.name release];
 
         [newName retain];
-        info->selectedName = newName;
+        info->selection.name = newName;
     }
     
     NSRect  subBounds = *bounds;
@@ -93,7 +93,7 @@
 
     if ( sub == nil )
     {
-        info->selectionRect = *bounds;
+        info->selection.rect = *bounds;
         return self;
     }
     else return sub;
@@ -116,7 +116,7 @@
         return;
 
     [info->gatherer addRectangle:bounds
-                    withColor:(info->selected == fileNode)
+                    withColor:(info->selection.node == fileNode)
                                 ? [info->wheel getSelectionColor]
                                 : [info->wheel getLevelColor]];
 

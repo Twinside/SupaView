@@ -247,6 +247,10 @@
     [self setNeedsDisplay:YES];
 }
 
+- (void)keyUp:(NSEvent *)theEvent
+{
+}
+
 - (void)mouseDown:(NSEvent*)theEvent
 {
     dragged = FALSE;
@@ -288,14 +292,15 @@
         , .minimumWidth = [geometry virtualPixelWidthSize]
         , .minimumHeight = [geometry virtualPixelHeightSize]
         , .wheel = nil
-        , .selected = nil
-        , .selectedName = currentURL
+        , .selection = { .name = nil
+                       , .node = nil
+                       , .isFile = FALSE
+                       }
         , .depth = 0
-        , .selectedIsFile = FALSE
         };
     
 
-    [info.selectedName retain];
+    [info.selection.name retain];
     SVLayoutLeaf *foundNode =
             [viewedTree getSelected:p
                            withInfo:&info
@@ -309,9 +314,9 @@
         selectedLayoutNode = foundNode;
         
         [selectedURL release];
-        selectedURL = info.selectedName;
-        isSelectionFile = info.selectedIsFile;
-        currentRect = info.selectionRect;
+        selectedURL = info.selection.name;
+        isSelectionFile = info.selection.isFile;
+        currentRect = info.selection.rect;
         [self updateGeometry];
         [self setNeedsDisplay:YES];
         [[self window] setRepresentedURL:selectedURL];

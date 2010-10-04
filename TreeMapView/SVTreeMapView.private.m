@@ -28,8 +28,9 @@
         , .minimumWidth = [geometry virtualPixelWidthSize]
         , .minimumHeight = [geometry virtualPixelHeightSize]
         , .wheel = wheel
-        , .selected = currentSelection
-        , .selectedName = currentURL
+        , .selection = { .node = currentSelection
+                       , .name = currentURL
+                       }
         , .depth = 0
         };
 

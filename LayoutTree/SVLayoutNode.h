@@ -8,6 +8,15 @@
 @class SVLayoutNode;
 @class SVLayoutLeaf;
 
+typedef struct SVSelectionInfo_t
+{
+    SVFileTree      *node;
+    NSURL           *name;
+    NSRect          rect;
+    BOOL            isFile;
+
+} SVSelectionInfo;
+
 typedef struct SVDrawInfo_t
 {
     /**
@@ -24,12 +33,9 @@ typedef struct SVDrawInfo_t
     CGFloat minimumWidth;
     CGFloat minimumHeight;
 
+    SVSelectionInfo selection;
     SVColorWheel    *wheel;
-    SVFileTree      *selected;
 
-    NSURL           *selectedName;
-    NSRect          selectionRect;
-    BOOL            selectedIsFile;
     int             depth;
 } SVDrawInfo;
 

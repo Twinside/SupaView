@@ -23,15 +23,15 @@
                    andBounds:(NSRect*)bounds
 {
     NSURL *newName =
-        [info->selectedName URLByAppendingPathComponent:[fileNode filename]];
+        [info->selection.name URLByAppendingPathComponent:[fileNode filename]];
 
-    [info->selectedName release];
+    [info->selection.name release];
 
     [newName retain];
-    info->selectedName = newName;
+    info->selection.name = newName;
 
-    info->selectedIsFile = TRUE;
-    info->selectionRect = *bounds;
+    info->selection.isFile = TRUE;
+    info->selection.rect = *bounds;
 
     return self;
 }
@@ -40,7 +40,7 @@
             inBounds:(NSRect*)bounds
 {
     [info->gatherer addRectangle:bounds
-                    withColor:(info->selected == fileNode)
+                    withColor:(info->selection.node == fileNode)
                                 ? [info->wheel getSelectionColor]
                                 : [info->wheel getLevelColor]];
 
