@@ -14,6 +14,6 @@
 
 - (SVLayoutNode*)createLayoutTree
 {
-    return [[SVLayoutUnscanned alloc] initWithFile:self];
+    return [[[SVLayoutUnscanned alloc] initWithFile:self] autorelease];
 }
 @end

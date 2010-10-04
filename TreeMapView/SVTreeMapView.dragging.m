@@ -3,9 +3,6 @@
 @implementation SVTreeMapView (Dragging)
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {    
     NSPasteboard *pboard;    
-    NSDragOperation sourceDragMask;
-    
-    sourceDragMask = [sender draggingSourceOperationMask];
     pboard = [sender draggingPasteboard];
     
     if ( [[pboard types] containsObject:NSURLPboardType] )
@@ -37,9 +34,6 @@
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
     NSPasteboard *pboard;
-    NSDragOperation sourceDragMask;
-    
-    sourceDragMask = [sender draggingSourceOperationMask];
     pboard = [sender draggingPasteboard];
     
     if ([[pboard types] containsObject:NSURLPboardType] )

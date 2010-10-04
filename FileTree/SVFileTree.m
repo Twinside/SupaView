@@ -146,7 +146,7 @@ BOOL isVolume( NSURL*   pathURL )
     SVLayoutNode  *layoutNode =
         [[SVLayoutLeaf alloc] initWithFile:self];
 
-    return layoutNode;
+    return [layoutNode autorelease];
 }
 @end
 

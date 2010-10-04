@@ -66,7 +66,7 @@
                                     andTotalSize:volumeSize];
     [nodeList release];
 
-    return layout;
+    return [layout autorelease];
 }
 @end
 

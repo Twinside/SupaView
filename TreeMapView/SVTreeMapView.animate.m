@@ -9,14 +9,20 @@
 - (void)animationDidEnd:(NSAnimation*)animation
 {
     virtualSize = [self bounds];
-    [self updateGeometrySize];
+    
+    viewedTree = selectedLayoutNode;
+    [currentURL release];
+    currentURL = selectedURL;
+    [currentURL retain];
+    
+    [self updateGeometry];
     [self setNeedsDisplay:YES];
 }
 
 - (void)setVirtualSize:(NSRect)rect
 {
     virtualSize = rect;
-    [self updateGeometrySize];
+    [self updateGeometry];
     [self setNeedsDisplay:YES];
 }
 

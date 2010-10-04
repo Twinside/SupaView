@@ -17,7 +17,7 @@
     SVLayoutNode  *layoutNode =
         [[SVLayoutEmptySpace alloc] initWithFile:self];
 
-    return layoutNode;
+    return [layoutNode autorelease];
 }
 @end
 

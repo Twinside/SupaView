@@ -8,8 +8,10 @@
 }
 
 - (id)initWithView:(SVTreeMapView*)view 
+          fromRect:(NSRect)begin
             toRect:(NSRect)r
        andDuration:(CGFloat)duration;
+
 - (void)setCurrentProgress:(NSAnimationProgress)progress;
 @end
 

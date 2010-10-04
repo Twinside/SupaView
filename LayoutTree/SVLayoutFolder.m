@@ -91,7 +91,12 @@
     SVLayoutLeaf* sub =
         [child getSelected:point withInfo:info andBounds:&subBounds];
 
-    return (sub == nil) ? self : sub;
+    if ( sub == nil )
+    {
+        info->selectionRect = *bounds;
+        return self;
+    }
+    else return sub;
 }
 
 - (id)initWithFileList:(NSArray*)fileList
@@ -101,7 +106,6 @@
     self = [super initWithFile:t];
     child = [[SVLayoutTree alloc] initWithFileList:fileList
                                       andTotalSize:totalSize];
-
     return self;
 }
 

@@ -31,6 +31,7 @@
     info->selectedName = newName;
 
     info->selectedIsFile = TRUE;
+    info->selectionRect = *bounds;
 
     return self;
 }

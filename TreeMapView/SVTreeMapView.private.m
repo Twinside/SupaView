@@ -16,5 +16,28 @@
     
 }
 
+- (void)updateGeometry
+{
+    NSRect frame = [self frame];
+    [geometry startGathering:&frame
+                    inBounds:&virtualSize];
+    
+    SVDrawInfo info =
+        { .limit = &virtualSize
+        , .gatherer = geometry
+        , .minimumWidth = [geometry virtualPixelWidthSize]
+        , .minimumHeight = [geometry virtualPixelHeightSize]
+        , .wheel = wheel
+        , .selected = currentSelection
+        , .selectedName = currentURL
+        , .depth = 0
+        };
+
+    [viewedTree drawGeometry:&info
+                    inBounds:&frame];
+
+    [geometry stopGathering];
+}
+
 @end
 

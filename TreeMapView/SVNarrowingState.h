@@ -13,8 +13,12 @@
 @interface SVNarrowingState : NSObject {
     SVLayoutNode    *node;
     NSURL           *url;
+    NSRect          prevRect;
 }
-- (id)initWithNode:(SVLayoutNode*)n andURL:(NSURL*)url;
+- (id)initWithNode:(SVLayoutNode*)n
+            andURL:(NSURL*)url
+            inRect:(NSRect*)r;
+
 - (SVLayoutNode*)node;
 - (NSURL*)url;
 - (void)dealloc;

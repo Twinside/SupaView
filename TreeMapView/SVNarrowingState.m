@@ -1,12 +1,15 @@
 #import "SVNarrowingState.h"
 
 @implementation SVNarrowingState
-- (id)initWithNode:(SVLayoutNode*)n andURL:(NSURL*)iURL
+- (id)initWithNode:(SVLayoutNode*)n
+            andURL:(NSURL*)iURL
+            inRect:(NSRect*)r
 {
     self = [super init];
 
     node = n;
     url = iURL;
+    prevRect = *r;
 
     [node retain];
     [url retain];
@@ -23,5 +26,6 @@
 
 - (SVLayoutNode*)node { return node; }
 - (NSURL*)url { return url; }
+- (NSRect)rect { return prevRect; }
 @end
 

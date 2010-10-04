@@ -20,12 +20,13 @@ typedef enum DropStatus_t
     RefuseDrop
 } DropStatus;
 
-@interface SVTreeMapView : NSView {
+@interface SVTreeMapView : NSView <NSAnimationDelegate> {
     NSRect                virtualSize;
     SVLayoutNode          *viewedTree;
     SVGeometryGatherer    *geometry;
     SVColorWheel          *wheel;
 
+    NSAnimation           *zoomAnim;
     NSMutableArray        *narrowingStack;
     
     SVFileTree            *currentSelection;
@@ -33,6 +34,7 @@ typedef enum DropStatus_t
 
     DropStatus            currentDropStatus;
     
+    NSRect                currentRect;
     NSURL                 *currentURL;
     NSURL                 *selectedURL;
     BOOL                  isSelectionFile;
@@ -52,7 +54,6 @@ typedef enum DropStatus_t
 - (void)magnifyWithEvent:(NSEvent*)event;
 - (void)scrollWheel:(NSEvent*)event;
 
-- (void)updateGeometrySize;
 - (void)setTreeMap:(SVLayoutNode*)tree
              atUrl:(NSURL*)url;
 

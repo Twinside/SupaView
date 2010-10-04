@@ -43,6 +43,7 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
     if ( subSize == 1 )
     {
         left = [[fileList objectAtIndex:0] createLayoutTree];
+        [left retain];
         splitPos = 1.0;
         return self;
     }
@@ -75,18 +76,23 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
     // drawing
     if ( [leftList count] == 0
         || [leftList count] == subSize)
+    {
+        [leftList release];
+        [rightList release];
         return self;
+    }
     
     splitPos = (totalSize > 0) 
              ? (((float)leftSize) / ((float)totalSize))
              : 0.0f;
     
-    SVLayoutNode *tempLeft, *tempRight;
-
     if ( [leftList count] == 1 )
-        tempLeft = [[leftList objectAtIndex:0] createLayoutTree];
+    {
+        left = [[leftList objectAtIndex:0] createLayoutTree];
+        [left retain];
+    }
     else
-        tempLeft =
+        left =
             [[SVLayoutTree alloc] initWithFileList:leftList
                                       andTotalSize:leftSize];
 
@@ -95,26 +101,24 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
     // at the end of the list.
     switch ( [rightList count] ) {
         case 0:
-            tempRight = nil;
+            right = nil;
             break;
             
         case 1:
-            tempRight =
+            right =
                 [[rightList objectAtIndex:0] createLayoutTree];
+            [right retain];
             break;
             
         default:
-            tempRight =
+            right =
                 [[SVLayoutTree alloc] initWithFileList:rightList
                                           andTotalSize:totalSize - leftSize];
             break;
     }
-        
 
     [leftList release];
     [rightList release];
-    left = tempLeft;
-    right = tempRight;
 
     return self;
 }

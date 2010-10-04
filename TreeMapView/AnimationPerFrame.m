@@ -18,14 +18,19 @@ static inline NSRect lerpRect( NSRect a, NSRect b, float zeroToOne )
 @implementation AnimationPerFrame
 
 - (id)initWithView:(SVTreeMapView*)view 
+          fromRect:(NSRect)begin
             toRect:(NSRect)r
        andDuration:(CGFloat)duration
 {
     self = [super initWithDuration:duration
                     animationCurve:NSAnimationEaseOut];
+    
     animatedView = view;
-    initialRect = [animatedView virtualSize];
+    initialRect = begin;
     endRect = r;
+    [self setFrameRate:0.0f];
+    [self setAnimationBlockingMode:NSAnimationNonblocking];
+    [self setDelegate:view];
     return self;
 }
 
@@ -33,7 +38,7 @@ static inline NSRect lerpRect( NSRect a, NSRect b, float zeroToOne )
 {
     [animatedView setVirtualSize:lerpRect( initialRect
                                          , endRect
-                                         , progress)];
+                                         , progress )];
     [super setCurrentProgress:progress];
 }
 @end

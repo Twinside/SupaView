@@ -132,7 +132,7 @@
 
     [mainTreeView setTreeMap:created
                        atUrl:scannedUrl];
-    [created release];
+    
     [scanProgress stopAnimation:self];
 }
 
@@ -143,7 +143,6 @@
 
     [mainTreeView setTreeMap:created
                        atUrl:scannedUrl];
-    [created release];
 }
 
 -(BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem

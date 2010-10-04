@@ -2,6 +2,6 @@
 
 @implementation SVDynamicFileTree
 - (void)updateDiskSize:(FileSize)newFileSize
-    { diskSize= newFileSize; }
+    { diskSize = newFileSize; }
 @end
 

@@ -13,6 +13,8 @@
 #import "SVNarrowingState.h"
 #import "../LayoutTree/SVLayoutLeaf.h"
 #import "SVTreeMapView.dragging.h"
+#import "SVTreeMapView.private.h"
+#import "AnimationPerFrame.h"
 
 @implementation SVTreeMapView
 - (id)initWithFrame:(NSRect)frameRect
@@ -48,29 +50,6 @@
     [currentURL release];
     [narrowingStack release];
     [super dealloc];
-}
-
-- (void)updateGeometry
-{
-    NSRect frame = [self frame];
-    [geometry startGathering:&frame
-                    inBounds:&virtualSize];
-    
-    SVDrawInfo info =
-        { .limit = &virtualSize
-        , .gatherer = geometry
-        , .minimumWidth = [geometry virtualPixelWidthSize]
-        , .minimumHeight = [geometry virtualPixelHeightSize]
-        , .wheel = wheel
-        , .selected = currentSelection
-        , .selectedName = currentURL
-        , .depth = 0
-        };
-
-    [viewedTree drawGeometry:&info
-                    inBounds:&frame];
-
-    [geometry stopGathering];
 }
 
 - (void)setTreeMap:(SVLayoutNode*)tree
@@ -251,20 +230,6 @@
     virtualSize.origin.y = midY - halfHeight;
 }
 
-- (void) updateGeometrySize
-{
-    NSRect frame = [self frame];
-    [geometry release];
-
-    int maxPerLine = (int)(frame.size.width / blockSizes.minBoxSizeWidth + 1);
-    int maxPerColumn = (int)(frame.size.height / blockSizes.minBoxSizeHeight + 1);
-
-    geometry =
-        [[SVGeometryGatherer alloc]
-                initWithRectCount:maxPerLine * maxPerColumn];
-    
-}
-
 - (void) setFrameSize:(NSSize)newSize
 
 {
@@ -342,6 +307,7 @@
         [selectedURL release];
         selectedURL = info.selectedName;
         isSelectionFile = info.selectedIsFile;
+        currentRect = info.selectionRect;
         [self updateGeometry];
         [self setNeedsDisplay:YES];
         [[self window] setRepresentedURL:selectedURL];
@@ -429,15 +395,19 @@
     
     [narrowingStack addObject:
             [[SVNarrowingState alloc] initWithNode:viewedTree
-                                            andURL:currentURL]];
-    viewedTree = selectedLayoutNode;
-    [currentURL release];
-    currentURL = selectedURL;
-    [currentURL retain];
+                                            andURL:currentURL
+                                            inRect:&currentRect]];
     
+    zoomAnim =
+        [[AnimationPerFrame alloc] initWithView:self
+                                       fromRect:[self bounds]
+                                         toRect:currentRect
+                                    andDuration:0.25f];
+
+    [zoomAnim startAnimation];
     stateChangeNotifier();
-    [self updateGeometry];
-    [self setNeedsDisplay:YES];
+    //[self updateGeometry];
+    //[self setNeedsDisplay:YES];
 }
 
 - (void)popNarrowing

@@ -6,6 +6,8 @@
  *  Copyright 2010 __MyCompanyName__. All rights reserved.
  *
  */
+#import <stdint.h>
+
 typedef uint64_t    FileSize;
 
 typedef enum LayoutKind_t {

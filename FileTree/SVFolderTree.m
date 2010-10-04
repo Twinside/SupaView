@@ -125,10 +125,12 @@
     if ( [children count] == 0 )
         return nil;
 
-    return
+    SVLayoutNode *ret =
         [[SVLayoutFolder alloc] initWithFileList:children
                                          forNode:self
                                     andTotalSize:diskSize];
+    
+    return [ret autorelease];
 }
 @end
 
