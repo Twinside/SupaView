@@ -12,6 +12,7 @@
 #import "../SVSizes.h"
 #import "SVNarrowingState.h"
 #import "../LayoutTree/SVLayoutLeaf.h"
+#import "../LayoutTree/SVLayoutKeyNavigation.h"
 #import "SVTreeMapView.dragging.h"
 #import "SVTreeMapView.private.h"
 #import "AnimationPerFrame.h"
@@ -183,7 +184,7 @@
 
 - (void) translateBy:(CGFloat)dx  andBy:(CGFloat)dy
 {
-    NSRect frame = [self frame];
+    NSRect frame = [self bounds];
 
     CGFloat nx = maxi( virtualSize.origin.x + dx, 0.0 );
     CGFloat ny = maxi( virtualSize.origin.y + dy, 0.0 );
@@ -200,7 +201,7 @@
 
 - (void)stretchBy:(CGFloat)x andBy:(CGFloat)y
 {
-    NSRect frame = [self frame];
+    NSRect frame = [self bounds];
 
     CGFloat midX = virtualSize.origin.x
                  + virtualSize.size.width / 2.0;
@@ -247,8 +248,86 @@
     [self setNeedsDisplay:YES];
 }
 
+
+- (BOOL)acceptsFirstResponder {
+    return YES;
+}
+
 - (void)keyUp:(NSEvent *)theEvent
 {
+    // arrow keys have this mask
+    if (! ([theEvent modifierFlags] & NSNumericPadKeyMask))
+        [super keyDown:theEvent];
+
+    NSString *theArrow = [theEvent charactersIgnoringModifiers];
+
+    if ( [theArrow length] == 0 )
+        return;            // reject dead keys
+
+    if ( [theArrow length] == 1 )
+        [super keyDown:theEvent];
+
+    SVSelectionDirection toGo;
+
+    switch ( [theArrow characterAtIndex:0] )
+    {
+    case NSLeftArrowFunctionKey:
+        toGo = DirectionLeft;
+        break;
+
+    case NSRightArrowFunctionKey:
+        toGo = DirectionRight;
+        break;
+
+    case NSUpArrowFunctionKey:
+        toGo = DirectionUp;
+        break;
+
+    case NSDownArrowFunctionKey:
+        toGo = DirectionDown;
+        break;
+
+    default:
+        [super keyDown:theEvent];
+        return;
+    }
+
+    SVDrawInfo info =
+        { .limit = &virtualSize
+        , .gatherer = nil
+        , .minimumWidth = [geometry virtualPixelWidthSize]
+        , .minimumHeight = [geometry virtualPixelHeightSize]
+        , .wheel = nil
+        , .selection = { .name = nil
+                       , .node = currentSelection
+                       , .isFile = FALSE
+                       }
+        , .depth = 0
+        };
+
+    NSRect bounds = [self bounds];
+
+    SVLayoutLeaf *foundNode = 
+        [viewedTree moveSelection:&info
+                      inDirection:toGo
+                     withinBounds:bounds];
+
+    SVFileTree  *found = [foundNode fileNode];
+
+    if ( found != currentSelection )
+    {
+        currentSelection = found;
+        selectedLayoutNode = foundNode;
+        
+        [selectedURL release];
+        selectedURL = info.selection.name;
+        isSelectionFile = info.selection.isFile;
+        currentRect = info.selection.rect;
+        [self updateGeometry];
+        [self setNeedsDisplay:YES];
+        [[self window] setRepresentedURL:selectedURL];
+        stateChangeNotifier();
+    }
 }
 
 - (void)mouseDown:(NSEvent*)theEvent
@@ -284,7 +363,7 @@
     p = [self convertPoint:p fromView:nil];
     [geometry unscalePoint:&p];
 
-    NSRect frame = [self frame];
+    NSRect frame = [self bounds];
 
     SVDrawInfo info =
         { .limit = &virtualSize

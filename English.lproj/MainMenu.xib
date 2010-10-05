@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="371"/>
+			<integer value="553"/>
 			<integer value="296"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -228,7 +228,7 @@
 										<string key="NSName">_NSRecentDocumentsMenu</string>
 									</object>
 								</object>
-								<object class="NSMenuItem" id="225638915">
+								<object class="NSMenuItem" id="833513632">
 									<reference key="NSMenu" ref="720053764"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<bool key="NSIsSeparator">YES</bool>
@@ -238,7 +238,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="694034852">
+								<object class="NSMenuItem" id="131607429">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Close</string>
 									<string key="NSKeyEquiv">w</string>
@@ -1326,8 +1326,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="722745758"/>
 							<reference ref="1025936716"/>
-							<reference ref="225638915"/>
-							<reference ref="694034852"/>
+							<reference ref="833513632"/>
+							<reference ref="131607429"/>
 						</object>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -1587,11 +1587,6 @@
 						<reference key="parent" ref="610402090"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">554</int>
-						<reference key="object" ref="888468070"/>
-						<reference key="parent" ref="542046304"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">533</int>
 						<reference key="object" ref="678140638"/>
 						<object class="NSMutableArray" key="children">
@@ -1715,13 +1710,18 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">655</int>
-						<reference key="object" ref="225638915"/>
+						<reference key="object" ref="833513632"/>
 						<reference key="parent" ref="720053764"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">656</int>
-						<reference key="object" ref="694034852"/>
+						<reference key="object" ref="131607429"/>
 						<reference key="parent" ref="720053764"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">554</int>
+						<reference key="object" ref="888468070"/>
+						<reference key="parent" ref="542046304"/>
 					</object>
 				</object>
 			</object>

@@ -126,7 +126,7 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
 - (void)splitRectangles:(NSRect*)leftSub and:(NSRect*)rightSub
 {
     NSRect subBounds = *leftSub;
-    switch (orientation)
+    switch (orientation & LayoutMask)
     {
     case LayoutVertical:
         leftSub->size.height *= splitPos; 
@@ -149,7 +149,8 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
        || splitPos < 0.0 || splitPos > 1.0 )
         return;
 
-    orientation =
+    orientation &= ~LayoutMask;
+    orientation |=
         [self computeOrientationWithWidth:bounds->size.width
                                    height:bounds->size.height];
     
@@ -170,7 +171,8 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
        || splitPos < 0.0 || splitPos > 1.0 )
         return nil;
 
-    orientation =
+    orientation &= ~LayoutMask;
+    orientation |=
         [self computeOrientationWithWidth:bounds->size.width
                                    height:bounds->size.height];
 
@@ -183,9 +185,19 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
 
     info->depth++;
     if ( left && insideRect( &leftSub, &point ) )
+    {
         ret = [left getSelected:point withInfo:info andBounds:&leftSub];
+        // clear the selection mask
+        orientation &= ~SelectionMask;
+        orientation |= SelectionAtLeft;
+    }
     else if ( right && insideRect( &rightSub, &point ) ) // must be in other rect
+    {
         ret = [right getSelected:point withInfo:info andBounds:&rightSub];
+        orientation &= ~SelectionMask;
+        orientation |= SelectionAtRight;
+    }
+
     info->depth--;
 
     return ret;

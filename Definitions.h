@@ -11,6 +11,14 @@
 typedef uint64_t    FileSize;
 
 typedef enum LayoutKind_t {
-    LayoutVertical,
-    LayoutHorizontal
+    LayoutVertical = 1,
+    LayoutHorizontal = 2,
+    LayoutMask = LayoutVertical
+               | LayoutHorizontal,
+
+    SelectionAtLeft = 4,
+    SelectionAtRight = 8,
+    SelectionMask = SelectionAtLeft
+                  | SelectionAtRight
 } LayoutKind;
+

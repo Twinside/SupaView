@@ -14,6 +14,8 @@
      * Split size, int [0;1]
      */
     float       splitPos;
+
+
     LayoutKind  orientation;
 }
 - (id)initWithFileList:(NSArray*)fileList
@@ -26,5 +28,7 @@
 
 - (void)drawGeometry:(SVDrawInfo*)info
             inBounds:(NSRect*)bounds;
+
+- (void)splitRectangles:(NSRect*)leftSub and:(NSRect*)rightSub;
 @end
 

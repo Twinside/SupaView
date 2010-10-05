@@ -22,5 +22,8 @@
 
 - (void)drawGeometry:(SVDrawInfo*)info
             inBounds:(NSRect*)bounds;
+
+- (void)cropSubRectangle:(NSRect*)r
+                withInfo:(SVDrawInfo*)info;
 @end
 
