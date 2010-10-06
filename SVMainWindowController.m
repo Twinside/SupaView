@@ -129,6 +129,7 @@
     
     [scanProgress setIndeterminate:TRUE];
     [scanProgress startAnimation:self];
+    
     scannedUrl = url;
     [scannedUrl retain];
 
@@ -158,6 +159,20 @@
     SVLayoutNode  *created =
         [curentlyNavigated createLayoutTree];
 
+    float progress = [curentlyNavigated advancementPercentage];
+    if ( progress >= 0 )
+    {
+        if ( [scanProgress isIndeterminate] )
+        {
+            [scanProgress stopAnimation:self];
+            [scanProgress setIndeterminate:FALSE];
+            [scanProgress setMinValue:0.0];
+            [scanProgress setMaxValue:1.0];
+        }
+        [scanProgress setDoubleValue:(double)progress];
+        [scanProgress displayIfNeeded];
+    }
+    
     [mainTreeView setTreeMap:created
                        atUrl:scannedUrl];
 }

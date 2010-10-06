@@ -15,6 +15,11 @@
 - (void) populateChildListAtUrl:(NSURL*)url
                     withContext:(SVScanningContext*)ctxt;
 
+/**
+ * init without scanning, usefull in the big multi-threading
+ * of things.
+ */
+- (id)initWithFileURL:(NSURL*)url andContext:(SVScanningContext*)ctxt;
 @end
 
 @implementation SVFolderTree
@@ -71,15 +76,20 @@
         // Ignore files under the _extras directory
         if ([isDirectory boolValue] == YES)
         {
-            ctxt->parentStack[ctxt->depth++] = self;
-
-            //[dirEnumerator skipDescendants];
+            // allocate and initialize object first.
             SVFolderTree *folder =
-                [[SVFolderTree alloc] initWithFilePath:theURL
-                                            andContext:ctxt];
+                [[SVFolderTree alloc] initWithFileURL:theURL
+                                           andContext:ctxt];
+            
+            // insert it into the tree, now should be able to
+            // create a layout tree without problem
+            [children addObject:folder];
+            
+            // then start scanning.
+            ctxt->parentStack[ctxt->depth++] = self;
+            [folder populateChildListAtUrl:theURL withContext:ctxt];
             ctxt->depth--;
 
-            [children addObject:folder];
             [folder release];
             [ctxt->receiver notifyFileScanned];
         }
@@ -136,6 +146,13 @@
 
 
 @implementation SVFolderTree (Private)
+- (id)initWithFileURL:(NSURL*)url andContext:(SVScanningContext*)ctxt
+{
+    self = [super initWithFilePath:url];
+    children = [[NSMutableArray alloc] init];
+    return self;
+}
+
 + (NSArray*)scanObjectInfo
 {
     static NSArray *scanObjectInfo = nil;

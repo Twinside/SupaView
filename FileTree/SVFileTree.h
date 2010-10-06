@@ -62,6 +62,12 @@ typedef void (^EndNotification)();
 - (NSString*)filename;
 
 /**
+ * Tell advancement (value between 0 & 1)
+ * if known, -1 otherwise.
+ */
+- (double)advancementPercentage;
+
+/**
  * Create a display node from this file.
  */
 - (SVLayoutNode*)createLayoutTree;

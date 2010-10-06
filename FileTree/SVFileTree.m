@@ -141,6 +141,11 @@ BOOL isVolume( NSURL*   pathURL )
     [super dealloc];
 }
 
+- (double)advancementPercentage
+{
+    return -1.0f;
+}
+
 - (SVLayoutNode*)createLayoutTree
 {
     SVLayoutNode  *layoutNode =

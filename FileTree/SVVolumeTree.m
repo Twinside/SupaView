@@ -36,6 +36,11 @@
     return self;
 }
 
+- (double)advancementPercentage
+{
+    return ((double)[child diskSize]) / ((double)(volumeSize - [emptySpace diskSize]));
+}
+
 - (void)dealloc
 {
     [emptySpace release];

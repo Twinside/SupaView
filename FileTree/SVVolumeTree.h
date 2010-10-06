@@ -23,5 +23,6 @@
 
 - (void)dealloc;
 - (SVLayoutTree*)createLayoutTree;
+- (double)advancementPercentage;
 @end
 
