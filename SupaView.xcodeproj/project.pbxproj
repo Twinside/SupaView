@@ -28,6 +28,7 @@
 		6184F82D125D03DD00C91C8E /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6184F82C125D03DD00C91C8E /* Sparkle.framework */; };
 		6184F83A125D041300C91C8E /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6184F82C125D03DD00C91C8E /* Sparkle.framework */; };
 		6184F847125D059D00C91C8E /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6184F846125D059D00C91C8E /* dsa_pub.pem */; };
+		6184F84D125D098200C91C8E /* preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6184F84C125D098200C91C8E /* preferences.xib */; };
 		61C87E8B1250B85B00F1B518 /* SVFileTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87E881250B85B00F1B518 /* SVFileTree.m */; };
 		61C87E8C1250B85B00F1B518 /* SVVolumeTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87E8A1250B85B00F1B518 /* SVVolumeTree.m */; };
 		61C87EB41250BA1300F1B518 /* SVFolderTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87EB21250BA1300F1B518 /* SVFolderTree.m */; };
@@ -104,6 +105,7 @@
 		6184F81B125CFB9C00C91C8E /* About.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = About.xib; sourceTree = "<group>"; };
 		6184F82C125D03DD00C91C8E /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		6184F846125D059D00C91C8E /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		6184F84C125D098200C91C8E /* preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = preferences.xib; sourceTree = "<group>"; };
 		61C87E871250B85B00F1B518 /* SVFileTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVFileTree.h; path = FileTree/SVFileTree.h; sourceTree = "<group>"; };
 		61C87E881250B85B00F1B518 /* SVFileTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVFileTree.m; path = FileTree/SVFileTree.m; sourceTree = "<group>"; };
 		61C87E891250B85B00F1B518 /* SVVolumeTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVVolumeTree.h; path = FileTree/SVVolumeTree.h; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				61C8804812510C2100F1B518 /* Custom.strings */,
 				6184F81B125CFB9C00C91C8E /* About.xib */,
+				6184F84C125D098200C91C8E /* preferences.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				61F19E741254E0BB005340E2 /* SVGoBack.png in Resources */,
 				6184F81C125CFB9C00C91C8E /* About.xib in Resources */,
 				6184F847125D059D00C91C8E /* dsa_pub.pem in Resources */,
+				6184F84D125D098200C91C8E /* preferences.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

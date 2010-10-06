@@ -5,7 +5,7 @@
 //  Created by Vincent Berthoux on 20/09/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
-
+#import <Sparkle/Sparkle.h>
 #import "SVMainWindowController.h"
 #import "SVSupaViewAppDelegate.h"
 #import "SVGlobalQueues.h"
@@ -76,9 +76,18 @@
         [self openURL:[oPanel URL]];
 }
 
+- (SUUpdater *)updater {
+    return [SUUpdater updaterForBundle:[NSBundle bundleForClass:[self class]]];
+}
+
 - (IBAction)openAbout:(id)sender
 {
     [NSBundle loadNibNamed:@"About" owner:self];
+}
+
+- (IBAction)openPreferences:(id)sender
+{
+    [NSBundle loadNibNamed:@"preferences" owner:self];
 }
 
 - (IBAction)narrowFolder:(id)sender
