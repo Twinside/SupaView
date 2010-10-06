@@ -13,7 +13,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="553"/>
-			<integer value="296"/>
+			<integer value="57"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -228,7 +228,7 @@
 										<string key="NSName">_NSRecentDocumentsMenu</string>
 									</object>
 								</object>
-								<object class="NSMenuItem" id="833513632">
+								<object class="NSMenuItem" id="821322834">
 									<reference key="NSMenu" ref="720053764"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<bool key="NSIsSeparator">YES</bool>
@@ -238,7 +238,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="131607429">
+								<object class="NSMenuItem" id="327794179">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Close</string>
 									<string key="NSKeyEquiv">w</string>
@@ -1251,6 +1251,14 @@
 					</object>
 					<int key="connectionID">654</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openAbout:</string>
+						<reference key="source" ref="582100434"/>
+						<reference key="destination" ref="238522557"/>
+					</object>
+					<int key="connectionID">657</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1326,8 +1334,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="722745758"/>
 							<reference ref="1025936716"/>
-							<reference ref="833513632"/>
-							<reference ref="131607429"/>
+							<reference ref="821322834"/>
+							<reference ref="327794179"/>
 						</object>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -1710,12 +1718,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">655</int>
-						<reference key="object" ref="833513632"/>
+						<reference key="object" ref="821322834"/>
 						<reference key="parent" ref="720053764"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">656</int>
-						<reference key="object" ref="131607429"/>
+						<reference key="object" ref="327794179"/>
 						<reference key="parent" ref="720053764"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1972,7 +1980,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">656</int>
+			<int key="maxID">657</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1986,6 +1994,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>goUp:</string>
 							<string>narrowFolder:</string>
+							<string>openAbout:</string>
 							<string>openDocument:</string>
 							<string>revealInFinder:</string>
 							<string>zoomInView:</string>
@@ -1993,6 +2002,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2007,6 +2017,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>goUp:</string>
 							<string>narrowFolder:</string>
+							<string>openAbout:</string>
 							<string>openDocument:</string>
 							<string>revealInFinder:</string>
 							<string>zoomInView:</string>
@@ -2020,6 +2031,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">narrowFolder:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">openAbout:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

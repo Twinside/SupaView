@@ -61,7 +61,7 @@
         [self openURL:toOpen];
 }
 
-- (IBAction)openDocument: sender
+- (IBAction)openDocument:(id)sender
 {
     int result;
     NSOpenPanel *oPanel = [NSOpenPanel openPanel];
@@ -74,6 +74,11 @@
 
     if (result == NSFileHandlingPanelOKButton)
         [self openURL:[oPanel URL]];
+}
+
+- (IBAction)openAbout:(id)sender
+{
+    [NSBundle loadNibNamed:@"About" owner:self];
 }
 
 - (IBAction)narrowFolder:(id)sender

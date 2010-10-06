@@ -105,6 +105,8 @@
                   withinBounds:(NSRect)bounds
 {
     LayoutKind selecDir = orientation & SelectionMask;
+    LayoutKind layoutDir = orientation & LayoutMask;
+    LayoutKind inverseSelec;
 
     NSRect leftBounds = bounds;
     NSRect rightBounds = bounds;
@@ -114,6 +116,7 @@
     // aliases for selected and "other"
     SVLayoutNode    *toScann, *other;
     NSRect          *scanBounds, *otherBounds;
+    BOOL            mustJump;
 
     if ( selecDir == SelectionAtLeft )
     {
@@ -121,6 +124,16 @@
         scanBounds = &leftBounds;
         other = right;
         otherBounds = &rightBounds;
+        inverseSelec = SelectionAtRight;
+        
+        if (layoutDir == LayoutVertical)
+            mustJump = dir == DirectionUp
+                    || dir == DirectionLeft
+                    || dir == DirectionRight;
+        else
+            mustJump = dir == DirectionLeft
+                    || dir == DirectionUp
+                    || dir == DirectionDown;
     }
     else
     {
@@ -128,22 +141,33 @@
         scanBounds = &rightBounds;
         other = left;
         otherBounds = &leftBounds;
+        inverseSelec = SelectionAtLeft;
+
+        if (layoutDir == LayoutVertical)
+            mustJump = dir == DirectionDown
+                    || dir == DirectionLeft
+                    || dir == DirectionRight;
+        else
+            mustJump = dir == DirectionRight
+                    || dir == DirectionUp
+                    || dir == DirectionDown;
     }
 
     SVLayoutLeaf *subNode =
         [toScann moveSelection:nfo inDirection:dir
                                   withinBounds:*scanBounds];
 
-    if ( subNode == nil )
-    {
-        // easy, select the first other subchild, in the
-        // oposite direction, if we want to move right,
-        // we want it's first left child :)
-        return [other selectFirst:dir == DirectionRight || dir == DirectionUp
-                         withInfo:nfo
-                         inBounds:*otherBounds];
-    }
-    else return subNode;
+    if ( subNode != nil || mustJump )
+        return subNode;
+    
+    // easy, select the first other subchild, in the
+    // oposite direction, if we want to move right,
+    // we want it's first left child :)
+    orientation &= ~SelectionMask;
+    orientation |= inverseSelec;
+    return [other selectFirst:dir == DirectionRight || dir == DirectionUp
+                     withInfo:nfo
+                     inBounds:*otherBounds];
 }
 @end
 

@@ -228,7 +228,7 @@
 										<string key="NSName">_NSRecentDocumentsMenu</string>
 									</object>
 								</object>
-								<object class="NSMenuItem" id="693382758">
+								<object class="NSMenuItem" id="956823294">
 									<reference key="NSMenu" ref="720053764"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<bool key="NSIsSeparator">YES</bool>
@@ -238,7 +238,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="896066798">
+								<object class="NSMenuItem" id="412258392">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Fermer</string>
 									<string key="NSKeyEquiv">w</string>
@@ -1203,6 +1203,14 @@
 					</object>
 					<int key="connectionID">652</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openAbout:</string>
+						<reference key="source" ref="582100434"/>
+						<reference key="destination" ref="238522557"/>
+					</object>
+					<int key="connectionID">655</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1278,8 +1286,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="722745758"/>
 							<reference ref="1025936716"/>
-							<reference ref="693382758"/>
-							<reference ref="896066798"/>
+							<reference ref="956823294"/>
+							<reference ref="412258392"/>
 						</object>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -1638,12 +1646,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">653</int>
-						<reference key="object" ref="693382758"/>
+						<reference key="object" ref="956823294"/>
 						<reference key="parent" ref="720053764"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">654</int>
-						<reference key="object" ref="896066798"/>
+						<reference key="object" ref="412258392"/>
 						<reference key="parent" ref="720053764"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1895,7 +1903,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">654</int>
+			<int key="maxID">655</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1909,6 +1917,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>goUp:</string>
 							<string>narrowFolder:</string>
+							<string>openAbout:</string>
 							<string>openDocument:</string>
 							<string>revealInFinder:</string>
 							<string>zoomInView:</string>
@@ -1916,6 +1925,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1930,6 +1940,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>goUp:</string>
 							<string>narrowFolder:</string>
+							<string>openAbout:</string>
 							<string>openDocument:</string>
 							<string>revealInFinder:</string>
 							<string>zoomInView:</string>
@@ -1943,6 +1954,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">narrowFolder:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">openAbout:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

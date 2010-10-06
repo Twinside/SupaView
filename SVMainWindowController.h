@@ -37,6 +37,7 @@
 @property (assign) IBOutlet NSWindow *window;
 - (id)init;
 - (IBAction)openDocument:(id)sender;
+- (IBAction)openAbout:(id)sender;
 
 - (IBAction)zoomInView:(id)sender;
 - (IBAction)zoomOutView:(id)sender;

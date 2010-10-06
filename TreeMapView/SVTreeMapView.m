@@ -298,7 +298,7 @@
         , .minimumWidth = [geometry virtualPixelWidthSize]
         , .minimumHeight = [geometry virtualPixelHeightSize]
         , .wheel = nil
-        , .selection = { .name = nil
+        , .selection = { .name = currentURL
                        , .node = currentSelection
                        , .isFile = FALSE
                        }
@@ -371,7 +371,7 @@
         , .minimumWidth = [geometry virtualPixelWidthSize]
         , .minimumHeight = [geometry virtualPixelHeightSize]
         , .wheel = nil
-        , .selection = { .name = nil
+        , .selection = { .name = currentURL
                        , .node = nil
                        , .isFile = FALSE
                        }

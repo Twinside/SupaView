@@ -94,6 +94,7 @@
     if ( sub == nil )
     {
         info->selection.rect = *bounds;
+        info->selection.isFile = FALSE;
         return self;
     }
     else return sub;
