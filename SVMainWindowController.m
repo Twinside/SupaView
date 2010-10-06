@@ -132,6 +132,9 @@
     scannedUrl = url;
     [scannedUrl retain];
 
+    [[NSDocumentController sharedDocumentController]
+            noteNewRecentDocumentURL:url];
+
     // start parrallel crawling asynchronously
     curentlyNavigated =
         [SVFileTree createFromPath:scannedUrl
