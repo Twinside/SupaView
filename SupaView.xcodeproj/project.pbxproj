@@ -25,6 +25,9 @@
 		6184F674125A02E300C91C8E /* SVLayoutLeaf.protected.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F673125A02E300C91C8E /* SVLayoutLeaf.protected.m */; };
 		6184F750125A4C0700C91C8E /* SVLayoutKeyNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F74F125A4C0700C91C8E /* SVLayoutKeyNavigation.m */; };
 		6184F81C125CFB9C00C91C8E /* About.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6184F81B125CFB9C00C91C8E /* About.xib */; };
+		6184F82D125D03DD00C91C8E /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6184F82C125D03DD00C91C8E /* Sparkle.framework */; };
+		6184F83A125D041300C91C8E /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6184F82C125D03DD00C91C8E /* Sparkle.framework */; };
+		6184F847125D059D00C91C8E /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6184F846125D059D00C91C8E /* dsa_pub.pem */; };
 		61C87E8B1250B85B00F1B518 /* SVFileTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87E881250B85B00F1B518 /* SVFileTree.m */; };
 		61C87E8C1250B85B00F1B518 /* SVVolumeTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87E8A1250B85B00F1B518 /* SVVolumeTree.m */; };
 		61C87EB41250BA1300F1B518 /* SVFolderTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87EB21250BA1300F1B518 /* SVFolderTree.m */; };
@@ -44,6 +47,19 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6184F839125D041100C91C8E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6184F83A125D041300C91C8E /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -86,6 +102,8 @@
 		6184F74E125A4C0700C91C8E /* SVLayoutKeyNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVLayoutKeyNavigation.h; path = LayoutTree/SVLayoutKeyNavigation.h; sourceTree = "<group>"; };
 		6184F74F125A4C0700C91C8E /* SVLayoutKeyNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVLayoutKeyNavigation.m; path = LayoutTree/SVLayoutKeyNavigation.m; sourceTree = "<group>"; };
 		6184F81B125CFB9C00C91C8E /* About.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = About.xib; sourceTree = "<group>"; };
+		6184F82C125D03DD00C91C8E /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		6184F846125D059D00C91C8E /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		61C87E871250B85B00F1B518 /* SVFileTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVFileTree.h; path = FileTree/SVFileTree.h; sourceTree = "<group>"; };
 		61C87E881250B85B00F1B518 /* SVFileTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVFileTree.m; path = FileTree/SVFileTree.m; sourceTree = "<group>"; };
 		61C87E891250B85B00F1B518 /* SVVolumeTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVVolumeTree.h; path = FileTree/SVVolumeTree.h; sourceTree = "<group>"; };
@@ -129,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				6184F82D125D03DD00C91C8E /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +185,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6184F82C125D03DD00C91C8E /* Sparkle.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -213,6 +233,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6184F846125D059D00C91C8E /* dsa_pub.pem */,
 				61F19E731254E0BB005340E2 /* SVGoBack.png */,
 				615130BA123EA998003CD2AE /* SVZoomInImg.png */,
 				615130BB123EA998003CD2AE /* SVZoomOutImg.png */,
@@ -305,6 +326,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				6184F839125D041100C91C8E /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -352,6 +374,7 @@
 				61C8804912510C2100F1B518 /* Custom.strings in Resources */,
 				61F19E741254E0BB005340E2 /* SVGoBack.png in Resources */,
 				6184F81C125CFB9C00C91C8E /* About.xib in Resources */,
+				6184F847125D059D00C91C8E /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +453,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -473,6 +500,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SupaView_Prefix.pch;
