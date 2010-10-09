@@ -1,0 +1,73 @@
+* {
+    font-family: sans-serif;
+}
+
+body
+{
+    font-family: sans-serif;
+}
+
+.screenshot
+{
+    text-align: center;
+    position: relative;
+    width: 600px;
+}
+
+.p
+{
+    text-align: left;
+}
+
+.descr
+{
+    text-align: left;
+    position: relative;
+    width: 600px;
+}
+
+.requirements
+{
+    text-align: left;
+}
+.downdonate
+{
+    text-align: center;
+}
+
+.wholecontent
+{
+    text-align: center;
+    width: 50%;
+    left: 25%;
+    position: relative;
+}
+
+.button {
+   border-top: 1px solid #a7f797;
+   background: #65d668;
+   background: -webkit-gradient(linear, left top, left bottom, from(#439c3e), to(#65d668));
+   background: -moz-linear-gradient(top, #439c3e, #65d668);
+   padding: 15.5px 31px;
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   border-radius: 10px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: white;
+   font-size: 22px;
+   font-family: Helvetica, Arial, Sans-Serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.button:hover {
+   border-top-color: #2e7828;
+   background: #2e7828;
+   color: #ccc;
+   }
+.button:active {
+   border-top-color: #1b5c24;
+   background: #1b5c24;
+   }
