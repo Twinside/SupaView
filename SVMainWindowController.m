@@ -105,6 +105,24 @@
     [mainTreeView revealSelectionInFinder];
 }
 
+- (IBAction)donateLinkOpener:(id)sender
+{
+    NSURL   *donationURL =
+        [NSURL URLWithString:@"http://twinside.free.fr/supaview/donate.html"];
+
+    [[NSWorkspace sharedWorkspace] openURL:donationURL];
+}
+
+- (NSString*)versionString;
+{
+    NSBundle *mainBundle = [NSBundle mainBundle];
+    NSDictionary *infoDict = [mainBundle infoDictionary];
+ 
+    NSString *mainString = [infoDict valueForKey:@"CFBundleShortVersionString"];
+    NSString *subString = [infoDict valueForKey:@"CFBundleVersion"];
+    return [NSString stringWithFormat:@"Version %@ (%@)", mainString, subString];
+}
+
 - (void)notifyFileScanned
 {
     scannedElementCount++;

@@ -46,6 +46,7 @@
 - (IBAction)narrowFolder:(id)sender;
 - (IBAction)goUp:(id)sender;
 - (IBAction)revealInFinder:(id)sender;
+- (IBAction)donateLinkOpener:(id)sender;
 
 
 @property (assign) NSNumber* atMaximumZoom;
