@@ -73,7 +73,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="886950379">
+								<object class="NSMenuItem" id="345308909">
 									<reference key="NSMenu" ref="110575045"/>
 									<string key="NSTitle">Donate</string>
 									<string key="NSKeyEquiv"/>
@@ -1287,6 +1287,14 @@
 					</object>
 					<int key="connectionID">661</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">donateLinkOpener:</string>
+						<reference key="source" ref="582100434"/>
+						<reference key="destination" ref="345308909"/>
+					</object>
+					<int key="connectionID">663</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1414,7 +1422,7 @@
 							<reference ref="1056857174"/>
 							<reference ref="342932134"/>
 							<reference ref="698083461"/>
-							<reference ref="886950379"/>
+							<reference ref="345308909"/>
 						</object>
 						<reference key="parent" ref="694149608"/>
 					</object>
@@ -1775,7 +1783,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">662</int>
-						<reference key="object" ref="886950379"/>
+						<reference key="object" ref="345308909"/>
 						<reference key="parent" ref="110575045"/>
 					</object>
 				</object>
@@ -2031,7 +2039,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">662</int>
+			<int key="maxID">663</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
