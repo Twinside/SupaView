@@ -90,6 +90,17 @@ BOOL isVolume( NSURL*   pathURL )
     return rootFolder;
 }
 
+- (DeleteAction)deleteNodeWithURLParts:(NSArray*)parts
+                               atIndex:(size_t)index
+{
+    NSString *ourPart = [parts objectAtIndex:index];
+
+    if ( [ourPart isEqualToString:name] )
+        return DeletionTodo;
+    else
+        return DeletionContinueScan;
+}
+
 - (void)dumpToFile:(FILE*)f
 {
     fprintf( f, "p%p [label=\"%i|%s\" shape=record]\n"

@@ -14,6 +14,13 @@
 
 typedef void (^EndNotification)();
 
+typedef enum DeleteAction_t
+{
+    DeletionTodo,
+    DeletionContinueScan,
+    DeletionEnd
+} DeleteAction;
+
 /**
  * Main type used for the storage of the file
  * information. This node store name of a file
@@ -71,6 +78,13 @@ typedef void (^EndNotification)();
  * Create a display node from this file.
  */
 - (SVLayoutNode*)createLayoutTree;
+
+/**
+ * Should be called with the results of
+ * [NSURL -pahtCOmponents]
+ */
+- (DeleteAction)deleteNodeWithURLParts:(NSArray*)parts
+                               atIndex:(size_t)index;
 @end
 
 NSComparator SvFileTreeComparer;

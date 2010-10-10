@@ -185,4 +185,37 @@
     [pool drain];
 }
 
+- (DeleteAction)deleteNodeWithURLParts:(NSArray*)parts
+                               atIndex:(size_t)index
+{
+    DeleteAction selfAction =
+        [super deleteNodeWithURLParts:parts atIndex:index];
+
+    if ( selfAction == DeletionTodo
+         || selfAction == DeletionEnd )
+        return selfAction;
+
+    int idx = 0;
+    for (SVFileTree *child in children)
+    {
+        switch ( [child deleteNodeWithURLParts:parts atIndex:index+1] )
+        {
+        case DeletionTodo:
+            /* Remove it from our children */
+            [children removeObjectAtIndex:idx];
+            return DeletionEnd;
+
+        case DeletionEnd:
+            /* don't bother doing anything else */
+            return DeletionEnd;
+
+        case DeletionContinueScan:
+            /* well, that's not him */
+            break;
+        }
+
+        idx++;
+    }
+    return DeletionEnd;
+}
 @end
