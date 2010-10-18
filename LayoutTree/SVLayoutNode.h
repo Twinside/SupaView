@@ -55,5 +55,6 @@ NSComparator SvLayoutNodeComparer;
             inBounds:(NSRect*)bounds;
 
 - (FileSize)nodeSize;
+- (SVFileTree*)fileNode;
 @end
 

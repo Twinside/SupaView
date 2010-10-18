@@ -62,6 +62,7 @@
     [selectedURL release];
     [currentURL release];
     [currentSelection release];
+    [selectedLayoutNode release];
     [narrowingStack removeAllObjects];
 
     viewedTree = tree;
@@ -321,7 +322,10 @@
         [currentSelection release];
         currentSelection = found;
         [currentSelection retain];
+        
+        [selectedLayoutNode release];
         selectedLayoutNode = foundNode;
+        [selectedLayoutNode retain];
         
         [selectedURL release];
         selectedURL = info.selection.name;
@@ -397,7 +401,9 @@
         currentSelection = found;
         [currentSelection retain];
         
+        [selectedLayoutNode release];
         selectedLayoutNode = foundNode;
+        [selectedLayoutNode retain];
         
         [selectedURL release];
         selectedURL = info.selection.name;
@@ -620,7 +626,7 @@
     [selRoot retain];
 
     FileDeleteRez rez = 
-        [[((SVLayoutLeaf*)masterLayout) fileNode]
+        [[masterLayout fileNode]
             deleteNodeWithURLParts:selRoot
                         atIndex:deleteIndex];
     [masterLayout deleteNode:selRoot atPart:deleteIndex];

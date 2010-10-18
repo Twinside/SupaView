@@ -73,5 +73,12 @@
 
     return [layout autorelease];
 }
+
+- (FileDeleteRez)deleteNodeWithURLParts:(NSArray*)parts
+                                atIndex:(size_t)index;
+{
+    NSLog(@"called");
+    return makeFileDeleteRez( 0, nil );
+}
 @end
 

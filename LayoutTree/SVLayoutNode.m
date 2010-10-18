@@ -51,5 +51,7 @@ BOOL intersect( const NSRect *a, const NSRect *b )
 - (void)drawGeometry:(SVDrawInfo*)info
             inBounds:(NSRect*)bounds
 { /* do nothing */ }
+
+- (SVFileTree*)fileNode { return nil; }
 @end
 

@@ -182,7 +182,6 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
     
     SVLayoutLeaf* ret = nil;
 
-    info->depth++;
     if ( left && insideRect( &leftSub, &point ) )
     {
         ret = [left getSelected:point withInfo:info andBounds:&leftSub];
@@ -197,7 +196,15 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
         orientation |= SelectionAtRight;
     }
 
-    info->depth--;
+    return ret;
+}
+
+- (SVFileTree*)fileNode
+{
+    SVFileTree *ret = [left fileNode];
+
+    if ( ret == nil )
+        return [right fileNode];
 
     return ret;
 }

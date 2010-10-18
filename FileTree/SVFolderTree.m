@@ -212,8 +212,7 @@
     FileDeleteRez selfAction =
         [super deleteNodeWithURLParts:parts atIndex:index];
 
-    if ( selfAction.action == DeletionTodo
-         || selfAction.action == DeletionEnd )
+    if ( selfAction.action != DeletionDigg )
         return selfAction;
 
     int idx = 0;
@@ -240,6 +239,10 @@
 
         case DeletionContinueScan:
             /* well, that's not him */
+            break;
+
+        case DeletionDigg:
+            assert( DeletionDigg == -1 );
             break;
         }
 

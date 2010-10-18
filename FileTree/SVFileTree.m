@@ -102,8 +102,13 @@ BOOL isVolume( NSURL*   pathURL )
 {
     NSString *ourPart = [parts objectAtIndex:index];
 
-    if ( [ourPart isEqualToString:name] && index == [parts count] - 1)
-        return makeFileDeleteRez( DeletionTodo, self );
+    if ( [ourPart isEqualToString:name] )
+    {
+        if ( index == [parts count] - 1 )
+            return makeFileDeleteRez( DeletionTodo, self );
+        else
+            return makeFileDeleteRez( DeletionDigg, self );
+    }
     else
         return makeFileDeleteRez( DeletionContinueScan, nil );
 }

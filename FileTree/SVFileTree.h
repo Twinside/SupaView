@@ -19,7 +19,8 @@ typedef enum DeleteAction_t
 {
     DeletionTodo,
     DeletionContinueScan,
-    DeletionEnd
+    DeletionEnd,
+    DeletionDigg
 } DeleteAction;
 
 typedef struct FileDeleteRez_t
