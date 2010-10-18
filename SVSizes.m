@@ -17,6 +17,9 @@ const SVSizes blockSizes =
 
     .textMinimumWidth = 40,
     .fileSizeMinDisplay = 40,
-    .fileSizeWidth = 40
+    .fileSizeWidth = 40,
+
+    .updateMaxDepth = 3,
+    .fullViewMaxDepth = 65536
 };
 

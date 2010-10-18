@@ -49,7 +49,8 @@
     [super dealloc];
 }
 
-- (SVLayoutTree*)createLayoutTree
+- (SVLayoutNode*)createLayoutTree:(int)maxDepth
+                          atDepth:(int)depth
 {
     FileSize    scannedSize = [child diskSize];
     NSMutableArray *nodeList =
@@ -59,9 +60,9 @@
                                   - scannedSize
                                   - [emptySpace diskSize]];
 
-    [nodeList addObject:[child createLayoutTree]];
-    [nodeList addObject:[emptySpace createLayoutTree]];
-    [nodeList addObject:[unscannedSpace createLayoutTree]];
+    [nodeList addObject:[child createLayoutTree:maxDepth atDepth:depth]];
+    [nodeList addObject:[emptySpace createLayoutTree:maxDepth atDepth:depth]];
+    [nodeList addObject:[unscannedSpace createLayoutTree:maxDepth atDepth:depth]];
 
     [nodeList sortUsingComparator:SvLayoutNodeComparer];
 

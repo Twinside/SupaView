@@ -12,7 +12,7 @@
     return self;
 }
 
-- (SVLayoutNode*)createLayoutTree
+- (SVLayoutNode*)createLayoutTree:(int)maxDepth atDepth:(int)depth
 {
     return [[[SVLayoutUnscanned alloc] initWithFile:self] autorelease];
 }

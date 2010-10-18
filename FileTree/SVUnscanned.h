@@ -3,5 +3,5 @@
 @interface SVUnscannedTree : SVDynamicFileTree {
 }
 - (id)init;
-- (SVLayoutNode*)createLayoutTree;
+- (SVLayoutNode*)createLayoutTree:(int)maxDepth atDepth:(int)depth;
 @end

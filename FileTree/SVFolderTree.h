@@ -13,6 +13,7 @@
 
 - (void)dealloc;
 - (size_t)childCount;
-- (SVLayoutNode*)createLayoutTree;
+- (SVLayoutNode*)createLayoutTree:(int)maxDepth
+                          atDepth:(int)depth;
 @end
 

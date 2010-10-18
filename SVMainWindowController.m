@@ -8,6 +8,7 @@
 #import <Sparkle/Sparkle.h>
 #import "SVMainWindowController.h"
 #import "SVSupaViewAppDelegate.h"
+#import "SVSizes.h"
 #import "SVGlobalQueues.h"
 
 @interface SVMainWindowController (Private)
@@ -169,7 +170,8 @@
 - (void)commitTree
 {
     SVLayoutNode  *created =
-        [curentlyNavigated createLayoutTree];
+        [curentlyNavigated createLayoutTree:blockSizes.fullViewMaxDepth
+                                    atDepth:0];
 
     [mainTreeView setTreeMap:created
                        atUrl:scannedUrl];
@@ -180,7 +182,8 @@
 - (void)updateView
 {
     SVLayoutNode  *created =
-        [curentlyNavigated createLayoutTree];
+        [curentlyNavigated createLayoutTree:blockSizes.updateMaxDepth
+                                    atDepth:0];
 
     float progress = [curentlyNavigated advancementPercentage];
     if ( progress >= 0 )

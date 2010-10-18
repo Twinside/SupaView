@@ -86,7 +86,7 @@ FileDeleteRez makeFileDeleteRez( DeleteAction a, SVFileTree *t );
 /**
  * Create a display node from this file.
  */
-- (SVLayoutNode*)createLayoutTree;
+- (SVLayoutNode*)createLayoutTree:(int)maxDepth atDepth:(int)depth;
 
 /**
  * Should be called with the results of

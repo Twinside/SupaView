@@ -164,7 +164,8 @@ BOOL isVolume( NSURL*   pathURL )
     return -1.0f;
 }
 
-- (SVLayoutNode*)createLayoutTree
+- (SVLayoutNode*)createLayoutTree:(int)maxDepth
+                          atDepth:(int)depth
 {
     SVLayoutNode  *layoutNode =
         [[SVLayoutLeaf alloc] initWithFile:self];
