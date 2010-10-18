@@ -28,6 +28,8 @@ BOOL intersect( const NSRect *a, const NSRect *b )
         && bigEnough;
 }
 
+- (FileSize)nodeSize { return 0; }
+
 - (SVLayoutLeaf*)getSelected:(NSPoint)point
                     withInfo:(SVDrawInfo*)info
                    andBounds:(NSRect*)bounds

@@ -135,8 +135,14 @@
     if ( [children count] == 0 )
         return nil;
 
+    NSMutableArray *childrenLayout =
+        [[NSMutableArray alloc] initWithCapacity:[children count]];
+
+    for (SVFileTree* child in children)
+        [childrenLayout addObject: [child createLayoutTree]];
+
     SVLayoutNode *ret =
-        [[SVLayoutFolder alloc] initWithFileList:children
+        [[SVLayoutFolder alloc] initWithFileList:childrenLayout
                                          forNode:self
                                     andTotalSize:diskSize];
     

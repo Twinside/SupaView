@@ -59,16 +59,26 @@
                                   - scannedSize
                                   - [emptySpace diskSize]];
 
-    [nodeList addObject:child];
-    [nodeList addObject:emptySpace];
-    [nodeList addObject:unscannedSpace];
+    [nodeList addObject:[child createLayoutTree]];
+    [nodeList addObject:[emptySpace createLayoutTree]];
+    [nodeList addObject:[unscannedSpace createLayoutTree]];
 
-    [nodeList sortUsingComparator:SvFileTreeComparer];
+    [nodeList sortUsingComparator:(NSComparator)^(id obj1, id obj2){
+        FileSize lSize = [obj1 nodeSize];
+        FileSize rSize = [obj2 nodeSize];
+        
+        if (lSize < rSize)
+            return (NSComparisonResult)NSOrderedDescending;
+        
+        if (lSize > rSize)
+            return (NSComparisonResult)NSOrderedAscending;
+        
+        return (NSComparisonResult)NSOrderedSame;
+    }];
 
     SVLayoutTree *layout = 
         [[SVLayoutTree alloc] initWithFileList:nodeList
-                                         //forNode:self
-                                    andTotalSize:volumeSize];
+                                  andTotalSize:volumeSize];
     [nodeList release];
 
     return [layout autorelease];

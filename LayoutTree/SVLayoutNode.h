@@ -51,5 +51,7 @@ typedef struct SVDrawInfo_t
 
 - (void)drawGeometry:(SVDrawInfo*)info
             inBounds:(NSRect*)bounds;
+
+- (FileSize)nodeSize;
 @end
 

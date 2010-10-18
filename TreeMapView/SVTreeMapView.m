@@ -512,6 +512,28 @@
     stateChangeNotifier();
 }
 
+- (void)refreshLayoutTree:(SVLayoutNode*)tree
+          withUpdatedPath:(NSURL*)updatedPath
+{
+    size_t i = 0;
+
+    // if refresh is in narrowingStack
+        // then pop it
+    for (SVNarrowingState *narrow in narrowingStack)
+    {
+        if ( [updatedPath isEqual:[narrow url]] )
+        {
+            size_t toPop = [narrowingStack count] - i - 1;
+            [narrowingStack
+                removeObjectsInRange:NSMakeRange(i, toPop)];
+        }
+        i++;
+    }
+
+    // for every narrowing, resync it using the new tree :
+        // search URL and update rect
+}
+
 - (void)popNarrowing
 {
     if ( lockAnyMouseEvent ) return;
@@ -559,6 +581,11 @@
 - (BOOL)isSelectionReavealableInFinder
 {
     return viewedTree != nil && selectedURL != nil;
+}
+
+- (void)deleteSelection:(BOOL)putInTrash
+{
+    // TODO !!
 }
 @end
 

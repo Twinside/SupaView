@@ -72,6 +72,10 @@ typedef enum AnimationEnd_t
 - (void)narrowSelected;
 - (void)popNarrowing;
 - (void)revealSelectionInFinder;
+- (void)deleteSelection:(BOOL)putInTrash;
+- (void)refreshLayoutTree:(SVLayoutNode*)tree
+          withUpdatedPath:(NSURL*)updatedPath;
+
 
 - (BOOL)isAtTopLevel;
 - (BOOL)isSelectionReavealableInFinder;

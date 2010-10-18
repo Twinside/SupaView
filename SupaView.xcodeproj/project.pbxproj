@@ -15,6 +15,7 @@
 		615130BC123EA998003CD2AE /* SVZoomInImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 615130BA123EA998003CD2AE /* SVZoomInImg.png */; };
 		615130BD123EA998003CD2AE /* SVZoomOutImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 615130BB123EA998003CD2AE /* SVZoomOutImg.png */; };
 		61570CED1262673100E0FCA4 /* preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61570CEC1262673100E0FCA4 /* preferences.xib */; };
+		61570D141264BECD00E0FCA4 /* Layout.searching.m in Sources */ = {isa = PBXBuildFile; fileRef = 61570D131264BECD00E0FCA4 /* Layout.searching.m */; };
 		6167F86E122366B800404881 /* SVGeometryGatherer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6167F86D122366B800404881 /* SVGeometryGatherer.m */; };
 		6172869D1225FE6100607826 /* SVColorWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6172869C1225FE6100607826 /* SVColorWheel.m */; };
 		6184F5AD12591CE300C91C8E /* SVTreeMapView.dragging.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5AA12591CE300C91C8E /* SVTreeMapView.dragging.m */; };
@@ -83,6 +84,8 @@
 		615130BA123EA998003CD2AE /* SVZoomInImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SVZoomInImg.png; path = img/SVZoomInImg.png; sourceTree = "<group>"; };
 		615130BB123EA998003CD2AE /* SVZoomOutImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SVZoomOutImg.png; path = img/SVZoomOutImg.png; sourceTree = "<group>"; };
 		61570CEE1262674B00E0FCA4 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/preferences.xib; sourceTree = "<group>"; };
+		61570D121264BECD00E0FCA4 /* Layout.searching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Layout.searching.h; path = LayoutTree/Layout.searching.h; sourceTree = "<group>"; };
+		61570D131264BECD00E0FCA4 /* Layout.searching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Layout.searching.m; path = LayoutTree/Layout.searching.m; sourceTree = "<group>"; };
 		6167F86C122366B800404881 /* SVGeometryGatherer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGeometryGatherer.h; sourceTree = "<group>"; };
 		6167F86D122366B800404881 /* SVGeometryGatherer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGeometryGatherer.m; sourceTree = "<group>"; };
 		6167F8B5122374C200404881 /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
@@ -284,6 +287,8 @@
 		61C8805E12510EB200F1B518 /* LayoutTree */ = {
 			isa = PBXGroup;
 			children = (
+				61570D121264BECD00E0FCA4 /* Layout.searching.h */,
+				61570D131264BECD00E0FCA4 /* Layout.searching.m */,
 				6184F74E125A4C0700C91C8E /* SVLayoutKeyNavigation.h */,
 				6184F74F125A4C0700C91C8E /* SVLayoutKeyNavigation.m */,
 				6184F672125A02E300C91C8E /* SVLayoutLeaf.protected.h */,
@@ -422,6 +427,7 @@
 				6184F5D6125938A000C91C8E /* SVTreeMapView.private.m in Sources */,
 				6184F674125A02E300C91C8E /* SVLayoutLeaf.protected.m in Sources */,
 				6184F750125A4C0700C91C8E /* SVLayoutKeyNavigation.m in Sources */,
+				61570D141264BECD00E0FCA4 /* Layout.searching.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

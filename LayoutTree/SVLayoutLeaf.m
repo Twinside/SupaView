@@ -48,4 +48,5 @@
 }
 
 - (SVFileTree*)fileNode { return fileNode; }
+- (FileSize)nodeSize { return [fileNode fileSize]; }
 @end
