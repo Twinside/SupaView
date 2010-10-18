@@ -118,7 +118,7 @@
     [[NSWorkspace sharedWorkspace] openURL:donationURL];
 }
 
-- (NSString*)versionString;
+- (NSString*)versionString
 {
     NSBundle *mainBundle = [NSBundle mainBundle];
     NSDictionary *infoDict = [mainBundle infoDictionary];

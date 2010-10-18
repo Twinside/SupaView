@@ -132,20 +132,27 @@
 
 - (SVLayoutNode*)createLayoutTree
 {
-    if ( [children count] == 0 )
+    if ( [children count] == 0 || diskSize == 0 )
         return nil;
 
     NSMutableArray *childrenLayout =
         [[NSMutableArray alloc] initWithCapacity:[children count]];
 
-    for (SVFileTree* child in children)
-        [childrenLayout addObject: [child createLayoutTree]];
+    NSUInteger originalSize = [children count];
+    for ( NSUInteger i = 0; i < originalSize; i++ )
+    {
+        SVLayoutNode *sub =
+            [[children objectAtIndex:i] createLayoutTree];
+        
+        if (sub != nil)
+            [childrenLayout addObject:sub];
+    }
 
     SVLayoutNode *ret =
         [[SVLayoutFolder alloc] initWithFileList:childrenLayout
                                          forNode:self
                                     andTotalSize:diskSize];
-    
+    [childrenLayout release];
     return [ret autorelease];
 }
 - (size_t)childCount { return [children count]; }
