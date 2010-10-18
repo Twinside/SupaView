@@ -11,6 +11,7 @@
 #import "SVProgressNotifiable.h"
 
 @class SVLayoutNode;
+@class SVFileTree;
 
 typedef void (^EndNotification)();
 
@@ -20,6 +21,14 @@ typedef enum DeleteAction_t
     DeletionContinueScan,
     DeletionEnd
 } DeleteAction;
+
+typedef struct FileDeleteRez_t
+{
+    DeleteAction    action;
+    SVFileTree      *deleted;
+} FileDeleteRez;
+
+FileDeleteRez makeFileDeleteRez( DeleteAction a, SVFileTree *t );
 
 /**
  * Main type used for the storage of the file
@@ -83,8 +92,8 @@ typedef enum DeleteAction_t
  * Should be called with the results of
  * [NSURL -pahtCOmponents]
  */
-- (DeleteAction)deleteNodeWithURLParts:(NSArray*)parts
-                               atIndex:(size_t)index;
+- (FileDeleteRez)deleteNodeWithURLParts:(NSArray*)parts
+                                atIndex:(size_t)index;
 @end
 
 NSComparator SvFileTreeComparer;

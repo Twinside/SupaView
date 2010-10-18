@@ -13,6 +13,7 @@
 #import "SVNarrowingState.h"
 #import "../LayoutTree/SVLayoutLeaf.h"
 #import "../LayoutTree/SVLayoutKeyNavigation.h"
+#import "../LayoutTree/Layout.searching.h"
 #import "SVTreeMapView.dragging.h"
 #import "SVTreeMapView.private.h"
 #import "AnimationPerFrame.h"
@@ -60,6 +61,7 @@
     [viewedTree release];
     [selectedURL release];
     [currentURL release];
+    [currentSelection release];
     [narrowingStack removeAllObjects];
 
     viewedTree = tree;
@@ -316,7 +318,9 @@
 
     if ( found != currentSelection )
     {
+        [currentSelection release];
         currentSelection = found;
+        [currentSelection retain];
         selectedLayoutNode = foundNode;
         
         [selectedURL release];
@@ -389,7 +393,10 @@
     
     if ( found != currentSelection )
     {
+        [currentSelection release];
         currentSelection = found;
+        [currentSelection retain];
+        
         selectedLayoutNode = foundNode;
         
         [selectedURL release];
@@ -585,7 +592,52 @@
 
 - (void)deleteSelection:(BOOL)putInTrash
 {
-    // TODO !!
+    NSURL *masterURL;
+    SVLayoutNode *masterLayout;
+
+    // we must update the tree from the upper
+    // most root of the layout tree. So we
+    // must pick it from the narrowing stack
+    // if any.
+    if ( [narrowingStack count] > 0 )
+    {
+        SVNarrowingState *st =
+            [narrowingStack objectAtIndex:0];
+
+        masterURL = [st url];
+        masterLayout = [st node];
+    }
+    else
+    {
+        masterURL = currentURL;
+        masterLayout = viewedTree;
+    }
+
+    NSArray *rootComp = [masterURL pathComponents];
+    NSArray *selRoot = [selectedURL pathComponents];
+    int deleteIndex = [rootComp count] - 1;
+
+    [selRoot retain];
+
+    FileDeleteRez rez = 
+        [[((SVLayoutLeaf*)masterLayout) fileNode]
+            deleteNodeWithURLParts:selRoot
+                        atIndex:deleteIndex];
+    [masterLayout deleteNode:selRoot atPart:deleteIndex];
+    [rez.deleted release];
+
+    [selRoot release];
+    
+    [selectedURL release];
+    selectedURL = nil;
+    [currentSelection release];
+    currentSelection = nil;
+    [selectedLayoutNode release];
+    selectedLayoutNode = nil;
+
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
+    stateChangeNotifier();
 }
 @end
 

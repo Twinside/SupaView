@@ -39,6 +39,8 @@ typedef struct SVDrawInfo_t
     int             depth;
 } SVDrawInfo;
 
+NSComparator SvLayoutNodeComparer;
+
 @interface SVLayoutNode : NSObject {
 }
 

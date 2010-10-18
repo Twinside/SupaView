@@ -148,6 +148,7 @@
     
     return [ret autorelease];
 }
+- (size_t)childCount { return [children count]; }
 @end
 
 
@@ -191,29 +192,37 @@
     [pool drain];
 }
 
-- (DeleteAction)deleteNodeWithURLParts:(NSArray*)parts
+- (FileDeleteRez)deleteNodeWithURLParts:(NSArray*)parts
                                atIndex:(size_t)index
 {
-    DeleteAction selfAction =
+    FileDeleteRez selfAction =
         [super deleteNodeWithURLParts:parts atIndex:index];
 
-    if ( selfAction == DeletionTodo
-         || selfAction == DeletionEnd )
+    if ( selfAction.action == DeletionTodo
+         || selfAction.action == DeletionEnd )
         return selfAction;
 
     int idx = 0;
     for (SVFileTree *child in children)
     {
-        switch ( [child deleteNodeWithURLParts:parts atIndex:index+1] )
+        FileSize beforeDeletion = [child diskSize];
+        FileDeleteRez subAction = 
+            [child deleteNodeWithURLParts:parts atIndex:index+1];
+
+        switch ( subAction.action )
         {
         case DeletionTodo:
             /* Remove it from our children */
+            diskSize -= beforeDeletion;
+            [subAction.deleted retain];
             [children removeObjectAtIndex:idx];
-            return DeletionEnd;
+            return makeFileDeleteRez( DeletionEnd
+                                    , subAction.deleted );
 
         case DeletionEnd:
             /* don't bother doing anything else */
-            return DeletionEnd;
+            diskSize -= beforeDeletion - [child diskSize];
+            return subAction;
 
         case DeletionContinueScan:
             /* well, that's not him */
@@ -222,6 +231,6 @@
 
         idx++;
     }
-    return DeletionEnd;
+    return makeFileDeleteRez( DeletionEnd, nil );
 }
 @end

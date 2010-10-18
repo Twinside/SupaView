@@ -1,4 +1,5 @@
 #import "Layout.searching.h"
+#import "../FileTree/SVFolderTree.h"
 
 inline static
 DeleteRez makeDeleteRez( LayoutDeleteAction a, SVLayoutNode *c )
@@ -17,8 +18,6 @@ DeleteRez makeDeleteRez( LayoutDeleteAction a, SVLayoutNode *c )
 
 - (DeleteRez)deleteNode:(NSArray*)urlParts
                      atPart:(int)partIdx
-                  andUpdate:(NSArray*)narrowState
-                    atDepth:(int)narrowIdx
 {
     NSString*   ourPart = [urlParts objectAtIndex:partIdx];
     if ( [ourPart isEqualToString:[fileNode filename]] )
@@ -29,10 +28,33 @@ DeleteRez makeDeleteRez( LayoutDeleteAction a, SVLayoutNode *c )
 @end
  
 @implementation SVLayoutFolder (URLSearching)
+- (void)rebalance
+{
+    int childCount = [((SVFolderTree*)fileNode) childCount];
+
+    // if we have only one child or less we don't have
+    // anything to rebalance :]
+    if ( childCount <= 1 ) return;
+
+    NSMutableArray *arr =
+        [[NSMutableArray alloc]
+            initWithCapacity:childCount];
+
+    
+    [child gatherChild:arr];
+    [child release];
+
+    [arr sortUsingComparator:SvLayoutNodeComparer];
+
+    child = [[SVLayoutTree alloc]
+                initWithFileList:arr
+                    andTotalSize:[fileNode diskSize]];
+
+    [arr release];
+}
+
 - (DeleteRez)deleteNode:(NSArray*)urlParts
                  atPart:(int)partIdx
-              andUpdate:(NSArray*)narrowState
-                atDepth:(int)narrowIdx
 {
     NSString*   ourPart = [urlParts objectAtIndex:partIdx];
 
@@ -40,9 +62,12 @@ DeleteRez makeDeleteRez( LayoutDeleteAction a, SVLayoutNode *c )
     if ( ![ourPart isEqualToString:[fileNode filename]] )
         return makeDeleteRez( DeleteSearch, nil );
 
+    // if we are the deleted something
+    if ( partIdx == (int)[urlParts count] - 1 )
+        return makeDeleteRez(DoDelete, self);
+    
     DeleteRez sub =
-        [child deleteNode:urlParts atPart:partIdx + 1
-                andUpdate:narrowState atDepth:narrowIdx];
+        [child deleteNode:urlParts atPart:partIdx + 1];
 
     
     switch ( sub.action )
@@ -58,7 +83,7 @@ DeleteRez makeDeleteRez( LayoutDeleteAction a, SVLayoutNode *c )
         [sub.newChild retain];
         [child release];
         child = sub.newChild;
-            // rebalance
+        [self rebalance];
         break;
 
     case DeleteSearch:
@@ -80,15 +105,10 @@ DeleteRez makeDeleteRez( LayoutDeleteAction a, SVLayoutNode *c )
 
 - (DeleteRez)deleteNode:(NSArray*)urlParts
                  atPart:(int)partIdx
-              andUpdate:(NSArray*)narrowState
-                atDepth:(int)narrowIdx
 
 {
     DeleteRez sub =
-        [left deleteNode:urlParts
-                  atPart:partIdx
-               andUpdate:narrowState
-                 atDepth:narrowIdx];
+        [left deleteNode:urlParts atPart:partIdx];
 
     switch (sub.action)
     {
@@ -108,10 +128,7 @@ DeleteRez makeDeleteRez( LayoutDeleteAction a, SVLayoutNode *c )
         break;
     }
 
-    sub = [right deleteNode:urlParts
-                     atPart:partIdx
-                  andUpdate:narrowState
-                    atDepth:narrowIdx];
+    sub = [right deleteNode:urlParts atPart:partIdx];
 
     switch (sub.action)
     {
@@ -132,7 +149,6 @@ DeleteRez makeDeleteRez( LayoutDeleteAction a, SVLayoutNode *c )
     }
 
     return makeDeleteRez( DeleteSearch, nil );
-
 }
 @end
 

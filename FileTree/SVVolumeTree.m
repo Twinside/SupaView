@@ -63,18 +63,7 @@
     [nodeList addObject:[emptySpace createLayoutTree]];
     [nodeList addObject:[unscannedSpace createLayoutTree]];
 
-    [nodeList sortUsingComparator:(NSComparator)^(id obj1, id obj2){
-        FileSize lSize = [obj1 nodeSize];
-        FileSize rSize = [obj2 nodeSize];
-        
-        if (lSize < rSize)
-            return (NSComparisonResult)NSOrderedDescending;
-        
-        if (lSize > rSize)
-            return (NSComparisonResult)NSOrderedAscending;
-        
-        return (NSComparisonResult)NSOrderedSame;
-    }];
+    [nodeList sortUsingComparator:SvLayoutNodeComparer];
 
     SVLayoutTree *layout = 
         [[SVLayoutTree alloc] initWithFileList:nodeList

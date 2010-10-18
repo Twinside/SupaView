@@ -12,7 +12,7 @@
             andContext:(SVScanningContext*)ctxt;
 
 - (void)dealloc;
-
+- (size_t)childCount;
 - (SVLayoutNode*)createLayoutTree;
 @end
 

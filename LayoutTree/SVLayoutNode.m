@@ -1,6 +1,19 @@
 #import "SVLayoutNode.h"
 #import "../SVSizes.h"
 
+NSComparator SvLayoutNodeComparer = (NSComparator)^(id obj1, id obj2){
+        FileSize lSize = [obj1 nodeSize];
+        FileSize rSize = [obj2 nodeSize];
+        
+        if (lSize < rSize)
+            return (NSComparisonResult)NSOrderedDescending;
+        
+        if (lSize > rSize)
+            return (NSComparisonResult)NSOrderedAscending;
+        
+        return (NSComparisonResult)NSOrderedSame;
+    };
+
 inline static
 BOOL intersect( const NSRect *a, const NSRect *b )
 {

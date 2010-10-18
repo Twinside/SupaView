@@ -100,6 +100,11 @@
     [mainTreeView popNarrowing];
 }
 
+- (IBAction)deleteSelectedElement:(id)sender
+{
+    [mainTreeView deleteSelection:TRUE];
+}
+
 - (IBAction)revealInFinder:(id)sender
 {
     [mainTreeView revealSelectionInFinder];
