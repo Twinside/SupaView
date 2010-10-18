@@ -130,18 +130,39 @@
     [localFileManager release];
 }
 
-- (SVLayoutNode*)createLayoutTree
+- (SVLayoutNode*)createLayoutTree:(int)maxDepth
+                          atDepth:(int)depth
 {
-    if ( [children count] == 0 )
+    if ( [children count] == 0 || diskSize == 0 || depth >= maxDepth )
         return nil;
 
-    SVLayoutNode *ret =
-        [[SVLayoutFolder alloc] initWithFileList:children
-                                         forNode:self
-                                    andTotalSize:diskSize];
+    NSMutableArray *childrenLayout =
+        [[NSMutableArray alloc] initWithCapacity:[children count]];
+
+    NSUInteger originalSize = [children count];
+    for ( NSUInteger i = 0; i < originalSize; i++ )
+    {
+        SVLayoutNode *sub =
+            [[children objectAtIndex:i] createLayoutTree:maxDepth
+                                                 atDepth:depth + 1];
+        
+        if (sub != nil)
+            [childrenLayout addObject:sub];
+    }
+
+    SVLayoutNode *ret;
     
+    if ([childrenLayout count] > 0)
+        ret = [[SVLayoutFolder alloc] initWithFileList:childrenLayout
+                                               forNode:self
+                                          andTotalSize:diskSize];
+    else
+        ret = [[SVLayoutLeaf alloc] initWithFile:self];
+
+    [childrenLayout release];
     return [ret autorelease];
 }
+- (size_t)childCount { return [children count]; }
 @end
 
 
@@ -185,37 +206,48 @@
     [pool drain];
 }
 
-- (DeleteAction)deleteNodeWithURLParts:(NSArray*)parts
+- (FileDeleteRez)deleteNodeWithURLParts:(NSArray*)parts
                                atIndex:(size_t)index
 {
-    DeleteAction selfAction =
+    FileDeleteRez selfAction =
         [super deleteNodeWithURLParts:parts atIndex:index];
 
-    if ( selfAction == DeletionTodo
-         || selfAction == DeletionEnd )
+    if ( selfAction.action != DeletionDigg )
         return selfAction;
 
     int idx = 0;
     for (SVFileTree *child in children)
     {
-        switch ( [child deleteNodeWithURLParts:parts atIndex:index+1] )
+        FileSize beforeDeletion = [child diskSize];
+        FileDeleteRez subAction = 
+            [child deleteNodeWithURLParts:parts atIndex:index+1];
+
+        switch ( subAction.action )
         {
         case DeletionTodo:
             /* Remove it from our children */
+            diskSize -= beforeDeletion;
+            [subAction.deleted retain];
             [children removeObjectAtIndex:idx];
-            return DeletionEnd;
+            return makeFileDeleteRez( DeletionEnd
+                                    , subAction.deleted );
 
         case DeletionEnd:
             /* don't bother doing anything else */
-            return DeletionEnd;
+            diskSize -= beforeDeletion - [child diskSize];
+            return subAction;
 
         case DeletionContinueScan:
             /* well, that's not him */
+            break;
+
+        case DeletionDigg:
+            assert( DeletionDigg == -1 );
             break;
         }
 
         idx++;
     }
-    return DeletionEnd;
+    return makeFileDeleteRez( DeletionEnd, nil );
 }
 @end

@@ -10,7 +10,7 @@
 #import "SVFileTree.h"
 #import "SVTreeMapView.h"
 
-@interface SVMainWindowController : NSObject <SVProgressNotifiable> {
+@interface SVMainWindowController : NSWindowController <SVProgressNotifiable> {
     NSWindow *window;
 
     SVFileTree *curentlyNavigated;
@@ -36,6 +36,8 @@
 
 @property (assign) IBOutlet NSWindow *window;
 - (id)init;
+- (void)dealloc;
+- (void)notifyViewCleanup;
 - (IBAction)openDocument:(id)sender;
 - (IBAction)openAbout:(id)sender;
 - (IBAction)openPreferences:(id)sender;
@@ -47,6 +49,7 @@
 - (IBAction)goUp:(id)sender;
 - (IBAction)revealInFinder:(id)sender;
 - (IBAction)donateLinkOpener:(id)sender;
+- (IBAction)deleteSelectedElement:(id)sender;
 
 
 @property (assign) NSNumber* atMaximumZoom;

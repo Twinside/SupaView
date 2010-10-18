@@ -12,7 +12,8 @@
             andContext:(SVScanningContext*)ctxt;
 
 - (void)dealloc;
-
-- (SVLayoutNode*)createLayoutTree;
+- (size_t)childCount;
+- (SVLayoutNode*)createLayoutTree:(int)maxDepth
+                          atDepth:(int)depth;
 @end
 

@@ -5,8 +5,20 @@
       <link>http://you.com/app/appcast.xml</link>
       <description>Most recent changes with links to updates.</description>
       <language>en</language>
+        <item>
+            <title>Version 1.1</title>
+						<sparkle:releaseNotesLink>
+                            http://twinside.free.fr/supaview/changelog.html
+						</sparkle:releaseNotesLink>
+			<pubDate></pubDate>
+            <enclosure url="http://twinside.free.fr/supaview/SupaView.1.1.zip"
+                sparkle:version="1.1"
+                length=""
+                type="application/octet-stream"
+                sparkle:dsaSignature="" />
+        </item>
          <item>
-            <title>Version 2.0 (2 bugs fixed; 3 new features)</title>
+            <title>Version 1.0</title>
 						<sparkle:releaseNotesLink>
                             http://twinside.free.fr/supaview/changelog.html
 						</sparkle:releaseNotesLink>

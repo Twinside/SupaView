@@ -88,8 +88,10 @@
     NSRect  subBounds = *bounds;
     [self cropSubRectangle:&subBounds withInfo:info];
 
+    info->depth++;
     SVLayoutLeaf* sub =
         [child getSelected:point withInfo:info andBounds:&subBounds];
+    info->depth--;
 
     if ( sub == nil )
     {

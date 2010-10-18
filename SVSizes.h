@@ -18,6 +18,9 @@ typedef struct SVSizes_t
 
     CGFloat fileSizeMinDisplay;
     CGFloat fileSizeWidth;
+
+    int     updateMaxDepth;
+    int     fullViewMaxDepth;
 } SVSizes;
 
 extern const SVSizes  blockSizes;

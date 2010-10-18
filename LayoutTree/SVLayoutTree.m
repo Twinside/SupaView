@@ -42,7 +42,7 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
     // can happen if a folder only got one child
     if ( subSize == 1 )
     {
-        left = [[fileList objectAtIndex:0] createLayoutTree];
+        left = [fileList objectAtIndex:0];
         [left retain];
         splitPos = 1.0;
         return self;
@@ -58,15 +58,15 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
     
     // greedy filling of leftList, approximately
     // half of total size.
-    for ( SVFileTree *elem in fileList )
+    for ( SVLayoutNode *elem in fileList )
     {
-        if ([elem diskSize] == 0)
+        if ([elem nodeSize] == 0)
             break;
         
         if ( leftSize < midPoint || leftSize == 0 )
         {
             [leftList addObject:elem];
-            leftSize += [elem diskSize];
+            leftSize += [elem nodeSize];
         }
         else
             [rightList addObject:elem];
@@ -88,7 +88,7 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
     
     if ( [leftList count] == 1 )
     {
-        left = [[leftList objectAtIndex:0] createLayoutTree];
+        left = [leftList objectAtIndex:0];
         [left retain];
     }
     else
@@ -105,8 +105,7 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
             break;
             
         case 1:
-            right =
-                [[rightList objectAtIndex:0] createLayoutTree];
+            right = [rightList objectAtIndex:0];
             [right retain];
             break;
             
@@ -183,7 +182,6 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
     
     SVLayoutLeaf* ret = nil;
 
-    info->depth++;
     if ( left && insideRect( &leftSub, &point ) )
     {
         ret = [left getSelected:point withInfo:info andBounds:&leftSub];
@@ -198,7 +196,15 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
         orientation |= SelectionAtRight;
     }
 
-    info->depth--;
+    return ret;
+}
+
+- (SVFileTree*)fileNode
+{
+    SVFileTree *ret = [left fileNode];
+
+    if ( ret == nil )
+        return [right fileNode];
 
     return ret;
 }

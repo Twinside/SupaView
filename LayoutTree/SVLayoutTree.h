@@ -30,5 +30,10 @@
             inBounds:(NSRect*)bounds;
 
 - (void)splitRectangles:(NSRect*)leftSub and:(NSRect*)rightSub;
+
+/**
+ * Try to find node with a file node.
+ */
+- (SVFileTree*)fileNode;
 @end
 

@@ -39,6 +39,8 @@ typedef struct SVDrawInfo_t
     int             depth;
 } SVDrawInfo;
 
+NSComparator SvLayoutNodeComparer;
+
 @interface SVLayoutNode : NSObject {
 }
 
@@ -51,5 +53,8 @@ typedef struct SVDrawInfo_t
 
 - (void)drawGeometry:(SVDrawInfo*)info
             inBounds:(NSRect*)bounds;
+
+- (FileSize)nodeSize;
+- (SVFileTree*)fileNode;
 @end
 

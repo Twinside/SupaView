@@ -8,4 +8,5 @@
     [self drawFileName:info inBounds:bounds];
 }
 
+- (SVFileTree*)fileNode { return nil;  }
 @end

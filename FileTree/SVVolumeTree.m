@@ -49,7 +49,8 @@
     [super dealloc];
 }
 
-- (SVLayoutTree*)createLayoutTree
+- (SVLayoutNode*)createLayoutTree:(int)maxDepth
+                          atDepth:(int)depth
 {
     FileSize    scannedSize = [child diskSize];
     NSMutableArray *nodeList =
@@ -59,19 +60,25 @@
                                   - scannedSize
                                   - [emptySpace diskSize]];
 
-    [nodeList addObject:child];
-    [nodeList addObject:emptySpace];
-    [nodeList addObject:unscannedSpace];
+    [nodeList addObject:[child createLayoutTree:maxDepth atDepth:depth]];
+    [nodeList addObject:[emptySpace createLayoutTree:maxDepth atDepth:depth]];
+    [nodeList addObject:[unscannedSpace createLayoutTree:maxDepth atDepth:depth]];
 
-    [nodeList sortUsingComparator:SvFileTreeComparer];
+    [nodeList sortUsingComparator:SvLayoutNodeComparer];
 
     SVLayoutTree *layout = 
         [[SVLayoutTree alloc] initWithFileList:nodeList
-                                         //forNode:self
-                                    andTotalSize:volumeSize];
+                                  andTotalSize:volumeSize];
     [nodeList release];
 
     return [layout autorelease];
+}
+
+- (FileDeleteRez)deleteNodeWithURLParts:(NSArray*)parts
+                                atIndex:(size_t)index;
+{
+    NSLog(@"called");
+    return makeFileDeleteRez( 0, nil );
 }
 @end
 

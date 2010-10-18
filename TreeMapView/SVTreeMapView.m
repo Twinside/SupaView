@@ -13,6 +13,8 @@
 #import "SVNarrowingState.h"
 #import "../LayoutTree/SVLayoutLeaf.h"
 #import "../LayoutTree/SVLayoutKeyNavigation.h"
+#import "../LayoutTree/Layout.searching.h"
+#import "../SVMainWindowController.h"
 #import "SVTreeMapView.dragging.h"
 #import "SVTreeMapView.private.h"
 #import "AnimationPerFrame.h"
@@ -45,31 +47,50 @@
 
 - (void)dealloc
 {
+    // the next three lines are "FUCKING UGLY"
+    // but it's the only way I've found to release
+    // the MainWindowController of the nib file.
+    // As it keep a reference to a filetree, it's
+    // really important to free it.
+    [parentControler release];
+    // for the window
+    [parentControler release];
+    // ???
+    [parentControler release];
+
+
     [viewedTree release];
     [geometry release];
     [wheel release];
     [selectedURL release];
     [currentURL release];
     [narrowingStack release];
+    [currentSelection release];
+    [selectedLayoutNode release];
     [super dealloc];
 }
 
 - (void)setTreeMap:(SVLayoutNode*)tree
              atUrl:(NSURL*)url
 {
-    [viewedTree release];
     [selectedURL release];
-    [currentURL release];
-    [narrowingStack removeAllObjects];
-
-    viewedTree = tree;
-    currentURL = url;
     selectedURL = nil;
+
+    [currentSelection release];
     currentSelection = nil;
+
+    [selectedLayoutNode release];
     selectedLayoutNode = nil;
-    
+
+    [viewedTree release];
+    viewedTree = tree;
     [viewedTree retain];
+
+    [currentURL release];
+    currentURL = url;
     [currentURL retain];
+
+    [narrowingStack removeAllObjects];
     
     if ( tree == nil )
         return;
@@ -316,8 +337,13 @@
 
     if ( found != currentSelection )
     {
+        [currentSelection release];
         currentSelection = found;
+        [currentSelection retain];
+        
+        [selectedLayoutNode release];
         selectedLayoutNode = foundNode;
+        [selectedLayoutNode retain];
         
         [selectedURL release];
         selectedURL = info.selection.name;
@@ -389,8 +415,13 @@
     
     if ( found != currentSelection )
     {
+        [currentSelection release];
         currentSelection = found;
+        [currentSelection retain];
+        
+        [selectedLayoutNode release];
         selectedLayoutNode = foundNode;
+        [selectedLayoutNode retain];
         
         [selectedURL release];
         selectedURL = info.selection.name;
@@ -512,6 +543,28 @@
     stateChangeNotifier();
 }
 
+- (void)refreshLayoutTree:(SVLayoutNode*)tree
+          withUpdatedPath:(NSURL*)updatedPath
+{
+    size_t i = 0;
+
+    // if refresh is in narrowingStack
+        // then pop it
+    for (SVNarrowingState *narrow in narrowingStack)
+    {
+        if ( [updatedPath isEqual:[narrow url]] )
+        {
+            size_t toPop = [narrowingStack count] - i - 1;
+            [narrowingStack
+                removeObjectsInRange:NSMakeRange(i, toPop)];
+        }
+        i++;
+    }
+
+    // for every narrowing, resync it using the new tree :
+        // search URL and update rect
+}
+
 - (void)popNarrowing
 {
     if ( lockAnyMouseEvent ) return;
@@ -521,7 +574,9 @@
     virtualSize = [self bounds];
     
     SVNarrowingState *st = [narrowingStack lastObject];
+    [viewedTree release];
     viewedTree = [st node];
+    [viewedTree retain];
 
     zoomAnim =
         [[AnimationPerFrame alloc] initWithView:self
@@ -559,6 +614,73 @@
 - (BOOL)isSelectionReavealableInFinder
 {
     return viewedTree != nil && selectedURL != nil;
+}
+
+- (void)deleteSelection:(BOOL)putInTrash
+{
+    NSURL *masterURL;
+    SVLayoutNode *masterLayout;
+
+    // we must update the tree from the upper
+    // most root of the layout tree. So we
+    // must pick it from the narrowing stack
+    // if any.
+    if ( [narrowingStack count] > 0 )
+    {
+        SVNarrowingState *st =
+            [narrowingStack objectAtIndex:0];
+
+        masterURL = [st url];
+        masterLayout = [st node];
+    }
+    else
+    {
+        masterURL = currentURL;
+        masterLayout = viewedTree;
+    }
+
+    NSArray *rootComp = [masterURL pathComponents];
+    NSArray *selRoot = [selectedURL pathComponents];
+    int deleteIndex = [rootComp count] - 1;
+
+    [selRoot retain];
+
+    FileDeleteRez rez = 
+        [[masterLayout fileNode]
+            deleteNodeWithURLParts:selRoot
+                        atIndex:deleteIndex];
+
+    [SVLayoutNode deleteNode:masterLayout
+                       atUrl:selRoot
+                      atPart:deleteIndex];
+
+    [rez.deleted release];
+    [selRoot release];
+    
+    [selectedURL release];
+    selectedURL = nil;
+    [currentSelection release];
+    currentSelection = nil;
+
+    if ( selectedLayoutNode == viewedTree )
+    {
+        if ( [narrowingStack count] > 0 )
+            [self popNarrowing];
+        else
+        {
+            viewedTree = nil;
+            [parentControler notifyViewCleanup];
+            [[self window] setRepresentedURL:nil];
+        }
+    }
+
+    [selectedLayoutNode release];
+    selectedLayoutNode = nil;
+    
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
+
+    stateChangeNotifier();
 }
 @end
 
