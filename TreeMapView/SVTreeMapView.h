@@ -10,6 +10,8 @@
 #import "SVLayoutNode.h"
 #import "SVGeometryGatherer.h"
 
+@class SVMainWindowController;
+
 typedef void (^FileDropResponder)( NSURL* fileUrl );
 typedef void (^Notifier)();
 
@@ -52,6 +54,8 @@ typedef enum AnimationEnd_t
     
     FileDropResponder     dragResponder;
     Notifier              stateChangeNotifier;
+
+    IBOutlet SVMainWindowController *parentControler;
 }
 
 - (id)initWithFrame:(NSRect)frameRect;

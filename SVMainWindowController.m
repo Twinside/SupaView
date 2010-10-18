@@ -42,6 +42,12 @@
 
     return self;
 }
+- (void)dealloc
+{
+    NSLog(@"SVMainWindowControler dealloc\n");
+    [curentlyNavigated release];
+    [scannedUrl release];
+}
 
 - (void)mapStateChange
 {

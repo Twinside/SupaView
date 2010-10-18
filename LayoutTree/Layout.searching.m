@@ -42,15 +42,17 @@ DeleteRez makeDeleteRez( LayoutDeleteAction a, SVLayoutNode *c )
 
     
     [child gatherChild:arr];
-    [child release];
 
     [arr sortUsingComparator:SvLayoutNodeComparer];
 
+    SVLayoutNode    *oldChild = child;
     child = [[SVLayoutTree alloc]
                 initWithFileList:arr
                     andTotalSize:[fileNode diskSize]];
 
+    [child retain];
     [arr release];
+    [oldChild release];
 }
 
 - (DeleteRez)deleteNode:(NSArray*)urlParts

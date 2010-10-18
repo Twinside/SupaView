@@ -46,12 +46,21 @@
 
 - (void)dealloc
 {
+    NSLog(@"SVTreemapView dealloc\n");
+    [parentControler release];
+    // for the window
+    [parentControler release];
+    // ???
+    [parentControler release];
+
     [viewedTree release];
     [geometry release];
     [wheel release];
     [selectedURL release];
     [currentURL release];
     [narrowingStack release];
+    [currentSelection release];
+    [selectedLayoutNode release];
     [super dealloc];
 }
 
@@ -556,7 +565,9 @@
     virtualSize = [self bounds];
     
     SVNarrowingState *st = [narrowingStack lastObject];
+    [viewedTree release];
     viewedTree = [st node];
+    [viewedTree retain];
 
     zoomAnim =
         [[AnimationPerFrame alloc] initWithView:self
@@ -630,8 +641,11 @@
             deleteNodeWithURLParts:selRoot
                         atIndex:deleteIndex];
     [masterLayout deleteNode:selRoot atPart:deleteIndex];
-    [rez.deleted release];
 
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
+
+    [rez.deleted release];
     [selRoot release];
     
     [selectedURL release];
@@ -640,9 +654,7 @@
     currentSelection = nil;
     [selectedLayoutNode release];
     selectedLayoutNode = nil;
-
-    [self updateGeometry];
-    [self setNeedsDisplay:YES];
+    
     stateChangeNotifier();
 }
 @end

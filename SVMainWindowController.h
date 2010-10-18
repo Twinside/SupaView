@@ -10,7 +10,7 @@
 #import "SVFileTree.h"
 #import "SVTreeMapView.h"
 
-@interface SVMainWindowController : NSObject <SVProgressNotifiable> {
+@interface SVMainWindowController : NSWindowController <SVProgressNotifiable> {
     NSWindow *window;
 
     SVFileTree *curentlyNavigated;
@@ -36,6 +36,7 @@
 
 @property (assign) IBOutlet NSWindow *window;
 - (id)init;
+- (void)dealloc;
 - (IBAction)openDocument:(id)sender;
 - (IBAction)openAbout:(id)sender;
 - (IBAction)openPreferences:(id)sender;

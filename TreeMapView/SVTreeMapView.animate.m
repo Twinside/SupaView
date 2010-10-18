@@ -15,7 +15,10 @@
     {
     case AnimationNarrow:
         virtualSize = [self bounds];
+        [viewedTree release];
         viewedTree = (SVLayoutNode*)selectedLayoutNode;
+        [viewedTree retain];
+
         [currentURL release];
         currentURL = selectedURL;
         [currentURL retain];
