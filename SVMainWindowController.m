@@ -44,9 +44,15 @@
 }
 - (void)dealloc
 {
-    NSLog(@"SVMainWindowControler dealloc\n");
     [curentlyNavigated release];
     [scannedUrl release];
+}
+
+- (void)notifyViewCleanup
+{
+    curentlyNavigated = nil;
+    [scannedUrl release];
+    scannedUrl = nil;
 }
 
 - (void)mapStateChange

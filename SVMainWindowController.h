@@ -37,6 +37,7 @@
 @property (assign) IBOutlet NSWindow *window;
 - (id)init;
 - (void)dealloc;
+- (void)notifyViewCleanup;
 - (IBAction)openDocument:(id)sender;
 - (IBAction)openAbout:(id)sender;
 - (IBAction)openPreferences:(id)sender;

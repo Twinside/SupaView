@@ -14,6 +14,7 @@
 #import "../LayoutTree/SVLayoutLeaf.h"
 #import "../LayoutTree/SVLayoutKeyNavigation.h"
 #import "../LayoutTree/Layout.searching.h"
+#import "../SVMainWindowController.h"
 #import "SVTreeMapView.dragging.h"
 #import "SVTreeMapView.private.h"
 #import "AnimationPerFrame.h"
@@ -46,12 +47,17 @@
 
 - (void)dealloc
 {
-    NSLog(@"SVTreemapView dealloc\n");
+    // the next three lines are "FUCKING UGLY"
+    // but it's the only way I've found to release
+    // the MainWindowController of the nib file.
+    // As it keep a reference to a filetree, it's
+    // really important to free it.
     [parentControler release];
     // for the window
     [parentControler release];
     // ???
     [parentControler release];
+
 
     [viewedTree release];
     [geometry release];
@@ -67,21 +73,24 @@
 - (void)setTreeMap:(SVLayoutNode*)tree
              atUrl:(NSURL*)url
 {
-    [viewedTree release];
     [selectedURL release];
-    [currentURL release];
-    [currentSelection release];
-    [selectedLayoutNode release];
-    [narrowingStack removeAllObjects];
-
-    viewedTree = tree;
-    currentURL = url;
     selectedURL = nil;
+
+    [currentSelection release];
     currentSelection = nil;
+
+    [selectedLayoutNode release];
     selectedLayoutNode = nil;
-    
+
+    [viewedTree release];
+    viewedTree = tree;
     [viewedTree retain];
+
+    [currentURL release];
+    currentURL = url;
     [currentURL retain];
+
+    [narrowingStack removeAllObjects];
     
     if ( tree == nil )
         return;
@@ -640,10 +649,10 @@
         [[masterLayout fileNode]
             deleteNodeWithURLParts:selRoot
                         atIndex:deleteIndex];
-    [masterLayout deleteNode:selRoot atPart:deleteIndex];
 
-    [self updateGeometry];
-    [self setNeedsDisplay:YES];
+    [SVLayoutNode deleteNode:masterLayout
+                       atUrl:selRoot
+                      atPart:deleteIndex];
 
     [rez.deleted release];
     [selRoot release];
@@ -652,9 +661,25 @@
     selectedURL = nil;
     [currentSelection release];
     currentSelection = nil;
+
+    if ( selectedLayoutNode == viewedTree )
+    {
+        if ( [narrowingStack count] > 0 )
+            [self popNarrowing];
+        else
+        {
+            viewedTree = nil;
+            [parentControler notifyViewCleanup];
+            [[self window] setRepresentedURL:nil];
+        }
+    }
+
     [selectedLayoutNode release];
     selectedLayoutNode = nil;
     
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
+
     stateChangeNotifier();
 }
 @end

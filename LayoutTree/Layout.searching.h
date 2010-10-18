@@ -21,6 +21,10 @@ typedef struct DeleteRez_t
 - (void)gatherChild:(NSMutableArray*)arr;
 - (DeleteRez)deleteNode:(NSArray*)urlParts
                  atPart:(int)partIdx;
+
++ (void)deleteNode:(SVLayoutNode*)node
+             atUrl:(NSArray*)urlParts
+            atPart:(int)partIdx;
 @end
 
 @interface SVLayoutLeaf (UrlSearching)

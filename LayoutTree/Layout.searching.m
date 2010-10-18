@@ -10,6 +10,16 @@ DeleteRez makeDeleteRez( LayoutDeleteAction a, SVLayoutNode *c )
 
 @implementation SVLayoutNode (URLSearching)
 - (void)gatherChild:(NSMutableArray*)arr {}
++ (void)deleteNode:(SVLayoutNode*)node
+             atUrl:(NSArray*)urlParts
+            atPart:(int)partIdx
+
+{
+    DeleteRez rez = [node deleteNode:urlParts atPart:partIdx];
+
+    if (rez.action == DoDelete)
+        [rez.newChild release];
+}
 @end
 
 @implementation SVLayoutLeaf (URLSearching)
@@ -17,7 +27,7 @@ DeleteRez makeDeleteRez( LayoutDeleteAction a, SVLayoutNode *c )
     { [arr addObject:self]; }
 
 - (DeleteRez)deleteNode:(NSArray*)urlParts
-                     atPart:(int)partIdx
+                 atPart:(int)partIdx
 {
     NSString*   ourPart = [urlParts objectAtIndex:partIdx];
     if ( [ourPart isEqualToString:[fileNode filename]] )
