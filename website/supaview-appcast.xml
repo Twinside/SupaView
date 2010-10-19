@@ -13,30 +13,9 @@
 			<pubDate></pubDate>
             <enclosure url="http://twinside.free.fr/supaview/SupaView.1.1.zip"
                 sparkle:version="1.1"
-                length=""
+                length="579858"
                 type="application/octet-stream"
-                sparkle:dsaSignature="" />
+                sparkle:dsaSignature="MCwCFHEcL6T5oqgs3u4zB6mp20WuF9ERAhQmagvduK6+rqra3E3tdlSxWmdEFQ==" />
         </item>
-         <item>
-            <title>Version 1.0</title>
-						<sparkle:releaseNotesLink>
-                            http://twinside.free.fr/supaview/changelog.html
-						</sparkle:releaseNotesLink>
-            <pubDate>Wed, 09 Jan 2006 19:20:11 +0000</pubDate>
-            <enclosure url="http://twinside.free.fr/supaview/SupaView.1.0.zip"
-                sparkle:version="1.0"
-                length="564761"
-                type="application/octet-stream"
-                sparkle:dsaSignature="MCwCFDD2C6q8Yt1kmwA7Hr4kdVallnEYAhQPaEzcQlKBwTgEmXROapHTi4yBhQ==" />
-         </item>
-
-         <!--<item>-->
-            <!--<title>Version 1.5 (8 bugs fixed; 2 new features)</title>-->
-						<!--<sparkle:releaseNotesLink>-->
-							<!--http://you.com/app/1.5.html-->
-						<!--</sparkle:releaseNotesLink>-->
-            <!--<pubDate>Wed, 01 Jan 2006 12:20:11 +0000</pubDate>-->
-            <!--<enclosure url="http://you.com/app/Your Great App 1.5.zip" sparkle:version="1.5" length="1472893" type="application/octet-stream" sparkle:dsaSignature="234818feCa1JyW30nbkBwainOzrN6EQuAh" />-->
-         <!--</item>-->
    </channel>
 </rss>
