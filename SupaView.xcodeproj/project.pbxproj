@@ -14,6 +14,8 @@
 		613488DB12284A39009EDE77 /* SVSizes.m in Sources */ = {isa = PBXBuildFile; fileRef = 613488DA12284A39009EDE77 /* SVSizes.m */; };
 		615130BC123EA998003CD2AE /* SVZoomInImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 615130BA123EA998003CD2AE /* SVZoomInImg.png */; };
 		615130BD123EA998003CD2AE /* SVZoomOutImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 615130BB123EA998003CD2AE /* SVZoomOutImg.png */; };
+		61570CED1262673100E0FCA4 /* preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61570CEC1262673100E0FCA4 /* preferences.xib */; };
+		61570D141264BECD00E0FCA4 /* Layout.searching.m in Sources */ = {isa = PBXBuildFile; fileRef = 61570D131264BECD00E0FCA4 /* Layout.searching.m */; };
 		6167F86E122366B800404881 /* SVGeometryGatherer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6167F86D122366B800404881 /* SVGeometryGatherer.m */; };
 		6172869D1225FE6100607826 /* SVColorWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6172869C1225FE6100607826 /* SVColorWheel.m */; };
 		6184F5AD12591CE300C91C8E /* SVTreeMapView.dragging.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5AA12591CE300C91C8E /* SVTreeMapView.dragging.m */; };
@@ -28,7 +30,6 @@
 		6184F82D125D03DD00C91C8E /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6184F82C125D03DD00C91C8E /* Sparkle.framework */; };
 		6184F83A125D041300C91C8E /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6184F82C125D03DD00C91C8E /* Sparkle.framework */; };
 		6184F847125D059D00C91C8E /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 6184F846125D059D00C91C8E /* dsa_pub.pem */; };
-		6184F84D125D098200C91C8E /* preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6184F84C125D098200C91C8E /* preferences.xib */; };
 		6184F932125E372800C91C8E /* appliIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6184F931125E372800C91C8E /* appliIcon.icns */; };
 		61C87E8B1250B85B00F1B518 /* SVFileTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87E881250B85B00F1B518 /* SVFileTree.m */; };
 		61C87E8C1250B85B00F1B518 /* SVVolumeTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C87E8A1250B85B00F1B518 /* SVVolumeTree.m */; };
@@ -82,6 +83,9 @@
 		613488DA12284A39009EDE77 /* SVSizes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSizes.m; sourceTree = "<group>"; };
 		615130BA123EA998003CD2AE /* SVZoomInImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SVZoomInImg.png; path = img/SVZoomInImg.png; sourceTree = "<group>"; };
 		615130BB123EA998003CD2AE /* SVZoomOutImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SVZoomOutImg.png; path = img/SVZoomOutImg.png; sourceTree = "<group>"; };
+		61570CEE1262674B00E0FCA4 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/preferences.xib; sourceTree = "<group>"; };
+		61570D121264BECD00E0FCA4 /* Layout.searching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Layout.searching.h; path = LayoutTree/Layout.searching.h; sourceTree = "<group>"; };
+		61570D131264BECD00E0FCA4 /* Layout.searching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Layout.searching.m; path = LayoutTree/Layout.searching.m; sourceTree = "<group>"; };
 		6167F86C122366B800404881 /* SVGeometryGatherer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGeometryGatherer.h; sourceTree = "<group>"; };
 		6167F86D122366B800404881 /* SVGeometryGatherer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGeometryGatherer.m; sourceTree = "<group>"; };
 		6167F8B5122374C200404881 /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
@@ -106,7 +110,7 @@
 		6184F81B125CFB9C00C91C8E /* About.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = About.xib; sourceTree = "<group>"; };
 		6184F82C125D03DD00C91C8E /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		6184F846125D059D00C91C8E /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
-		6184F84C125D098200C91C8E /* preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = preferences.xib; sourceTree = "<group>"; };
+		6184F84C125D098200C91C8E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/preferences.xib; sourceTree = "<group>"; };
 		6184F931125E372800C91C8E /* appliIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = appliIcon.icns; sourceTree = "<group>"; };
 		61C87E871250B85B00F1B518 /* SVFileTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVFileTree.h; path = FileTree/SVFileTree.h; sourceTree = "<group>"; };
 		61C87E881250B85B00F1B518 /* SVFileTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVFileTree.m; path = FileTree/SVFileTree.m; sourceTree = "<group>"; };
@@ -247,7 +251,7 @@
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				61C8804812510C2100F1B518 /* Custom.strings */,
 				6184F81B125CFB9C00C91C8E /* About.xib */,
-				6184F84C125D098200C91C8E /* preferences.xib */,
+				61570CEC1262673100E0FCA4 /* preferences.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -283,6 +287,8 @@
 		61C8805E12510EB200F1B518 /* LayoutTree */ = {
 			isa = PBXGroup;
 			children = (
+				61570D121264BECD00E0FCA4 /* Layout.searching.h */,
+				61570D131264BECD00E0FCA4 /* Layout.searching.m */,
 				6184F74E125A4C0700C91C8E /* SVLayoutKeyNavigation.h */,
 				6184F74F125A4C0700C91C8E /* SVLayoutKeyNavigation.m */,
 				6184F672125A02E300C91C8E /* SVLayoutLeaf.protected.h */,
@@ -381,7 +387,7 @@
 				61F19E741254E0BB005340E2 /* SVGoBack.png in Resources */,
 				6184F81C125CFB9C00C91C8E /* About.xib in Resources */,
 				6184F847125D059D00C91C8E /* dsa_pub.pem in Resources */,
-				6184F84D125D098200C91C8E /* preferences.xib in Resources */,
+				61570CED1262673100E0FCA4 /* preferences.xib in Resources */,
 				6184F932125E372800C91C8E /* appliIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -421,6 +427,7 @@
 				6184F5D6125938A000C91C8E /* SVTreeMapView.private.m in Sources */,
 				6184F674125A02E300C91C8E /* SVLayoutLeaf.protected.m in Sources */,
 				6184F750125A4C0700C91C8E /* SVLayoutKeyNavigation.m in Sources */,
+				61570D141264BECD00E0FCA4 /* Layout.searching.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +449,15 @@
 				61C880C6125139FD00F1B518 /* French */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		61570CEC1262673100E0FCA4 /* preferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6184F84C125D098200C91C8E /* English */,
+				61570CEE1262674B00E0FCA4 /* French */,
+			);
+			name = preferences.xib;
 			sourceTree = "<group>";
 		};
 		61C8804812510C2100F1B518 /* Custom.strings */ = {

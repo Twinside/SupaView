@@ -8,6 +8,7 @@
 #import <Sparkle/Sparkle.h>
 #import "SVMainWindowController.h"
 #import "SVSupaViewAppDelegate.h"
+#import "SVSizes.h"
 #import "SVGlobalQueues.h"
 
 @interface SVMainWindowController (Private)
@@ -40,6 +41,18 @@
     atTopLevel = [NSNumber numberWithBool:TRUE];
 
     return self;
+}
+- (void)dealloc
+{
+    [curentlyNavigated release];
+    [scannedUrl release];
+}
+
+- (void)notifyViewCleanup
+{
+    curentlyNavigated = nil;
+    [scannedUrl release];
+    scannedUrl = nil;
 }
 
 - (void)mapStateChange
@@ -100,9 +113,32 @@
     [mainTreeView popNarrowing];
 }
 
+- (IBAction)deleteSelectedElement:(id)sender
+{
+    [mainTreeView deleteSelection:TRUE];
+}
+
 - (IBAction)revealInFinder:(id)sender
 {
     [mainTreeView revealSelectionInFinder];
+}
+
+- (IBAction)donateLinkOpener:(id)sender
+{
+    NSURL   *donationURL =
+        [NSURL URLWithString:@"http://twinside.free.fr/supaview/donate.html"];
+
+    [[NSWorkspace sharedWorkspace] openURL:donationURL];
+}
+
+- (NSString*)versionString
+{
+    NSBundle *mainBundle = [NSBundle mainBundle];
+    NSDictionary *infoDict = [mainBundle infoDictionary];
+ 
+    NSString *mainString = [infoDict valueForKey:@"CFBundleShortVersionString"];
+    NSString *subString = [infoDict valueForKey:@"CFBundleVersion"];
+    return [NSString stringWithFormat:@"Version %@ (%@)", mainString, subString];
 }
 
 - (void)notifyFileScanned
@@ -146,7 +182,8 @@
 - (void)commitTree
 {
     SVLayoutNode  *created =
-        [curentlyNavigated createLayoutTree];
+        [curentlyNavigated createLayoutTree:blockSizes.fullViewMaxDepth
+                                    atDepth:0];
 
     [mainTreeView setTreeMap:created
                        atUrl:scannedUrl];
@@ -157,7 +194,8 @@
 - (void)updateView
 {
     SVLayoutNode  *created =
-        [curentlyNavigated createLayoutTree];
+        [curentlyNavigated createLayoutTree:blockSizes.updateMaxDepth
+                                    atDepth:0];
 
     float progress = [curentlyNavigated advancementPercentage];
     if ( progress >= 0 )

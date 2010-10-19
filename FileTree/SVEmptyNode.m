@@ -12,7 +12,8 @@
     return self;
 }
 
-- (SVLayoutNode*)createLayoutTree
+- (SVLayoutNode*)createLayoutTree:(int)maxDepth
+                          atDepth:(int)depth
 {
     SVLayoutNode  *layoutNode =
         [[SVLayoutEmptySpace alloc] initWithFile:self];

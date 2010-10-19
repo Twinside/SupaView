@@ -24,4 +24,5 @@
             inBounds:(NSRect*)bounds;
 
 - (SVFileTree*)fileNode;
+- (FileSize)nodeSize;
 @end

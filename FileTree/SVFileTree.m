@@ -11,7 +11,14 @@
 #import "SVFolderTree.h"
 #import "../LayoutTree/SVLayoutLeaf.h"
 
-NSComparator SvFileTreeComparer = (NSComparator)^(id obj1, id obj2){
+FileDeleteRez makeFileDeleteRez( DeleteAction a, SVFileTree *t )
+{
+    FileDeleteRez ret = { .action = a, .deleted = t };
+    return ret;
+}
+
+NSComparator SvFileTreeComparer = (NSComparator)^(id obj1, id obj2)
+{
         FileSize lSize = [obj1 diskSize];
         FileSize rSize = [obj2 diskSize];
         
@@ -90,6 +97,30 @@ BOOL isVolume( NSURL*   pathURL )
     return rootFolder;
 }
 
+- (FileDeleteRez)deleteNodeWithURLParts:(NSArray*)parts
+                                atIndex:(size_t)index
+{
+    NSString *ourPart = [parts objectAtIndex:index];
+
+    if ( [ourPart isEqualToString:name] )
+    {
+        if ( index == [parts count] - 1 )
+        {
+            NSURL   *url = [NSURL fileURLWithPathComponents:parts];
+
+            [[NSWorkspace sharedWorkspace]
+                     recycleURLs:[NSArray arrayWithObject:url]
+               completionHandler:nil];
+
+            return makeFileDeleteRez( DeletionTodo, self );
+        }
+        else
+            return makeFileDeleteRez( DeletionDigg, self );
+    }
+    else
+        return makeFileDeleteRez( DeletionContinueScan, nil );
+}
+
 - (void)dumpToFile:(FILE*)f
 {
     fprintf( f, "p%p [label=\"%i|%s\" shape=record]\n"
@@ -146,7 +177,8 @@ BOOL isVolume( NSURL*   pathURL )
     return -1.0f;
 }
 
-- (SVLayoutNode*)createLayoutTree
+- (SVLayoutNode*)createLayoutTree:(int)maxDepth
+                          atDepth:(int)depth
 {
     SVLayoutNode  *layoutNode =
         [[SVLayoutLeaf alloc] initWithFile:self];

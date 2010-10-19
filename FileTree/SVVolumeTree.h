@@ -22,7 +22,8 @@
             andContext:(SVScanningContext*)ctxt;
 
 - (void)dealloc;
-- (SVLayoutTree*)createLayoutTree;
+- (SVLayoutNode*)createLayoutTree:(int)maxDepth
+                          atDepth:(int)depth;
 - (double)advancementPercentage;
 @end
 

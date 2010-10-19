@@ -3,5 +3,6 @@
 @interface SVEmptyNode : SVFileTree {
 }
 - (id)initWithFileSize:(FileSize)size;
-- (SVLayoutNode*)createLayoutTree;
+- (SVLayoutNode*)createLayoutTree:(int)maxDepth
+                          atDepth:(int)depth;
 @end
