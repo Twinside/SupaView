@@ -105,7 +105,15 @@ BOOL isVolume( NSURL*   pathURL )
     if ( [ourPart isEqualToString:name] )
     {
         if ( index == [parts count] - 1 )
+        {
+            NSURL   *url = [NSURL fileURLWithPathComponents:parts];
+
+            [[NSWorkspace sharedWorkspace]
+                     recycleURLs:[NSArray arrayWithObject:url]
+               completionHandler:nil];
+
             return makeFileDeleteRez( DeletionTodo, self );
+        }
         else
             return makeFileDeleteRez( DeletionDigg, self );
     }
