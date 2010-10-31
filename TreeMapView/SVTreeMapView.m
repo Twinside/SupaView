@@ -448,14 +448,11 @@
     if ( selectedURL == nil )
         return;
     
-    if ( isSelectionFile )
-        [[NSWorkspace sharedWorkspace]
-                    openFile:[[selectedURL URLByDeletingLastPathComponent] path]
-             withApplication:@"Finder"];
-    else
-        [[NSWorkspace sharedWorkspace]
-                    openFile:[selectedURL path]
-             withApplication:@"Finder"];
+    NSString *parentFolder =
+        [[selectedURL URLByDeletingLastPathComponent] path];
+
+    [[NSWorkspace sharedWorkspace] selectFile:[selectedURL path]
+                     inFileViewerRootedAtPath:parentFolder];
 }
 
 - (void)scrollWheel:(NSEvent*)event
