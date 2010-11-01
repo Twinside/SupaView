@@ -7,8 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SVLayoutNode.h"
-#import "SVGeometryGatherer.h"
+#import "../LayoutTree/SVLayoutNode.h"
+#import "../SVGeometryGatherer.h"
 
 @class SVMainWindowController;
 

@@ -19,43 +19,38 @@ typedef enum SVSelectionDirection_t
 
 typedef enum SVSelectionAction_t
 {
-    SelectionAsk,
-    SelectionSet
+    SelectionTouched,
+    SelectionNotHere,
+    SelectionOperationDone
 } SVSelectionAction;
 
 @interface SVLayoutNode (KeyboardNavigation)
-- (SVLayoutLeaf*)moveSelection:(SVDrawInfo*)nfo
-                   inDirection:(SVSelectionDirection)dir
-                  withinBounds:(NSRect)bounds;
+- (SVSelectionAction)moveSelection:(SVDrawInfo*)nfo
+                       inDirection:(SVSelectionDirection)dir
+                      withinBounds:(NSRect)bounds;
 
-- (SVLayoutLeaf*)selectFirst:(BOOL)isFirst
-                    withInfo:(SVDrawInfo*)nfo
-                    inBounds:(NSRect)bounds;
+- (void)selectFirst:(BOOL)isFirst
+           withInfo:(SVDrawInfo*)nfo
+           inBounds:(NSRect)bounds;
 @end
 
 @interface SVLayoutLeaf (KeyboardNavigation)
-- (SVLayoutLeaf*)moveSelection:(SVDrawInfo*)nfo
-                   inDirection:(SVSelectionDirection)dir
-                  withinBounds:(NSRect)bounds;
+- (SVSelectionAction)moveSelection:(SVDrawInfo*)nfo
+                       inDirection:(SVSelectionDirection)dir
+                      withinBounds:(NSRect)bounds;
 
-- (SVLayoutLeaf*)selectFirst:(BOOL)isFirst
-                    withInfo:(SVDrawInfo*)nfo
-                    inBounds:(NSRect)bounds;
-@end
-
-@interface SVLayoutFolder (KeyboardNavigation)
-- (SVLayoutLeaf*)moveSelection:(SVDrawInfo*)nfo
-                   inDirection:(SVSelectionDirection)dir
-                  withinBounds:(NSRect)bounds;
+- (void)selectFirst:(BOOL)isFirst
+           withInfo:(SVDrawInfo*)nfo
+           inBounds:(NSRect)bounds;
 @end
 
 @interface SVLayoutTree (KeyboardNavigation)
-- (SVLayoutLeaf*)moveSelection:(SVDrawInfo*)nfo
-                   inDirection:(SVSelectionDirection)dir
-                  withinBounds:(NSRect)bounds;
+- (SVSelectionAction)moveSelection:(SVDrawInfo*)nfo
+                       inDirection:(SVSelectionDirection)dir
+                      withinBounds:(NSRect)bounds;
 
-- (SVLayoutLeaf*)selectFirst:(BOOL)isFirst
-                    withInfo:(SVDrawInfo*)nfo
-                    inBounds:(NSRect)bounds;
+- (void)selectFirst:(BOOL)isFirst
+           withInfo:(SVDrawInfo*)nfo
+           inBounds:(NSRect)bounds;
 @end
 

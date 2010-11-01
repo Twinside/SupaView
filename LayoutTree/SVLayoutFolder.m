@@ -97,6 +97,8 @@
     {
         info->selection.rect = *bounds;
         info->selection.isFile = FALSE;
+        info->selection.node = fileNode;
+        info->selection.layoutNode = self;
         return self;
     }
     else return sub;

@@ -2,26 +2,26 @@
 #import "SVLayoutKeyNavigation.h"
 
 @implementation SVLayoutNode (KeyboardNavigation)
-- (SVLayoutLeaf*)moveSelection:(SVDrawInfo*)nfo
+- (SVSelectionAction)moveSelection:(SVDrawInfo*)nfo
                           inDirection:(SVSelectionDirection)dir
                          withinBounds:(NSRect)bounds
-    { return nil; }
+    { return SelectionNotHere; }
 
-- (SVLayoutLeaf*)selectFirst:(BOOL)isFirst
-                           withInfo:(SVDrawInfo*)nfo
-                           inBounds:(NSRect)bounds
-    { return nil; }
+- (void)selectFirst:(BOOL)isFirst
+           withInfo:(SVDrawInfo*)nfo
+           inBounds:(NSRect)bounds {}
 @end
 
 @implementation SVLayoutLeaf (KeyboardNavigation)
-- (SVLayoutLeaf*)selectFirst:(BOOL)isFirst
-                           withInfo:(SVDrawInfo*)nfo
-                           inBounds:(NSRect)bounds
+- (void)selectFirst:(BOOL)isFirst
+           withInfo:(SVDrawInfo*)nfo
+           inBounds:(NSRect)bounds
 {
     // ok we just select ourselves.
     nfo->selection.node = fileNode;
     nfo->selection.rect = bounds;
     nfo->selection.isFile = TRUE;
+    nfo->selection.layoutNode = self;
 
     NSURL   *newUrl =
         [nfo->selection.name
@@ -30,57 +30,45 @@
     [nfo->selection.name release];
     [newUrl retain];
     nfo->selection.name = newUrl;
-
-    return self;
 }
 
-- (SVLayoutLeaf*)moveSelection:(SVDrawInfo*)nfo
+- (SVSelectionAction)moveSelection:(SVDrawInfo*)nfo
                           inDirection:(SVSelectionDirection)dir
                          withinBounds:(NSRect)bounds
 {
     // we are selected, we must escape the selection
     // so we let upper layer handle it.
     if ( nfo->selection.node == fileNode )
-        return nil;
+        return SelectionTouched;
 
-    // Otherwise, yay, we gained the right to be selected :)
-    return [self selectFirst:TRUE withInfo:nfo inBounds:bounds];
+    return SelectionNotHere;
 }
 @end
 
 @implementation SVLayoutFolder (KeyboardNavigation)
-- (SVLayoutLeaf*)moveSelection:(SVDrawInfo*)nfo
+- (SVSelectionAction)moveSelection:(SVDrawInfo*)nfo
                           inDirection:(SVSelectionDirection)dir
                          withinBounds:(NSRect)bounds
 {
-    // we are currently selected, rules are a little bit
-    // different. If we don't want to digg into the
-    // folder, we return
-    if ( nfo->selection.node == fileNode
-      && dir != DirectionDown )
-            return nil;
+    // we are selected, we must escape the selection
+    // so we let upper layer handle it.
+    if ( nfo->selection.node == fileNode )
+        return SelectionTouched;
 
-    NSRect subBound = bounds;
-    [self cropSubRectangle:&subBound withInfo:nfo];
-    
-    SVLayoutLeaf *childSelection =
-        [child moveSelection:nfo
-                 inDirection:dir
-                withinBounds:subBound];
+    NSRect subRect = bounds;
+    [self cropSubRectangle:&subRect withInfo:nfo];
 
-    // the children was not able to move,
-    // so by layout, we must be selected
-    if ( childSelection == nil )
-        return [self selectFirst:TRUE withInfo:nfo
-                        inBounds:bounds];
-    return childSelection;
+    // clip bounds !
+    return [child moveSelection:nfo
+                    inDirection:dir
+                   withinBounds:bounds];
 }
 @end
 
 @implementation SVLayoutTree (KeyboardNavigation)
-- (SVLayoutLeaf*)selectFirst:(BOOL)isFirst
-                    withInfo:(SVDrawInfo*)nfo
-                    inBounds:(NSRect)bounds
+- (void)selectFirst:(BOOL)isFirst
+           withInfo:(SVDrawInfo*)nfo
+           inBounds:(NSRect)bounds
 {
     NSRect leftBounds = bounds;
     NSRect rightBounds = bounds;
@@ -100,7 +88,7 @@
     }
 }
 
-- (SVLayoutLeaf*)moveSelection:(SVDrawInfo*)nfo
+- (SVSelectionAction)moveSelection:(SVDrawInfo*)nfo
                    inDirection:(SVSelectionDirection)dir
                   withinBounds:(NSRect)bounds
 {
@@ -127,13 +115,9 @@
         inverseSelec = SelectionAtRight;
         
         if (layoutDir == LayoutVertical)
-            mustJump = dir == DirectionUp
-                    || dir == DirectionLeft
-                    || dir == DirectionRight;
+            mustJump = dir != DirectionUp;
         else
-            mustJump = dir == DirectionLeft
-                    || dir == DirectionUp
-                    || dir == DirectionDown;
+            mustJump = dir != DirectionRight;
     }
     else
     {
@@ -144,30 +128,52 @@
         inverseSelec = SelectionAtLeft;
 
         if (layoutDir == LayoutVertical)
-            mustJump = dir == DirectionDown
-                    || dir == DirectionLeft
-                    || dir == DirectionRight;
+            mustJump = dir != DirectionDown;
         else
-            mustJump = dir == DirectionRight
-                    || dir == DirectionUp
-                    || dir == DirectionDown;
+            mustJump = dir != DirectionLeft;
     }
 
-    SVLayoutLeaf *subNode =
+    SVSelectionAction subAction =
         [toScann moveSelection:nfo inDirection:dir
                                   withinBounds:*scanBounds];
 
-    if ( subNode != nil || mustJump )
-        return subNode;
-    
-    // easy, select the first other subchild, in the
-    // oposite direction, if we want to move right,
-    // we want it's first left child :)
-    orientation &= ~SelectionMask;
-    orientation |= inverseSelec;
-    return [other selectFirst:dir == DirectionRight || dir == DirectionUp
-                     withInfo:nfo
-                     inBounds:*otherBounds];
+    switch (subAction)
+    {
+    case SelectionTouched:
+        // we can't handle it, let the upper
+        // node do it for us.
+        if (mustJump)
+            return SelectionTouched;
+
+        [other selectFirst:dir == DirectionRight || dir == DirectionUp
+                withInfo:nfo
+                inBounds:*otherBounds];
+
+        orientation &= ~SelectionMask;
+        orientation |= inverseSelec;
+
+        return SelectionOperationDone;
+
+    case SelectionOperationDone:
+        return SelectionOperationDone;
+
+    case SelectionNotHere: return SelectionNotHere;
+    }
+
+    /*
+    subAction = [other moveSelection:nfo inDirection:dir
+                        withinBounds:*otherBounds];
+
+    switch ( subAction )
+    {
+    case SelectionOperationDone: return SelectionOperationDone;
+    case SelectionNotHere:       return SelectionNotHere;
+    case SelectionTouched :      break;
+    }
+
+    return SelectionOperationDone;
+    // */
+    return SelectionNotHere;
 }
 @end
 

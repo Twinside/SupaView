@@ -29,6 +29,7 @@
 
     [newName retain];
     info->selection.name = newName;
+    info->selection.layoutNode = self;
 
     info->selection.isFile = TRUE;
     info->selection.rect = *bounds;

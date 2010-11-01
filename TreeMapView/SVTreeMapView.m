@@ -270,23 +270,24 @@
 }
 
 
-- (BOOL)acceptsFirstResponder {
-    return YES;
-}
+- (BOOL)becomeFirstResponder {return YES; }
+- (BOOL)resignFirstResponder {return YES; }
+- (BOOL)acceptsFirstResponder { return YES; }
+- (BOOL)needsPanelToBecomeKey  { return YES; }
 
-- (void)keyUp:(NSEvent *)theEvent
+- (void)keyDown:(NSEvent *)theEvent
 {
     // arrow keys have this mask
     if (! ([theEvent modifierFlags] & NSNumericPadKeyMask))
+    {
         [super keyDown:theEvent];
+        return;
+    }
 
     NSString *theArrow = [theEvent charactersIgnoringModifiers];
 
     if ( [theArrow length] == 0 )
         return;            // reject dead keys
-
-    if ( [theArrow length] == 1 )
-        [super keyDown:theEvent];
 
     SVSelectionDirection toGo;
 
@@ -322,17 +323,19 @@
         , .selection = { .name = currentURL
                        , .node = currentSelection
                        , .isFile = FALSE
+                       , .layoutNode = nil
                        }
         , .depth = 0
         };
 
     NSRect bounds = [self bounds];
 
-    SVLayoutLeaf *foundNode = 
-        [viewedTree moveSelection:&info
-                      inDirection:toGo
-                     withinBounds:bounds];
+    [info.selection.name retain];
+    [viewedTree moveSelection:&info
+                    inDirection:toGo
+                    withinBounds:bounds];
 
+    SVLayoutLeaf *foundNode = info.selection.layoutNode;
     SVFileTree  *found = [foundNode fileNode];
 
     if ( found != currentSelection )
@@ -400,6 +403,7 @@
         , .selection = { .name = currentURL
                        , .node = nil
                        , .isFile = FALSE
+                       , .layoutNode = nil
                        }
         , .depth = 0
         };

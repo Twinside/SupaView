@@ -1,6 +1,6 @@
-#import "Definitions.h"
+#import "../Definitions.h"
 #import <Cocoa/Cocoa.h>
-#import "SVFileTree.h"
+#import "../FileTree/SVFileTree.h"
 #import "SVGeometryGatherer.h"
 
 @class SVFileTree;
@@ -11,6 +11,7 @@
 typedef struct SVSelectionInfo_t
 {
     SVFileTree      *node;
+    SVLayoutLeaf    *layoutNode;
     NSURL           *name;
     NSRect          rect;
     BOOL            isFile;
