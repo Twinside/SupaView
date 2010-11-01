@@ -20,7 +20,7 @@
     // ok we just select ourselves.
     nfo->selection.node = fileNode;
     nfo->selection.rect = bounds;
-    nfo->selection.isFile = TRUE;
+    nfo->selection.isFile = YES;
     nfo->selection.layoutNode = self;
 
     NSURL   *newUrl =
@@ -46,6 +46,14 @@
 @end
 
 @implementation SVLayoutFolder (KeyboardNavigation)
+- (void)selectFirst:(BOOL)isFirst
+           withInfo:(SVDrawInfo*)nfo
+           inBounds:(NSRect)bounds
+{
+    [super selectFirst:isFirst withInfo:nfo inBounds:bounds];
+    nfo->selection.isFile = NO;
+}
+
 - (SVSelectionAction)moveSelection:(SVDrawInfo*)nfo
                           inDirection:(SVSelectionDirection)dir
                          withinBounds:(NSRect)bounds
