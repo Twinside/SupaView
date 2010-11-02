@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="296"/>
-			<integer value="371"/>
+			<integer value="757"/>
+			<integer value="29"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -797,13 +797,79 @@
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSCustomView" id="888468070">
+						<object class="NSScrollView" id="655551183">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">274</int>
+							<object class="NSMutableArray" key="NSSubviews">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSClipView" id="1026956216">
+									<reference key="NSNextResponder" ref="655551183"/>
+									<int key="NSvFlags">2304</int>
+									<object class="NSMutableArray" key="NSSubviews">
+										<bool key="EncodedWithXMLCoder">YES</bool>
+										<object class="NSCustomView" id="1048402312">
+											<reference key="NSNextResponder" ref="1026956216"/>
+											<int key="NSvFlags">274</int>
+											<object class="NSMutableArray" key="NSSubviews">
+												<bool key="EncodedWithXMLCoder">YES</bool>
+												<object class="NSCustomView" id="888468070">
+													<reference key="NSNextResponder" ref="1048402312"/>
+													<int key="NSvFlags">274</int>
+													<string key="NSFrameSize">{506, 436}</string>
+													<reference key="NSSuperview" ref="1048402312"/>
+													<int key="NSViewLayerContentsRedrawPolicy">2</int>
+													<string key="NSClassName">SVTreeMapView</string>
+												</object>
+											</object>
+											<string key="NSFrameSize">{506, 436}</string>
+											<reference key="NSSuperview" ref="1026956216"/>
+											<string key="NSClassName">NSView</string>
+										</object>
+									</object>
+									<string key="NSFrameSize">{506, 436}</string>
+									<reference key="NSSuperview" ref="655551183"/>
+									<reference key="NSNextKeyView" ref="1048402312"/>
+									<reference key="NSDocView" ref="1048402312"/>
+									<object class="NSColor" key="NSBGColor">
+										<int key="NSColorSpace">6</int>
+										<string key="NSCatalogName">System</string>
+										<string key="NSColorName">controlColor</string>
+										<object class="NSColor" key="NSColor">
+											<int key="NSColorSpace">3</int>
+											<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+										</object>
+									</object>
+									<int key="NScvFlags">2</int>
+								</object>
+								<object class="NSScroller" id="667946924">
+									<reference key="NSNextResponder" ref="655551183"/>
+									<int key="NSvFlags">256</int>
+									<string key="NSFrame">{{506, 0}, {15, 436}}</string>
+									<reference key="NSSuperview" ref="655551183"/>
+									<reference key="NSTarget" ref="655551183"/>
+									<string key="NSAction">_doScroller:</string>
+									<double key="NSCurValue">1</double>
+									<double key="NSPercent">0.96363627910614014</double>
+								</object>
+								<object class="NSScroller" id="880850007">
+									<reference key="NSNextResponder" ref="655551183"/>
+									<int key="NSvFlags">256</int>
+									<string key="NSFrame">{{0, 436}, {506, 15}}</string>
+									<reference key="NSSuperview" ref="655551183"/>
+									<int key="NSsFlags">1</int>
+									<reference key="NSTarget" ref="655551183"/>
+									<string key="NSAction">_doScroller:</string>
+									<double key="NSPercent">0.50602412223815918</double>
+								</object>
+							</object>
 							<string key="NSFrameSize">{521, 451}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<int key="NSViewLayerContentsRedrawPolicy">2</int>
-							<string key="NSClassName">SVTreeMapView</string>
+							<reference key="NSNextKeyView" ref="1026956216"/>
+							<int key="NSsFlags">48</int>
+							<reference key="NSVScroller" ref="667946924"/>
+							<reference key="NSHScroller" ref="880850007"/>
+							<reference key="NSContentView" ref="1026956216"/>
+							<bytes key="NSScrollAmts">QSAAAEEgAABBoAAAQaAAAA</bytes>
 						</object>
 					</object>
 					<string key="NSFrameSize">{521, 451}</string>
@@ -1337,6 +1403,22 @@
 					</object>
 					<int key="connectionID">749</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">verticalScroller</string>
+						<reference key="source" ref="888468070"/>
+						<reference key="destination" ref="667946924"/>
+					</object>
+					<int key="connectionID">761</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">horizontalScroller</string>
+						<reference key="source" ref="888468070"/>
+						<reference key="destination" ref="880850007"/>
+					</object>
+					<int key="connectionID">762</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1611,7 +1693,7 @@
 						<reference key="object" ref="439893737"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="888468070"/>
+							<reference ref="655551183"/>
 						</object>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -1787,12 +1869,6 @@
 						<reference key="parent" ref="720053764"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">554</int>
-						<reference key="object" ref="888468070"/>
-						<reference key="parent" ref="439893737"/>
-						<string key="objectName">GlobalTreemap</string>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">656</int>
 						<reference key="object" ref="688749717"/>
 						<reference key="parent" ref="0"/>
@@ -1834,6 +1910,42 @@
 						<int key="objectID">745</int>
 						<reference key="object" ref="667651909"/>
 						<reference key="parent" ref="466310130"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">757</int>
+						<reference key="object" ref="655551183"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="667946924"/>
+							<reference ref="880850007"/>
+							<reference ref="1048402312"/>
+						</object>
+						<reference key="parent" ref="439893737"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">758</int>
+						<reference key="object" ref="667946924"/>
+						<reference key="parent" ref="655551183"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">759</int>
+						<reference key="object" ref="880850007"/>
+						<reference key="parent" ref="655551183"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">760</int>
+						<reference key="object" ref="1048402312"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="888468070"/>
+						</object>
+						<reference key="parent" ref="655551183"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">554</int>
+						<reference key="object" ref="888468070"/>
+						<reference key="parent" ref="1048402312"/>
+						<string key="objectName">GlobalTreemap</string>
 					</object>
 				</object>
 			</object>
@@ -1915,6 +2027,7 @@
 					<string>540.IBPluginDependency</string>
 					<string>549.IBPluginDependency</string>
 					<string>554.IBPluginDependency</string>
+					<string>554.IBViewBoundsToFrameTransform</string>
 					<string>556.IBPluginDependency</string>
 					<string>56.IBPluginDependency</string>
 					<string>56.ImportedFromIB2</string>
@@ -1948,6 +2061,11 @@
 					<string>72.IBPluginDependency</string>
 					<string>72.ImportedFromIB2</string>
 					<string>745.IBPluginDependency</string>
+					<string>757.IBPluginDependency</string>
+					<string>757.IBViewBoundsToFrameTransform</string>
+					<string>758.IBPluginDependency</string>
+					<string>759.IBPluginDependency</string>
+					<string>760.IBPluginDependency</string>
 					<string>81.IBEditorWindowLastContentRect</string>
 					<string>81.IBPluginDependency</string>
 					<string>81.ImportedFromIB2</string>
@@ -2012,9 +2130,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{635, 413}, {521, 451}}</string>
+					<string>{{599, 392}, {521, 451}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{635, 413}, {521, 451}}</string>
+					<string>{{599, 392}, {521, 451}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<boolean value="YES"/>
@@ -2033,6 +2151,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
@@ -2066,6 +2185,13 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABDKQAAw4eAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{756, 886}, {134, 73}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
@@ -2092,7 +2218,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">749</int>
+			<int key="maxID">762</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2293,14 +2419,42 @@
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">parentControler</string>
-						<string key="NS.object.0">SVMainWindowController</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>horizontalScroller</string>
+							<string>parentControler</string>
+							<string>verticalScroller</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSScroller</string>
+							<string>SVMainWindowController</string>
+							<string>NSScroller</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">parentControler</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">parentControler</string>
-							<string key="candidateClassName">SVMainWindowController</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>horizontalScroller</string>
+							<string>parentControler</string>
+							<string>verticalScroller</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">horizontalScroller</string>
+								<string key="candidateClassName">NSScroller</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">parentControler</string>
+								<string key="candidateClassName">SVMainWindowController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">verticalScroller</string>
+								<string key="candidateClassName">NSScroller</string>
+							</object>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -2313,6 +2467,13 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">TreeMapView/SVTreeMapView.private.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SVTreeMapView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">TreeMapView/SVTreeMapView.scroller.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -2422,6 +2583,14 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">NSControl</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="512871584">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSControl.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">NSController</string>
 					<string key="superclassName">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -2492,6 +2661,14 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">NSFormatter</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">Foundation.framework/Headers/NSFormatter.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">NSMenu</string>
 					<string key="superclassName">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="1056362899">
@@ -2528,10 +2705,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">AppKit.framework/Headers/NSControl.h</string>
-					</object>
+					<reference key="sourceIdentifier" ref="512871584"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
@@ -2786,6 +2960,22 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSResponder.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSScrollView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSScrollView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSScroller</string>
+					<string key="superclassName">NSControl</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSScroller.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

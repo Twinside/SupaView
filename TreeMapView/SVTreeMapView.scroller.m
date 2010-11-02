@@ -1,34 +1,78 @@
 #import "SVTreeMapView.scroller.h"
+#import "SVTreeMapView.private.h"
+
+static inline double clamp( double val )
+{
+    if (val < 0) return 0;
+    if (val > 1) return 1;
+    return val;
+}
 
 @implementation SVTreeMapView (ScrollerHandling)
-- (void)allocateInitScroller:(NSRect)frameRect
+- (void)allocateInitScroller//:(NSRect)frameRect
 {
-    /// Scroller declaration
-    const int scrollSize = [NSScroller scrollerWidth];
-    NSRect verticalScrollRect = frameRect;
-    verticalScrollRect.origin.x += verticalScrollRect.size.width - scrollSize;
-    verticalScrollRect.size.width = scrollSize;
-
-    verticalScroller =
-        [[NSScroller alloc] initWithFrame:verticalScrollRect];
-    [verticalScroller
-        setAutoresizingMask:NSViewMinXMargin | NSViewHeightSizable];
-    [verticalScroller setArrowsPosition:NSScrollerArrowsMaxEnd];
     [verticalScroller setTarget:self];
+    [verticalScroller setAction:@selector(scrollVertical:)];
     [verticalScroller setArrowsPosition:NSScrollerArrowsMaxEnd];
     [verticalScroller setEnabled:YES];
-    [self addSubview:verticalScroller];
-
-    NSRect horizontalScrollRect = frameRect;
-    verticalScrollRect.size.height = scrollSize;
-    horizontalScroller =
-        [[NSScroller alloc] initWithFrame:horizontalScrollRect];
-    [horizontalScroller
-        setAutoresizingMask:NSViewMaxYMargin | NSViewWidthSizable];
+    
     [horizontalScroller setTarget:self];
+    [horizontalScroller setAction:@selector(scrollHorizontal:)];
     [horizontalScroller setArrowsPosition:NSScrollerArrowsMaxEnd];
     [horizontalScroller setEnabled:YES];
-    [self addSubview:horizontalScroller];
+}
+
+- (double)extractScrollerValue:(NSScroller*)scroll andReplace:(BOOL*)replace
+{
+    *replace = YES;
+    switch ([scroll hitPart])
+    {
+    case NSScrollerIncrementLine:
+        // Include code here for the case where the down arrow is pressed
+        return clamp([scroll doubleValue] + 0.05);
+
+    case NSScrollerDecrementLine:
+        // Include code here for the case where the up arrow is pressed
+        return clamp([scroll doubleValue] - 0.05);
+
+    case NSScrollerDecrementPage:
+        return clamp([scroll doubleValue] - 0.10);
+
+    case NSScrollerIncrementPage:
+        return clamp([scroll doubleValue] + 0.10);
+        
+    default:
+    case NSScrollerKnob:
+        *replace = NO;
+        return [scroll doubleValue];
+    }
+    return 0.0;
+}
+
+- (void)scrollHorizontal:(id)sender
+{
+    BOOL    replace;
+    NSRect frame = [self bounds];
+    virtualSize.origin.x = [self extractScrollerValue:horizontalScroller
+                                           andReplace:&replace]
+                         * (frame.size.width - virtualSize.size.width);
+    
+    if (replace) [self updateScrollerPosition];
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
+}
+
+- (void)scrollVertical:(id)sender
+{
+    BOOL    replace;
+    NSRect frame = [self bounds];
+    virtualSize.origin.y = (1.0 - [self extractScrollerValue:verticalScroller
+                                                  andReplace:&replace])
+                         * (frame.size.height - virtualSize.size.height);
+    
+    if (replace) [self updateScrollerPosition];
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
 }
 
 - (void)updateScrollerPosition

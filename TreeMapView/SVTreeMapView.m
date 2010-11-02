@@ -39,12 +39,15 @@
 
     currentDropStatus = NoDrop;
 
-    [self allocateInitScroller:frameRect];
-
     [self registerForDraggedTypes:
                 [NSArray arrayWithObjects: NSURLPboardType
                                          , nil]];
     return self;
+}
+
+- (void)awakeFromNib
+{
+    [self allocateInitScroller];
 }
 
 - (void)dealloc
@@ -207,7 +210,7 @@
     [self drawFrameRect];
     [self drawText];
     
-    NSFrameRectWithWidth( virtualSize, 2.0 );
+    // NSFrameRectWithWidth( virtualSize, 2.0 );
     [self drawDropStatus:dirtyRect];
 }
 
