@@ -25,7 +25,6 @@
 		6184F5C1125934EC00C91C8E /* AnimationPerFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5C0125934EC00C91C8E /* AnimationPerFrame.m */; };
 		6184F5D6125938A000C91C8E /* SVTreeMapView.private.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5D5125938A000C91C8E /* SVTreeMapView.private.m */; };
 		6184F674125A02E300C91C8E /* SVLayoutLeaf.protected.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F673125A02E300C91C8E /* SVLayoutLeaf.protected.m */; };
-		6184F750125A4C0700C91C8E /* SVLayoutKeyNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F74F125A4C0700C91C8E /* SVLayoutKeyNavigation.m */; };
 		6184F81C125CFB9C00C91C8E /* About.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6184F81B125CFB9C00C91C8E /* About.xib */; };
 		6184F82D125D03DD00C91C8E /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6184F82C125D03DD00C91C8E /* Sparkle.framework */; };
 		6184F83A125D041300C91C8E /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6184F82C125D03DD00C91C8E /* Sparkle.framework */; };
@@ -105,8 +104,6 @@
 		6184F5D5125938A000C91C8E /* SVTreeMapView.private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVTreeMapView.private.m; path = TreeMapView/SVTreeMapView.private.m; sourceTree = "<group>"; };
 		6184F672125A02E300C91C8E /* SVLayoutLeaf.protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVLayoutLeaf.protected.h; path = LayoutTree/SVLayoutLeaf.protected.h; sourceTree = "<group>"; };
 		6184F673125A02E300C91C8E /* SVLayoutLeaf.protected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVLayoutLeaf.protected.m; path = LayoutTree/SVLayoutLeaf.protected.m; sourceTree = "<group>"; };
-		6184F74E125A4C0700C91C8E /* SVLayoutKeyNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVLayoutKeyNavigation.h; path = LayoutTree/SVLayoutKeyNavigation.h; sourceTree = "<group>"; };
-		6184F74F125A4C0700C91C8E /* SVLayoutKeyNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVLayoutKeyNavigation.m; path = LayoutTree/SVLayoutKeyNavigation.m; sourceTree = "<group>"; };
 		6184F81B125CFB9C00C91C8E /* About.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = About.xib; sourceTree = "<group>"; };
 		6184F82C125D03DD00C91C8E /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		6184F846125D059D00C91C8E /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
@@ -289,8 +286,6 @@
 			children = (
 				61570D121264BECD00E0FCA4 /* Layout.searching.h */,
 				61570D131264BECD00E0FCA4 /* Layout.searching.m */,
-				6184F74E125A4C0700C91C8E /* SVLayoutKeyNavigation.h */,
-				6184F74F125A4C0700C91C8E /* SVLayoutKeyNavigation.m */,
 				6184F672125A02E300C91C8E /* SVLayoutLeaf.protected.h */,
 				6184F673125A02E300C91C8E /* SVLayoutLeaf.protected.m */,
 				61C87F931250E5C100F1B518 /* SVLayoutEmptySpace.h */,
@@ -426,7 +421,6 @@
 				6184F5C1125934EC00C91C8E /* AnimationPerFrame.m in Sources */,
 				6184F5D6125938A000C91C8E /* SVTreeMapView.private.m in Sources */,
 				6184F674125A02E300C91C8E /* SVLayoutLeaf.protected.m in Sources */,
-				6184F750125A4C0700C91C8E /* SVLayoutKeyNavigation.m in Sources */,
 				61570D141264BECD00E0FCA4 /* Layout.searching.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

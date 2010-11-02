@@ -12,7 +12,6 @@
 #import "../SVSizes.h"
 #import "SVNarrowingState.h"
 #import "../LayoutTree/SVLayoutLeaf.h"
-#import "../LayoutTree/SVLayoutKeyNavigation.h"
 #import "../LayoutTree/Layout.searching.h"
 #import "../SVMainWindowController.h"
 #import "SVTreeMapView.dragging.h"
@@ -269,126 +268,8 @@
     [self setNeedsDisplay:YES];
 }
 
-
-- (BOOL)becomeFirstResponder {return YES; }
-- (BOOL)resignFirstResponder {return YES; }
-- (BOOL)acceptsFirstResponder { return YES; }
-- (BOOL)needsPanelToBecomeKey  { return YES; }
-
-- (void)keyDown:(NSEvent *)theEvent
+- (void)selectAtPoint:(NSPoint)p
 {
-    // arrow keys have this mask
-    if (! ([theEvent modifierFlags] & NSNumericPadKeyMask))
-    {
-        [super keyDown:theEvent];
-        return;
-    }
-
-    NSString *theArrow = [theEvent charactersIgnoringModifiers];
-
-    if ( [theArrow length] == 0 )
-        return;            // reject dead keys
-
-    SVSelectionDirection toGo;
-
-    switch ( [theArrow characterAtIndex:0] )
-    {
-    case NSLeftArrowFunctionKey:
-        toGo = DirectionLeft;
-        break;
-
-    case NSRightArrowFunctionKey:
-        toGo = DirectionRight;
-        break;
-
-    case NSUpArrowFunctionKey:
-        toGo = DirectionUp;
-        break;
-
-    case NSDownArrowFunctionKey:
-        toGo = DirectionDown;
-        break;
-
-    default:
-        [super keyDown:theEvent];
-        return;
-    }
-
-    SVDrawInfo info =
-        { .limit = &virtualSize
-        , .gatherer = nil
-        , .minimumWidth = [geometry virtualPixelWidthSize]
-        , .minimumHeight = [geometry virtualPixelHeightSize]
-        , .wheel = nil
-        , .selection = { .name = currentURL
-                       , .node = currentSelection
-                       , .isFile = FALSE
-                       , .layoutNode = nil
-                       }
-        , .depth = 0
-        };
-
-    NSRect bounds = [self bounds];
-
-    [info.selection.name retain];
-    [viewedTree moveSelection:&info
-                    inDirection:toGo
-                    withinBounds:bounds];
-
-    SVLayoutLeaf *foundNode = info.selection.layoutNode;
-    SVFileTree  *found = [foundNode fileNode];
-
-    if ( found != currentSelection )
-    {
-        [currentSelection release];
-        currentSelection = found;
-        [currentSelection retain];
-        
-        [selectedLayoutNode release];
-        selectedLayoutNode = foundNode;
-        [selectedLayoutNode retain];
-        
-        [selectedURL release];
-        selectedURL = info.selection.name;
-        isSelectionFile = info.selection.isFile;
-        currentRect = info.selection.rect;
-        [self updateGeometry];
-        [self setNeedsDisplay:YES];
-        [[self window] setRepresentedURL:selectedURL];
-        stateChangeNotifier();
-    }
-}
-
-- (void)mouseDown:(NSEvent*)theEvent
-{
-    dragged = FALSE;
-}
-
-- (void)mouseDragged:(NSEvent*)theEvent
-{
-    if ( lockAnyMouseEvent ) return;
-
-    dragged = TRUE;
-    [[NSCursor closedHandCursor] push];
-    
-    [self translateBy:-[theEvent deltaX]
-                andBy:[theEvent deltaY]];
-    [self updateGeometry];
-    [self setNeedsDisplay:YES];
-}
-
-- (void)mouseUp:(NSEvent*)theEvent
-{
-    if ( lockAnyMouseEvent ) return;
-
-    if ( dragged )
-    {
-        [NSCursor pop];
-        [[NSCursor arrowCursor] push];
-        return;
-    }
-
-    NSPoint p = [theEvent locationInWindow];
     p = [self convertPoint:p fromView:nil];
     [geometry unscalePoint:&p];
 
@@ -436,7 +317,89 @@
         [[self window] setRepresentedURL:selectedURL];
         stateChangeNotifier();
     }
+}
+
+- (BOOL)becomeFirstResponder {return YES; }
+- (BOOL)resignFirstResponder {return YES; }
+- (BOOL)acceptsFirstResponder { return YES; }
+- (BOOL)needsPanelToBecomeKey  { return YES; }
+
+- (void)keyDown:(NSEvent *)theEvent
+{
+    // arrow keys have this mask
+    if (! ([theEvent modifierFlags] & NSNumericPadKeyMask))
+    {
+        [super keyDown:theEvent];
+        return;
+    }
+
+    NSString *theArrow = [theEvent charactersIgnoringModifiers];
+
+    if ( [theArrow length] == 0 )
+        return;            // reject dead keys
+
+    NSPoint pickPoint;
+
+    switch ( [theArrow characterAtIndex:0] )
+    {
+    case NSLeftArrowFunctionKey:
+        pickPoint.x = currentRect.origin.x - [geometry virtualPixelWidthSize];
+        pickPoint.y = currentRect.origin.y + currentRect.size.height / 2;
+        break;
+
+    case NSRightArrowFunctionKey:
+        pickPoint.x = currentRect.origin.x + currentRect.size.width
+                    + [geometry virtualPixelWidthSize];
+        pickPoint.y = currentRect.origin.y + currentRect.size.height / 2;
+        break;
+
+    case NSUpArrowFunctionKey:
+        pickPoint.x = currentRect.origin.x + currentRect.size.width / 2;
+        pickPoint.y = currentRect.origin.y + currentRect.size.height
+                    + [geometry virtualPixelHeightSize];
+        break;
+
+    case NSDownArrowFunctionKey:
+        pickPoint.x = currentRect.origin.x + currentRect.size.width / 2;
+        pickPoint.y = currentRect.origin.y - [geometry virtualPixelHeightSize];
+        break;
+
+    default:
+        [super keyDown:theEvent];
+        return;
+    }
+
+    [self selectAtPoint:pickPoint];
+}
+
+- (void)mouseDown:(NSEvent*)theEvent { dragged = FALSE; }
+
+- (void)mouseDragged:(NSEvent*)theEvent
+{
+    if ( lockAnyMouseEvent ) return;
+
+    dragged = TRUE;
+    [[NSCursor closedHandCursor] push];
     
+    [self translateBy:-[theEvent deltaX]
+                andBy:[theEvent deltaY]];
+    [self updateGeometry];
+    [self setNeedsDisplay:YES];
+}
+
+- (void)mouseUp:(NSEvent*)theEvent
+{
+    if ( lockAnyMouseEvent ) return;
+
+    if ( dragged )
+    {
+        [NSCursor pop];
+        [[NSCursor arrowCursor] push];
+        return;
+    }
+
+    [self selectAtPoint:[theEvent locationInWindow]];
+
     if ( [theEvent clickCount] >= 2 )
     {
         if ( isSelectionFile )
