@@ -284,9 +284,6 @@
 
 - (void)selectAtPoint:(NSPoint)p
 {
-    p = [self convertPoint:p fromView:nil];
-    [geometry unscalePoint:&p];
-
     NSRect frame = [self bounds];
 
     SVDrawInfo info =
@@ -394,7 +391,8 @@
 
     case NSDownArrowFunctionKey:
         pickPoint.x = currentRect.origin.x + currentRect.size.width / 2;
-        pickPoint.y = currentRect.origin.y - [geometry virtualPixelHeightSize];
+        pickPoint.y = currentRect.origin.y - 1
+                    - [geometry virtualPixelHeightSize];
         break;
 
     default:
@@ -430,8 +428,11 @@
         [[NSCursor arrowCursor] push];
         return;
     }
+    
+    NSPoint p = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    [geometry unscalePoint:&p];
 
-    [self selectAtPoint:[theEvent locationInWindow]];
+    [self selectAtPoint:p];
 
     if ( [theEvent clickCount] >= 2 )
     {
