@@ -16,6 +16,7 @@
 #import "../SVMainWindowController.h"
 #import "SVTreeMapView.dragging.h"
 #import "SVTreeMapView.private.h"
+#import "SVTreeMapView.scroller.h"
 #import "AnimationPerFrame.h"
 
 @implementation SVTreeMapView
@@ -37,6 +38,8 @@
     lockAnyMouseEvent = FALSE;
 
     currentDropStatus = NoDrop;
+
+    [self allocateInitScroller:frameRect];
 
     [self registerForDraggedTypes:
                 [NSArray arrayWithObjects: NSURLPboardType
@@ -189,6 +192,12 @@
 {
     if (viewedTree == nil || geometry == nil)
     {
+        [[NSColor controlBackgroundColor] setFill];
+        NSRectFill( [self frame] );
+        [[NSColor blackColor] setFill];
+
+        [super drawRect:dirtyRect];
+
         [self drawInitialMessage:dirtyRect];
         [self drawDropStatus:dirtyRect];
         return;
@@ -217,6 +226,7 @@
     
     virtualSize.origin.x = nx + mini( 0.0, frameRight - right );
     virtualSize.origin.y = ny + mini( 0.0, frameTop - top );
+    [self updateScrollerPosition];
 }
 
 - (void)stretchBy:(CGFloat)x andBy:(CGFloat)y
@@ -250,6 +260,7 @@
 
     virtualSize.origin.x = midX - halfWidth;
     virtualSize.origin.y = midY - halfHeight;
+    [self updateScrollerPosition];
 }
 
 - (void) setFrameSize:(NSSize)newSize

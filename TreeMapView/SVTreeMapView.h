@@ -30,6 +30,9 @@ typedef enum AnimationEnd_t
 } AnimationEnd;
 
 @interface SVTreeMapView : NSView <NSAnimationDelegate> {
+    NSScroller            *horizontalScroller;
+    NSScroller            *verticalScroller;
+
     NSRect                virtualSize;
     SVLayoutNode          *viewedTree;
     SVGeometryGatherer    *geometry;

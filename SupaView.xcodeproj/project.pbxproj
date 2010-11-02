@@ -11,6 +11,7 @@
 		256AC3DA0F4B6AC300CF3369 /* SVSupaViewAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* SVSupaViewAppDelegate.m */; };
 		6104C15B12479EA900B46A87 /* SVMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6104C15A12479EA900B46A87 /* SVMainWindowController.m */; };
 		6104C2441247CB0700B46A87 /* SVGlobalQueues.m in Sources */ = {isa = PBXBuildFile; fileRef = 6104C2431247CB0700B46A87 /* SVGlobalQueues.m */; };
+		6113B6141280B25C00E78E1A /* SVTreeMapView.scroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 6113B6131280B25C00E78E1A /* SVTreeMapView.scroller.m */; };
 		613488DB12284A39009EDE77 /* SVSizes.m in Sources */ = {isa = PBXBuildFile; fileRef = 613488DA12284A39009EDE77 /* SVSizes.m */; };
 		615130BC123EA998003CD2AE /* SVZoomInImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 615130BA123EA998003CD2AE /* SVZoomInImg.png */; };
 		615130BD123EA998003CD2AE /* SVZoomOutImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 615130BB123EA998003CD2AE /* SVZoomOutImg.png */; };
@@ -78,6 +79,8 @@
 		6104C15A12479EA900B46A87 /* SVMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVMainWindowController.m; sourceTree = "<group>"; };
 		6104C2421247CB0700B46A87 /* SVGlobalQueues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGlobalQueues.h; sourceTree = "<group>"; };
 		6104C2431247CB0700B46A87 /* SVGlobalQueues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGlobalQueues.m; sourceTree = "<group>"; };
+		6113B6121280B25C00E78E1A /* SVTreeMapView.scroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVTreeMapView.scroller.h; path = TreeMapView/SVTreeMapView.scroller.h; sourceTree = "<group>"; };
+		6113B6131280B25C00E78E1A /* SVTreeMapView.scroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVTreeMapView.scroller.m; path = TreeMapView/SVTreeMapView.scroller.m; sourceTree = "<group>"; };
 		613488D912284A39009EDE77 /* SVSizes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVSizes.h; sourceTree = "<group>"; };
 		613488DA12284A39009EDE77 /* SVSizes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVSizes.m; sourceTree = "<group>"; };
 		615130BA123EA998003CD2AE /* SVZoomInImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SVZoomInImg.png; path = img/SVZoomInImg.png; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 		6184F5A812591CAA00C91C8E /* TreeMap */ = {
 			isa = PBXGroup;
 			children = (
+				6113B6121280B25C00E78E1A /* SVTreeMapView.scroller.h */,
+				6113B6131280B25C00E78E1A /* SVTreeMapView.scroller.m */,
 				6184F5D4125938A000C91C8E /* SVTreeMapView.private.h */,
 				6184F5D5125938A000C91C8E /* SVTreeMapView.private.m */,
 				6184F5BF125934EC00C91C8E /* AnimationPerFrame.h */,
@@ -422,6 +427,7 @@
 				6184F5D6125938A000C91C8E /* SVTreeMapView.private.m in Sources */,
 				6184F674125A02E300C91C8E /* SVLayoutLeaf.protected.m in Sources */,
 				61570D141264BECD00E0FCA4 /* Layout.searching.m in Sources */,
+				6113B6141280B25C00E78E1A /* SVTreeMapView.scroller.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
