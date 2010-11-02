@@ -11,11 +11,11 @@
                             http://twinside.free.fr/supaview/changelog.html
 						</sparkle:releaseNotesLink>
 			<pubDate></pubDate>
-            <enclosure url="http://twinside.free.fr/supaview/SupaView.1.1.zip"
-                sparkle:version="1.1"
-                length="579858"
+            <enclosure url="http://twinside.free.fr/supaview/SupaView.1.2.zip"
+                sparkle:version="1.2"
+                length="582403"
                 type="application/octet-stream"
-                sparkle:dsaSignature="MCwCFHEcL6T5oqgs3u4zB6mp20WuF9ERAhQmagvduK6+rqra3E3tdlSxWmdEFQ==" />
+                sparkle:dsaSignature="MCwCFCpPi2PIk8FZWRjbYcJpJ/0l7AGLAhRrU93MOSsWHBpoggLSf5JU60TmMg==" />
         </item>
    </channel>
 </rss>
