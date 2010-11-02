@@ -328,6 +328,8 @@
 - (BOOL)resignFirstResponder {return YES; }
 - (BOOL)acceptsFirstResponder { return YES; }
 - (BOOL)needsPanelToBecomeKey  { return YES; }
+- (BOOL)isOpaque { return YES; }
+- (BOOL)wantsDefaultClipping { return NO; }
 
 - (IBAction)selectSubItem:(id)sender
 {
