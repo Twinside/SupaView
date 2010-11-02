@@ -7,8 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "SVLayoutNode.h"
-#import "SVGeometryGatherer.h"
+#import "../LayoutTree/SVLayoutNode.h"
+#import "../SVGeometryGatherer.h"
 
 @class SVMainWindowController;
 
@@ -30,6 +30,9 @@ typedef enum AnimationEnd_t
 } AnimationEnd;
 
 @interface SVTreeMapView : NSView <NSAnimationDelegate> {
+    IBOutlet NSScroller   *horizontalScroller;
+    IBOutlet NSScroller   *verticalScroller;
+
     NSRect                virtualSize;
     SVLayoutNode          *viewedTree;
     SVGeometryGatherer    *geometry;
@@ -59,6 +62,7 @@ typedef enum AnimationEnd_t
 }
 
 - (id)initWithFrame:(NSRect)frameRect;
+- (void)awakeFromNib;
 - (void)dealloc;
 - (void)drawRect:(NSRect)dirtyRect;
 
@@ -80,6 +84,7 @@ typedef enum AnimationEnd_t
 - (void)refreshLayoutTree:(SVLayoutNode*)tree
           withUpdatedPath:(NSURL*)updatedPath;
 
+- (IBAction)selectSubItem:(id)sender;
 
 - (BOOL)isAtTopLevel;
 - (BOOL)isSelectionReavealableInFinder;
