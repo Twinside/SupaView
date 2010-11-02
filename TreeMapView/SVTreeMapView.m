@@ -534,6 +534,7 @@
 
     animationKind = AnimationNarrow;
     [zoomAnim startAnimation];
+    [self updateScrollerPosition];
     stateChangeNotifier();
 }
 
@@ -585,6 +586,7 @@
     [currentURL retain];
 
     [narrowingStack removeLastObject];
+    [self updateScrollerPosition];
 
     stateChangeNotifier();
     [self updateGeometry];

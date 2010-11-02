@@ -34,21 +34,23 @@
 - (void)updateScrollerPosition
 {
     NSRect frame = [self bounds];
-    [horizontalScroller
-        setDoubleValue: virtualSize.origin.x
-                      / frame.size.width];
+    double horizontalViewWidth =
+        virtualSize.size.width / frame.size.width;
 
-    [horizontalScroller
-        setKnobProportion: virtualSize.size.width
-                         / frame.size.width];
+    double horizontalPos = virtualSize.origin.x
+                         / (frame.size.width - virtualSize.size.width);
+    [horizontalScroller setKnobProportion:horizontalViewWidth];
+    [horizontalScroller setDoubleValue:horizontalPos];
 
-    [verticalScroller
-        setDoubleValue: 1.0 - virtualSize.origin.y
-                              / frame.size.height];
 
-    [verticalScroller
-        setKnobProportion: virtualSize.size.height
-                         / frame.size.height];
+    double verticalViewWidth =
+        virtualSize.size.height / frame.size.height;
+
+    double verticalPos = virtualSize.origin.y
+                       / (frame.size.height - virtualSize.size.height);
+
+    [verticalScroller setDoubleValue: 1.0 - verticalPos];
+    [verticalScroller setKnobProportion:verticalViewWidth];
 }
 @end
 
