@@ -314,7 +314,12 @@
         currentRect = info.selection.rect;
         [self updateGeometry];
         [self setNeedsDisplay:YES];
-        [[self window] setRepresentedURL:selectedURL];
+
+        NSWindow *window = [self window];
+
+        [window setRepresentedURL:selectedURL];
+        [window setTitle:[selectedURL lastPathComponent]];
+        
         stateChangeNotifier();
     }
 }
@@ -323,6 +328,18 @@
 - (BOOL)resignFirstResponder {return YES; }
 - (BOOL)acceptsFirstResponder { return YES; }
 - (BOOL)needsPanelToBecomeKey  { return YES; }
+
+- (IBAction)selectSubItem:(id)sender
+{
+    NSPoint pickPoint = { currentRect.origin.x + blockSizes.leftMargin 
+                            + [geometry virtualPixelWidthSize]
+                        , currentRect.origin.y + currentRect.size.height
+                            - blockSizes.bottomMargin
+                            - blockSizes.textHeight
+                            - [geometry virtualPixelHeightSize]
+                        };
+    [self selectAtPoint:pickPoint];
+}
 
 - (void)keyDown:(NSEvent *)theEvent
 {

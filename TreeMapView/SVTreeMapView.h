@@ -80,6 +80,7 @@ typedef enum AnimationEnd_t
 - (void)refreshLayoutTree:(SVLayoutNode*)tree
           withUpdatedPath:(NSURL*)updatedPath;
 
+- (IBAction)selectSubItem:(id)sender;
 
 - (BOOL)isAtTopLevel;
 - (BOOL)isSelectionReavealableInFinder;

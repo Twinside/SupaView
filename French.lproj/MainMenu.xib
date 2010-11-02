@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="29"/>
+			<integer value="296"/>
 			<integer value="371"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -338,6 +338,15 @@
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Précédent</string>
 									<string type="base64-UTF8" key="NSKeyEquiv">CA</string>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="667651909">
+									<reference key="NSMenu" ref="466310130"/>
+									<string key="NSTitle">Sélectioner sous-élément</string>
+									<string key="NSKeyEquiv"></string>
+									<int key="NSKeyEquivModMask">524288</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
@@ -1304,6 +1313,30 @@
 					</object>
 					<int key="connectionID">744</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: narrowable</string>
+						<reference key="source" ref="667651909"/>
+						<reference key="destination" ref="582100434"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="667651909"/>
+							<reference key="NSDestination" ref="582100434"/>
+							<string key="NSLabel">enabled: narrowable</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">narrowable</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">748</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">selectSubItem:</string>
+						<reference key="source" ref="888468070"/>
+						<reference key="destination" ref="667651909"/>
+					</object>
+					<int key="connectionID">749</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1554,6 +1587,7 @@
 							<reference ref="701174299"/>
 							<reference ref="290134368"/>
 							<reference ref="723233165"/>
+							<reference ref="667651909"/>
 						</object>
 						<reference key="parent" ref="586577488"/>
 					</object>
@@ -1796,6 +1830,11 @@
 						<reference key="object" ref="866058186"/>
 						<reference key="parent" ref="837454519"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">745</int>
+						<reference key="object" ref="667651909"/>
+						<reference key="parent" ref="466310130"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1908,6 +1947,7 @@
 					<string>671.IBPluginDependency</string>
 					<string>72.IBPluginDependency</string>
 					<string>72.ImportedFromIB2</string>
+					<string>745.IBPluginDependency</string>
 					<string>81.IBEditorWindowLastContentRect</string>
 					<string>81.IBPluginDependency</string>
 					<string>81.ImportedFromIB2</string>
@@ -1958,7 +1998,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{847, 863}, {284, 73}}</string>
+					<string>{{929, 886}, {284, 73}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
@@ -1968,7 +2008,7 @@
 					<string>{74, 862}</string>
 					<string>{{6, 978}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{803, 793}, {247, 143}}</string>
+					<string>{{885, 796}, {269, 163}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1982,7 +2022,7 @@
 					<string>{250, 250}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{916, 913}, {171, 23}}</string>
+					<string>{{998, 936}, {171, 23}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2020,12 +2060,13 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{811, 921}, {153, 23}}</string>
+					<string>{{819, 936}, {153, 23}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{740, 863}, {134, 73}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{756, 886}, {134, 73}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{145, 474}, {199, 203}}</string>
@@ -2051,7 +2092,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">744</int>
+			<int key="maxID">749</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2240,6 +2281,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">SVTreeMapView</string>
 					<string key="superclassName">NSView</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">selectSubItem:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">selectSubItem:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">selectSubItem:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">parentControler</string>
 						<string key="NS.object.0">SVMainWindowController</string>
