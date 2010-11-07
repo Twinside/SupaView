@@ -6,16 +6,16 @@
       <description>Most recent changes with links to updates.</description>
       <language>en</language>
         <item>
-            <title>Version 1.1</title>
+            <title>Version 1.2.1</title>
 						<sparkle:releaseNotesLink>
                             http://twinside.free.fr/supaview/changelog.html
 						</sparkle:releaseNotesLink>
 			<pubDate></pubDate>
-            <enclosure url="http://twinside.free.fr/supaview/SupaView.1.2.zip"
-                sparkle:version="1.2"
+            <enclosure url="http://twinside.free.fr/supaview/SupaView.1.2.1.zip"
+                sparkle:version="1.2.1"
                 length="582403"
                 type="application/octet-stream"
-                sparkle:dsaSignature="MCwCFCpPi2PIk8FZWRjbYcJpJ/0l7AGLAhRrU93MOSsWHBpoggLSf5JU60TmMg==" />
+                sparkle:dsaSignature="MC0CFCcsi29RBZo2/NoFlQdncURLJFStAhUAt5qxHvCr7IMYgJXA1OEix0qcm+4=" />
         </item>
    </channel>
 </rss>
