@@ -5,6 +5,8 @@
 - (void)drawGeometry:(SVDrawInfo*)info
             inBounds:(NSRect*)bounds
 {
+    [info->gatherer addRectangle:bounds
+                       withColor:[NSColor windowBackgroundColor]];
     [self drawFileName:info inBounds:bounds];
 }
 

@@ -676,6 +676,10 @@
 
     [selectedLayoutNode release];
     selectedLayoutNode = nil;
+
+    NSWindow *window = [self window];
+    [window setRepresentedURL:nil];
+    [window setTitle:@"SupaView"];
     
     [self updateGeometry];
     [self setNeedsDisplay:YES];
