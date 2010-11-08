@@ -9,12 +9,15 @@
 #import <Cocoa/Cocoa.h>
 #import "SVFileTree.h"
 #import "SVTreeMapView.h"
+#import "SVSupaViewAppDelegate.h"
 
 @interface SVMainWindowController : NSWindowController <SVProgressNotifiable> {
     NSWindow *window;
 
     SVFileTree *curentlyNavigated;
     NSURL      *scannedUrl;
+
+    IBOutlet SupaViewAppDelegate *delegate;
 
     IBOutlet NSToolbarItem *zoomIn;
     IBOutlet NSToolbarItem *zoomOut;
@@ -39,8 +42,6 @@
 - (void)dealloc;
 - (void)notifyViewCleanup;
 - (IBAction)openDocument:(id)sender;
-- (IBAction)openAbout:(id)sender;
-- (IBAction)openPreferences:(id)sender;
 
 - (IBAction)zoomInView:(id)sender;
 - (IBAction)zoomOutView:(id)sender;
@@ -48,7 +49,6 @@
 - (IBAction)narrowFolder:(id)sender;
 - (IBAction)goUp:(id)sender;
 - (IBAction)revealInFinder:(id)sender;
-- (IBAction)donateLinkOpener:(id)sender;
 - (IBAction)deleteSelectedElement:(id)sender;
 
 

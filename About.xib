@@ -91,7 +91,7 @@
 						<object class="NSTextField" id="517393984">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{109, 81}, {90, 13}}</string>
+							<string key="NSFrame">{{104, 81}, {113, 13}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="21792777">
@@ -195,36 +195,28 @@
 			<object class="NSUserDefaultsController" id="416789347">
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
-			<object class="NSCustomObject" id="591225824">
-				<string key="NSClassName">SVMainWindowController</string>
+			<object class="NSCustomObject" id="924835254">
+				<string key="NSClassName">SupaViewAppDelegate</string>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">donateLinkOpener:</string>
-						<reference key="source" ref="591225824"/>
-						<reference key="destination" ref="354531273"/>
-					</object>
-					<int key="connectionID">18</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: versionString</string>
 						<reference key="source" ref="517393984"/>
-						<reference key="destination" ref="591225824"/>
+						<reference key="destination" ref="924835254"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="517393984"/>
-							<reference key="NSDestination" ref="591225824"/>
+							<reference key="NSDestination" ref="924835254"/>
 							<string key="NSLabel">value: versionString</string>
 							<string key="NSBinding">value</string>
 							<string key="NSKeyPath">versionString</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">22</int>
+					<int key="connectionID">26</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -352,8 +344,8 @@
 						<reference key="parent" ref="354531273"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">17</int>
-						<reference key="object" ref="591225824"/>
+						<int key="objectID">23</int>
+						<reference key="object" ref="924835254"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</object>
@@ -376,8 +368,8 @@
 					<string>15.IBPluginDependency</string>
 					<string>15.IBViewBoundsToFrameTransform</string>
 					<string>16.IBPluginDependency</string>
-					<string>17.IBPluginDependency</string>
 					<string>2.IBPluginDependency</string>
+					<string>23.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 					<string>9.IBPluginDependency</string>
@@ -385,9 +377,9 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{893, 656}, {299, 223}}</string>
+					<string>{{749, 491}, {299, 223}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{893, 656}, {299, 223}}</string>
+					<string>{{749, 491}, {299, 223}}</string>
 					<integer value="1"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
@@ -407,7 +399,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABC0gAAwrgAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABC2gAAwrgAAA</bytes>
 					</object>
 				</object>
 			</object>
@@ -427,36 +419,24 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">22</int>
+			<int key="maxID">26</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">SVMainWindowController</string>
+					<string key="className">SupaViewAppDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>donateLinkOpener:</string>
-							<string>goUp:</string>
-							<string>narrowFolder:</string>
 							<string>openAbout:</string>
-							<string>openDocument:</string>
 							<string>openPreferences:</string>
-							<string>revealInFinder:</string>
-							<string>zoomInView:</string>
-							<string>zoomOutView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -467,14 +447,8 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>donateLinkOpener:</string>
-							<string>goUp:</string>
-							<string>narrowFolder:</string>
 							<string>openAbout:</string>
-							<string>openDocument:</string>
 							<string>openPreferences:</string>
-							<string>revealInFinder:</string>
-							<string>zoomInView:</string>
-							<string>zoomOutView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -483,142 +457,18 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">goUp:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">narrowFolder:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
 								<string key="name">openAbout:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">openDocument:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">openPreferences:</string>
 								<string key="candidateClassName">id</string>
 							</object>
-							<object class="IBActionInfo">
-								<string key="name">revealInFinder:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">zoomInView:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">zoomOutView:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>mainTreeView</string>
-							<string>scanProgress</string>
-							<string>scrollView</string>
-							<string>window</string>
-							<string>zoomIn</string>
-							<string>zoomOut</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>SVTreeMapView</string>
-							<string>NSProgressIndicator</string>
-							<string>NSView</string>
-							<string>NSWindow</string>
-							<string>NSToolbarItem</string>
-							<string>NSToolbarItem</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>mainTreeView</string>
-							<string>scanProgress</string>
-							<string>scrollView</string>
-							<string>window</string>
-							<string>zoomIn</string>
-							<string>zoomOut</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">mainTreeView</string>
-								<string key="candidateClassName">SVTreeMapView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">scanProgress</string>
-								<string key="candidateClassName">NSProgressIndicator</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">scrollView</string>
-								<string key="candidateClassName">NSView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">window</string>
-								<string key="candidateClassName">NSWindow</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">zoomIn</string>
-								<string key="candidateClassName">NSToolbarItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">zoomOut</string>
-								<string key="candidateClassName">NSToolbarItem</string>
-							</object>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">SVMainWindowController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">SVTreeMapView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">TreeMapView/SVTreeMapView.animate.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">SVTreeMapView</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">draggingEnded:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">draggingEnded:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">draggingEnded:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">TreeMapView/SVTreeMapView.dragging.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">SVTreeMapView</string>
-					<string key="superclassName">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">TreeMapView/SVTreeMapView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">SVTreeMapView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">TreeMapView/SVTreeMapView.private.h</string>
+						<string key="minorKey">SVSupaViewAppDelegate.h</string>
 					</object>
 				</object>
 			</object>
@@ -846,7 +696,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="486064467">
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSToolbarItem.h</string>
 					</object>
@@ -1006,14 +856,6 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">NSProgressIndicator</string>
-					<string key="superclassName">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">AppKit.framework/Headers/NSProgressIndicator.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">NSResponder</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
@@ -1043,11 +885,6 @@
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSTextFieldCell.h</string>
 					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSToolbarItem</string>
-					<string key="superclassName">NSObject</string>
-					<reference key="sourceIdentifier" ref="486064467"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSUserDefaultsController</string>

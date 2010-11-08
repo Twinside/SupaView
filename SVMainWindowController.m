@@ -44,6 +44,7 @@
 }
 - (void)dealloc
 {
+    [delegate notifyWindowClosed];
     [curentlyNavigated release];
     [scannedUrl release];
 }
@@ -61,7 +62,8 @@
     self.atMinimumZoom = [NSNumber numberWithBool:[mainTreeView isZoomMinimum]];
     self.narrowable = [NSNumber numberWithBool:[mainTreeView isSelectionNarrowable]];
     self.atTopLevel = [NSNumber numberWithBool:[mainTreeView isAtTopLevel]];
-    self.showableInFinder = [NSNumber numberWithBool:[mainTreeView isSelectionReavealableInFinder]];
+    self.showableInFinder =
+        [NSNumber numberWithBool:[mainTreeView isSelectionReavealableInFinder]];
 }
 
 - (void)awakeFromNib
@@ -89,20 +91,6 @@
         [self openURL:[oPanel URL]];
 }
 
-- (SUUpdater *)updater {
-    return [SUUpdater updaterForBundle:[NSBundle bundleForClass:[self class]]];
-}
-
-- (IBAction)openAbout:(id)sender
-{
-    [NSBundle loadNibNamed:@"About" owner:self];
-}
-
-- (IBAction)openPreferences:(id)sender
-{
-    [NSBundle loadNibNamed:@"preferences" owner:self];
-}
-
 - (IBAction)narrowFolder:(id)sender
 {
     [mainTreeView narrowSelected];
@@ -121,24 +109,6 @@
 - (IBAction)revealInFinder:(id)sender
 {
     [mainTreeView revealSelectionInFinder];
-}
-
-- (IBAction)donateLinkOpener:(id)sender
-{
-    NSURL   *donationURL =
-        [NSURL URLWithString:@"http://twinside.free.fr/supaview/donate.html"];
-
-    [[NSWorkspace sharedWorkspace] openURL:donationURL];
-}
-
-- (NSString*)versionString
-{
-    NSBundle *mainBundle = [NSBundle mainBundle];
-    NSDictionary *infoDict = [mainBundle infoDictionary];
- 
-    NSString *mainString = [infoDict valueForKey:@"CFBundleShortVersionString"];
-    NSString *subString = [infoDict valueForKey:@"CFBundleVersion"];
-    return [NSString stringWithFormat:@"Version %@ (%@)", mainString, subString];
 }
 
 - (void)notifyFileScanned
