@@ -23,6 +23,22 @@
     return !flag;
 }
 
+- (IBAction)openDocument:(id)sender
+{
+    int result;
+    NSOpenPanel *oPanel = [NSOpenPanel openPanel];
+ 
+    [oPanel setAllowsMultipleSelection:(BOOL)NO];
+    [oPanel setCanChooseFiles:NO];
+    [oPanel setCanChooseDirectories:YES];
+
+    result = [oPanel runModal];
+
+    if (result == NSFileHandlingPanelOKButton)
+        [self application:[NSApplication sharedApplication]
+                 openFile:[[oPanel URL] path]];
+}
+
 - (BOOL)application:(NSApplication *)theApplication
            openFile:(NSString *)filename
 {

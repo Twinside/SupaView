@@ -806,6 +806,7 @@
 									</object>
 									<string key="NSFrameSize">{506, 436}</string>
 									<reference key="NSSuperview" ref="610402090"/>
+									<reference key="NSNextKeyView" ref="542046304"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<reference key="NSDocView" ref="542046304"/>
 									<object class="NSColor" key="NSBGColor">
@@ -844,6 +845,7 @@
 							</object>
 							<string key="NSFrameSize">{521, 451}</string>
 							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSNextKeyView" ref="443904261"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<int key="NSsFlags">48</int>
 							<reference key="NSVScroller" ref="489470126"/>
@@ -965,14 +967,6 @@
 						<reference key="destination" ref="976324537"/>
 					</object>
 					<int key="connectionID">495</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">openDocument:</string>
-						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="722745758"/>
-					</object>
-					<int key="connectionID">572</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1397,6 +1391,14 @@
 						<reference key="destination" ref="166104860"/>
 					</object>
 					<int key="connectionID">750</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openDocument:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="722745758"/>
+					</object>
+					<int key="connectionID">751</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2089,7 +2091,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{2369, 897}, {368, 20}}</string>
+					<string>{{2380, 897}, {368, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
@@ -2156,7 +2158,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{822, 837}, {164, 73}}</string>
+					<string>{{2480, 824}, {164, 73}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{145, 474}, {199, 203}}</string>
@@ -2182,7 +2184,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">750</int>
+			<int key="maxID">751</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

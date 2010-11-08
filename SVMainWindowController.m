@@ -61,7 +61,8 @@
     self.atMinimumZoom = [NSNumber numberWithBool:[mainTreeView isZoomMinimum]];
     self.narrowable = [NSNumber numberWithBool:[mainTreeView isSelectionNarrowable]];
     self.atTopLevel = [NSNumber numberWithBool:[mainTreeView isAtTopLevel]];
-    self.showableInFinder = [NSNumber numberWithBool:[mainTreeView isSelectionReavealableInFinder]];
+    self.showableInFinder =
+        [NSNumber numberWithBool:[mainTreeView isSelectionReavealableInFinder]];
 }
 
 - (void)awakeFromNib
