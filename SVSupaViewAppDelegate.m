@@ -29,7 +29,35 @@
 {
     return !flag;
 }
-    int     openedWindowCount;
+
+- (NSString*)versionString
+{
+    NSBundle *mainBundle = [NSBundle mainBundle];
+    NSDictionary *infoDict = [mainBundle infoDictionary];
+ 
+    NSString *mainString = [infoDict valueForKey:@"CFBundleShortVersionString"];
+    NSString *subString = [infoDict valueForKey:@"CFBundleVersion"];
+    return [NSString stringWithFormat:@"Version %@ (%@)", mainString, subString];
+}
+
+- (IBAction)openAbout:(id)sender
+{
+    [NSBundle loadNibNamed:@"About" owner:self];
+}
+
+- (IBAction)openPreferences:(id)sender
+{
+    [NSBundle loadNibNamed:@"preferences" owner:self];
+}
+
+- (IBAction)donateLinkOpener:(id)sender
+{
+    NSURL   *donationURL =
+        [NSURL URLWithString:@"http://twinside.free.fr/supaview/donate.html"];
+
+    [[NSWorkspace sharedWorkspace] openURL:donationURL];
+}
+
 
 - (IBAction)openDocument:(id)sender
 {

@@ -16,5 +16,8 @@
 - (void)notifyWindowClosed;
 
 @property (assign) NSNumber* hasOpenedWindow;
+- (IBAction)openAbout:(id)sender;
+- (IBAction)donateLinkOpener:(id)sender;
+- (IBAction)openPreferences:(id)sender;
 @end
 
