@@ -6,6 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
+#import <Sparkle/Sparkle.h>
 #import "SVSupaViewAppDelegate.h"
 #import "SVGlobalQueues.h"
 
@@ -28,6 +29,10 @@
                     hasVisibleWindows:(BOOL)flag
 {
     return !flag;
+}
+
+- (SUUpdater *)updater {
+    return [SUUpdater updaterForBundle:[NSBundle bundleForClass:[self class]]];
 }
 
 - (NSString*)versionString

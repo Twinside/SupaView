@@ -91,10 +91,6 @@
         [self openURL:[oPanel URL]];
 }
 
-- (SUUpdater *)updater {
-    return [SUUpdater updaterForBundle:[NSBundle bundleForClass:[self class]]];
-}
-
 - (IBAction)narrowFolder:(id)sender
 {
     [mainTreeView narrowSelected];
