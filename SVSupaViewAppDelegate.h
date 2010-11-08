@@ -9,8 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 @interface SupaViewAppDelegate : NSObject <NSApplicationDelegate> {
+    NSNumber* hasOpenedWindow;
 }
 
 - (id)init;
+- (void)notifyWindowClosed;
+
+@property (assign) NSNumber* hasOpenedWindow;
 @end
 

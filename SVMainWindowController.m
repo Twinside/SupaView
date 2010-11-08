@@ -44,6 +44,7 @@
 }
 - (void)dealloc
 {
+    [delegate notifyWindowClosed];
     [curentlyNavigated release];
     [scannedUrl release];
 }

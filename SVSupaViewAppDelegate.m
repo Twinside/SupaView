@@ -10,11 +10,18 @@
 #import "SVGlobalQueues.h"
 
 @implementation SupaViewAppDelegate
+@synthesize hasOpenedWindow;
 
 - (id)init
 {
     self = [super init];
+    hasOpenedWindow = [NSNumber numberWithBool:TRUE];
     return self;
+}
+
+- (void)notifyWindowClosed
+{
+    [self setHasOpenedWindow:[NSNumber numberWithBool:FALSE]];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication
@@ -22,6 +29,7 @@
 {
     return !flag;
 }
+    int     openedWindowCount;
 
 - (IBAction)openDocument:(id)sender
 {

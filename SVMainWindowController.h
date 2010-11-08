@@ -9,12 +9,15 @@
 #import <Cocoa/Cocoa.h>
 #import "SVFileTree.h"
 #import "SVTreeMapView.h"
+#import "SVSupaViewAppDelegate.h"
 
 @interface SVMainWindowController : NSWindowController <SVProgressNotifiable> {
     NSWindow *window;
 
     SVFileTree *curentlyNavigated;
     NSURL      *scannedUrl;
+
+    IBOutlet SupaViewAppDelegate *delegate;
 
     IBOutlet NSToolbarItem *zoomIn;
     IBOutlet NSToolbarItem *zoomOut;
