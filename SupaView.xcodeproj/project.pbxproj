@@ -17,9 +17,10 @@
 		615130BD123EA998003CD2AE /* SVZoomOutImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 615130BB123EA998003CD2AE /* SVZoomOutImg.png */; };
 		61570CED1262673100E0FCA4 /* preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61570CEC1262673100E0FCA4 /* preferences.xib */; };
 		61570D141264BECD00E0FCA4 /* Layout.searching.m in Sources */ = {isa = PBXBuildFile; fileRef = 61570D131264BECD00E0FCA4 /* Layout.searching.m */; };
+		61621E2312D73005005288F3 /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61621E2212D73005005288F3 /* MessageView.m */; };
+		61621E2A12D73853005288F3 /* FileDraggingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 61621E2912D73853005288F3 /* FileDraggingView.m */; };
 		6167F86E122366B800404881 /* SVGeometryGatherer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6167F86D122366B800404881 /* SVGeometryGatherer.m */; };
 		6172869D1225FE6100607826 /* SVColorWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6172869C1225FE6100607826 /* SVColorWheel.m */; };
-		6184F5AD12591CE300C91C8E /* SVTreeMapView.dragging.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5AA12591CE300C91C8E /* SVTreeMapView.dragging.m */; };
 		6184F5AE12591CE300C91C8E /* SVTreeMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5AC12591CE300C91C8E /* SVTreeMapView.m */; };
 		6184F5B112591D2600C91C8E /* SVTreeMapView.animate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5B012591D2600C91C8E /* SVTreeMapView.animate.m */; };
 		6184F5BC125923D700C91C8E /* SVNarrowingState.m in Sources */ = {isa = PBXBuildFile; fileRef = 6184F5BB125923D700C91C8E /* SVNarrowingState.m */; };
@@ -88,13 +89,15 @@
 		61570CEE1262674B00E0FCA4 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/preferences.xib; sourceTree = "<group>"; };
 		61570D121264BECD00E0FCA4 /* Layout.searching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Layout.searching.h; path = LayoutTree/Layout.searching.h; sourceTree = "<group>"; };
 		61570D131264BECD00E0FCA4 /* Layout.searching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Layout.searching.m; path = LayoutTree/Layout.searching.m; sourceTree = "<group>"; };
+		61621E2112D73005005288F3 /* MessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageView.h; path = MessageView/MessageView.h; sourceTree = "<group>"; };
+		61621E2212D73005005288F3 /* MessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageView.m; path = MessageView/MessageView.m; sourceTree = "<group>"; };
+		61621E2812D73853005288F3 /* FileDraggingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileDraggingView.h; path = MessageView/FileDraggingView.h; sourceTree = "<group>"; };
+		61621E2912D73853005288F3 /* FileDraggingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileDraggingView.m; path = MessageView/FileDraggingView.m; sourceTree = "<group>"; };
 		6167F86C122366B800404881 /* SVGeometryGatherer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGeometryGatherer.h; sourceTree = "<group>"; };
 		6167F86D122366B800404881 /* SVGeometryGatherer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGeometryGatherer.m; sourceTree = "<group>"; };
 		6167F8B5122374C200404881 /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
 		6172869B1225FE6100607826 /* SVColorWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVColorWheel.h; sourceTree = "<group>"; };
 		6172869C1225FE6100607826 /* SVColorWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVColorWheel.m; sourceTree = "<group>"; };
-		6184F5A912591CE300C91C8E /* SVTreeMapView.dragging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVTreeMapView.dragging.h; path = TreeMapView/SVTreeMapView.dragging.h; sourceTree = "<group>"; };
-		6184F5AA12591CE300C91C8E /* SVTreeMapView.dragging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVTreeMapView.dragging.m; path = TreeMapView/SVTreeMapView.dragging.m; sourceTree = "<group>"; };
 		6184F5AB12591CE300C91C8E /* SVTreeMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVTreeMapView.h; path = TreeMapView/SVTreeMapView.h; sourceTree = "<group>"; };
 		6184F5AC12591CE300C91C8E /* SVTreeMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SVTreeMapView.m; path = TreeMapView/SVTreeMapView.m; sourceTree = "<group>"; };
 		6184F5AF12591D2600C91C8E /* SVTreeMapView.animate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVTreeMapView.animate.h; path = TreeMapView/SVTreeMapView.animate.h; sourceTree = "<group>"; };
@@ -165,6 +168,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				61621E1F12D72FD8005288F3 /* MessageView */,
 				6184F5A812591CAA00C91C8E /* TreeMap */,
 				61C882071251E97200F1B518 /* SVSizeFormatter.h */,
 				61C882081251E97200F1B518 /* SVSizeFormatter.m */,
@@ -265,6 +269,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		61621E1F12D72FD8005288F3 /* MessageView */ = {
+			isa = PBXGroup;
+			children = (
+				61621E2112D73005005288F3 /* MessageView.h */,
+				61621E2212D73005005288F3 /* MessageView.m */,
+				61621E2812D73853005288F3 /* FileDraggingView.h */,
+				61621E2912D73853005288F3 /* FileDraggingView.m */,
+			);
+			name = MessageView;
+			sourceTree = "<group>";
+		};
 		6184F5A812591CAA00C91C8E /* TreeMap */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,8 +293,6 @@
 				6184F5BB125923D700C91C8E /* SVNarrowingState.m */,
 				6184F5AF12591D2600C91C8E /* SVTreeMapView.animate.h */,
 				6184F5B012591D2600C91C8E /* SVTreeMapView.animate.m */,
-				6184F5A912591CE300C91C8E /* SVTreeMapView.dragging.h */,
-				6184F5AA12591CE300C91C8E /* SVTreeMapView.dragging.m */,
 				6184F5AB12591CE300C91C8E /* SVTreeMapView.h */,
 				6184F5AC12591CE300C91C8E /* SVTreeMapView.m */,
 			);
@@ -419,7 +432,6 @@
 				61C87FA31250E99200F1B518 /* SVEmptyNode.m in Sources */,
 				61C87FA41250E99200F1B518 /* SVUnscanned.m in Sources */,
 				61C882091251E97200F1B518 /* SVSizeFormatter.m in Sources */,
-				6184F5AD12591CE300C91C8E /* SVTreeMapView.dragging.m in Sources */,
 				6184F5AE12591CE300C91C8E /* SVTreeMapView.m in Sources */,
 				6184F5B112591D2600C91C8E /* SVTreeMapView.animate.m in Sources */,
 				6184F5BC125923D700C91C8E /* SVNarrowingState.m in Sources */,
@@ -428,6 +440,8 @@
 				6184F674125A02E300C91C8E /* SVLayoutLeaf.protected.m in Sources */,
 				61570D141264BECD00E0FCA4 /* Layout.searching.m in Sources */,
 				6113B6141280B25C00E78E1A /* SVTreeMapView.scroller.m in Sources */,
+				61621E2312D73005005288F3 /* MessageView.m in Sources */,
+				61621E2A12D73853005288F3 /* FileDraggingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

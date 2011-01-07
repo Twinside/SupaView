@@ -12,15 +12,7 @@
 
 @class SVMainWindowController;
 
-typedef void (^FileDropResponder)( NSURL* fileUrl );
 typedef void (^Notifier)();
-
-typedef enum DropStatus_t
-{
-    NoDrop,
-    AcceptDrop,
-    RefuseDrop
-} DropStatus;
 
 typedef enum AnimationEnd_t
 {
@@ -32,6 +24,8 @@ typedef enum AnimationEnd_t
 @interface SVTreeMapView : NSView <NSAnimationDelegate> {
     IBOutlet NSScroller   *horizontalScroller;
     IBOutlet NSScroller   *verticalScroller;
+    IBOutlet NSScrollView *scrollView;
+    IBOutlet NSPathControl *pathView;
 
     NSRect                virtualSize;
     SVLayoutNode          *viewedTree;
@@ -46,8 +40,6 @@ typedef enum AnimationEnd_t
     SVFileTree            *currentSelection;
     SVLayoutLeaf          *selectedLayoutNode;
 
-    DropStatus            currentDropStatus;
-    
     NSRect                currentRect;
     NSURL                 *currentURL;
     NSURL                 *selectedURL;
@@ -55,7 +47,6 @@ typedef enum AnimationEnd_t
 
     BOOL                  dragged;
     
-    FileDropResponder     dragResponder;
     Notifier              stateChangeNotifier;
 
     IBOutlet SVMainWindowController *parentControler;
@@ -74,7 +65,6 @@ typedef enum AnimationEnd_t
 - (void)setTreeMap:(SVLayoutNode*)tree
              atUrl:(NSURL*)url;
 
-- (void)setFileDropResponder:(FileDropResponder)r;
 - (void)setStateChangeResponder:(Notifier)r;
 
 - (void)narrowSelected;
@@ -91,5 +81,5 @@ typedef enum AnimationEnd_t
 - (BOOL)isSelectionNarrowable;
 - (BOOL)isZoomMaximum;
 - (BOOL)isZoomMinimum;
-
 @end
+

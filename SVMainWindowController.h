@@ -10,6 +10,7 @@
 #import "SVFileTree.h"
 #import "SVTreeMapView.h"
 #import "SVSupaViewAppDelegate.h"
+#import "MessageView/MessageView.h"
 
 @interface SVMainWindowController : NSWindowController <SVProgressNotifiable> {
     NSWindow *window;
@@ -19,6 +20,7 @@
 
     IBOutlet SupaViewAppDelegate *delegate;
 
+    IBOutlet SVMessageView *messageView;
     IBOutlet NSToolbarItem *zoomIn;
     IBOutlet NSToolbarItem *zoomOut;
     IBOutlet NSView        *scrollView;
@@ -50,6 +52,7 @@
 - (IBAction)goUp:(id)sender;
 - (IBAction)revealInFinder:(id)sender;
 - (IBAction)deleteSelectedElement:(id)sender;
+- (IBAction)pathSelection:(id)sender;
 
 
 @property (assign) NSNumber* atMaximumZoom;

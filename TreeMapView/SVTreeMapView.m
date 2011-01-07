@@ -14,7 +14,6 @@
 #import "../LayoutTree/SVLayoutLeaf.h"
 #import "../LayoutTree/Layout.searching.h"
 #import "../SVMainWindowController.h"
-#import "SVTreeMapView.dragging.h"
 #import "SVTreeMapView.private.h"
 #import "SVTreeMapView.scroller.h"
 #import "AnimationPerFrame.h"
@@ -23,6 +22,9 @@
 - (id)initWithFrame:(NSRect)frameRect
 {
     self = [super initWithFrame:frameRect];
+
+    if (!self) return self;
+
     wheel = [[SVColorWheel alloc] init];
     virtualSize = frameRect;
     narrowingStack = [[NSMutableArray alloc] initWithCapacity:10];
@@ -33,15 +35,9 @@
     currentSelection = nil;
     selectedLayoutNode = nil;
     isSelectionFile = FALSE;
-    dragResponder = nil;
     viewedTree = nil;
     lockAnyMouseEvent = FALSE;
 
-    currentDropStatus = NoDrop;
-
-    [self registerForDraggedTypes:
-                [NSArray arrayWithObjects: NSURLPboardType
-                                         , nil]];
     return self;
 }
 
@@ -140,78 +136,18 @@
     }
 }
 
-- (void)drawInitialMessage:(NSRect)dirtyRect
-{
-    NSFont *msgFont =
-        [NSFont fontWithName:@"Helvetica" 
-                        size:20];
-    NSDictionary *strDrawAttr = 
-        [NSDictionary dictionaryWithObject:msgFont
-                                    forKey:NSFontAttributeName];
-
-    CGFloat boxSize = 50.0f;
-    CGFloat strokeSize = 5.0f;
-    CGFloat boxMargin = 20.0f;
-
-    NSRect bounds = [self bounds];
-    NSRect rectWhere =
-        { .origin = { .x = bounds.origin.x
-                         + (bounds.size.width - boxSize - boxMargin) / 2
-                    , .y = bounds.origin.y
-                         + (bounds.size.height - boxSize - boxMargin) / 2 }
-        , .size = { .width = boxSize + boxMargin
-                  , .height = boxSize + boxMargin } };
-
-    NSBezierPath *roundRect = 
-        [NSBezierPath bezierPathWithRoundedRect:rectWhere
-                                        xRadius:10.0f
-                                        yRadius:10.0f];
-
-    CGFloat lineDash[] = { 7.0f, 5.0f };
-    
-    [roundRect setLineWidth:strokeSize];
-    [roundRect setLineDash:lineDash
-                     count:sizeof(lineDash) / sizeof(CGFloat)
-                     phase:0.0];
-    [roundRect stroke];
-
-    CGFloat textBoxWidth = 240;
-    CGFloat textBoxHeight = 25;
-    NSRect where = { .origin = { .x = bounds.origin.x
-                                    + (bounds.size.width - textBoxWidth) / 2
-                               , .y = rectWhere.origin.y
-                                    - boxSize / 2
-                                    - textBoxHeight }
-                   , .size = { .width = textBoxWidth
-                             , .height = textBoxHeight * 2 } };
-
-    NSString *msgString =
-        NSLocalizedStringFromTable(@"InitialMessage", @"Custom", @"A comment");
-
-    [msgString drawInRect:where withAttributes:strDrawAttr];
-}
-
 - (void)drawRect:(NSRect)dirtyRect
 {
-    if (viewedTree == nil || geometry == nil)
-    {
-        [[NSColor controlBackgroundColor] setFill];
-        NSRectFill( [self frame] );
-        [[NSColor blackColor] setFill];
-
-        [super drawRect:dirtyRect];
-
-        [self drawInitialMessage:dirtyRect];
-        [self drawDropStatus:dirtyRect];
-        return;
-    }
-
     [self drawBackRect];
+    
+    if (viewedTree == nil || geometry == nil)
+        return;
+    
     [self drawFrameRect];
     [self drawText];
     
     // NSFrameRectWithWidth( virtualSize, 2.0 );
-    [self drawDropStatus:dirtyRect];
+    // [self drawDropStatus:dirtyRect];
 }
 
 - (void) translateBy:(CGFloat)dx  andBy:(CGFloat)dy
@@ -330,6 +266,7 @@
 
         [window setRepresentedURL:selectedURL];
         [window setTitle:[selectedURL lastPathComponent]];
+        [pathView setURL:selectedURL];
         
         stateChangeNotifier();
     }
@@ -502,11 +439,6 @@
     [self updateGeometry];
     [self setNeedsDisplay:YES];
     stateChangeNotifier();
-}
-
-- (void)setFileDropResponder:(FileDropResponder)r
-{
-    dragResponder = Block_copy(r);
 }
 
 - (void)setStateChangeResponder:(Notifier)r

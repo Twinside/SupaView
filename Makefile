@@ -7,3 +7,5 @@ clean:
 
 run:
 	open build/Debug/SupaView.app
+
+	
