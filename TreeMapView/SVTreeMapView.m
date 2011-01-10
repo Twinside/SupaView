@@ -44,6 +44,7 @@
 - (void)awakeFromNib
 {
     [self allocateInitScroller];
+    [pathView setDoubleAction:@selector(pathDoubleClick)];
 }
 
 - (void)dealloc
@@ -239,9 +240,9 @@
 
     [info.selection.name retain];
     SVLayoutLeaf *foundNode =
-            [viewedTree getSelected:p
-                           withInfo:&info
-                          andBounds:&frame];
+            [viewedTree getNodeAtPoint:p
+                              withInfo:&info
+                             andBounds:&frame];
     
     SVFileTree  *found = [foundNode fileNode];
     
@@ -617,6 +618,48 @@
     [self setNeedsDisplay:YES];
 
     stateChangeNotifier();
+}
+
+- (IBAction)pathSelection:(id)sender
+{
+    /* only get the event to be selected, the
+     * pathDoubleClick really handle the stuff */
+}
+
+- (IBAction)pathDoubleClick
+{
+    NSURL *clickedUrl =
+        [[pathView clickedPathComponentCell] URL];
+    NSString *clickedPath = [clickedUrl path];
+
+    // if the user double clicked on the current
+    // 'top' URL, we don't care, just leave.
+    if ( [clickedUrl isEqual:currentURL] )
+        return;
+
+    int narrowingCount = [narrowingStack length];
+    NSString *rootPath;
+
+    // we are checking if the clicked url is beyound
+    // the scanned root.
+    if ( narrowingCount > 0)
+        rootPath = [[[narrowingStack objectAtIndex:0] url] path];
+    else
+        rootPath = currentURL;
+
+    // we are before the rootpath..
+    if ( [rootPath hasPrefix:clickedPath] )
+        return; // do nothing.
+
+    // we got element in the narrowing,
+    // dump everything but the last
+    if ( narrowingCount == 0 )
+    {
+    }
+    else // otherwise, just push the root state, and
+    {    // move into.
+        
+    }
 }
 @end
 

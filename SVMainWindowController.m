@@ -91,11 +91,6 @@
         [self openURL:[oPanel URL]];
 }
 
-- (IBAction)pathSelection:(id)sender
-{
-    
-}
-
 - (IBAction)narrowFolder:(id)sender
 {
     [mainTreeView narrowSelected];

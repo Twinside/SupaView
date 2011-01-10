@@ -52,7 +52,6 @@
 - (IBAction)goUp:(id)sender;
 - (IBAction)revealInFinder:(id)sender;
 - (IBAction)deleteSelectedElement:(id)sender;
-- (IBAction)pathSelection:(id)sender;
 
 
 @property (assign) NSNumber* atMaximumZoom;

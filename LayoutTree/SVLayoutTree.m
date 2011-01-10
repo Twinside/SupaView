@@ -3,15 +3,6 @@
 #import "SVColorWheel.h"
 #import "SVSizes.h"
 
-inline static
-BOOL insideRect( const NSRect *r, const NSPoint *p )
-{
-    return (r->origin.x <= p->x)
-        && (r->origin.y <= p->y)
-        && (r->origin.x + r->size.width >= p->x)
-        && (r->origin.y + r->size.height >= p->y);
-}
-
 @implementation SVLayoutTree
 - (LayoutKind)computeOrientationWithWidth:(CGFloat)w
                                    height:(CGFloat)h {
@@ -162,11 +153,12 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
     [right drawGeometry:info inBounds:&rightSub];
 }
 
-- (SVLayoutLeaf*)getSelected:(NSPoint)point
-                    withInfo:(SVDrawInfo*)info
-                   andBounds:(NSRect*)bounds
+- (SVLayoutLeaf*)getNodeConforming:(LayoutPredicate)predicate
+                          withInfo:(SVDrawInfo*)info
+                         andBounds:(NSRect*)bounds
 {
-    if ( ![self drawableWithInfo:info inBounds:bounds]
+    if ( !predicate( self, info, bounds )
+       //![self drawableWithInfo:info inBounds:bounds]
        || splitPos < 0.0 || splitPos > 1.0 )
         return nil;
 
@@ -182,16 +174,21 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
     
     SVLayoutLeaf* ret = nil;
 
-    if ( left && insideRect( &leftSub, &point ) )
+    if ( left )
     {
-        ret = [left getSelected:point withInfo:info andBounds:&leftSub];
+        ret = [left getNodeConforming:predicate
+                             withInfo:info
+                            andBounds:&leftSub];
         // clear the selection mask
         orientation &= ~SelectionMask;
         orientation |= SelectionAtLeft;
     }
-    else if ( right && insideRect( &rightSub, &point ) ) // must be in other rect
+
+    if ( ret == nil && right ) // must be in other rect
     {
-        ret = [right getSelected:point withInfo:info andBounds:&rightSub];
+        ret = [right getNodeConforming:predicate
+                              withInfo:info
+                             andBounds:&rightSub];
         orientation &= ~SelectionMask;
         orientation |= SelectionAtRight;
     }

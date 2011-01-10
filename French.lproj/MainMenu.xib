@@ -465,7 +465,6 @@
 							<string>02EB8C8F-B750-444C-9CDD-740BFC7ED504</string>
 							<string>08FE2BF9-2F5F-4D81-AF0C-27CB10045F04</string>
 							<string>249A3904-1B8D-4593-999D-015955518E2A</string>
-							<string>BE585BC3-71E5-46C8-AC12-9DD63AC7ACD7</string>
 							<string>BF6B42BF-6AAD-42D0-8F7C-7317BC081664</string>
 							<string>FF68DE95-2850-4E01-84FB-610381C30CE1</string>
 							<string>NSToolbarCustomizeToolbarItem</string>
@@ -542,28 +541,6 @@
 								<bool key="NSToolbarIsUserRemovable">YES</bool>
 								<int key="NSToolbarItemVisibilityPriority">0</int>
 							</object>
-							<object class="NSToolbarItem" id="1072717512">
-								<object class="NSMutableString" key="NSToolbarItemIdentifier">
-									<characters key="NS.bytes">BE585BC3-71E5-46C8-AC12-9DD63AC7ACD7</characters>
-								</object>
-								<string key="NSToolbarItemLabel">Niveau supérieur</string>
-								<string key="NSToolbarItemPaletteLabel">UpFolder</string>
-								<string key="NSToolbarItemToolTip">Aller au dossier précédent</string>
-								<nil key="NSToolbarItemView"/>
-								<object class="NSCustomResource" key="NSToolbarItemImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">SVGoBack</string>
-								</object>
-								<nil key="NSToolbarItemTarget"/>
-								<nil key="NSToolbarItemAction"/>
-								<string key="NSToolbarItemMinSize">{0, 0}</string>
-								<string key="NSToolbarItemMaxSize">{0, 0}</string>
-								<bool key="NSToolbarItemEnabled">YES</bool>
-								<bool key="NSToolbarItemAutovalidates">YES</bool>
-								<int key="NSToolbarItemTag">-1</int>
-								<bool key="NSToolbarIsUserRemovable">YES</bool>
-								<int key="NSToolbarItemVisibilityPriority">0</int>
-							</object>
 							<object class="NSToolbarItem" id="830775605">
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">BF6B42BF-6AAD-42D0-8F7C-7317BC081664</characters>
@@ -572,10 +549,12 @@
 								<string key="NSToolbarItemPaletteLabel">ScanProgress</string>
 								<string key="NSToolbarItemToolTip">Analyse du dossier ou volume en cours...</string>
 								<object class="NSProgressIndicator" key="NSToolbarItemView" id="474368602">
-									<nil key="NSNextResponder"/>
+									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">1292</int>
 									<object class="NSPSMatrix" key="NSDrawMatrix"/>
 									<string key="NSFrame">{{0, 14}, {150, 20}}</string>
+									<reference key="NSSuperview"/>
+									<reference key="NSWindow"/>
 									<int key="NSpiFlags">24586</int>
 									<double key="NSMaxValue">1</double>
 								</object>
@@ -744,7 +723,6 @@
 						<reference ref="879050813"/>
 						<reference ref="864071714"/>
 						<reference ref="522574549"/>
-						<reference ref="1072717512"/>
 						<reference ref="830775605"/>
 						<reference ref="217552931"/>
 						<reference ref="64121564"/>
@@ -755,7 +733,6 @@
 						<reference ref="522574549"/>
 						<reference ref="626845412"/>
 						<reference ref="217552931"/>
-						<reference ref="1072717512"/>
 						<reference ref="626845412"/>
 						<reference ref="64121564"/>
 						<reference ref="344548285"/>
@@ -1073,14 +1050,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">goUp:</string>
-						<reference key="source" ref="582100434"/>
-						<reference key="destination" ref="1072717512"/>
-					</object>
-					<int key="connectionID">584</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">narrowFolder:</string>
 						<reference key="source" ref="582100434"/>
 						<reference key="destination" ref="217552931"/>
@@ -1150,26 +1119,6 @@
 						</object>
 					</object>
 					<int key="connectionID">623</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: atTopLevel</string>
-						<reference key="source" ref="1072717512"/>
-						<reference key="destination" ref="582100434"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="1072717512"/>
-							<reference key="NSDestination" ref="582100434"/>
-							<string key="NSLabel">enabled: atTopLevel</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">atTopLevel</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">NSNegateBoolean</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">627</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1507,6 +1456,14 @@
 					</object>
 					<int key="connectionID">800</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">pathSelection:</string>
+						<reference key="source" ref="888468070"/>
+						<reference key="destination" ref="17307111"/>
+					</object>
+					<int key="connectionID">801</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1806,7 +1763,6 @@
 							<reference ref="112725191"/>
 							<reference ref="344548285"/>
 							<reference ref="879050813"/>
-							<reference ref="1072717512"/>
 							<reference ref="522574549"/>
 							<reference ref="864071714"/>
 							<reference ref="830775605"/>
@@ -1838,11 +1794,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">540</int>
 						<reference key="object" ref="879050813"/>
-						<reference key="parent" ref="678140638"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">561</int>
-						<reference key="object" ref="1072717512"/>
 						<reference key="parent" ref="678140638"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -2112,7 +2063,6 @@
 					<string>556.IBPluginDependency</string>
 					<string>56.IBPluginDependency</string>
 					<string>56.ImportedFromIB2</string>
-					<string>561.IBPluginDependency</string>
 					<string>567.IBPluginDependency</string>
 					<string>568.IBPluginDependency</string>
 					<string>57.IBEditorWindowLastContentRect</string>
@@ -2218,9 +2168,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{772, 375}, {533, 493}}</string>
+					<string>{{778, 364}, {533, 493}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{772, 375}, {533, 493}}</string>
+					<string>{{778, 364}, {533, 493}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<boolean value="YES"/>
@@ -2229,7 +2179,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{564, 779}, {617, 0}}</string>
+					<string>{{730, 868}, {617, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2239,7 +2189,6 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{470, 752}, {267, 223}}</string>
@@ -2315,7 +2264,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">800</int>
+			<int key="maxID">801</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2350,14 +2299,12 @@
 							<string>goUp:</string>
 							<string>narrowFolder:</string>
 							<string>openDocument:</string>
-							<string>pathSelection:</string>
 							<string>revealInFinder:</string>
 							<string>zoomInView:</string>
 							<string>zoomOutView:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -2375,7 +2322,6 @@
 							<string>goUp:</string>
 							<string>narrowFolder:</string>
 							<string>openDocument:</string>
-							<string>pathSelection:</string>
 							<string>revealInFinder:</string>
 							<string>zoomInView:</string>
 							<string>zoomOutView:</string>
@@ -2396,10 +2342,6 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">openDocument:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">pathSelection:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -2514,14 +2456,35 @@
 					<string key="className">SVTreeMapView</string>
 					<string key="superclassName">NSView</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">selectSubItem:</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>pathSelection:</string>
+							<string>selectSubItem:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">selectSubItem:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">selectSubItem:</string>
-							<string key="candidateClassName">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>pathSelection:</string>
+							<string>selectSubItem:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">pathSelection:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">selectSubItem:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -3306,7 +3269,6 @@
 				<string>NSRevealFreestandingTemplate</string>
 				<string>NSToolbarCustomizeToolbarItemImage</string>
 				<string>NSToolbarPrint</string>
-				<string>SVGoBack</string>
 				<string>SVZoomInImg</string>
 				<string>SVZoomOutImg</string>
 			</object>
@@ -3318,7 +3280,6 @@
 				<string>{14, 14}</string>
 				<string>{32, 32}</string>
 				<string>{32, 32}</string>
-				<string>{48, 48}</string>
 				<string>{64, 64}</string>
 				<string>{64, 64}</string>
 			</object>

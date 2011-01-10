@@ -21,6 +21,10 @@ typedef enum AnimationEnd_t
     AnimationZoom
 } AnimationEnd;
 
+/**
+ * Main GUI class, handle the tree view, draw, manage
+ * clicks and animations.
+ */
 @interface SVTreeMapView : NSView <NSAnimationDelegate> {
     IBOutlet NSScroller   *horizontalScroller;
     IBOutlet NSScroller   *verticalScroller;
@@ -75,6 +79,8 @@ typedef enum AnimationEnd_t
           withUpdatedPath:(NSURL*)updatedPath;
 
 - (IBAction)selectSubItem:(id)sender;
+- (IBAction)pathSelection:(id)sender;
+- (IBAction)pathDoubleClick;
 
 - (BOOL)isAtTopLevel;
 - (BOOL)isSelectionReavealableInFinder;
