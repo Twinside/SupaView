@@ -221,8 +221,9 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
     [self setNeedsDisplay:YES];
 }
 
-- (void)selectWithFunction:(SelectFunction)f
-                  fromRoot:(NSURL*)url
+- (SVDrawInfo)searchWithFunction:(SelectFunction)f
+                        fromRoot:(NSURL*)url
+                      withResult:(SVLayoutLeaf**)rez
 {
     NSRect frame = [self bounds];
 
@@ -242,7 +243,22 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
     
 
     [info.selection.name retain];
-    SVLayoutLeaf *foundNode = f(&info, &frame);
+
+    if (rez) *rez = f(&info, &frame);
+    else f(&info, &frame);
+
+    return info;
+}
+
+- (void)selectWithFunction:(SelectFunction)f
+                  fromRoot:(NSURL*)url
+{
+    SVLayoutLeaf *foundNode;
+
+    SVDrawInfo info =
+        [self searchWithFunction:f
+                        fromRoot:url
+                      withResult:&foundNode];
     
     SVFileTree  *found = [foundNode fileNode];
     
@@ -474,6 +490,25 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
     stateChangeNotifier();
 }
 
+- (void)animateZoom:(AnimationEnd)animation
+               from:(NSRect)from
+                 to:(NSRect)to
+{
+    if ( lockAnyMouseEvent ) return;
+
+    animationKind = animation;
+
+    zoomAnim =
+        [[AnimationPerFrame alloc] initWithView:self
+                                       fromRect:from
+                                         toRect:to
+                                    andDuration:0.25f];
+
+    [zoomAnim startAnimation];
+    [self updateScrollerPosition];
+    stateChangeNotifier();
+}
+
 - (void)narrowSelected
 {
     if ( isSelectionFile ) return;
@@ -493,26 +528,56 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
 
     if ( [toParts count] < [currentParts count] )
     {   // search node from root.
-        [self selectWithFunction:^SVLayoutLeaf*(SVDrawInfo* i,NSRect *b) {
+        SelectFunction func =
+          ^ SVLayoutLeaf* (SVDrawInfo* i,NSRect *b) {
             return [root->layout getNodeAtPathParts:toParts
                                         beginningAt:[rootParts count] - 1
                                            withInfo:i
                                           andBounds:b];
-        }
+        };
+
+        [self selectWithFunction:func
                         fromRoot:root->url];
+        
+        [current release];
+        current = selected;
+        [current retain];
+
+        SelectFunction selecSearch = 
+          ^ SVLayoutLeaf* (SVDrawInfo* i,NSRect *b) {
+            return [root->layout getNodeAtPathParts:currentParts
+                                        beginningAt:[rootParts count] - 1
+                                           withInfo:i
+                                          andBounds:b];
+        };
+
+        // size of current selection
+        NSRect to =
+        ([self searchWithFunction:selecSearch
+                         fromRoot:selected->url
+                       withResult:nil]).selection.rect;
+        
+        current->size = to;
+        
+        [self animateZoom:AnimationNarrow
+                     from:to
+                       to:[self bounds]];
     }
     else // search node from current.
     {
-        [self selectWithFunction:^SVLayoutLeaf*(SVDrawInfo* i,NSRect *b) {
+        SelectFunction func =
+            ^ SVLayoutLeaf* (SVDrawInfo* i,NSRect *b) {
             return [current->layout getNodeAtPathParts:toParts
                                            beginningAt:[currentParts count]
                                               withInfo:i
                                              andBounds:b];
-        }
+            };
+        
+        [self selectWithFunction:func
                         fromRoot:current->url];
+
+        [self animateZoom:AnimationNarrow];
     }
-    
-    [self animateZoom:AnimationNarrow];
 }
 
 - (void)popNarrowing
