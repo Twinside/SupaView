@@ -253,7 +253,7 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
                 initWithUrl:info.selection.name
                        file:found
                      layout:foundNode
-                       size:frame];
+                       size:info.selection.rect];
         [selected retain];
         
         isSelectionFile = info.selection.isFile;
