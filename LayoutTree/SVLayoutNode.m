@@ -61,12 +61,12 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
             inBounds:(NSRect*)bounds
 { /* do nothing */ }
 
-- (SVLayoutLeaf*)getNodeAtUrl:(NSURL*)url
-                     withInfo:(SVDrawInfo*)info
-                    andBounds:(NSRect*)bounds
+- (SVLayoutLeaf*)getNodeAtPathParts:(NSArray*)urlParts
+                        beginningAt:(int)idx
+                           withInfo:(SVDrawInfo*)info
+                          andBounds:(NSRect*)bounds
 {
-    NSArray *urlParts = [url pathComponents];
-    __block NSUInteger deepCount = 0;
+    __block NSUInteger deepCount = idx;
 
     LayoutPredicate pred =
         ^ bool ( SVLayoutNode *node, SVDrawInfo* i, NSRect * b ){ 

@@ -17,7 +17,6 @@ typedef void (^Notifier)();
 typedef enum AnimationEnd_t
 {
     AnimationNarrow,
-    AnimationPopNarrow,
     AnimationZoom
 } AnimationEnd;
 
@@ -35,7 +34,6 @@ typedef enum AnimationEnd_t
 
     IBOutlet SVMainWindowController *parentControler;
 
-    NSRect                virtualSize;
     SVGeometryGatherer    *geometry;
     SVColorWheel          *wheel;
 

@@ -11,7 +11,7 @@
 typedef struct SVSelectionInfo_t
 {
     SVFileTree      *node;
-    SVLayoutNode    *layoutNode;
+    SVLayoutLeaf    *layoutNode;
     NSURL           *name;
     NSRect          rect;
     BOOL            isFile;
@@ -55,6 +55,11 @@ typedef bool (^LayoutPredicate)( SVLayoutNode*, SVDrawInfo*, NSRect *bounds );
 - (SVLayoutLeaf*)getNodeConforming:(LayoutPredicate)predicate
                           withInfo:(SVDrawInfo*)info
                          andBounds:(NSRect*)bounds;
+
+- (SVLayoutLeaf*)getNodeAtPathParts:(NSArray*)parts
+                        beginningAt:(int)idx
+                           withInfo:(SVDrawInfo*)info
+                          andBounds:(NSRect*)bounds;
 
 - (BOOL)drawableWithInfo:(SVDrawInfo*)info
                 inBounds:(NSRect*)bounds;

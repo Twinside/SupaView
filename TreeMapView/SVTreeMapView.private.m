@@ -24,10 +24,10 @@
     
     NSRect frame = [self frame];
     [geometry startGathering:&frame
-                    inBounds:&virtualSize];
+                    inBounds:&current->size];
     
     SVDrawInfo info =
-        { .limit = &virtualSize
+        { .limit = &current->size
         , .gatherer = geometry
         , .minimumWidth = [geometry virtualPixelWidthSize]
         , .minimumHeight = [geometry virtualPixelHeightSize]
