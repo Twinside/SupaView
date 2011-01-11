@@ -12,53 +12,44 @@
 
 @class SVMainWindowController;
 
-typedef void (^FileDropResponder)( NSURL* fileUrl );
 typedef void (^Notifier)();
-
-typedef enum DropStatus_t
-{
-    NoDrop,
-    AcceptDrop,
-    RefuseDrop
-} DropStatus;
 
 typedef enum AnimationEnd_t
 {
     AnimationNarrow,
-    AnimationPopNarrow,
     AnimationZoom
 } AnimationEnd;
 
+@class SVNodeState;
+
+/**
+ * Main GUI class, handle the tree view, draw, manage
+ * clicks and animations.
+ */
 @interface SVTreeMapView : NSView <NSAnimationDelegate> {
     IBOutlet NSScroller   *horizontalScroller;
     IBOutlet NSScroller   *verticalScroller;
+    IBOutlet NSScrollView *scrollView;
+    IBOutlet NSPathControl *pathView;
 
-    NSRect                virtualSize;
-    SVLayoutNode          *viewedTree;
+    IBOutlet SVMainWindowController *parentControler;
+
     SVGeometryGatherer    *geometry;
     SVColorWheel          *wheel;
 
     BOOL                  lockAnyMouseEvent;
     AnimationEnd          animationKind;
     NSAnimation           *zoomAnim;
-    NSMutableArray        *narrowingStack;
-    
-    SVFileTree            *currentSelection;
-    SVLayoutLeaf          *selectedLayoutNode;
 
-    DropStatus            currentDropStatus;
-    
-    NSRect                currentRect;
-    NSURL                 *currentURL;
-    NSURL                 *selectedURL;
+    SVNodeState           *root;
+    SVNodeState           *current;
+    SVNodeState           *selected;
+
     BOOL                  isSelectionFile;
-
     BOOL                  dragged;
     
-    FileDropResponder     dragResponder;
     Notifier              stateChangeNotifier;
 
-    IBOutlet SVMainWindowController *parentControler;
 }
 
 - (id)initWithFrame:(NSRect)frameRect;
@@ -74,22 +65,21 @@ typedef enum AnimationEnd_t
 - (void)setTreeMap:(SVLayoutNode*)tree
              atUrl:(NSURL*)url;
 
-- (void)setFileDropResponder:(FileDropResponder)r;
 - (void)setStateChangeResponder:(Notifier)r;
 
 - (void)narrowSelected;
 - (void)popNarrowing;
 - (void)revealSelectionInFinder;
 - (void)deleteSelection:(BOOL)putInTrash;
-- (void)refreshLayoutTree:(SVLayoutNode*)tree
-          withUpdatedPath:(NSURL*)updatedPath;
 
 - (IBAction)selectSubItem:(id)sender;
+- (IBAction)pathSelection:(id)sender;
+- (IBAction)pathDoubleClick;
 
 - (BOOL)isAtTopLevel;
 - (BOOL)isSelectionReavealableInFinder;
 - (BOOL)isSelectionNarrowable;
 - (BOOL)isZoomMaximum;
 - (BOOL)isZoomMinimum;
-
 @end
+

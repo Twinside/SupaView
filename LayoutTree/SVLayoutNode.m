@@ -1,5 +1,6 @@
 #import "SVLayoutNode.h"
 #import "../SVSizes.h"
+#import "SVLayoutTree.h"
 
 NSComparator SvLayoutNodeComparer = (NSComparator)^(id obj1, id obj2){
         FileSize lSize = [obj1 nodeSize];
@@ -29,6 +30,15 @@ BOOL intersect( const NSRect *a, const NSRect *b )
         && (aTop >= b->origin.y);
 }
 
+inline static
+BOOL insideRect( const NSRect *r, const NSPoint *p )
+{
+    return (r->origin.x <= p->x)
+        && (r->origin.y <= p->y)
+        && (r->origin.x + r->size.width >= p->x)
+        && (r->origin.y + r->size.height >= p->y);
+}
+
 @implementation SVLayoutNode
 - (BOOL)drawableWithInfo:(SVDrawInfo*)info
                 inBounds:(NSRect*)bounds
@@ -43,14 +53,65 @@ BOOL intersect( const NSRect *a, const NSRect *b )
 
 - (FileSize)nodeSize { return 0; }
 
-- (SVLayoutLeaf*)getSelected:(NSPoint)point
-                    withInfo:(SVDrawInfo*)info
-                   andBounds:(NSRect*)bounds
+- (SVLayoutLeaf*)getNodeConforming:(LayoutPredicate)predicate
+                          withInfo:(SVDrawInfo*)info
+                         andBounds:(NSRect*)bounds
 { return nil; /* do nothing */ }
 
 - (void)drawGeometry:(SVDrawInfo*)info
             inBounds:(NSRect*)bounds
 { /* do nothing */ }
+
+- (SVLayoutLeaf*)getNodeAtPathParts:(NSArray*)urlParts
+                        beginningAt:(int)idx
+                           withInfo:(SVDrawInfo*)info
+                          andBounds:(NSRect*)bounds
+{
+    __block NSUInteger deepCount = idx;
+
+    LayoutPredicate pred =
+        ^ bool ( SVLayoutNode *node, SVDrawInfo* i, NSRect * b ){ 
+            SVFileTree *n = [node fileNode];
+
+            // we have exceded our path, so we
+            // must select an higher node.
+            if ( deepCount >= [urlParts count] )
+                return NO;
+
+            // don't interfere with splitting nodes
+            if ( [node isKindOfClass:[SVLayoutTree class]] )
+                return YES;
+
+            // if we are on the righ way
+            if ( [[urlParts objectAtIndex:deepCount] 
+                    isEqual:[n filename]] )
+            {
+                deepCount++;
+                return YES;
+            }
+
+            return NO;
+        };
+
+    return [self getNodeConforming:pred
+                          withInfo:info
+                         andBounds:bounds];
+}
+
+- (SVLayoutLeaf*)getNodeAtPoint:(NSPoint)point
+                       withInfo:(SVDrawInfo*)info
+                      andBounds:(NSRect*)bounds
+{
+    LayoutPredicate pred =
+        ^ bool ( SVLayoutNode *node, SVDrawInfo* i, NSRect * b ){ 
+            return insideRect( b, &point ) &&
+                [node drawableWithInfo:i inBounds:b];
+        };
+
+    return [self getNodeConforming:pred
+                          withInfo:info
+                         andBounds:bounds];
+}
 
 - (SVFileTree*)fileNode { return nil; }
 @end

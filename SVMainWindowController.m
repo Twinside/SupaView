@@ -68,7 +68,7 @@
 
 - (void)awakeFromNib
 {
-    [mainTreeView setFileDropResponder:^(NSURL* url){[self openURL:url];} ];
+    [messageView setFileDropResponder:^(NSURL* url){[self openURL:url];} ];
     [mainTreeView setStateChangeResponder:^(void){ [self mapStateChange];} ];
     NSURL   *toOpen = [[SVGlobalQueues sharedQueues] getFileFromQueue];
 
@@ -127,6 +127,9 @@
 - (void)openURL:(NSURL*)url
 {
     scannedElementCount = 0;
+
+    [messageView setHidden:YES];
+    [scrollView setHidden:NO];
 
     [curentlyNavigated release];
     curentlyNavigated = nil;

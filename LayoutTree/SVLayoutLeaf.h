@@ -16,9 +16,9 @@
 - (BOOL)textDrawableInBounds:(NSRect*)bounds
                      andInfo:(SVDrawInfo*)info;
 
-- (SVLayoutLeaf*)getSelected:(NSPoint)point
-                    withInfo:(SVDrawInfo*)info
-                   andBounds:(NSRect*)bounds;
+- (SVLayoutLeaf*)getNodeConforming:(LayoutPredicate)predicate
+                          withInfo:(SVDrawInfo*)info
+                         andBounds:(NSRect*)bounds;
 
 - (void)drawGeometry:(SVDrawInfo*)info
             inBounds:(NSRect*)bounds;

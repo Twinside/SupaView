@@ -1,6 +1,36 @@
-#import "SVTreeMapView.dragging.h"
+//
+//  FileDraggingView.m
+//  SupaView
+//
+//  Created by Vincent Berthoux on 07/01/11.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//
 
-@implementation SVTreeMapView (Dragging)
+#import "FileDraggingView.h"
+#import "../FileTree/SVFileTree.h"
+
+@implementation SVFileDraggingView
+- (id)initWithFrame:(NSRect)frameRect
+{
+    self = [super initWithFrame:frameRect];
+
+    if (!self)
+        return self;
+
+    dragResponder = nil;
+    currentDropStatus = NoDrop;
+
+    [self registerForDraggedTypes:
+                [NSArray arrayWithObjects: NSURLPboardType
+                                         , nil]];
+    return self;
+}
+
+- (void)setFileDropResponder:(FileDropResponder)r
+{
+    dragResponder = Block_copy(r);
+}
+
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {    
     NSPasteboard *pboard;    
     pboard = [sender draggingPasteboard];
@@ -41,10 +71,10 @@
         NSArray *files = [pboard propertyListForType:NSURLPboardType];
         NSString *newRoot = [files objectAtIndex:0];
 
-        if ( newRoot != nil && dragResponder != nil )
+        if ( currentDropStatus == AcceptDrop
+            && newRoot != nil && dragResponder != nil )
         {
             dragResponder( [NSURL URLWithString:newRoot] );
-            stateChangeNotifier();
         }
     }
     
@@ -54,7 +84,7 @@
     return YES;
 }
 
-- (void)drawDropStatus:(NSRect)dirtyRect
+- (void)drawRect:(NSRect)dirtyRect
 {
     switch ( currentDropStatus )
     {

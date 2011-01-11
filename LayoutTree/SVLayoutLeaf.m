@@ -18,10 +18,13 @@
         && bounds->size.width >= blockSizes.textMinimumWidth * info->minimumHeight;
 }
 
-- (SVLayoutLeaf*)getSelected:(NSPoint)point
-                    withInfo:(SVDrawInfo*)info
-                   andBounds:(NSRect*)bounds
+- (SVLayoutLeaf*)getNodeConforming:(LayoutPredicate)predicate
+                          withInfo:(SVDrawInfo*)info
+                         andBounds:(NSRect*)bounds
 {
+    if ( !predicate(self, info, bounds) )
+        return nil;
+
     NSURL *newName =
         [info->selection.name URLByAppendingPathComponent:[fileNode filename]];
 
