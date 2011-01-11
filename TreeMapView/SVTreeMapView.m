@@ -560,7 +560,7 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
         SelectFunction func =
             ^ SVLayoutLeaf* (SVDrawInfo* i,NSRect *b) {
             return [current->layout getNodeAtPathParts:toParts
-                                           beginningAt:[currentParts count]
+                                           beginningAt:[currentParts count] - 1
                                               withInfo:i
                                              andBounds:b];
             };
