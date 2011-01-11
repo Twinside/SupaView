@@ -474,23 +474,6 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
 }
 
 - (void)animateZoom:(AnimationEnd)animation
-{
-    if ( lockAnyMouseEvent ) return;
-
-    animationKind = animation;
-
-    zoomAnim =
-        [[AnimationPerFrame alloc] initWithView:self
-                                       fromRect:current->size
-                                         toRect:selected->size
-                                    andDuration:0.25f];
-
-    [zoomAnim startAnimation];
-    [self updateScrollerPosition];
-    stateChangeNotifier();
-}
-
-- (void)animateZoom:(AnimationEnd)animation
                from:(NSRect)from
                  to:(NSRect)to
 {
@@ -512,7 +495,9 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
 - (void)narrowSelected
 {
     if ( isSelectionFile ) return;
-    [self animateZoom:AnimationNarrow];
+    [self animateZoom:AnimationNarrow
+                 from:current->size
+                   to:selected->size];
 }
 
 - (void) focusOn:(NSURL*)url
@@ -576,7 +561,9 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
         [self selectWithFunction:func
                         fromRoot:current->url];
 
-        [self animateZoom:AnimationNarrow];
+        [self animateZoom:AnimationNarrow
+                     from:current->size
+                       to:selected->size];
     }
 }
 
