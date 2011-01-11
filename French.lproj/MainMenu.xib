@@ -733,7 +733,6 @@
 						<reference ref="522574549"/>
 						<reference ref="626845412"/>
 						<reference ref="217552931"/>
-						<reference ref="626845412"/>
 						<reference ref="64121564"/>
 						<reference ref="344548285"/>
 						<reference ref="830775605"/>
@@ -2179,7 +2178,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{730, 868}, {617, 0}}</string>
+					<string>{{736, 857}, {617, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
