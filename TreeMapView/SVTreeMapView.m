@@ -273,17 +273,6 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
     }];
 }
 
-- (void)selectPathParts:(NSArray*)parts
-            beginningAt:(int)idx
-{
-    [self selectWithFunction:^SVLayoutLeaf*(SVDrawInfo* i,NSRect *b) {
-        return [current->layout getNodeAtPathParts:parts
-                                       beginningAt:idx
-                                          withInfo:i
-                                         andBounds:b];
-    }];
-}
-
 - (BOOL)becomeFirstResponder { return YES; }
 - (BOOL)resignFirstResponder { return YES; }
 - (BOOL)acceptsFirstResponder { return YES; }
@@ -486,7 +475,35 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
 
 - (void) focusOn:(NSURL*)url
 {
-    // [self animateZoom:AnimationNarrow];
+
+    NSArray *toParts = [url pathComponents];
+    NSArray *rootParts = [root->url pathComponents];
+    NSArray *currentParts = [current->url pathComponents];
+
+    // need rescan, don't care
+    if ( [toParts count] < [rootParts count] )
+        return;
+
+    if ( [toParts count] < [currentParts count] )
+    {   // search node from root.
+        [self selectWithFunction:^SVLayoutLeaf*(SVDrawInfo* i,NSRect *b) {
+            return [root->layout getNodeAtPathParts:toParts
+                                        beginningAt:0
+                                           withInfo:i
+                                          andBounds:b];
+        }];
+    }
+    else // search node from current.
+    {
+        [self selectWithFunction:^SVLayoutLeaf*(SVDrawInfo* i,NSRect *b) {
+            return [current->layout getNodeAtPathParts:toParts
+                                           beginningAt:[currentParts count]
+                                              withInfo:i
+                                             andBounds:b];
+        }];
+    }
+    
+    [self animateZoom:AnimationNarrow];
 }
 
 - (void)popNarrowing
