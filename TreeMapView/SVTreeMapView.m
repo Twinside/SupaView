@@ -243,7 +243,7 @@
     
     SVFileTree  *found = [foundNode fileNode];
     
-    if ( found != selected->file )
+    if ( selected == nil || found != selected->file )
     {
         [selected release];
         // TODO fix !
