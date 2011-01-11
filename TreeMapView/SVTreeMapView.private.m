@@ -1,5 +1,6 @@
 #import "SVTreeMapView.private.h"
 #import "../SVSizes.h"
+#import "SVNodeState.h"
 
 @implementation SVTreeMapView (Private)
 - (void) updateGeometrySize
@@ -18,24 +19,27 @@
 
 - (void)updateGeometry
 {
+    if (current == nil)
+        return;
+    
     NSRect frame = [self frame];
     [geometry startGathering:&frame
-                    inBounds:&virtualSize];
+                    inBounds:&current->size];
     
     SVDrawInfo info =
-        { .limit = &virtualSize
+        { .limit = &current->size
         , .gatherer = geometry
         , .minimumWidth = [geometry virtualPixelWidthSize]
         , .minimumHeight = [geometry virtualPixelHeightSize]
         , .wheel = wheel
-        , .selection = { .node = currentSelection
-                       , .name = currentURL
+        , .selection = { .node = selected ? selected->file : nil
+                       , .name = selected ? selected->url : nil
                        }
         , .depth = 0
         };
 
-    [viewedTree drawGeometry:&info
-                    inBounds:&frame];
+    [current->layout drawGeometry:&info
+                         inBounds:&frame];
 
     [geometry stopGathering];
 }

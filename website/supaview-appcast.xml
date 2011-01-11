@@ -13,9 +13,9 @@
 			<pubDate></pubDate>
             <enclosure url="http://twinside.free.fr/supaview/SupaView.1.2.2.zip"
                 sparkle:version="1.2.2"
-                length="582403"
+                length="583052"
                 type="application/octet-stream"
-                sparkle:dsaSignature="" />
+                sparkle:dsaSignature="MCwCFFpI8ROjxPFv6ri4R9Xn+sLstrAqAhQETt0fYTUNHiB6ZvclzXX05LywGQ==" />
         </item>
    </channel>
 </rss>

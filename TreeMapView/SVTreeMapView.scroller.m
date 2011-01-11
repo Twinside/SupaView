@@ -1,5 +1,6 @@
 #import "SVTreeMapView.scroller.h"
 #import "SVTreeMapView.private.h"
+#import "SVNodeState.h"
 
 static inline double clamp( double val )
 {
@@ -53,9 +54,10 @@ static inline double clamp( double val )
 {
     BOOL    replace;
     NSRect frame = [self bounds];
-    virtualSize.origin.x = [self extractScrollerValue:horizontalScroller
+    NSRect *virtualSize = &current->size;
+    virtualSize->origin.x = [self extractScrollerValue:horizontalScroller
                                            andReplace:&replace]
-                         * (frame.size.width - virtualSize.size.width);
+                           * (frame.size.width - virtualSize->size.width);
     
     if (replace) [self updateScrollerPosition];
     [self updateGeometry];
@@ -66,9 +68,10 @@ static inline double clamp( double val )
 {
     BOOL    replace;
     NSRect frame = [self bounds];
-    virtualSize.origin.y = (1.0 - [self extractScrollerValue:verticalScroller
+    NSRect *virtualSize = &current->size;
+    virtualSize->origin.y = (1.0 - [self extractScrollerValue:verticalScroller
                                                   andReplace:&replace])
-                         * (frame.size.height - virtualSize.size.height);
+                          * (frame.size.height - virtualSize->size.height);
     
     if (replace) [self updateScrollerPosition];
     [self updateGeometry];
@@ -77,6 +80,7 @@ static inline double clamp( double val )
 
 - (void)updateScrollerPosition
 {
+    NSRect virtualSize = current->size;
     NSRect frame = [self bounds];
     double horizontalViewWidth =
         virtualSize.size.width / frame.size.width;

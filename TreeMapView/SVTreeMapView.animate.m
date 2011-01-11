@@ -2,6 +2,7 @@
 #import "SVTreeMapView.private.h"
 #import "SVTreeMapView.animate.h"
 #import "SVTreeMapView.scroller.h"
+#import "SVNodeState.h"
 
 @implementation SVTreeMapView (ZoomAnimation)
 - (BOOL)animationShouldStart:(NSAnimation *)animation
@@ -15,21 +16,13 @@
     switch ( animationKind )
     {
     case AnimationNarrow:
-        virtualSize = [self bounds];
-        [viewedTree release];
-        viewedTree = (SVLayoutNode*)selectedLayoutNode;
-        [viewedTree retain];
+        [current release];
+        current = selected;
+        [current retain];
 
-        [currentURL release];
-        currentURL = selectedURL;
-        [currentURL retain];
-        [self updateScrollerPosition];
-        [self updateGeometry];
-        [self setNeedsDisplay:YES];
-        break;
+        current->size = [self bounds];
+        [pathView setURL:current->url];
 
-    case AnimationPopNarrow:
-        virtualSize = [self bounds];
         [self updateScrollerPosition];
         [self updateGeometry];
         [self setNeedsDisplay:YES];
@@ -49,12 +42,12 @@
 
 - (void)setVirtualSize:(NSRect)rect
 {
-    virtualSize = rect;
+    current->size = rect;
     [self updateScrollerPosition];
     [self updateGeometry];
     [self setNeedsDisplay:YES];
 }
 
-- (NSRect)virtualSize { return virtualSize; }
+- (NSRect)virtualSize { return current->size; }
 @end
 

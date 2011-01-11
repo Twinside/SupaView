@@ -10,44 +10,38 @@
 #import "../SVColorWheel.h"
 #import "../SVUtils.h"
 #import "../SVSizes.h"
-#import "SVNarrowingState.h"
 #import "../LayoutTree/SVLayoutLeaf.h"
 #import "../LayoutTree/Layout.searching.h"
 #import "../SVMainWindowController.h"
-#import "SVTreeMapView.dragging.h"
 #import "SVTreeMapView.private.h"
 #import "SVTreeMapView.scroller.h"
+#import "SVNodeState.h"
 #import "AnimationPerFrame.h"
 
+typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
 @implementation SVTreeMapView
 - (id)initWithFrame:(NSRect)frameRect
 {
     self = [super initWithFrame:frameRect];
+
+    if (!self) return self;
+
     wheel = [[SVColorWheel alloc] init];
-    virtualSize = frameRect;
-    narrowingStack = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [self updateGeometrySize];
-    currentURL = nil;
-    selectedURL = nil;
-    currentSelection = nil;
-    selectedLayoutNode = nil;
+    root = nil;
+    current = nil;
+    selected = nil;
+
     isSelectionFile = FALSE;
-    dragResponder = nil;
-    viewedTree = nil;
     lockAnyMouseEvent = FALSE;
 
-    currentDropStatus = NoDrop;
-
-    [self registerForDraggedTypes:
-                [NSArray arrayWithObjects: NSURLPboardType
-                                         , nil]];
     return self;
 }
 
 - (void)awakeFromNib
 {
     [self allocateInitScroller];
+    [pathView setDoubleAction:@selector(pathDoubleClick)];
 }
 
 - (void)dealloc
@@ -63,43 +57,43 @@
     // ???
     [parentControler release];
 
+    [root release];
+    [current release];
+    [selected release];
 
-    [viewedTree release];
     [geometry release];
     [wheel release];
-    [selectedURL release];
-    [currentURL release];
-    [narrowingStack release];
-    [currentSelection release];
-    [selectedLayoutNode release];
     [super dealloc];
 }
 
 - (void)setTreeMap:(SVLayoutNode*)tree
              atUrl:(NSURL*)url
 {
-    [selectedURL release];
-    selectedURL = nil;
+    [root release];
+    root = nil;
 
-    [currentSelection release];
-    currentSelection = nil;
+    [current release];
+    current = nil;
 
-    [selectedLayoutNode release];
-    selectedLayoutNode = nil;
+    [selected release];
+    selected = nil;
 
-    [viewedTree release];
-    viewedTree = tree;
-    [viewedTree retain];
-
-    [currentURL release];
-    currentURL = url;
-    [currentURL retain];
-
-    [narrowingStack removeAllObjects];
-    
     if ( tree == nil )
         return;
+
+    root =
+        [[SVNodeState  alloc] 
+            initWithUrl:url
+                   file:[tree fileNode]
+                 layout:tree
+                   size:[self frame]];
+
+    current = root;
+    [current retain];
+    [pathView setURL:url];
     
+    [self updateGeometrySize];
+    [self updateScrollerPosition];
     [self updateGeometry];
     [self setNeedsDisplay:YES];
     stateChangeNotifier();
@@ -140,113 +134,58 @@
     }
 }
 
-- (void)drawInitialMessage:(NSRect)dirtyRect
-{
-    NSFont *msgFont =
-        [NSFont fontWithName:@"Helvetica" 
-                        size:20];
-    NSDictionary *strDrawAttr = 
-        [NSDictionary dictionaryWithObject:msgFont
-                                    forKey:NSFontAttributeName];
-
-    CGFloat boxSize = 50.0f;
-    CGFloat strokeSize = 5.0f;
-    CGFloat boxMargin = 20.0f;
-
-    NSRect bounds = [self bounds];
-    NSRect rectWhere =
-        { .origin = { .x = bounds.origin.x
-                         + (bounds.size.width - boxSize - boxMargin) / 2
-                    , .y = bounds.origin.y
-                         + (bounds.size.height - boxSize - boxMargin) / 2 }
-        , .size = { .width = boxSize + boxMargin
-                  , .height = boxSize + boxMargin } };
-
-    NSBezierPath *roundRect = 
-        [NSBezierPath bezierPathWithRoundedRect:rectWhere
-                                        xRadius:10.0f
-                                        yRadius:10.0f];
-
-    CGFloat lineDash[] = { 7.0f, 5.0f };
-    
-    [roundRect setLineWidth:strokeSize];
-    [roundRect setLineDash:lineDash
-                     count:sizeof(lineDash) / sizeof(CGFloat)
-                     phase:0.0];
-    [roundRect stroke];
-
-    CGFloat textBoxWidth = 240;
-    CGFloat textBoxHeight = 25;
-    NSRect where = { .origin = { .x = bounds.origin.x
-                                    + (bounds.size.width - textBoxWidth) / 2
-                               , .y = rectWhere.origin.y
-                                    - boxSize / 2
-                                    - textBoxHeight }
-                   , .size = { .width = textBoxWidth
-                             , .height = textBoxHeight * 2 } };
-
-    NSString *msgString =
-        NSLocalizedStringFromTable(@"InitialMessage", @"Custom", @"A comment");
-
-    [msgString drawInRect:where withAttributes:strDrawAttr];
-}
-
 - (void)drawRect:(NSRect)dirtyRect
 {
-    if (viewedTree == nil || geometry == nil)
-    {
-        [[NSColor controlBackgroundColor] setFill];
-        NSRectFill( [self frame] );
-        [[NSColor blackColor] setFill];
-
-        [super drawRect:dirtyRect];
-
-        [self drawInitialMessage:dirtyRect];
-        [self drawDropStatus:dirtyRect];
-        return;
-    }
-
     [self drawBackRect];
+    
+    if (current == nil 
+        || current->file == nil 
+        || geometry == nil)
+        return;
+    
     [self drawFrameRect];
     [self drawText];
-    
-    // NSFrameRectWithWidth( virtualSize, 2.0 );
-    [self drawDropStatus:dirtyRect];
+    // [self drawDropStatus:dirtyRect];
 }
 
 - (void) translateBy:(CGFloat)dx  andBy:(CGFloat)dy
 {
+    NSRect *virtualSize = &current->size;
     NSRect frame = [self bounds];
 
-    CGFloat nx = maxi( virtualSize.origin.x + dx, 0.0 );
-    CGFloat ny = maxi( virtualSize.origin.y + dy, 0.0 );
+    CGFloat nx = maxi( virtualSize->origin.x + dx, 0.0 );
+    CGFloat ny = maxi( virtualSize->origin.y + dy, 0.0 );
 
-    CGFloat right = nx + virtualSize.size.width;
-    CGFloat top = ny + virtualSize.size.height;
+    CGFloat right = nx + virtualSize->size.width;
+    CGFloat top = ny + virtualSize->size.height;
     
     CGFloat frameRight = frame.origin.x + frame.size.width;
     CGFloat frameTop = frame.origin.y + frame.size.height;
     
-    virtualSize.origin.x = nx + mini( 0.0, frameRight - right );
-    virtualSize.origin.y = ny + mini( 0.0, frameTop - top );
+    virtualSize->origin.x = nx + mini( 0.0, frameRight - right );
+    virtualSize->origin.y = ny + mini( 0.0, frameTop - top );
     [self updateScrollerPosition];
 }
 
 - (void)stretchBy:(CGFloat)x andBy:(CGFloat)y
 {
+    if ( current == nil )
+        return;
+    
+    NSRect *virtualSize = &current->size;
     NSRect frame = [self bounds];
 
-    CGFloat midX = virtualSize.origin.x
-                 + virtualSize.size.width / 2.0;
-    CGFloat midY = virtualSize.origin.y
-                 + virtualSize.size.height / 2.0;
+    CGFloat midX = virtualSize->origin.x
+                 + virtualSize->size.width / 2.0;
+    CGFloat midY = virtualSize->origin.y
+                 + virtualSize->size.height / 2.0;
 
-    virtualSize.size.width = mini( virtualSize.size.width * (1 + x)
+    virtualSize->size.width = mini( virtualSize->size.width * (1 + x)
                                  , frame.size.width );
-    virtualSize.size.height = mini( virtualSize.size.height * (1 + y)
+    virtualSize->size.height = mini( virtualSize->size.height * (1 + y)
                                   , frame.size.height );
-    CGFloat halfWidth = virtualSize.size.width  / 2.0f;
-    CGFloat halfHeight = virtualSize.size.height / 2.0f;
+    CGFloat halfWidth = virtualSize->size.width  / 2.0f;
+    CGFloat halfHeight = virtualSize->size.height / 2.0f;
 
     CGFloat frameRight = frame.origin.x + frame.size.width;
     CGFloat frameTop = frame.origin.y + frame.size.height;
@@ -261,8 +200,8 @@
     else if ( midY + halfHeight > frameTop )
         midY = frameTop - halfHeight;
 
-    virtualSize.origin.x = midX - halfWidth;
-    virtualSize.origin.y = midY - halfHeight;
+    virtualSize->origin.x = midX - halfWidth;
+    virtualSize->origin.y = midY - halfHeight;
     [self updateScrollerPosition];
 }
 
@@ -282,17 +221,19 @@
     [self setNeedsDisplay:YES];
 }
 
-- (void)selectAtPoint:(NSPoint)p
+- (SVDrawInfo)searchWithFunction:(SelectFunction)f
+                        fromRoot:(NSURL*)url
+                      withResult:(SVLayoutLeaf**)rez
 {
     NSRect frame = [self bounds];
 
     SVDrawInfo info =
-        { .limit = &virtualSize
+        { .limit = &current->size
         , .gatherer = nil
         , .minimumWidth = [geometry virtualPixelWidthSize]
         , .minimumHeight = [geometry virtualPixelHeightSize]
         , .wheel = nil
-        , .selection = { .name = currentURL
+        , .selection = { .name = url
                        , .node = nil
                        , .isFile = FALSE
                        , .layoutNode = nil
@@ -302,41 +243,61 @@
     
 
     [info.selection.name retain];
-    SVLayoutLeaf *foundNode =
-            [viewedTree getSelected:p
-                           withInfo:&info
-                          andBounds:&frame];
+
+    if (rez) *rez = f(&info, &frame);
+    else f(&info, &frame);
+
+    return info;
+}
+
+- (void)selectWithFunction:(SelectFunction)f
+                  fromRoot:(NSURL*)url
+{
+    SVLayoutLeaf *foundNode;
+
+    SVDrawInfo info =
+        [self searchWithFunction:f
+                        fromRoot:url
+                      withResult:&foundNode];
     
     SVFileTree  *found = [foundNode fileNode];
     
-    if ( found != currentSelection )
+    if ( selected == nil || found != selected->file )
     {
-        [currentSelection release];
-        currentSelection = found;
-        [currentSelection retain];
+        [selected release];
+        selected = [[SVNodeState  alloc] 
+                initWithUrl:info.selection.name
+                       file:found
+                     layout:foundNode
+                       size:info.selection.rect];
+        [selected retain];
         
-        [selectedLayoutNode release];
-        selectedLayoutNode = foundNode;
-        [selectedLayoutNode retain];
-        
-        [selectedURL release];
-        selectedURL = info.selection.name;
         isSelectionFile = info.selection.isFile;
-        currentRect = info.selection.rect;
         [self updateGeometry];
         [self setNeedsDisplay:YES];
 
         NSWindow *window = [self window];
 
-        [window setRepresentedURL:selectedURL];
-        [window setTitle:[selectedURL lastPathComponent]];
+        [window setRepresentedURL:selected->url];
+        [window setTitle:[selected->url lastPathComponent]];
+        [pathView setURL:selected->url];
         
         stateChangeNotifier();
     }
 }
 
-- (BOOL)becomeFirstResponder {return YES; }
-- (BOOL)resignFirstResponder {return YES; }
+- (void)selectAtPoint:(NSPoint)p
+{
+    [self selectWithFunction:^SVLayoutLeaf*(SVDrawInfo* i,NSRect *b) {
+        return [current->layout getNodeAtPoint:p
+                                      withInfo:i
+                                     andBounds:b];
+    }
+                    fromRoot:current->url];
+}
+
+- (BOOL)becomeFirstResponder { return YES; }
+- (BOOL)resignFirstResponder { return YES; }
 - (BOOL)acceptsFirstResponder { return YES; }
 - (BOOL)needsPanelToBecomeKey  { return YES; }
 - (BOOL)isOpaque { return YES; }
@@ -344,6 +305,7 @@
 
 - (IBAction)selectSubItem:(id)sender
 {
+    NSRect currentRect = current->size;
     NSPoint pickPoint = { currentRect.origin.x + blockSizes.leftMargin 
                             + [geometry virtualPixelWidthSize]
                         , currentRect.origin.y + currentRect.size.height
@@ -369,6 +331,7 @@
         return;            // reject dead keys
 
     NSPoint pickPoint;
+    NSRect currentRect = current->size;
 
     switch ( [theArrow characterAtIndex:0] )
     {
@@ -446,13 +409,13 @@
 - (void)revealSelectionInFinder
 {
     if ( lockAnyMouseEvent ) return;
-    if ( selectedURL == nil )
+    if ( selected == nil )
         return;
     
     NSString *parentFolder =
-        [[selectedURL URLByDeletingLastPathComponent] path];
+        [[selected->url URLByDeletingLastPathComponent] path];
 
-    [[NSWorkspace sharedWorkspace] selectFile:[selectedURL path]
+    [[NSWorkspace sharedWorkspace] selectFile:[selected->url path]
                      inFileViewerRootedAtPath:parentFolder];
 }
 
@@ -480,16 +443,16 @@
 - (void)zoomBy:(CGFloat)amount
 {
     if ( lockAnyMouseEvent ) return;
-    NSRect prevRect = virtualSize;
+    NSRect prevRect = current->size;
 
     [self stretchBy:amount andBy:amount];
     zoomAnim =
         [[AnimationPerFrame alloc] initWithView:self
                                        fromRect:prevRect
-                                         toRect:virtualSize
+                                         toRect:current->size
                                     andDuration:0.10f];
     animationKind = AnimationZoom;
-    virtualSize = prevRect;
+    current->size = prevRect;
     [zoomAnim startAnimation];
     stateChangeNotifier();
 }
@@ -504,143 +467,151 @@
     stateChangeNotifier();
 }
 
-- (void)setFileDropResponder:(FileDropResponder)r
-{
-    dragResponder = Block_copy(r);
-}
-
 - (void)setStateChangeResponder:(Notifier)r
 {
     stateChangeNotifier = Block_copy(r);
     stateChangeNotifier();
 }
 
-- (void)narrowSelected
+- (void)animateZoom:(AnimationEnd)animation
 {
     if ( lockAnyMouseEvent ) return;
-    if ( isSelectionFile )
-        return;
-    
-    virtualSize = [self bounds];
-    
-    SVNarrowingState *narrow = 
-        [[SVNarrowingState alloc] initWithNode:viewedTree
-                                        andURL:currentURL
-                                        inRect:&currentRect];
-    [narrowingStack addObject:narrow];
-    [narrow release];
-    
+
+    animationKind = animation;
+
     zoomAnim =
         [[AnimationPerFrame alloc] initWithView:self
-                                       fromRect:[self bounds]
-                                         toRect:currentRect
+                                       fromRect:current->size
+                                         toRect:selected->size
                                     andDuration:0.25f];
 
-    animationKind = AnimationNarrow;
     [zoomAnim startAnimation];
     [self updateScrollerPosition];
     stateChangeNotifier();
 }
 
-- (void)refreshLayoutTree:(SVLayoutNode*)tree
-          withUpdatedPath:(NSURL*)updatedPath
+- (void)animateZoom:(AnimationEnd)animation
+               from:(NSRect)from
+                 to:(NSRect)to
 {
-    size_t i = 0;
+    if ( lockAnyMouseEvent ) return;
 
-    // if refresh is in narrowingStack
-        // then pop it
-    for (SVNarrowingState *narrow in narrowingStack)
-    {
-        if ( [updatedPath isEqual:[narrow url]] )
-        {
-            size_t toPop = [narrowingStack count] - i - 1;
-            [narrowingStack
-                removeObjectsInRange:NSMakeRange(i, toPop)];
-        }
-        i++;
+    animationKind = animation;
+
+    zoomAnim =
+        [[AnimationPerFrame alloc] initWithView:self
+                                       fromRect:from
+                                         toRect:to
+                                    andDuration:0.25f];
+
+    [zoomAnim startAnimation];
+    [self updateScrollerPosition];
+    stateChangeNotifier();
+}
+
+- (void)narrowSelected
+{
+    if ( isSelectionFile ) return;
+    [self animateZoom:AnimationNarrow];
+}
+
+- (void) focusOn:(NSURL*)url
+{
+
+    NSArray *toParts = [url pathComponents];
+    NSArray *rootParts = [root->url pathComponents];
+    NSArray *currentParts = [current->url pathComponents];
+
+    // need rescan, don't care
+    if ( [toParts count] < [rootParts count] )
+        return;
+
+    if ( [toParts count] < [currentParts count] )
+    {   // search node from root.
+        SelectFunction func =
+          ^ SVLayoutLeaf* (SVDrawInfo* i,NSRect *b) {
+            return [root->layout getNodeAtPathParts:toParts
+                                        beginningAt:[rootParts count] - 1
+                                           withInfo:i
+                                          andBounds:b];
+        };
+
+        [self selectWithFunction:func
+                        fromRoot:root->url];
+        
+        [current release];
+        current = selected;
+        [current retain];
+
+        SelectFunction selecSearch = 
+          ^ SVLayoutLeaf* (SVDrawInfo* i,NSRect *b) {
+            return [root->layout getNodeAtPathParts:currentParts
+                                        beginningAt:[rootParts count] - 1
+                                           withInfo:i
+                                          andBounds:b];
+        };
+
+        // size of current selection
+        NSRect to =
+        ([self searchWithFunction:selecSearch
+                         fromRoot:selected->url
+                       withResult:nil]).selection.rect;
+        
+        current->size = to;
+        
+        [self animateZoom:AnimationNarrow
+                     from:to
+                       to:[self bounds]];
     }
+    else // search node from current.
+    {
+        SelectFunction func =
+            ^ SVLayoutLeaf* (SVDrawInfo* i,NSRect *b) {
+            return [current->layout getNodeAtPathParts:toParts
+                                           beginningAt:[currentParts count]
+                                              withInfo:i
+                                             andBounds:b];
+            };
+        
+        [self selectWithFunction:func
+                        fromRoot:current->url];
 
-    // for every narrowing, resync it using the new tree :
-        // search URL and update rect
+        [self animateZoom:AnimationNarrow];
+    }
 }
 
 - (void)popNarrowing
 {
     if ( lockAnyMouseEvent ) return;
-    if ( [narrowingStack count] == 0 )
-        return;
-    
-    virtualSize = [self bounds];
-    
-    SVNarrowingState *st = [narrowingStack lastObject];
-    [viewedTree release];
-    viewedTree = [st node];
-    [viewedTree retain];
-
-    zoomAnim =
-        [[AnimationPerFrame alloc] initWithView:self
-                                       fromRect:[st rect]
-                                         toRect:[self bounds]
-                                    andDuration:0.25f];
-
-    animationKind = AnimationPopNarrow;
-    virtualSize = [st rect];
-    [currentURL release];
-    currentURL = [st url];
-    [currentURL retain];
-
-    [narrowingStack removeLastObject];
-    [self updateScrollerPosition];
-
-    stateChangeNotifier();
-    [self updateGeometry];
-    [self setNeedsDisplay:YES];
-    [zoomAnim startAnimation];
+    [self focusOn:[current->url URLByDeletingLastPathComponent]];
 }
 
-- (BOOL)isZoomMinimum { return viewedTree == nil; }
-- (BOOL)isZoomMaximum { return viewedTree == nil; }
+- (BOOL)isZoomMinimum { return root == nil; }
+- (BOOL)isZoomMaximum { return root == nil; }
 
 - (BOOL)isSelectionNarrowable
 {
-    return viewedTree != nil && selectedURL != nil && !isSelectionFile;
+    return root != nil && selected != nil && selected->url && !isSelectionFile;
 }
 
 - (BOOL)isAtTopLevel
 {
-    return viewedTree == nil || [narrowingStack count] == 0;
+    return root == nil || root == current;
 }
 
 - (BOOL)isSelectionReavealableInFinder
 {
-    return viewedTree != nil && selectedURL != nil;
+    return selected != nil;
 }
 
 - (void)deleteSelection:(BOOL)putInTrash
 {
-    NSURL *masterURL;
     SVLayoutNode *masterLayout;
 
-    // we must update the tree from the upper
-    // most root of the layout tree. So we
-    // must pick it from the narrowing stack
-    // if any.
-    if ( [narrowingStack count] > 0 )
-    {
-        SVNarrowingState *st =
-            [narrowingStack objectAtIndex:0];
+    masterLayout = root->layout;
 
-        masterURL = [st url];
-        masterLayout = [st node];
-    }
-    else
-    {
-        masterURL = currentURL;
-        masterLayout = viewedTree;
-    }
-
-    NSArray *rootComp = [masterURL pathComponents];
-    NSArray *selRoot = [selectedURL pathComponents];
+    NSArray *rootComp = [root->url pathComponents];
+    NSArray *selRoot = [selected->url pathComponents];
     int deleteIndex = [rootComp count] - 1;
 
     [selRoot retain];
@@ -657,25 +628,20 @@
     [rez.deleted release];
     [selRoot release];
     
-    [selectedURL release];
-    selectedURL = nil;
-    [currentSelection release];
-    currentSelection = nil;
-
-    if ( selectedLayoutNode == viewedTree )
+    if ( selected == root )
     {
-        if ( [narrowingStack count] > 0 )
-            [self popNarrowing];
-        else
-        {
-            viewedTree = nil;
-            [parentControler notifyViewCleanup];
-            [[self window] setRepresentedURL:nil];
-        }
+        [root release];
+        root = nil;
+
+        [current release];
+        current = nil;
+
+        [parentControler notifyViewCleanup];
+        [[self window] setRepresentedURL:nil];
     }
 
-    [selectedLayoutNode release];
-    selectedLayoutNode = nil;
+    [selected release];
+    selected = nil;
 
     NSWindow *window = [self window];
     [window setRepresentedURL:nil];
@@ -685,6 +651,18 @@
     [self setNeedsDisplay:YES];
 
     stateChangeNotifier();
+}
+
+- (IBAction)pathSelection:(id)sender
+{
+    /* only get the event to be selected, the
+     * pathDoubleClick really handle the stuff */
+}
+
+- (IBAction)pathDoubleClick
+{
+    [self
+        focusOn:[[pathView clickedPathComponentCell] URL]];
 }
 @end
 

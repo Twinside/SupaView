@@ -18,6 +18,7 @@ typedef struct SVSelectionInfo_t
 
 } SVSelectionInfo;
 
+
 typedef struct SVDrawInfo_t
 {
     /**
@@ -42,12 +43,23 @@ typedef struct SVDrawInfo_t
 
 NSComparator SvLayoutNodeComparer;
 
+typedef bool (^LayoutPredicate)( SVLayoutNode*, SVDrawInfo*, NSRect *bounds );
+
 @interface SVLayoutNode : NSObject {
 }
 
-- (SVLayoutLeaf*)getSelected:(NSPoint)point
-                  withInfo:(SVDrawInfo*)info
-                 andBounds:(NSRect*)bounds;
+- (SVLayoutLeaf*)getNodeAtPoint:(NSPoint)point
+                       withInfo:(SVDrawInfo*)info
+                      andBounds:(NSRect*)bounds;
+
+- (SVLayoutLeaf*)getNodeConforming:(LayoutPredicate)predicate
+                          withInfo:(SVDrawInfo*)info
+                         andBounds:(NSRect*)bounds;
+
+- (SVLayoutLeaf*)getNodeAtPathParts:(NSArray*)parts
+                        beginningAt:(int)idx
+                           withInfo:(SVDrawInfo*)info
+                          andBounds:(NSRect*)bounds;
 
 - (BOOL)drawableWithInfo:(SVDrawInfo*)info
                 inBounds:(NSRect*)bounds;

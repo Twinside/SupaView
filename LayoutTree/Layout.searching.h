@@ -2,7 +2,6 @@
 #import "SVLayoutNode.h"
 #import "SVLayoutLeaf.h"
 #import "SVLayoutFolder.h"
-#import "../TreeMapView/SVNarrowingState.h"
 
 
 typedef enum LayoutDeleteAction_t {

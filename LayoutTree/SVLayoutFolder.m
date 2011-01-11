@@ -70,10 +70,13 @@
                         + blockSizes.textHeight) * miniHeight;
 }
 
-- (SVLayoutLeaf*)getSelected:(NSPoint)point
-                    withInfo:(SVDrawInfo*)info
-                   andBounds:(NSRect*)bounds
+- (SVLayoutLeaf*)getNodeConforming:(LayoutPredicate)predicate
+                          withInfo:(SVDrawInfo*)info
+                         andBounds:(NSRect*)bounds
 {
+    if ( !predicate( self, info, bounds ) )
+        return nil;
+
     if ( info->depth != 0 )
     {
         NSURL *newName =
@@ -90,7 +93,9 @@
 
     info->depth++;
     SVLayoutLeaf* sub =
-        [child getSelected:point withInfo:info andBounds:&subBounds];
+        [child getNodeConforming:predicate
+                        withInfo:info
+                       andBounds:&subBounds];
     info->depth--;
 
     if ( sub == nil )

@@ -22,9 +22,9 @@
           andTotalSize:(FileSize)totalSize;
 
 - (void)dealloc;
-- (SVLayoutLeaf*)getSelected:(NSPoint)point
-                    withInfo:(SVDrawInfo*)info
-                   andBounds:(NSRect*)bounds;
+- (SVLayoutLeaf*)getNodeConforming:(LayoutPredicate)point
+                          withInfo:(SVDrawInfo*)info
+                         andBounds:(NSRect*)bounds;
 
 - (void)drawGeometry:(SVDrawInfo*)info
             inBounds:(NSRect*)bounds;
