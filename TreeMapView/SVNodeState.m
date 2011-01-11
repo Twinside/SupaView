@@ -19,6 +19,7 @@
     url = [nurl retain];
     file = [nfile retain];
     layout = [nlayout retain];
+    size = s;
     return self;
 }
 

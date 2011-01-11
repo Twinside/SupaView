@@ -28,7 +28,6 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
 
     wheel = [[SVColorWheel alloc] init];
     
-    [self updateGeometrySize];
     root = nil;
     current = nil;
     selected = nil;
@@ -91,7 +90,10 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
 
     current = root;
     [current retain];
+    [pathView setURL:url];
     
+    [self updateGeometrySize];
+    [self updateScrollerPosition];
     [self updateGeometry];
     [self setNeedsDisplay:YES];
     stateChangeNotifier();
@@ -167,6 +169,9 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
 
 - (void)stretchBy:(CGFloat)x andBy:(CGFloat)y
 {
+    if ( current == nil )
+        return;
+    
     NSRect *virtualSize = &current->size;
     NSRect frame = [self bounds];
 
@@ -217,6 +222,7 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
 }
 
 - (void)selectWithFunction:(SelectFunction)f
+                  fromRoot:(NSURL*)url
 {
     NSRect frame = [self bounds];
 
@@ -226,7 +232,7 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
         , .minimumWidth = [geometry virtualPixelWidthSize]
         , .minimumHeight = [geometry virtualPixelHeightSize]
         , .wheel = nil
-        , .selection = { .name = current->url
+        , .selection = { .name = url
                        , .node = nil
                        , .isFile = FALSE
                        , .layoutNode = nil
@@ -270,7 +276,8 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
         return [current->layout getNodeAtPoint:p
                                       withInfo:i
                                      andBounds:b];
-    }];
+    }
+                    fromRoot:current->url];
 }
 
 - (BOOL)becomeFirstResponder { return YES; }
@@ -488,10 +495,11 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
     {   // search node from root.
         [self selectWithFunction:^SVLayoutLeaf*(SVDrawInfo* i,NSRect *b) {
             return [root->layout getNodeAtPathParts:toParts
-                                        beginningAt:0
+                                        beginningAt:[rootParts count] - 1
                                            withInfo:i
                                           andBounds:b];
-        }];
+        }
+                        fromRoot:root->url];
     }
     else // search node from current.
     {
@@ -500,7 +508,8 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
                                            beginningAt:[currentParts count]
                                               withInfo:i
                                              andBounds:b];
-        }];
+        }
+                        fromRoot:current->url];
     }
     
     [self animateZoom:AnimationNarrow];

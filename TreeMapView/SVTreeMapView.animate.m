@@ -21,6 +21,7 @@
         [current retain];
 
         current->size = [self bounds];
+        [pathView setURL:current->url];
 
         [self updateScrollerPosition];
         [self updateGeometry];

@@ -1,5 +1,6 @@
 #import "SVLayoutNode.h"
 #import "../SVSizes.h"
+#import "SVLayoutTree.h"
 
 NSComparator SvLayoutNodeComparer = (NSComparator)^(id obj1, id obj2){
         FileSize lSize = [obj1 nodeSize];
@@ -74,11 +75,12 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
 
             // we have exceded our path, so we
             // must select an higher node.
-            if ( deepCount > [urlParts count] )
+            if ( deepCount >= [urlParts count] )
                 return NO;
 
             // don't interfere with splitting nodes
-            if ( n == nil ) return YES;
+            if ( [node isKindOfClass:[SVLayoutTree class]] )
+                return YES;
 
             // if we are on the righ way
             if ( [[urlParts objectAtIndex:deepCount] 
