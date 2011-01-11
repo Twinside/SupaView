@@ -625,10 +625,17 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
 
         [parentControler notifyViewCleanup];
         [[self window] setRepresentedURL:nil];
+        [pathView setURL:nil];
+    }
+    else
+    {
+        [selected release];
+        selected = current;
+        [selected retain];
+
+        [pathView setURL:selected->url];
     }
 
-    [selected release];
-    selected = nil;
 
     NSWindow *window = [self window];
     [window setRepresentedURL:nil];
