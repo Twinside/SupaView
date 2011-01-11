@@ -21,6 +21,8 @@ typedef enum AnimationEnd_t
     AnimationZoom
 } AnimationEnd;
 
+@class SVNodeState;
+
 /**
  * Main GUI class, handle the tree view, draw, manage
  * clicks and animations.
@@ -31,29 +33,25 @@ typedef enum AnimationEnd_t
     IBOutlet NSScrollView *scrollView;
     IBOutlet NSPathControl *pathView;
 
+    IBOutlet SVMainWindowController *parentControler;
+
     NSRect                virtualSize;
-    SVLayoutNode          *viewedTree;
     SVGeometryGatherer    *geometry;
     SVColorWheel          *wheel;
 
     BOOL                  lockAnyMouseEvent;
     AnimationEnd          animationKind;
     NSAnimation           *zoomAnim;
-    NSMutableArray        *narrowingStack;
-    
-    SVFileTree            *currentSelection;
-    SVLayoutLeaf          *selectedLayoutNode;
 
-    NSRect                currentRect;
-    NSURL                 *currentURL;
-    NSURL                 *selectedURL;
+    SVNodeState           *root;
+    SVNodeState           *current;
+    SVNodeState           *selected;
+
     BOOL                  isSelectionFile;
-
     BOOL                  dragged;
     
     Notifier              stateChangeNotifier;
 
-    IBOutlet SVMainWindowController *parentControler;
 }
 
 - (id)initWithFrame:(NSRect)frameRect;
@@ -75,8 +73,6 @@ typedef enum AnimationEnd_t
 - (void)popNarrowing;
 - (void)revealSelectionInFinder;
 - (void)deleteSelection:(BOOL)putInTrash;
-- (void)refreshLayoutTree:(SVLayoutNode*)tree
-          withUpdatedPath:(NSURL*)updatedPath;
 
 - (IBAction)selectSubItem:(id)sender;
 - (IBAction)pathSelection:(id)sender;

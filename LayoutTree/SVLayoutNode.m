@@ -61,6 +61,41 @@ BOOL insideRect( const NSRect *r, const NSPoint *p )
             inBounds:(NSRect*)bounds
 { /* do nothing */ }
 
+- (SVLayoutLeaf*)getNodeAtUrl:(NSURL*)url
+                     withInfo:(SVDrawInfo*)info
+                    andBounds:(NSRect*)bounds
+{
+    NSArray *urlParts = [url pathComponents];
+    __block NSUInteger deepCount = 0;
+
+    LayoutPredicate pred =
+        ^ bool ( SVLayoutNode *node, SVDrawInfo* i, NSRect * b ){ 
+            SVFileTree *n = [node fileNode];
+
+            // we have exceded our path, so we
+            // must select an higher node.
+            if ( deepCount > [urlParts count] )
+                return NO;
+
+            // don't interfere with splitting nodes
+            if ( n == nil ) return YES;
+
+            // if we are on the righ way
+            if ( [[urlParts objectAtIndex:deepCount] 
+                    isEqual:[n filename]] )
+            {
+                deepCount++;
+                return YES;
+            }
+
+            return NO;
+        };
+
+    return [self getNodeConforming:pred
+                          withInfo:info
+                         andBounds:bounds];
+}
+
 - (SVLayoutLeaf*)getNodeAtPoint:(NSPoint)point
                        withInfo:(SVDrawInfo*)info
                       andBounds:(NSRect*)bounds

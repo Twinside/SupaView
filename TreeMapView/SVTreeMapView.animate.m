@@ -16,13 +16,11 @@
     {
     case AnimationNarrow:
         virtualSize = [self bounds];
-        [viewedTree release];
-        viewedTree = (SVLayoutNode*)selectedLayoutNode;
-        [viewedTree retain];
+        // TODO : fix
+        [current release];
+        current = selected;
+        [current retain];
 
-        [currentURL release];
-        currentURL = selectedURL;
-        [currentURL retain];
         [self updateScrollerPosition];
         [self updateGeometry];
         [self setNeedsDisplay:YES];

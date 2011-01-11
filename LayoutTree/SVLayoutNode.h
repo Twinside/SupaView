@@ -11,7 +11,7 @@
 typedef struct SVSelectionInfo_t
 {
     SVFileTree      *node;
-    SVLayoutLeaf    *layoutNode;
+    SVLayoutNode    *layoutNode;
     NSURL           *name;
     NSRect          rect;
     BOOL            isFile;
