@@ -305,7 +305,10 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
 
 - (IBAction)selectSubItem:(id)sender
 {
-    NSRect currentRect = current->size;
+    if ( selected == nil )
+        return;
+
+    NSRect currentRect = selected->size;
     NSPoint pickPoint = { currentRect.origin.x + blockSizes.leftMargin 
                             + [geometry virtualPixelWidthSize]
                         , currentRect.origin.y + currentRect.size.height
@@ -330,8 +333,12 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
     if ( [theArrow length] == 0 )
         return;            // reject dead keys
 
+    // if there is no selection, there is nothing to move...
+    if ( selected == nil )
+        return;
+
     NSPoint pickPoint;
-    NSRect currentRect = current->size;
+    NSRect currentRect = selected->size;
 
     switch ( [theArrow characterAtIndex:0] )
     {
