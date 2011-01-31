@@ -428,7 +428,7 @@ typedef SVLayoutLeaf* (^SelectFunction)(SVDrawInfo*,NSRect*);
 
 - (void)scrollWheel:(NSEvent*)event
 {
-    if ( lockAnyMouseEvent ) return;
+    if ( lockAnyMouseEvent || root != nil ) return;
     NSUInteger modFlags = [NSEvent modifierFlags];
 
     if ( modFlags & NSAlternateKeyMask )

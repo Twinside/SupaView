@@ -52,6 +52,8 @@ static inline double clamp( double val )
 
 - (void)scrollHorizontal:(id)sender
 {
+    if (current == nil)
+        return;
     BOOL    replace;
     NSRect frame = [self bounds];
     NSRect *virtualSize = &current->size;
