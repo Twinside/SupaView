@@ -522,6 +522,7 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				INFOPLIST_FILE = "SupaView-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = SupaView;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				VALID_ARCHS = "i386 x86_64";
@@ -548,6 +549,7 @@
 				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
 				INFOPLIST_FILE = "SupaView-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = SupaView;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 			};
